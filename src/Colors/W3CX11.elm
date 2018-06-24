@@ -2,6 +2,14 @@ module Colors.W3CX11
     exposing
         ( w3cx11
         , named
+        , aliceBlue
+        , antiqueWhite
+        , aquamarine
+        , aqua
+        , azure
+        , black
+        , indigo
+        , white
         )
 
 import Dict
@@ -14,10 +22,50 @@ named str =
     Result.fromMaybe ("Cannot find " ++ str) (Dict.get str w3cx11)
 
 
+aliceBlue : Color
+aliceBlue =
+    rgb 240 248 255
+
+
+antiqueWhite : Color
+antiqueWhite =
+    rgb 250 235 215
+
+
+aquamarine : Color
+aquamarine =
+    rgb 127 255 212
+
+
+aqua : Color
+aqua =
+    rgb 0 255 255
+
+
+azure : Color
+azure =
+    rgb 240 255 255
+
+
+black : Color
+black =
+    Color.black
+
+
+indigo : Color
+indigo =
+    rgb 75 0 130
+
+
+white : Color
+white =
+    Color.white
+
+
 w3cx11 : Dict.Dict String Color
 w3cx11 =
     Dict.fromList
-        [ ( "indigo", rgb 75 0 130 )
+        [ ( "indigo", indigo )
         , ( "gold", rgb 255 215 0 )
         , ( "hotpink", rgb 255 105 180 )
         , ( "firebrick", rgb 178 34 34 )
@@ -44,11 +92,11 @@ w3cx11 =
         , ( "blanchedalmond", rgb 255 235 205 )
         , ( "chartreuse", rgb 127 255 0 )
         , ( "dimgray", rgb 105 105 105 )
-        , ( "black", rgb 0 0 0 )
+        , ( "black", black )
         , ( "peachpuff", rgb 255 218 185 )
         , ( "springgreen", rgb 0 255 127 )
-        , ( "aquamarine", rgb 127 255 212 )
-        , ( "white", rgb 255 255 255 )
+        , ( "aquamarine", aquamarine )
+        , ( "white", white )
         , ( "orange", rgb 255 165 0 )
         , ( "lightsalmon", rgb 255 160 122 )
         , ( "darkslategray", rgb 47 79 79 )
@@ -65,7 +113,7 @@ w3cx11 =
         , ( "cyan", rgb 0 255 255 )
         , ( "mintcream", rgb 245 255 250 )
         , ( "silver", rgb 192 192 192 )
-        , ( "antiquewhite", rgb 250 235 215 )
+        , ( "antiquewhite", antiqueWhite )
         , ( "mediumorchid", rgb 186 85 211 )
         , ( "skyblue", rgb 135 206 235 )
         , ( "gray", rgb 128 128 128 )
@@ -139,7 +187,7 @@ w3cx11 =
         , ( "steelblue", rgb 70 130 180 )
         , ( "palevioletred", rgb 219 112 147 )
         , ( "lightslategray", rgb 119 136 153 )
-        , ( "aliceblue", rgb 240 248 255 )
+        , ( "aliceblue", aliceBlue )
         , ( "lightslategrey", rgb 119 136 153 )
         , ( "lightgreen", rgb 144 238 144 )
         , ( "orchid", rgb 218 112 214 )
@@ -153,7 +201,7 @@ w3cx11 =
         , ( "lavenderblush", rgb 255 240 245 )
         , ( "coral", rgb 255 127 80 )
         , ( "purple", rgb 128 0 128 )
-        , ( "aqua", rgb 0 255 255 )
+        , ( "aqua", aqua )
         , ( "whitesmoke", rgb 245 245 245 )
         , ( "mediumslateblue", rgb 123 104 238 )
         , ( "darkorange", rgb 255 140 0 )
@@ -161,7 +209,7 @@ w3cx11 =
         , ( "darksalmon", rgb 233 150 122 )
         , ( "beige", rgb 245 245 220 )
         , ( "blueviolet", rgb 138 43 226 )
-        , ( "azure", rgb 240 255 255 )
+        , ( "azure", azure )
         , ( "lightsteelblue", rgb 176 196 222 )
         , ( "oldlace", rgb 253 245 230 )
         , ( "rebeccapurple", rgb 102 51 153 )

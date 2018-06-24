@@ -4,20 +4,22 @@ module Converter.In.Hex2Rgb
         , hex3Or6Or8
         )
 
-import Regex
 import List
 import Color
 import Char
 
 
+twoBase16To1 : Char -> Char -> Maybe Float
 twoBase16To1 char1 char2 =
     Maybe.map (\x -> x / 255) (twoBase16 char1 char2)
 
 
+twoBase16 : Char -> Char -> Maybe number
 twoBase16 char1 char2 =
     Maybe.map2 (\x1 x2 -> x1 * 16 + x2) (fromBase16 char1) (fromBase16 char2)
 
 
+fromBase16 : Char -> Maybe number
 fromBase16 char =
     case (Char.toLower char) of
         '0' ->
