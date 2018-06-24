@@ -1,13 +1,17 @@
 module Converter.In.Hex2Rgb
     exposing
         ( hex2rgb
-        , hex3Or6
+        , hex3Or6Or8
         )
 
 import Regex
 import List
-import Color exposing (Color, rgb)
+import Color
 import Char
+
+
+twoBase16To1 char1 char2 =
+    Maybe.map (\x -> x / 255) (twoBase16 char1 char2)
 
 
 twoBase16 char1 char2 =
@@ -68,8 +72,8 @@ fromBase16 char =
             Nothing
 
 
-hex3Or6 : String -> Maybe Color
-hex3Or6 str =
+hex3Or6Or8 : String -> Maybe Color.Color
+hex3Or6Or8 str =
     let
         removeHash charList =
             case List.head charList of
@@ -79,20 +83,28 @@ hex3Or6 str =
                 _ ->
                     Just charList
 
-        convertToHex6 str =
+        convertFromHex str =
             case str of
-                a :: b :: c :: [] ->
-                    Maybe.map3 rgb (twoBase16 a a) (twoBase16 b b) (twoBase16 c c)
+                r :: g :: b :: [] ->
+                    Maybe.map3 Color.rgb (twoBase16 r r) (twoBase16 g g) (twoBase16 b b)
 
-                a :: b :: c :: d :: e :: f :: [] ->
-                    Maybe.map3 rgb (twoBase16 a b) (twoBase16 c d) (twoBase16 e f)
+                r1 :: r2 :: g1 :: g2 :: b1 :: b2 :: [] ->
+                    Maybe.map3 Color.rgb (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2)
+
+                r1 :: r2 :: g1 :: g2 :: b1 :: b2 :: a1 :: a2 :: [] ->
+                    Maybe.map4 Color.rgba (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2) (twoBase16To1 a1 a2)
 
                 _ ->
                     Nothing
     in
-        removeHash (String.toList str) |> Maybe.andThen convertToHex6
+        removeHash (String.toList str) |> Maybe.andThen convertFromHex
 
 
-hex2rgb : String -> Result String Color
-hex2rgb str =
-    Err ""
+hex2rgb : String -> Result String Color.Color
+hex2rgb hex =
+    case hex3Or6Or8 hex of
+        Just x ->
+            Ok x
+
+        Nothing ->
+            Err ("unknown color: " ++ hex)
