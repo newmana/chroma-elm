@@ -11,76 +11,70 @@ import Char
 
 
 twoBase16 char1 char2 =
-    (fromBase16 char1 * 16) + (fromBase16 char2)
+    Maybe.map2 (\x1 x2 -> x1 * 16 + x2) (fromBase16 char1) (fromBase16 char2)
 
 
 fromBase16 char =
     case (Char.toLower char) of
         '0' ->
-            0
+            Just 0
 
         '1' ->
-            1
+            Just 1
 
         '2' ->
-            2
+            Just 2
 
         '3' ->
-            3
+            Just 3
 
         '4' ->
-            4
+            Just 4
 
         '5' ->
-            5
+            Just 5
 
         '6' ->
-            6
+            Just 6
 
         '7' ->
-            7
+            Just 7
 
         '8' ->
-            8
+            Just 8
 
         '9' ->
-            9
+            Just 9
 
         'a' ->
-            10
+            Just 10
 
         'b' ->
-            11
+            Just 11
 
         'c' ->
-            12
+            Just 12
 
         'd' ->
-            13
+            Just 13
 
         'e' ->
-            14
+            Just 14
 
         'f' ->
-            15
+            Just 15
 
         nonHex ->
-            0
+            Nothing
 
 
 hex3Or6 : String -> Maybe Color
 hex3Or6 str =
     let
-        allMatches =
-            Regex.find Regex.All hex3Or6Regex str
-
-        firstMatch charList =
-            case (charList |> List.head) of
+        removeHash charList =
+            case List.head charList of
                 Just '#' ->
-                    Just
-                        (charList
-                            |> List.drop 1
-                        )
+                    Just (List.drop 1 charList)
 
                 _ ->
                     Just charList
@@ -88,15 +82,15 @@ hex3Or6 str =
         convertToHex6 str =
             case str of
                 a :: b :: c :: [] ->
-                    Just (rgb (twoBase16 a a) (twoBase16 b b) (twoBase16 c c))
+                    Maybe.map3 rgb (twoBase16 a a) (twoBase16 b b) (twoBase16 c c)
 
                 a :: b :: c :: d :: e :: f :: [] ->
-                    Just (rgb (twoBase16 a b) (twoBase16 c d) (twoBase16 e f))
+                    Maybe.map3 rgb (twoBase16 a b) (twoBase16 c d) (twoBase16 e f)
 
                 _ ->
                     Nothing
     in
-        firstMatch (String.toList str) |> Maybe.andThen convertToHex6
+        removeHash (String.toList str) |> Maybe.andThen convertToHex6
 
 
 hex2rgb : String -> Result String Color
