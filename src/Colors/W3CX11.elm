@@ -1,10 +1,17 @@
 module Colors.W3CX11
     exposing
         ( w3cx11
+        , named
         )
 
 import Dict
+import Result
 import Color exposing (Color, rgb)
+
+
+named : String -> Result String Color.Color
+named str =
+    Result.fromMaybe ("Cannot find " ++ str) (Dict.get str w3cx11)
 
 
 w3cx11 : Dict.Dict String Color
