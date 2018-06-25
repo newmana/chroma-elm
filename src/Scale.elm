@@ -13,6 +13,43 @@ module Scale
 import Color
 
 
+type alias Data =
+    { mode : String
+    , nanColor : Color
+    , spread : Float
+    , fixed : Bool
+    , domain : List Float
+    , pos : List Float
+    , padding : List Float
+    , classes : Bool
+    , colors : List Color
+    , out : Bool
+    , min : Float
+    , max : Float
+    , correctLightness : Bool
+    , gamma : Float
+    }
+
+
+defaultData =
+    { mode = "rgb"
+    , nanColor = rgb 204 204 204
+    , spread = 0
+    , fixed = false
+    , domain = [ 0, 1 ]
+    , pos = []
+    , padding = [ 0, 0 ]
+    , classes = false
+    , colors = []
+    , out = false
+    , min = 0
+    , max = 1
+    , correctLightness = false
+    , gamma = 1
+    }
+
+
+
 -- chroma.scale('#{colorbrewer_scale_name}').colors(#{num_bins})
 -- chroma.scale(colour).domain([1, 100000], 7, 'log');
 -- mode is equidistant, log, k-means or quantile
