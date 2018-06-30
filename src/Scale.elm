@@ -10,12 +10,12 @@ module Scale
         , classesArray
         )
 
-import Color
+import Color as Color
+import Types as Types
 
-type Mode = RGB | CMYK | HCG | HSI | HSL | HSV | LAB | LCHab | LCHuv
 
 type alias Data =
-    { mode : Mode
+    { mode : Types.Mode
     , nanColor : Color.Color
     , spread : Float
     , fixed : Bool
@@ -31,9 +31,10 @@ type alias Data =
     , gamma : Float
     }
 
+
 defaultData : Data
 defaultData =
-    { mode = RGB
+    { mode = Types.RGB
     , nanColor = Color.rgb 204 204 204
     , spread = 0
     , fixed = False

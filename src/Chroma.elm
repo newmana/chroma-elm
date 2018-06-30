@@ -5,8 +5,9 @@ module Chroma
         , scale
         )
 
-import Color
-import Result
+import Color as Color
+import Result as Result
+import Types as Types
 import Colors.W3CX11 as W3CX11
 import Converter.In.Hex2Rgb as Hex2Rgb
 
@@ -31,6 +32,16 @@ scale colors =
     []
 
 
+distanceWithLab : Color.Color -> Color.Color -> Float
+distanceWithLab color1 color2 =
+    distance color1 color2 Types.LAB
+
+
+distance : Color.Color -> Color.Color -> Types.Mode -> Float
+distance color1 color2 mode =
+    0
+
+
 
 --mix color1 color2 ratio mode =
 --    Debug.crash "unimplemented"
@@ -39,8 +50,6 @@ scale colors =
 --blend color1 color2 mode =
 --    Debug.crash "unimplemented"
 --random =
---    Debug.crash "unimplemented"
---contrast color1 color2 =
 --    Debug.crash "unimplemented"
 --brewer brewerName =
 --    Debug.crash "unimplemented"
