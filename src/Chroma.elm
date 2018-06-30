@@ -3,43 +3,52 @@ module Chroma
         ( chroma
         , scaleDefault
         , scale
+        , distanceWithLab
+        , distance
         )
 
-import Color as Color
 import Result as Result
 import Types as Types
 import Colors.W3CX11 as W3CX11
 import Converter.In.Hex2Rgb as Hex2Rgb
+import List.Extra as ListExtra
 
 
-chroma : String -> Result String Color.Color
+chroma : String -> Result String Types.ExtColor
 chroma str =
     case W3CX11.named str of
         Ok value ->
-            Ok value
+            Ok (Types.ExtColor value)
 
         Err err ->
-            Hex2Rgb.hex2rgb str
+            Hex2Rgb.hex2rgb str |> Result.map Types.ExtColor
 
 
-scaleDefault : List (Float -> Color.Color)
+scaleDefault : List (Float -> Types.ExtColor)
 scaleDefault =
-    scale [ W3CX11.white, W3CX11.black ]
+    scale [ Types.ExtColor W3CX11.white, Types.ExtColor W3CX11.black ]
 
 
-scale : List Color.Color -> List (Float -> Color.Color)
+scale : List Types.ExtColor -> List (Float -> Types.ExtColor)
 scale colors =
     []
 
 
-distanceWithLab : Color.Color -> Color.Color -> Float
+distanceWithLab : Types.ExtColor -> Types.ExtColor -> Float
 distanceWithLab color1 color2 =
     distance color1 color2 Types.LAB
 
 
-distance : Color.Color -> Color.Color -> Types.Mode -> Float
+distance : Types.ExtColor -> Types.ExtColor -> Types.Mode -> Float
 distance color1 color2 mode =
-    0
+    let
+        aColor1 =
+            Types.asList color1
+
+        aColor2 =
+            Types.asList color2
+    in
+        ListExtra.lift2 (\x y -> (x - y) ^ 2) aColor1 aColor2 |> List.sum |> sqrt
 
 
 
