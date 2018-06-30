@@ -12,17 +12,18 @@ module Scale
 
 import Color
 
+type Mode = RGB | CMYK | HCG | HSI | HSL | HSV | LAB | LCHab | LCHuv
 
 type alias Data =
-    { mode : String
-    , nanColor : Color
+    { mode : Mode
+    , nanColor : Color.Color
     , spread : Float
     , fixed : Bool
     , domain : List Float
     , pos : List Float
     , padding : List Float
     , classes : Bool
-    , colors : List Color
+    , colors : List Color.Color
     , out : Bool
     , min : Float
     , max : Float
@@ -30,21 +31,21 @@ type alias Data =
     , gamma : Float
     }
 
-
+defaultData : Data
 defaultData =
-    { mode = "rgb"
-    , nanColor = rgb 204 204 204
+    { mode = RGB
+    , nanColor = Color.rgb 204 204 204
     , spread = 0
-    , fixed = false
+    , fixed = False
     , domain = [ 0, 1 ]
     , pos = []
     , padding = [ 0, 0 ]
-    , classes = false
+    , classes = False
     , colors = []
-    , out = false
+    , out = False
     , min = 0
     , max = 1
-    , correctLightness = false
+    , correctLightness = False
     , gamma = 1
     }
 
