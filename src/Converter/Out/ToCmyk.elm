@@ -5,6 +5,7 @@ module Converter.Out.ToCmyk
 
 import Types as Types
 import Color as Color
+import Converter.In.Lab2Rgb as Lab2Rgb
 
 
 toCmyk : Types.ExtColor -> { cyan : Float, magenta : Float, yellow : Float, black : Float }
@@ -37,7 +38,10 @@ toCmyk color =
     in
         case color of
             Types.ExtColor c ->
-                convert (Color.toRgb c)
+                Color.toRgb c |> convert
 
             Types.CMYKColor c m y k ->
                 { cyan = c, magenta = m, yellow = y, black = k }
+
+            Types.LABColor l a b ->
+                Lab2Rgb.lab2rgb { lightness = l, a = a, b = b } |> Color.toRgb |> convert

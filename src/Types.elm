@@ -25,6 +25,7 @@ type Mode
 type ExtColor
     = ExtColor Color.Color
     | CMYKColor Float Float Float Float
+    | LABColor Float Float Float
 
 
 asList : ExtColor -> List Float
@@ -39,3 +40,6 @@ asList color =
 
         CMYKColor c m y k ->
             [ c, m, y, k ]
+
+        LABColor l a b ->
+            [ l, a, b ]

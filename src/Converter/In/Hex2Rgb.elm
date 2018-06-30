@@ -5,7 +5,6 @@ module Converter.In.Hex2Rgb
         )
 
 import List
-import Types as Types
 import Color as Color
 import Char
 
