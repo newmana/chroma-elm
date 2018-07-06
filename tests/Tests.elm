@@ -1,9 +1,13 @@
 module Tests exposing (..)
 
-import Test exposing (..)
+import Test as Test
 import Converter.Cmyk2RgbTest
+import Converter.Lab2RgbTest
 
 
-all : Test
+all : Test.Test
 all =
-    Converter.Cmyk2RgbTest.tests
+    Test.describe "Chroma-Elm"
+        [ Converter.Cmyk2RgbTest.tests
+        , Converter.Lab2RgbTest.tests
+        ]

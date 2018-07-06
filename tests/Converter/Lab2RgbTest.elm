@@ -1,18 +1,18 @@
-module Converter.Cmyk2RgbTest exposing (..)
+module Converter.Lab2RgbTest exposing (..)
 
 import Test as Test
 import Expect
 import Types as Types
 import Fuzz as Fuzz
 import Color as Color
-import Converter.Out.ToCmyk as OutCmyk
-import Converter.In.Cmyk2Rgb as InCmyk
+import Converter.Out.ToLab as OutLab
+import Converter.In.Lab2Rgb as InLab
 
 
 tests : Test.Test
 tests =
-    Test.describe "CYMK Converters"
-        [ testCymk
+    Test.describe "LAB Converters"
+        [ testLab
         ]
 
 
@@ -21,13 +21,13 @@ validRgb =
     Fuzz.map3 Color.rgb (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255)
 
 
-testCymk : Test.Test
-testCymk =
-    Test.describe "cmyk"
-        [ Test.fuzz validRgb "should round trip between RGB and CYMK" <|
+testLab : Test.Test
+testLab =
+    Test.describe "lab"
+        [ Test.fuzz validRgb "should round trip between RGB and LAB" <|
             \testRgb ->
                 Types.ExtColor testRgb
-                    |> OutCmyk.toCmyk
-                    |> InCmyk.cmyk2rgb
+                    |> OutLab.toLab
+                    |> InLab.lab2rgb
                     |> Expect.equal testRgb
         ]

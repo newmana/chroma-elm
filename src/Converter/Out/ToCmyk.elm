@@ -44,4 +44,4 @@ toCmyk color =
                 { cyan = c, magenta = m, yellow = y, black = k }
 
             Types.LABColor l a b ->
-                Lab2Rgb.lab2rgb { lightness = l, a = a, b = b } |> Color.toRgb |> convert
+                Lab2Rgb.lab2rgb { lightness = l, labA = a, labB = b } |> Color.toRgb |> convert
