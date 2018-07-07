@@ -5,6 +5,7 @@ import Expect
 import Types as Types
 import Fuzz as Fuzz
 import Color as Color
+import UtilTest as Util
 import Converter.Out.ToCmyk as OutCmyk
 import Converter.In.Cmyk2Rgb as InCmyk
 
@@ -16,15 +17,10 @@ tests =
         ]
 
 
-validRgb : Fuzz.Fuzzer Color.Color
-validRgb =
-    Fuzz.map3 Color.rgb (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255)
-
-
 testCymk : Test.Test
 testCymk =
     Test.describe "cmyk"
-        [ Test.fuzz validRgb "should round trip between RGB and CYMK" <|
+        [ Test.fuzz Util.validRgb "should round trip between RGB and CYMK" <|
             \testRgb ->
                 Types.ExtColor testRgb
                     |> OutCmyk.toCmyk

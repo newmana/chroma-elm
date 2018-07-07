@@ -5,6 +5,7 @@ import Expect
 import Types as Types
 import Fuzz as Fuzz
 import Color as Color
+import UtilTest as Util
 import Converter.Out.ToLab as OutLab
 import Converter.In.Lab2Rgb as InLab
 
@@ -16,15 +17,10 @@ tests =
         ]
 
 
-validRgb : Fuzz.Fuzzer Color.Color
-validRgb =
-    Fuzz.map3 Color.rgb (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255)
-
-
 testLab : Test.Test
 testLab =
     Test.describe "lab"
-        [ Test.fuzz validRgb "should round trip between RGB and LAB" <|
+        [ Test.fuzz Util.validRgb "should round trip between RGB and LAB" <|
             \testRgb ->
                 Types.ExtColor testRgb
                     |> OutLab.toLab
