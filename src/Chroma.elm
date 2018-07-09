@@ -11,7 +11,8 @@ import Result as Result
 import Types as Types
 import Colors.W3CX11 as W3CX11
 import Converter.In.Hex2Rgb as Hex2Rgb
-import List.Extra as ListExtra
+import Color as Color
+import Converter.Out.ToLab as ToLab
 
 
 chroma : String -> Result String Types.ExtColor
@@ -36,11 +37,15 @@ scale colors =
 
 distanceWithLab : Types.ExtColor -> Types.ExtColor -> Float
 distanceWithLab color1 color2 =
-    distance color1 color2 Types.LAB
+    let
+        labColor a =
+            ToLab.toLab a |> (\{ lightness, labA, labB } -> Types.LABColor lightness labA labB)
+    in
+        distance (labColor color1) (labColor color2)
 
 
-distance : Types.ExtColor -> Types.ExtColor -> Types.Mode -> Float
-distance color1 color2 mode =
+distance : Types.ExtColor -> Types.ExtColor -> Float
+distance color1 color2 =
     let
         aColor1 =
             Types.asList color1
@@ -48,7 +53,7 @@ distance color1 color2 mode =
         aColor2 =
             Types.asList color2
     in
-        ListExtra.lift2 (\x y -> (x - y) ^ 2) aColor1 aColor2 |> List.sum |> sqrt
+        List.map2 (\c1 c2 -> (c1 - c2) ^ 2) aColor1 aColor2 |> List.sum |> sqrt
 
 
 

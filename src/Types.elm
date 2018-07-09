@@ -11,15 +11,18 @@ import Color as Color
 type Mode
     = CMYK
       --    | CSS
-    | HEX
-    | HSI
-    | HSL
-    | HSV
+      --    | HEX
+      --    | HSI
+      --    | HSL
+      --    | HSV
     | LAB
-    | LCH
+      --    | LCH
     | RGB
-    | NUM
-    | Temperature
+
+
+
+--    | NUM
+--    | Temperature
 
 
 type ExtColor

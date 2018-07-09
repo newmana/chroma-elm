@@ -47,9 +47,44 @@ azure =
     rgb 240 255 255
 
 
+beige : Color
+beige =
+    rgb 245 245 220
+
+
+bisque : Color
+bisque =
+    rgb 255 228 196
+
+
 black : Color
 black =
     Color.black
+
+
+blanchedalmond : Color
+blanchedalmond =
+    rgb 255 235 205
+
+
+blue : Color
+blue =
+    rgb 0 0 255
+
+
+blueviolet : Color
+blueviolet =
+    rgb 138 43 226
+
+
+brown : Color
+brown =
+    rgb 165 42 42
+
+
+burlywood : Color
+burlywood =
+    rgb 222 184 135
 
 
 indigo : Color
@@ -84,12 +119,12 @@ w3cx11 =
         , ( "palegreen", rgb 152 251 152 )
         , ( "darkslategrey", rgb 47 79 79 )
         , ( "greenyellow", rgb 173 255 47 )
-        , ( "burlywood", rgb 222 184 135 )
+        , ( "burlywood", burlywood )
         , ( "seashell", rgb 255 245 238 )
         , ( "mediumspringgreen", rgb 0 250 154 )
         , ( "fuchsia", rgb 255 0 255 )
         , ( "papayawhip", rgb 255 239 213 )
-        , ( "blanchedalmond", rgb 255 235 205 )
+        , ( "blanchedalmond", blanchedalmond )
         , ( "chartreuse", rgb 127 255 0 )
         , ( "dimgray", rgb 105 105 105 )
         , ( "black", black )
@@ -100,7 +135,7 @@ w3cx11 =
         , ( "orange", rgb 255 165 0 )
         , ( "lightsalmon", rgb 255 160 122 )
         , ( "darkslategray", rgb 47 79 79 )
-        , ( "brown", rgb 165 42 42 )
+        , ( "brown", brown )
         , ( "ivory", rgb 255 255 240 )
         , ( "dodgerblue", rgb 30 144 255 )
         , ( "peru", rgb 205 133 63 )
@@ -153,7 +188,7 @@ w3cx11 =
         , ( "tan", rgb 210 180 140 )
         , ( "rosybrown", rgb 188 143 143 )
         , ( "olivedrab", rgb 107 142 35 )
-        , ( "blue", rgb 0 0 255 )
+        , ( "blue", blue )
         , ( "lightblue", rgb 173 216 230 )
         , ( "ghostwhite", rgb 248 248 255 )
         , ( "honeydew", rgb 240 255 240 )
@@ -174,7 +209,7 @@ w3cx11 =
         , ( "midnightblue", rgb 25 25 112 )
         , ( "cornsilk", rgb 255 248 220 )
         , ( "paleturquoise", rgb 175 238 238 )
-        , ( "bisque", rgb 255 228 196 )
+        , ( "bisque", bisque )
         , ( "slategray", rgb 112 128 144 )
         , ( "darkcyan", rgb 0 139 139 )
         , ( "khaki", rgb 240 230 140 )
@@ -207,8 +242,8 @@ w3cx11 =
         , ( "darkorange", rgb 255 140 0 )
         , ( "mediumaquamarine", rgb 102 205 170 )
         , ( "darksalmon", rgb 233 150 122 )
-        , ( "beige", rgb 245 245 220 )
-        , ( "blueviolet", rgb 138 43 226 )
+        , ( "beige", beige )
+        , ( "blueviolet", blueviolet )
         , ( "azure", azure )
         , ( "lightsteelblue", rgb 176 196 222 )
         , ( "oldlace", rgb 253 245 230 )
