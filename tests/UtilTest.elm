@@ -2,11 +2,23 @@ module UtilTest exposing (..)
 
 import Fuzz as Fuzz
 import Color as Color
+import Expect as Expect
+import Result as Result
 
 
 validRgb : Fuzz.Fuzzer Color.Color
 validRgb =
     Fuzz.map3 Color.rgb (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255)
+
+
+expectResultWithin : Float -> Float -> Result String Float -> Expect.Expectation
+expectResultWithin tolerance expectedValue actualValue =
+    case actualValue of
+        Ok ok ->
+            Expect.within (Expect.Absolute tolerance) expectedValue ok
+
+        Err err ->
+            Expect.fail err
 
 
 hex1 : Int -> String
