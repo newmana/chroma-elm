@@ -4,6 +4,7 @@ module Converter.In.Lab2Rgb
         )
 
 import Color as Color
+import Flip as Flip
 import Converter.Misc.LabConstants as Constants
 
 
@@ -32,7 +33,7 @@ lab2rgb { lightness, labA, labB } =
             (0.0556434 * x) + (-0.2040259 * y) + (1.0572252 * z) |> xyz2rgb |> range255
 
         range255 =
-            clamp 0 255
+            Flip.flip (/) 255
     in
         Color.rgb r g b
 
@@ -54,4 +55,4 @@ xyz2rgb r =
             else
                 1.055 * r ^ (1 / 2.4) - 0.055
     in
-        255 * x
+        (255 * x)

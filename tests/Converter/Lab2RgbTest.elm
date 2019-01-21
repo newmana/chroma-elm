@@ -1,13 +1,13 @@
-module Converter.Lab2RgbTest exposing (..)
+module Converter.Lab2RgbTest exposing (testLab, tests)
 
-import Test as Test
-import Expect
-import Types as Types
-import Fuzz as Fuzz
 import Color as Color
-import UtilTest as Util
-import Converter.Out.ToLab as OutLab
 import Converter.In.Lab2Rgb as InLab
+import Converter.Out.ToLab as OutLab
+import Expect
+import Fuzz as Fuzz
+import Test as Test
+import Types as Types
+import UtilTest as Util
 
 
 tests : Test.Test
@@ -25,5 +25,5 @@ testLab =
                 Types.ExtColor testRgb
                     |> OutLab.toLab
                     |> InLab.lab2rgb
-                    |> Expect.equal testRgb
+                    |> Util.expectColorResultWithin 0.000000001 testRgb
         ]

@@ -68,7 +68,7 @@ testHex =
                             case x of
                                 Ok color ->
                                     Color.toRgba color
-                                        |> (\rgbaColor -> Expect.equal { alpha = toFloat a / 255, blue = toFloat b, green = toFloat g, red = toFloat r } rgbaColor)
+                                        |> (\rgbaColor -> Expect.equal { red = toFloat r , green = toFloat g, blue = toFloat b, alpha = toFloat a / 255} rgbaColor)
 
                                 Err err ->
                                     Expect.fail err

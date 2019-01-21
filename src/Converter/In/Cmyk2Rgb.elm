@@ -17,6 +17,7 @@ cmyk2rgb { cyan, magenta, yellow, black } =
                 255 * (1 - x) * (1 - black)
     in
         if black >= 1 then
-            Color.rgb 0 0 0
+            Color.rgb 0.0 0.0 0.0
         else
             Color.rgb (convert cyan) (convert magenta) (convert yellow)
+

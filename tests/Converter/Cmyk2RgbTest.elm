@@ -1,13 +1,13 @@
-module Converter.Cmyk2RgbTest exposing (..)
+module Converter.Cmyk2RgbTest exposing (testCymk, tests)
 
-import Test as Test
-import Expect
-import Types as Types
-import Fuzz as Fuzz
 import Color as Color
-import UtilTest as Util
-import Converter.Out.ToCmyk as OutCmyk
 import Converter.In.Cmyk2Rgb as InCmyk
+import Converter.Out.ToCmyk as OutCmyk
+import Expect
+import Fuzz as Fuzz
+import Test as Test
+import Types as Types
+import UtilTest as Util
 
 
 tests : Test.Test
@@ -25,5 +25,5 @@ testCymk =
                 Types.ExtColor testRgb
                     |> OutCmyk.toCmyk
                     |> InCmyk.cmyk2rgb
-                    |> Expect.equal testRgb
+                    |> Util.expectColorResultWithin 0.000000001 testRgb
         ]
