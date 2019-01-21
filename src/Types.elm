@@ -37,9 +37,9 @@ asList color =
         ExtColor c ->
             let
                 { red, green, blue, alpha } =
-                    Color.toRgb c
+                    Color.toRgba c
             in
-                [ toFloat red, toFloat green, toFloat blue, alpha ]
+                [ red, green, blue, alpha ]
 
         CMYKColor c m y k ->
             [ c, m, y, k ]

@@ -85,8 +85,8 @@ hex3Or6Or8 str =
                 _ ->
                     Just charList
 
-        convertFromHex str =
-            case str of
+        convertFromHex hexStr =
+            case hexStr of
                 r :: g :: b :: [] ->
                     Maybe.map3 Color.rgb (twoBase16 r r) (twoBase16 g g) (twoBase16 b b)
 

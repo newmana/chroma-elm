@@ -26,9 +26,9 @@ threeHex6 =
     Fuzz.map3 (\x y z -> ( x, y, z )) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255)
 
 
-threeHex8 : Fuzz.Fuzzer ( Int, Int, Int, Int )
+threeHex8 : Fuzz.Fuzzer { r : Int, g : Int, b : Int, a : Int }
 threeHex8 =
-    Fuzz.map4 (\x y z a -> ( x, y, z, a )) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255)
+    Fuzz.map4 (\x y z a -> { r = x, g = y, b = z, a = a }) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255)
 
 
 testHex : Test.Test
@@ -41,8 +41,8 @@ testHex =
                     |> (\x ->
                             case x of
                                 Ok color ->
-                                    Color.toRgb color
-                                        |> (\{ alpha, blue, green, red } -> Expect.equal ( Util.hex23Value r3, Util.hex23Value g3, Util.hex23Value b3 ) ( red, green, blue ))
+                                    Color.toRgba color
+                                        |> (\{ red, green, blue, alpha } -> Expect.equal ( Util.hex23Value r3, Util.hex23Value g3, Util.hex23Value b3 ) ( round red, round green, round blue ))
 
                                 Err err ->
                                     Expect.fail err
@@ -54,21 +54,21 @@ testHex =
                     |> (\x ->
                             case x of
                                 Ok color ->
-                                    Color.toRgb color
-                                        |> (\{ alpha, blue, green, red } -> Expect.equal ( r, g, b ) ( red, green, blue ))
+                                    Color.toRgba color
+                                        |> (\{ red, green, blue, alpha } -> Expect.equal ( r, g, b ) ( round red, round green, round blue ))
 
                                 Err err ->
                                     Expect.fail err
                        )
         , Test.fuzz threeHex8 "should round trip between HEX Quad and RGBA" <|
-            \( r, g, b, a ) ->
+            \{ r, g, b, a } ->
                 Util.hex8 r g b a
                     |> Hex2Rgb.hex2rgb
                     |> (\x ->
                             case x of
                                 Ok color ->
-                                    Color.toRgb color
-                                        |> (\{ alpha, blue, green, red } -> Expect.equal ( r, g, b, toFloat a / 255 ) ( red, green, blue, alpha ))
+                                    Color.toRgba color
+                                        |> (\rgbaColor -> Expect.equal { alpha = toFloat a / 255, blue = toFloat b, green = toFloat g, red = toFloat r } rgbaColor)
 
                                 Err err ->
                                     Expect.fail err

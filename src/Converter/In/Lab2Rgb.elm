@@ -45,7 +45,7 @@ lab2xyz t =
         Constants.t2 * (t - Constants.t0)
 
 
-xyz2rgb : Float -> Int
+xyz2rgb : Float -> Float
 xyz2rgb r =
     let
         x =
@@ -54,4 +54,4 @@ xyz2rgb r =
             else
                 1.055 * r ^ (1 / 2.4) - 0.055
     in
-        round (255 * x)
+        255 * x

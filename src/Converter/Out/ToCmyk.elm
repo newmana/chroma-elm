@@ -5,6 +5,7 @@ module Converter.Out.ToCmyk
 
 import Types as Types
 import Color as Color
+import Flip as Flip
 import Converter.In.Lab2Rgb as Lab2Rgb
 
 
@@ -14,7 +15,7 @@ toCmyk color =
         convert { alpha, blue, green, red } =
             let
                 ratio =
-                    toFloat >> flip (/) 255
+                    Flip.flip (/) 255
 
                 r =
                     ratio red
@@ -38,10 +39,10 @@ toCmyk color =
     in
         case color of
             Types.ExtColor c ->
-                Color.toRgb c |> convert
+                Color.toRgba c |> convert
 
             Types.CMYKColor c m y k ->
                 { cyan = c, magenta = m, yellow = y, black = k }
 
             Types.LABColor l a b ->
-                Lab2Rgb.lab2rgb { lightness = l, labA = a, labB = b } |> Color.toRgb |> convert
+                Lab2Rgb.lab2rgb { lightness = l, labA = a, labB = b } |> Color.toRgba |> convert

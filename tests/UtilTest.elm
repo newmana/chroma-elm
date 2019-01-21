@@ -8,7 +8,7 @@ import Result as Result
 
 validRgb : Fuzz.Fuzzer Color.Color
 validRgb =
-    Fuzz.map3 Color.rgb (Fuzz.intRange 0 255) (Fuzz.intRange 0 255) (Fuzz.intRange 0 255)
+    Fuzz.map4 Color.rgba (Fuzz.floatRange 0 255) (Fuzz.floatRange 0 255) (Fuzz.floatRange 0 255) (Fuzz.constant 1.0)
 
 
 expectResultWithin : Float -> Float -> Result String Float -> Expect.Expectation
@@ -75,7 +75,7 @@ hex1 hexDigit =
 
 hex2 : Int -> String
 hex2 x =
-    ((hex1 (x // 16)) ++ (hex1 (x % 16)))
+    ((hex1 (x // 16)) ++ (hex1 (remainderBy x 16)))
 
 
 {-| [0 => 0, 1 => 1 * 16 + 1, 2 => 2 * 16 + 2, ... , 15 => 15 * 16 + 15]

@@ -13,26 +13,26 @@ toLab : Types.ExtColor -> { lightness : Float, labA : Float, labB : Float }
 toLab color =
     case color of
         Types.ExtColor c ->
-            Color.toRgb c |> calcLab
+            Color.toRgba c |> calcLab
 
         Types.CMYKColor c m y k ->
-            Cmyk2Rgb.cmyk2rgb { cyan = c, magenta = m, yellow = y, black = k } |> Color.toRgb |> calcLab
+            Cmyk2Rgb.cmyk2rgb { cyan = c, magenta = m, yellow = y, black = k } |> Color.toRgba |> calcLab
 
         Types.LABColor l a b ->
             { lightness = l, labA = a, labB = b }
 
 
-calcLab : { red : Int, green : Int, blue : Int, alpha : Float } -> { lightness : Float, labA : Float, labB : Float }
+calcLab : { red : Float, green : Float, blue : Float, alpha : Float } -> { lightness : Float, labA : Float, labB : Float }
 calcLab { red, green, blue, alpha } =
     let
         r =
-            toFloat red |> rgb2xyz
+            rgb2xyz red
 
         g =
-            toFloat green |> rgb2xyz
+            rgb2xyz green
 
         b =
-            toFloat blue |> rgb2xyz
+            rgb2xyz blue
 
         x =
             (0.4124564 * r + 0.3575761 * g + 0.1804375 * b) / Constants.xn |> xyz2lab
