@@ -1,12 +1,11 @@
-module Converter.In.Hex2Rgb
-    exposing
-        ( hex2rgb
-        , hex3Or6Or8
-        )
+module Converter.In.Hex2Rgb exposing
+    ( hex2rgb
+    , hex3Or6Or8
+    )
 
-import List
-import Color as Color
 import Char
+import Color as Color
+import List
 
 
 twoBase16To1 : Char -> Char -> Maybe Float
@@ -21,7 +20,7 @@ twoBase16 char1 char2 =
 
 fromBase16 : Char -> Maybe number
 fromBase16 char =
-    case (Char.toLower char) of
+    case Char.toLower char of
         '0' ->
             Just 0
 
@@ -94,12 +93,12 @@ hex3Or6Or8 str =
                     Maybe.map3 Color.rgb (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2)
 
                 r1 :: r2 :: g1 :: g2 :: b1 :: b2 :: a1 :: a2 :: [] ->
-                    Maybe.map4 Color.rgba (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2) (twoBase16To1 a1 a2)
+                    Maybe.map4 (\newR newG newB newA -> Color.fromRgba { red = newR, green = newG, blue = newB, alpha = newA }) (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2) (twoBase16To1 a1 a2)
 
                 _ ->
                     Nothing
     in
-        removeHash (String.toList str) |> Maybe.andThen convertFromHex
+    removeHash (String.toList str) |> Maybe.andThen convertFromHex
 
 
 hex2rgb : String -> Result String Color.Color
