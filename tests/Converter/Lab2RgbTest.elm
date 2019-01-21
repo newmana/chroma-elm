@@ -25,5 +25,5 @@ testLab =
                 Types.ExtColor testRgb
                     |> OutLab.toLab
                     |> InLab.lab2rgb
-                    |> Util.expectColorResultWithin 0.000000001 testRgb
+                    |> Util.expectColorResultWithin 0.00001 testRgb
         ]

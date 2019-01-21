@@ -1,18 +1,18 @@
-module Chroma
-    exposing
-        ( chroma
-        , scaleDefault
-        , scale
-        , distanceWithLab
-        , distance
-        )
+module Chroma exposing
+    ( chroma
+    , distance
+    , distanceWithLab
+    , scale
+    , scaleDefault
+    )
 
-import Result as Result
-import Types as Types
+import Color as Color
 import Colors.W3CX11 as W3CX11
 import Converter.In.Hex2Rgb as Hex2Rgb
-import Color as Color
 import Converter.Out.ToLab as ToLab
+import Flip as Flip
+import Result as Result
+import Types as Types
 
 
 chroma : String -> Result String Types.ExtColor
@@ -41,7 +41,7 @@ distanceWithLab color1 color2 =
         labColor a =
             ToLab.toLab a |> (\{ lightness, labA, labB } -> Types.LABColor lightness labA labB)
     in
-        distance (labColor color1) (labColor color2)
+    distance (labColor color1) (labColor color2)
 
 
 distance : Types.ExtColor -> Types.ExtColor -> Float
@@ -53,7 +53,7 @@ distance color1 color2 =
         aColor2 =
             Types.asList color2
     in
-        List.map2 (\c1 c2 -> (c1 - c2) ^ 2) aColor1 aColor2 |> List.sum |> sqrt
+    List.map2 (\c1 c2 -> (c1 - c2) ^ 2) aColor1 aColor2 |> List.sum |> sqrt
 
 
 

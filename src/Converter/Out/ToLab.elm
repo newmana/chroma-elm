@@ -1,12 +1,9 @@
-module Converter.Out.ToLab
-    exposing
-        ( toLab
-        )
+module Converter.Out.ToLab exposing (toLab)
 
-import Types as Types
 import Color as Color
 import Converter.In.Cmyk2Rgb as Cmyk2Rgb
 import Converter.Misc.LabConstants as Constants
+import Types as Types
 
 
 toLab : Types.ExtColor -> { lightness : Float, labA : Float, labB : Float }
@@ -52,24 +49,22 @@ calcLab { red, green, blue, alpha } =
         labB =
             200 * (y - z)
     in
-        { lightness = labL, labA = labA, labB = labB }
+    { lightness = labL, labA = labA, labB = labB }
 
 
 rgb2xyz : Float -> Float
 rgb2xyz r =
-    let
-        rRound =
-            r / 255
-    in
-        if rRound <= 0.04045 then
-            rRound / 12.92
-        else
-            ((rRound + 0.055) / 1.055) ^ 2.4
+    if r <= 0.04045 then
+        r / 12.92
+
+    else
+        ((r + 0.055) / 1.055) ^ 2.4
 
 
 xyz2lab : Float -> Float
 xyz2lab t =
     if t > Constants.t3 then
         t ^ (1 / 3)
+
     else
         t / Constants.t2 + Constants.t0

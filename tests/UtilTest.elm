@@ -19,7 +19,7 @@ import Result as Result
 
 validRgb : Fuzz.Fuzzer Color.Color
 validRgb =
-    Fuzz.map3 Color.rgb (Fuzz.floatRange 0 255) (Fuzz.floatRange 0 255) (Fuzz.floatRange 0 255)
+    Fuzz.map3 Color.rgb (Fuzz.floatRange 0 1) (Fuzz.floatRange 0 1) (Fuzz.floatRange 0 1)
 
 
 expectResultWithin : Float -> Float -> Result String Float -> Expect.Expectation
