@@ -42,7 +42,7 @@ testHex =
                             case x of
                                 Ok color ->
                                     Color.toRgba color
-                                        |> (\{ red, green, blue, alpha } -> Expect.equal ( Util.hex23Value r3, Util.hex23Value g3, Util.hex23Value b3 ) ( round red, round green, round blue ))
+                                        |> (\{ red, green, blue, alpha } -> Expect.equal ( toFloat (Util.hex23Value r3) / 255, toFloat (Util.hex23Value g3) / 255, toFloat (Util.hex23Value b3) / 255 ) ( red, green, blue ))
 
                                 Err err ->
                                     Expect.fail err
@@ -55,7 +55,7 @@ testHex =
                             case x of
                                 Ok color ->
                                     Color.toRgba color
-                                        |> (\{ red, green, blue, alpha } -> Expect.equal ( r, g, b ) ( round red, round green, round blue ))
+                                        |> (\{ red, green, blue, alpha } -> Expect.equal ( toFloat r / 255, toFloat g / 255, toFloat b / 255 ) ( red, green, blue ))
 
                                 Err err ->
                                     Expect.fail err

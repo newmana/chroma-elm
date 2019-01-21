@@ -35,14 +35,20 @@ testDistance =
     Test.describe "distance"
         [ Test.test "Distance 1" <|
             \_ ->
-                Result.map2 Chroma.distance c1 c2 |> UtilTest.expectResultWithin 0.001 255
+                Result.map2 Chroma.distance c1 c2 |> UtilTest.expectResultWithin 0.001 1
         , Test.test "Distance 2" <|
             \_ ->
-                Result.map2 Chroma.distance c1 c3 |> UtilTest.expectResultWithin 0.001 255
+                Result.map2 Chroma.distance c1 c3 |> UtilTest.expectResultWithin 0.001 1
         , Test.test "Distance 3" <|
             \_ ->
-                Result.map2 Chroma.distanceWithLab c1 c2 |> UtilTest.expectResultWithin 0.001 96.948
+                Result.map2 Chroma.distance255 c1 c2 |> UtilTest.expectResultWithin 0.001 255
         , Test.test "Distance 4" <|
+            \_ ->
+                Result.map2 Chroma.distance255 c1 c3 |> UtilTest.expectResultWithin 0.001 255
+        , Test.test "Distance 5" <|
+            \_ ->
+                Result.map2 Chroma.distanceWithLab c1 c2 |> UtilTest.expectResultWithin 0.001 96.948
+        , Test.test "Distance 6" <|
             \_ ->
                 Result.map2 Chroma.distanceWithLab c1 c3 |> UtilTest.expectResultWithin 0.001 122.163
         ]

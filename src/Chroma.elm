@@ -1,6 +1,7 @@
 module Chroma exposing
     ( chroma
     , distance
+    , distance255
     , distanceWithLab
     , scale
     , scaleDefault
@@ -44,6 +45,18 @@ distanceWithLab color1 color2 =
     distance (labColor color1) (labColor color2)
 
 
+distance255 : Types.ExtColor -> Types.ExtColor -> Float
+distance255 color1 color2 =
+    let
+        fstColor255 =
+            Types.asList color1 |> List.map (\x -> x * 255)
+
+        sndColor255 =
+            Types.asList color2 |> List.map (\x -> x * 255)
+    in
+    calcDistance fstColor255 sndColor255
+
+
 distance : Types.ExtColor -> Types.ExtColor -> Float
 distance color1 color2 =
     let
@@ -53,7 +66,12 @@ distance color1 color2 =
         aColor2 =
             Types.asList color2
     in
-    List.map2 (\c1 c2 -> (c1 - c2) ^ 2) aColor1 aColor2 |> List.sum |> sqrt
+    calcDistance aColor1 aColor2
+
+
+calcDistance : List Float -> List Float -> Float
+calcDistance list1 list2 =
+    List.map2 (\c1 c2 -> (c1 - c2) ^ 2) list1 list2 |> List.sum |> sqrt
 
 
 
