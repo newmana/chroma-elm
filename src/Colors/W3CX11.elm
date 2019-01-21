@@ -86,9 +86,74 @@ burlywood =
     rgb255 222 184 135
 
 
+cadetblue : Color
+cadetblue =
+    rgb255 95 158 160
+
+
+chartreuse : Color
+chartreuse =
+    rgb255 127 255 0
+
+
+chocolate : Color
+chocolate =
+    rgb255 210 105 30
+
+
+coral : Color
+coral =
+    rgb255 255 127 80
+
+
+cornflowerblue : Color
+cornflowerblue =
+    rgb255 100 149 237
+
+
+crimson : Color
+crimson =
+    rgb255 220 20 60
+
+
+cyan : Color
+cyan =
+    rgb255 0 255 255
+
+
+cornsilk : Color
+cornsilk =
+    rgb255 255 248 220
+
+
+firebrick : Color
+firebrick =
+    rgb255 178 34 34
+
+
+hotpink : Color
+hotpink =
+    rgb255 255 105 180
+
+
 indigo : Color
 indigo =
     rgb255 75 0 130
+
+
+indianred : Color
+indianred =
+    rgb255 205 92 92
+
+
+gold : Color
+gold =
+    rgb255 255 215 0
+
+
+yellow : Color
+yellow =
+    rgb255 255 255 0
 
 
 white : Color
@@ -100,11 +165,11 @@ w3cx11 : Dict.Dict String Color
 w3cx11 =
     Dict.fromList
         [ ( "indigo", indigo )
-        , ( "gold", rgb255 255 215 0 )
-        , ( "hotpink", rgb255 255 105 180 )
-        , ( "firebrick", rgb255 178 34 34 )
-        , ( "indianred", rgb255 205 92 92 )
-        , ( "yellow", rgb255 255 255 0 )
+        , ( "gold", gold )
+        , ( "hotpink", hotpink )
+        , ( "firebrick", firebrick )
+        , ( "indianred", indianred )
+        , ( "yellow", yellow )
         , ( "mistyrose", rgb255 255 228 225 )
         , ( "darkolivegreen", rgb255 85 107 47 )
         , ( "olive", rgb255 128 128 0 )
@@ -124,7 +189,7 @@ w3cx11 =
         , ( "fuchsia", rgb255 255 0 255 )
         , ( "papayawhip", rgb255 255 239 213 )
         , ( "blanchedalmond", blanchedalmond )
-        , ( "chartreuse", rgb255 127 255 0 )
+        , ( "chartreuse", chartreuse )
         , ( "dimgray", rgb255 105 105 105 )
         , ( "black", black )
         , ( "peachpuff", rgb255 255 218 185 )
@@ -139,12 +204,12 @@ w3cx11 =
         , ( "dodgerblue", rgb255 30 144 255 )
         , ( "peru", rgb255 205 133 63 )
         , ( "lawngreen", rgb255 124 252 0 )
-        , ( "chocolate", rgb255 210 105 30 )
-        , ( "crimson", rgb255 220 20 60 )
+        , ( "chocolate", chocolate )
+        , ( "crimson", crimson )
         , ( "forestgreen", rgb255 34 139 34 )
         , ( "darkgrey", rgb255 169 169 169 )
         , ( "lightseagreen", rgb255 32 178 170 )
-        , ( "cyan", rgb255 0 255 255 )
+        , ( "cyan", cyan )
         , ( "mintcream", rgb255 245 255 250 )
         , ( "silver", rgb255 192 192 192 )
         , ( "antiquewhite", antiqueWhite )
@@ -191,7 +256,7 @@ w3cx11 =
         , ( "lightblue", rgb255 173 216 230 )
         , ( "ghostwhite", rgb255 248 248 255 )
         , ( "honeydew", rgb255 240 255 240 )
-        , ( "cornflowerblue", rgb255 100 149 237 )
+        , ( "cornflowerblue", cornflowerblue )
         , ( "slateblue", rgb255 106 90 205 )
         , ( "linen", rgb255 250 240 230 )
         , ( "darkblue", rgb255 0 0 139 )
@@ -206,7 +271,7 @@ w3cx11 =
         , ( "green", rgb255 0 128 0 )
         , ( "mediumpurple", rgb255 147 112 219 )
         , ( "midnightblue", rgb255 25 25 112 )
-        , ( "cornsilk", rgb255 255 248 220 )
+        , ( "cornsilk", cornsilk )
         , ( "paleturquoise", rgb255 175 238 238 )
         , ( "bisque", bisque )
         , ( "slategray", rgb255 112 128 144 )
@@ -230,10 +295,10 @@ w3cx11 =
         , ( "lightgray", rgb255 211 211 211 )
         , ( "mediumturquoise", rgb255 72 209 204 )
         , ( "lemonchiffon", rgb255 255 250 205 )
-        , ( "cadetblue", rgb255 95 158 160 )
+        , ( "cadetblue", cadetblue )
         , ( "lightyellow", rgb255 255 255 224 )
         , ( "lavenderblush", rgb255 255 240 245 )
-        , ( "coral", rgb255 255 127 80 )
+        , ( "coral", coral )
         , ( "purple", rgb255 128 0 128 )
         , ( "aqua", aqua )
         , ( "whitesmoke", rgb255 245 245 245 )
