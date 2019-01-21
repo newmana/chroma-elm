@@ -1,12 +1,12 @@
-module Converter.Hex2RgbTest exposing (..)
+module Converter.Hex2RgbTest exposing (testHex, tests, threeHex3, threeHex6, threeHex8)
 
-import Test as Test
-import Expect
-import Types as Types
-import Fuzz as Fuzz
 import Color as Color
-import UtilTest as Util
 import Converter.In.Hex2Rgb as Hex2Rgb
+import Expect
+import Fuzz as Fuzz
+import Test as Test
+import Types as Types
+import UtilTest as Util
 
 
 tests : Test.Test
@@ -68,7 +68,7 @@ testHex =
                             case x of
                                 Ok color ->
                                     Color.toRgba color
-                                        |> (\rgbaColor -> Expect.equal { red = toFloat r , green = toFloat g, blue = toFloat b, alpha = toFloat a / 255} rgbaColor)
+                                        |> (\rgbaColor -> Expect.equal { red = toFloat r / 255, green = toFloat g / 255, blue = toFloat b / 255, alpha = toFloat a / 255 } rgbaColor)
 
                                 Err err ->
                                     Expect.fail err
