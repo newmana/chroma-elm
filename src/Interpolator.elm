@@ -14,7 +14,7 @@ interpolate col1 col2 f =
             interpolateLAB { lightness = l1, labA = a1, labB = b1 } { lightness = l2, labA = a2, labB = b2 } f
 
         _ ->
-            Debug.todo ""
+            Debug.todo "CMYK not implemented."
 
 
 interpolateRGB : Color.Color -> Color.Color -> Float -> Types.ExtColor

@@ -4,11 +4,32 @@ module Colors.W3CX11 exposing
     , aqua
     , aquamarine
     , azure
+    , beige
+    , bisque
     , black
+    , blanchedalmond
+    , blue
+    , blueviolet
+    , brown
+    , burlywood
+    , cadetblue
+    , chartreuse
+    , chocolate
+    , coral
+    , cornflowerblue
+    , cornsilk
+    , crimson
+    , cyan
+    , firebrick
+    , gold
+    , hotpink
+    , indianred
     , indigo
     , named
+    , red
     , w3cx11
     , white
+    , yellow
     )
 
 import Color exposing (Color, rgb255)
@@ -131,6 +152,11 @@ firebrick =
     rgb255 178 34 34
 
 
+gold : Color
+gold =
+    rgb255 255 215 0
+
+
 hotpink : Color
 hotpink =
     rgb255 255 105 180
@@ -146,9 +172,9 @@ indianred =
     rgb255 205 92 92
 
 
-gold : Color
-gold =
-    rgb255 255 215 0
+red : Color
+red =
+    rgb255 255 0 0
 
 
 yellow : Color
@@ -230,7 +256,7 @@ w3cx11 =
         , ( "lightpink", rgb255 255 182 193 )
         , ( "mediumvioletred", rgb255 199 21 133 )
         , ( "slategrey", rgb255 112 128 144 )
-        , ( "red", rgb255 255 0 0 )
+        , ( "red", red )
         , ( "deeppink", rgb255 255 20 147 )
         , ( "limegreen", rgb255 50 205 50 )
         , ( "darkmagenta", rgb255 139 0 139 )

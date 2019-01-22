@@ -1,9 +1,18 @@
-module Converter.Out.ToLab exposing (toLab)
+module Converter.Out.ToLab exposing (toLab, toLabExtColor)
 
 import Color as Color
 import Converter.In.Cmyk2Rgb as Cmyk2Rgb
 import Converter.Misc.LabConstants as Constants
 import Types as Types
+
+
+toLabExtColor : Color.Color -> Types.ExtColor
+toLabExtColor color =
+    let
+        lab =
+            toLab (Types.ExtColor color)
+    in
+    Types.LABColor lab.lightness lab.labA lab.labB
 
 
 toLab : Types.ExtColor -> { lightness : Float, labA : Float, labB : Float }
