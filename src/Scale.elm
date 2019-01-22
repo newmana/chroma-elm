@@ -9,6 +9,7 @@ module Scale exposing
     , defaultData
     , domain
     , gamma
+    , getColor
     , padding
     )
 
@@ -65,11 +66,11 @@ emptyData =
 
 defaultData : Data
 defaultData =
-    createData emptyData.colors
+    createData emptyData emptyData.colors
 
 
-createData : Nonempty.Nonempty Types.ExtColor -> Data
-createData newColors =
+createData : Data -> Nonempty.Nonempty Types.ExtColor -> Data
+createData data newColors =
     let
         colLength =
             Nonempty.length newColors |> toFloat
@@ -77,7 +78,7 @@ createData newColors =
         newPos =
             Nonempty.indexedMap (\i _ -> ( toFloat i / colLength, toFloat i + 1 / colLength )) newColors
     in
-    { defaultData | pos = newPos, colors = newColors }
+    { data | pos = newPos, colors = newColors }
 
 
 getColor : Data -> Float -> Types.ExtColor
