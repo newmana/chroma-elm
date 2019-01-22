@@ -79,9 +79,21 @@ createPos newColors =
 
 createData : Data -> Nonempty.Nonempty Types.ExtColor -> Data
 createData data newColors =
-    { data | pos = createPos newColors, colors = newColors }
+    let
+        ensureTwoColors =
+            if Nonempty.length newColors == 1 then
+                Nonempty.cons (Nonempty.head newColors) newColors
+
+            else
+                newColors
+    in
+    { data | pos = createPos newColors, colors = ensureTwoColors }
 
 
+{-| Implement lightness correction (before <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L105>
+Implemment domain <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L175>
+Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
+-}
 getColor : Data -> Float -> Types.ExtColor
 getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } val =
     let
@@ -91,11 +103,14 @@ getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, us
         paddingValuesHead =
             Nonempty.head paddingValues
 
+        gammaT =
+            startT ^ gammaValue
+
         paddedT =
-            paddingValuesHead + (startT * (1 - paddingValuesHead - Nonempty.get 1 paddingValues))
+            paddingValuesHead + (gammaT * (1 - paddingValuesHead - Nonempty.get 1 paddingValues))
 
         boundedT =
-            Basics.min 1 (Basics.max 0 paddedT)
+            clamp 0 1 paddedT
     in
     if boundedT <= 0 then
         Nonempty.head colors
