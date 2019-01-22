@@ -5,6 +5,7 @@ module Scale exposing
     , colorsFormat
     , colorsNum
     , correctLightness
+    , createData
     , defaultData
     , domain
     , gamma
@@ -24,10 +25,10 @@ type alias Data =
     , spread : Float
     , isFixed : Bool
     , domainValues : Nonempty.Nonempty Float
-    , pos : List Float
+    , pos : Nonempty.Nonempty ( Float, Float )
     , paddingValues : Nonempty.Nonempty Float
     , useClasses : Bool
-    , colors : List Color.Color
+    , colors : Nonempty.Nonempty Color.Color
     , useOut : Bool
     , min : Float
     , max : Float
@@ -36,17 +37,17 @@ type alias Data =
     }
 
 
-defaultData : Data
-defaultData =
+emptyData : Data
+emptyData =
     { mode = Types.RGB
     , nanColor = Color.rgb 204 204 204
     , spread = 0
     , isFixed = False
     , domainValues = Nonempty.append (Nonempty.fromElement 0) (Nonempty.fromElement 1)
-    , pos = []
+    , pos = Nonempty.fromElement ( 0, 1 )
     , paddingValues = Nonempty.append (Nonempty.fromElement 0) (Nonempty.fromElement 0)
     , useClasses = False
-    , colors = [ W3CX11.white, W3CX11.black ]
+    , colors = Nonempty.append (Nonempty.fromElement W3CX11.white) (Nonempty.fromElement W3CX11.black)
     , useOut = False
     , min = 0
     , max = 1
@@ -61,16 +62,21 @@ defaultData =
 -- mode is equidistant, log, k-means or quantile
 
 
-setupData : Data -> Data
-setupData oldData =
+defaultData : Data
+defaultData =
+    createData emptyData.colors
+
+
+createData : Nonempty.Nonempty Color.Color -> Data
+createData newColors =
     let
         colLength =
-            List.length oldData.colors |> toFloat
+            Nonempty.length newColors |> toFloat
 
         newPos =
-            List.indexedMap (\i _ -> toFloat i / colLength) oldData.colors
+            Nonempty.indexedMap (\i _ -> ( toFloat i / colLength, toFloat i + 1 / colLength )) newColors
     in
-    { oldData | pos = newPos }
+    { defaultData | pos = newPos, colors = newColors }
 
 
 getColor : Data -> Float -> Types.ExtColor
@@ -88,7 +94,27 @@ getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, us
         boundedT =
             Basics.min 1 (Basics.max 0 paddedT)
     in
-    Types.ExtColor W3CX11.black
+    if boundedT <= 0 then
+        Nonempty.head colors |> Types.ExtColor
+
+    else if boundedT >= 1 then
+        Nonempty.get -1 colors |> Types.ExtColor
+
+    else
+        let
+            t =
+                Nonempty.foldl
+                    (\( p0, p1 ) ( result, i ) ->
+                        if boundedT > p0 && boundedT < p1 then
+                            ( boundedT - p0 / p1 - p0, i + 1 )
+
+                        else
+                            ( result, i )
+                    )
+                    ( 0, 0 )
+                    pos
+        in
+        Types.ExtColor W3CX11.black
 
 
 domain : List Float -> Int -> String -> List b
