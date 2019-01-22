@@ -40,17 +40,17 @@ type alias Data =
     }
 
 
-emptyData : Data
-emptyData =
+defaultData : Data
+defaultData =
     { mode = Types.RGB
     , nanColor = Color.rgb 204 204 204
     , spread = 0
     , isFixed = False
-    , domainValues = Nonempty.append (Nonempty.fromElement 0) (Nonempty.fromElement 1)
+    , domainValues = Nonempty.Nonempty 0 [ 1 ]
     , pos = Nonempty.fromElement ( 0, 1 )
-    , paddingValues = Nonempty.append (Nonempty.fromElement 0) (Nonempty.fromElement 0)
+    , paddingValues = Nonempty.Nonempty 0 [ 0 ]
     , useClasses = False
-    , colors = Nonempty.append (Nonempty.fromElement (Types.ExtColor W3CX11.white)) (Nonempty.fromElement (Types.ExtColor W3CX11.black))
+    , colors = Nonempty.Nonempty (Types.ExtColor W3CX11.white) [ Types.ExtColor W3CX11.black ]
     , useOut = False
     , min = 0
     , max = 1
@@ -63,11 +63,6 @@ emptyData =
 -- chroma.scale('#{colorbrewer_scale_name}').colors(#{num_bins})
 -- chroma.scale(colour).domain([1, 100000], 7, 'log');
 -- mode is equidistant, log, k-means or quantile
-
-
-defaultData : Data
-defaultData =
-    createData emptyData emptyData.colors
 
 
 createPos : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty ( Float, Float )
