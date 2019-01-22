@@ -6,6 +6,7 @@ module Scale exposing
     , colorsNum
     , correctLightness
     , createData
+    , createPos
     , defaultData
     , domain
     , gamma
@@ -69,16 +70,21 @@ defaultData =
     createData emptyData emptyData.colors
 
 
-createData : Data -> Nonempty.Nonempty Types.ExtColor -> Data
-createData data newColors =
+createPos : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty ( Float, Float )
+createPos newColors =
     let
         colLength =
-            Nonempty.length newColors |> toFloat
+            Nonempty.length newColors - 1 |> toFloat
 
         newPos =
             Nonempty.indexedMap (\i _ -> ( toFloat i / colLength, toFloat i + 1 / colLength )) newColors
     in
-    { data | pos = newPos, colors = newColors }
+    newPos
+
+
+createData : Data -> Nonempty.Nonempty Types.ExtColor -> Data
+createData data newColors =
+    { data | pos = createPos newColors, colors = newColors }
 
 
 getColor : Data -> Float -> Types.ExtColor
@@ -104,19 +110,19 @@ getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, us
 
     else
         let
-            ( t, index ) =
+            ( t, finishedIndex, _ ) =
                 Nonempty.foldl
-                    (\( p0, p1 ) ( result, i ) ->
+                    (\( p0, p1 ) ( result, foundIndex, i ) ->
                         if boundedT > p0 && boundedT < p1 then
-                            ( boundedT - p0 / p1 - p0, i + 1 )
+                            ( boundedT - p0 / p1 - p0, i, i + 1 )
 
                         else
-                            ( result, i )
+                            ( result, foundIndex, i + 1 )
                     )
-                    ( 0, 0 )
+                    ( 0, 0, 0 )
                     pos
         in
-        Interpolator.interpolate (Nonempty.get index colors) (Nonempty.get (index + 1) colors) t
+        Interpolator.interpolate (Nonempty.get finishedIndex colors) (Nonempty.get (finishedIndex + 1) colors) t
 
 
 domain : List Float -> Int -> String -> List b
