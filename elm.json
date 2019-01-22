@@ -16,6 +16,7 @@
         "elm/json": "1.1.2 <= v < 2.0.0",
         "elm/time": "1.0.0 <= v < 2.0.0",
         "elm-community/list-extra": "8.1.0 <= v < 9.0.0",
+        "mgold/elm-nonempty-list": "4.0.0 <= v < 5.0.0",
         "pilatch/flip": "1.0.0 <= v < 2.0.0"
     },
     "test-dependencies": {

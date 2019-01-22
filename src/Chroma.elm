@@ -11,8 +11,10 @@ import Color as Color
 import Colors.W3CX11 as W3CX11
 import Converter.In.Hex2Rgb as Hex2Rgb
 import Converter.Out.ToLab as ToLab
+import Debug
 import Flip as Flip
 import Result as Result
+import Scale as Scale
 import Types as Types
 
 
@@ -28,12 +30,12 @@ chroma str =
 
 scaleDefault : List (Float -> Types.ExtColor)
 scaleDefault =
-    scale [ Types.ExtColor W3CX11.white, Types.ExtColor W3CX11.black ]
+    scale Scale.defaultData [ Types.ExtColor W3CX11.white, Types.ExtColor W3CX11.black ]
 
 
-scale : List Types.ExtColor -> List (Float -> Types.ExtColor)
+scale : Scale.Data -> List Types.ExtColor -> List (Float -> Types.ExtColor)
 scale colors =
-    []
+    Debug.todo ""
 
 
 distanceWithLab : Types.ExtColor -> Types.ExtColor -> Float
