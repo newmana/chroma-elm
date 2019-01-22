@@ -1,4 +1,4 @@
-module ChromaTest exposing (c1, c2, c3, testDistance, tests)
+module InterpolatorTest exposing (c1, c2, c3, testDistance, tests)
 
 import Chroma as Chroma
 import Converter.In.Hex2Rgb as Hex2Rgb
