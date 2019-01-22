@@ -15,6 +15,7 @@ module Scale exposing
 import Color as Color
 import Colors.W3CX11 as W3CX11
 import Debug
+import Interpolator as Interpolator
 import List.Nonempty as Nonempty
 import Types as Types
 
@@ -28,7 +29,7 @@ type alias Data =
     , pos : Nonempty.Nonempty ( Float, Float )
     , paddingValues : Nonempty.Nonempty Float
     , useClasses : Bool
-    , colors : Nonempty.Nonempty Color.Color
+    , colors : Nonempty.Nonempty Types.ExtColor
     , useOut : Bool
     , min : Float
     , max : Float
@@ -47,7 +48,7 @@ emptyData =
     , pos = Nonempty.fromElement ( 0, 1 )
     , paddingValues = Nonempty.append (Nonempty.fromElement 0) (Nonempty.fromElement 0)
     , useClasses = False
-    , colors = Nonempty.append (Nonempty.fromElement W3CX11.white) (Nonempty.fromElement W3CX11.black)
+    , colors = Nonempty.append (Nonempty.fromElement (Types.ExtColor W3CX11.white)) (Nonempty.fromElement (Types.ExtColor W3CX11.black))
     , useOut = False
     , min = 0
     , max = 1
@@ -67,7 +68,7 @@ defaultData =
     createData emptyData.colors
 
 
-createData : Nonempty.Nonempty Color.Color -> Data
+createData : Nonempty.Nonempty Types.ExtColor -> Data
 createData newColors =
     let
         colLength =
@@ -95,14 +96,14 @@ getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, us
             Basics.min 1 (Basics.max 0 paddedT)
     in
     if boundedT <= 0 then
-        Nonempty.head colors |> Types.ExtColor
+        Nonempty.head colors
 
     else if boundedT >= 1 then
-        Nonempty.get -1 colors |> Types.ExtColor
+        Nonempty.get -1 colors
 
     else
         let
-            t =
+            ( t, index ) =
                 Nonempty.foldl
                     (\( p0, p1 ) ( result, i ) ->
                         if boundedT > p0 && boundedT < p1 then
@@ -114,7 +115,7 @@ getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, us
                     ( 0, 0 )
                     pos
         in
-        Types.ExtColor W3CX11.black
+        Interpolator.interpolate (Nonempty.get index colors) (Nonempty.get (index + 1) colors) t
 
 
 domain : List Float -> Int -> String -> List b
