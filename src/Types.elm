@@ -1,9 +1,8 @@
-module Types
-    exposing
-        ( Mode(..)
-        , ExtColor(..)
-        , asList
-        )
+module Types exposing
+    ( ExtColor(..)
+    , Mode(..)
+    , asList
+    )
 
 import Color as Color
 
@@ -39,7 +38,7 @@ asList color =
                 { red, green, blue, alpha } =
                     Color.toRgba c
             in
-                [ red, green, blue, alpha ]
+            [ red, green, blue, alpha ]
 
         CMYKColor c m y k ->
             [ c, m, y, k ]
