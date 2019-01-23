@@ -16,7 +16,6 @@ module Scale exposing
 
 import Color as Color
 import Colors.W3CX11 as W3CX11
-import Debug
 import Interpolator as Interpolator
 import List.Nonempty as Nonempty
 import Types as Types
@@ -90,8 +89,7 @@ createData data newColors =
     { data | pos = createPos newColors, colors = ensureTwoColors }
 
 
-{-| Implement lightness correction (before <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L105>
-Implemment domain <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L175>
+{-| Implement domain <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L175>
 Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
 -}
 getColor : Data -> Float -> Types.ExtColor
@@ -152,20 +150,28 @@ gamma f =
     []
 
 
-correctLightness : Data -> Float -> Float
+type alias Convergence =
+    { diff : Float
+    , t : Float
+    , t0 : Float
+    , t1 : Float
+    }
+
+
+correctLightness : Scale.Data -> Float -> Float
 correctLightness data val =
     let
         l0 =
-            getColor data 0 |> Types.asNonEmptyList |> Nonempty.head
+            Scale.getColor data 0 |> Types.asNonEmptyList |> Nonempty.head
 
         l1 =
-            getColor data 1 |> Types.asNonEmptyList |> Nonempty.head
+            Scale.getColor data 1 |> Types.asNonEmptyList |> Nonempty.head
 
         pol =
             l0 > l1
 
         actual =
-            getColor data val |> Types.asNonEmptyList |> Nonempty.head
+            Scale.getColor data val |> Types.asNonEmptyList |> Nonempty.head
 
         ideal =
             l0 + ((l1 - l0) * val)
@@ -174,26 +180,26 @@ correctLightness data val =
             actual - ideal
 
         allResults =
-            whileStuff data 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
+            convergeResult data 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
     in
     allResults.t
 
 
-whileStuff : Data -> Int -> Bool -> Float -> { diff : Float, t : Float, t0 : Float, t1 : Float } -> { diff : Float, t : Float, t0 : Float, t1 : Float }
-whileStuff data maxIter pol ideal calcs =
+convergeResult : Scale.Data -> Int -> Bool -> Float -> Convergence -> Convergence
+convergeResult data maxIter pol ideal calcs =
     if (abs calcs.diff <= 0.01) || maxIter <= 0 then
         calcs
 
     else
         let
             result =
-                doStuff data pol ideal calcs
+                calcResult data pol ideal calcs
         in
-        whileStuff data (maxIter - 1) pol ideal result
+        convergeResult data (maxIter - 1) pol ideal result
 
 
-doStuff : Data -> Bool -> Float -> { diff : Float, t : Float, t0 : Float, t1 : Float } -> { diff : Float, t : Float, t0 : Float, t1 : Float }
-doStuff data pol ideal calcs =
+calcResult : Scale.Data -> Bool -> Float -> Convergence -> Convergence
+calcResult data pol ideal calcs =
     let
         newCalcs =
             if pol then
