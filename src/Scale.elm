@@ -124,7 +124,7 @@ getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, us
                 Nonempty.foldl
                     (\( p0, p1 ) ( result, foundIndex, i ) ->
                         if boundedT > p0 && boundedT < p1 then
-                            ( boundedT - p0 / p1 - p0, i, i + 1 )
+                            ( (boundedT - p0) / (p1 - p0), i, i + 1 )
 
                         else
                             ( result, foundIndex, i + 1 )
