@@ -62,12 +62,12 @@ calcLab { red, green, blue, alpha } =
 
 
 rgb2xyz : Float -> Float
-rgb2xyz r =
-    if r <= 0.04045 then
-        r / 12.92
+rgb2xyz c =
+    if c > 0.04045 then
+        ((c + 0.055) / 1.055) ^ 2.4
 
     else
-        ((r + 0.055) / 1.055) ^ 2.4
+        c / 12.92
 
 
 xyz2lab : Float -> Float

@@ -1,14 +1,13 @@
-module Converter.Misc.LabConstants
-    exposing
-        ( kn
-        , xn
-        , yn
-        , zn
-        , t0
-        , t1
-        , t2
-        , t3
-        )
+module Converter.Misc.LabConstants exposing
+    ( kn
+    , t0
+    , t1
+    , t2
+    , t3
+    , xn
+    , yn
+    , zn
+    )
 
 
 kn : Float
