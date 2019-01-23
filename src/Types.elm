@@ -1,10 +1,15 @@
 module Types exposing
-    ( ExtColor(..)
+    ( CymkColor
+    , ExtColor(..)
+    , Hsla
+    , LabColor
     , Mode(..)
-    , asList
+    , RgbaColor
+    , asNonEmptyList
     )
 
 import Color as Color
+import List.Nonempty as Nonempty
 
 
 type Mode
@@ -26,22 +31,53 @@ type Mode
 
 type ExtColor
     = ExtColor Color.Color
-    | CMYKColor Float Float Float Float
-    | LABColor Float Float Float
+    | CMYKColor CymkColor
+    | LABColor LabColor
 
 
-asList : ExtColor -> List Float
-asList color =
+type alias LabColor =
+    { lightness : Float
+    , labA : Float
+    , labB : Float
+    }
+
+
+type alias CymkColor =
+    { cyan : Float
+    , magenta : Float
+    , yellow : Float
+    , black : Float
+    }
+
+
+type alias RgbaColor =
+    { red : Float
+    , green : Float
+    , blue : Float
+    , alpha : Float
+    }
+
+
+type alias Hsla =
+    { hue : Float
+    , saturation : Float
+    , lightness : Float
+    , alpha : Float
+    }
+
+
+asNonEmptyList : ExtColor -> Nonempty.Nonempty Float
+asNonEmptyList color =
     case color of
         ExtColor c ->
             let
                 { red, green, blue, alpha } =
                     Color.toRgba c
             in
-            [ red, green, blue, alpha ]
+            Nonempty.Nonempty red [ green, blue, alpha ]
 
-        CMYKColor c m y k ->
-            [ c, m, y, k ]
+        CMYKColor { cyan, magenta, yellow, black } ->
+            Nonempty.Nonempty cyan [ magenta, yellow, black ]
 
-        LABColor l a b ->
-            [ l, a, b ]
+        LABColor { lightness, labA, labB } ->
+            Nonempty.Nonempty lightness [ labA, labB ]

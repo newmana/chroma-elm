@@ -10,8 +10,8 @@ interpolate col1 col2 f =
         ( Types.ExtColor color1, Types.ExtColor color2 ) ->
             interpolateRGB color1 color2 f
 
-        ( Types.LABColor l1 a1 b1, Types.LABColor l2 a2 b2 ) ->
-            interpolateLAB { lightness = l1, labA = a1, labB = b1 } { lightness = l2, labA = a2, labB = b2 } f
+        ( Types.LABColor lab1, Types.LABColor lab2 ) ->
+            interpolateLAB lab1 lab2 f
 
         _ ->
             Debug.todo "CMYK not implemented."
@@ -41,6 +41,7 @@ interpolateRGB color1 color2 f =
 interpolateLAB : { lightness : Float, labA : Float, labB : Float } -> { lightness : Float, labA : Float, labB : Float } -> Float -> Types.ExtColor
 interpolateLAB color1 color2 f =
     Types.LABColor
-        (color1.lightness + f * (color2.lightness - color1.lightness))
-        (color1.labA + f * (color2.labA - color1.labA))
-        (color1.labB + f * (color2.labB - color1.labB))
+        { lightness = color1.lightness + f * (color2.lightness - color1.lightness)
+        , labA = color1.labA + f * (color2.labA - color1.labA)
+        , labB = color1.labB + f * (color2.labB - color1.labB)
+        }

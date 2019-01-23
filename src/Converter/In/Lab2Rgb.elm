@@ -2,22 +2,23 @@ module Converter.In.Lab2Rgb exposing (lab2rgb)
 
 import Color as Color
 import Converter.Misc.LabConstants as Constants
+import Types as Types
 
 
-lab2rgb : { lightness : Float, labA : Float, labB : Float } -> Color.Color
-lab2rgb { lightness, labA, labB } =
+lab2rgb : Types.LabColor -> Color.Color
+lab2rgb lab =
     let
         startY =
-            (lightness + 16) / 116
+            (lab.lightness + 16) / 116
 
         y =
             startY |> lab2xyz |> (*) Constants.yn
 
         x =
-            startY + (labA / 500) |> lab2xyz |> (*) Constants.xn
+            startY + (lab.labA / 500) |> lab2xyz |> (*) Constants.xn
 
         z =
-            startY - (labB / 200) |> lab2xyz |> (*) Constants.zn
+            startY - (lab.labB / 200) |> lab2xyz |> (*) Constants.zn
 
         r =
             (3.2404542 * x) + (-1.5371385 * y) + (-0.4985314 * z) |> xyz2rgb

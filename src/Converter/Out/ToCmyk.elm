@@ -6,7 +6,7 @@ import Flip as Flip
 import Types as Types
 
 
-toCmyk : Types.ExtColor -> { cyan : Float, magenta : Float, yellow : Float, black : Float }
+toCmyk : Types.ExtColor -> Types.CymkColor
 toCmyk color =
     let
         convert { alpha, blue, green, red } =
@@ -27,8 +27,8 @@ toCmyk color =
         Types.ExtColor c ->
             Color.toRgba c |> convert
 
-        Types.CMYKColor c m y k ->
-            { cyan = c, magenta = m, yellow = y, black = k }
+        Types.CMYKColor cmyk ->
+            cmyk
 
-        Types.LABColor l a b ->
-            Lab2Rgb.lab2rgb { lightness = l, labA = a, labB = b } |> Color.toRgba |> convert
+        Types.LABColor lab ->
+            Lab2Rgb.lab2rgb lab |> Color.toRgba |> convert

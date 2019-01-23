@@ -8,27 +8,23 @@ import Types as Types
 
 toLabExtColor : Color.Color -> Types.ExtColor
 toLabExtColor color =
-    let
-        lab =
-            toLab (Types.ExtColor color)
-    in
-    Types.LABColor lab.lightness lab.labA lab.labB
+    toLab (Types.ExtColor color) |> Types.LABColor
 
 
-toLab : Types.ExtColor -> { lightness : Float, labA : Float, labB : Float }
+toLab : Types.ExtColor -> Types.LabColor
 toLab color =
     case color of
         Types.ExtColor c ->
             Color.toRgba c |> calcLab
 
-        Types.CMYKColor c m y k ->
-            Cmyk2Rgb.cmyk2rgb { cyan = c, magenta = m, yellow = y, black = k } |> Color.toRgba |> calcLab
+        Types.CMYKColor cmyk ->
+            Cmyk2Rgb.cmyk2rgb cmyk |> Color.toRgba |> calcLab
 
-        Types.LABColor l a b ->
-            { lightness = l, labA = a, labB = b }
+        Types.LABColor lab ->
+            lab
 
 
-calcLab : { red : Float, green : Float, blue : Float, alpha : Float } -> { lightness : Float, labA : Float, labB : Float }
+calcLab : Types.RgbaColor -> Types.LabColor
 calcLab { red, green, blue, alpha } =
     let
         r =

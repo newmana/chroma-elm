@@ -145,9 +145,50 @@ gamma f =
     []
 
 
-correctLightness : List Color.Color -> List Color.Color
-correctLightness colors =
-    []
+correctLightness : Data -> Float -> Float
+correctLightness data val =
+    let
+        l0 =
+            getColor data 0 |> Types.asNonEmptyList |> Nonempty.head
+
+        l1 =
+            getColor data 1 |> Types.asNonEmptyList |> Nonempty.head
+
+        pol =
+            l0 > l1
+
+        actual =
+            getColor data val |> Types.asNonEmptyList |> Nonempty.head
+
+        ideal =
+            l0 + ((l1 - l0) * val)
+
+        diff =
+            actual - ideal
+    in
+    Debug.todo "Not Good"
+
+
+doStuff data pol t t0 t1 diff ideal =
+    let
+        newLDiff =
+            if pol then
+                diff * -1
+
+            else
+                diff
+
+        ( newT, newT0, newT1 ) =
+            if diff < 0 then
+                ( t + ((t1 - t) * 0.5), t, t1 )
+
+            else
+                ( t + ((t0 - t) * 0.5), t0, t )
+
+        actual =
+            getColor data newT |> Types.asNonEmptyList |> Nonempty.head
+    in
+    { diff = diff, t = newT, t0 = newT0, t1 = newT1 }
 
 
 padding : List Color.Color -> Float -> List Color.Color

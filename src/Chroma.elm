@@ -13,6 +13,7 @@ import Converter.In.Hex2Rgb as Hex2Rgb
 import Converter.Out.ToLab as ToLab
 import Debug
 import Flip as Flip
+import List.Nonempty as Nonempty
 import Result as Result
 import Scale as Scale
 import Types as Types
@@ -42,7 +43,7 @@ distanceWithLab : Types.ExtColor -> Types.ExtColor -> Float
 distanceWithLab color1 color2 =
     let
         labColor a =
-            ToLab.toLab a |> (\{ lightness, labA, labB } -> Types.LABColor lightness labA labB)
+            ToLab.toLab a |> Types.LABColor
     in
     distance (labColor color1) (labColor color2)
 
@@ -51,10 +52,10 @@ distance255 : Types.ExtColor -> Types.ExtColor -> Float
 distance255 color1 color2 =
     let
         fstColor255 =
-            Types.asList color1 |> List.map (\x -> x * 255)
+            Types.asNonEmptyList color1 |> Nonempty.map (\x -> x * 255)
 
         sndColor255 =
-            Types.asList color2 |> List.map (\x -> x * 255)
+            Types.asNonEmptyList color2 |> Nonempty.map (\x -> x * 255)
     in
     calcDistance fstColor255 sndColor255
 
@@ -63,17 +64,17 @@ distance : Types.ExtColor -> Types.ExtColor -> Float
 distance color1 color2 =
     let
         aColor1 =
-            Types.asList color1
+            Types.asNonEmptyList color1
 
         aColor2 =
-            Types.asList color2
+            Types.asNonEmptyList color2
     in
     calcDistance aColor1 aColor2
 
 
-calcDistance : List Float -> List Float -> Float
+calcDistance : Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Float
 calcDistance list1 list2 =
-    List.map2 (\c1 c2 -> (c1 - c2) ^ 2) list1 list2 |> List.sum |> sqrt
+    Nonempty.map2 (\c1 c2 -> (c1 - c2) ^ 2) list1 list2 |> Nonempty.foldl (+) 0 |> sqrt
 
 
 

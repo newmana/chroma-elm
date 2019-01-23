@@ -58,16 +58,16 @@ testInterpolate =
         [ Test.test "Simple two colour lab" <|
             \_ ->
                 case Scale.getColor (Scale.createData Scale.defaultData whiteAndBlackLab) 0.5 of
-                    Types.LABColor l a b ->
-                        Expect.within (Expect.Absolute 0.0001) l 50
+                    Types.LABColor lab ->
+                        Expect.within (Expect.Absolute 0.0001) lab.lightness 50
 
                     _ ->
                         Expect.fail "Wrong type returned"
         , Test.test "Hot with no correction lab" <|
             \_ ->
                 case Scale.getColor (Scale.createData Scale.defaultData whiteYellowRedBlackLab) 0.5 of
-                    Types.LABColor l a b ->
-                        Expect.within (Expect.Absolute 0.0001) l 50
+                    Types.LABColor lab ->
+                        Expect.within (Expect.Absolute 0.0001) lab.lightness 50
 
                     _ ->
                         Expect.fail "Wrong type returned"
