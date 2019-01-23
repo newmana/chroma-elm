@@ -9,9 +9,7 @@ module Scale exposing
     , createPos
     , defaultData
     , domain
-    , gamma
     , getColor
-    , padding
     )
 
 import Color as Color
@@ -140,14 +138,43 @@ getColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, u
         Interpolator.interpolate (Nonempty.get finishedIndex colors) (Nonempty.get (finishedIndex + 1) colors) t
 
 
-domain : List Float -> Int -> String -> List b
-domain data bins mode =
-    []
+createDomainPos : Float -> Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty ( Float, Float )
+createDomainPos min max newDomain =
+    let
+        newDenom =
+            max - min
+
+        nonEmptyTail =
+            case Nonempty.tail newDomain of
+                [] ->
+                    Debug.todo "Should not happen"
+
+                h :: r ->
+                    Nonempty.Nonempty h r
+
+        pairUp =
+            Nonempty.zip newDomain nonEmptyTail
+
+        newPos =
+            Nonempty.indexedMap (\i ( d1, d2 ) -> ( d1 - min / newDenom, d2 - min / newDenom )) pairUp
+    in
+    newPos
 
 
-gamma : List Color.Color -> List Color.Color
-gamma f =
-    []
+domain : Data -> Nonempty.Nonempty Float -> Data
+domain data newDomain =
+    let
+        ( newMin, newMax ) =
+            ( Nonempty.head newDomain, Nonempty.get (Nonempty.length newDomain - 1) newDomain )
+
+        newPos =
+            if Nonempty.length newDomain == Nonempty.length data.colors && newMin /= newMax then
+                createDomainPos newMin newMax newDomain
+
+            else
+                createPos data.colors
+    in
+    { data | domainValues = Nonempty.Nonempty newMin [ newMax ], pos = newPos }
 
 
 type alias Convergence =
@@ -158,20 +185,20 @@ type alias Convergence =
     }
 
 
-correctLightness : Scale.Data -> Float -> Float
+correctLightness : Data -> Float -> Float
 correctLightness data val =
     let
         l0 =
-            Scale.getColor data 0 |> Types.asNonEmptyList |> Nonempty.head
+            getColor data 0 |> Types.asNonEmptyList |> Nonempty.head
 
         l1 =
-            Scale.getColor data 1 |> Types.asNonEmptyList |> Nonempty.head
+            getColor data 1 |> Types.asNonEmptyList |> Nonempty.head
 
         pol =
             l0 > l1
 
         actual =
-            Scale.getColor data val |> Types.asNonEmptyList |> Nonempty.head
+            getColor data val |> Types.asNonEmptyList |> Nonempty.head
 
         ideal =
             l0 + ((l1 - l0) * val)
@@ -185,7 +212,7 @@ correctLightness data val =
     allResults.t
 
 
-convergeResult : Scale.Data -> Int -> Bool -> Float -> Convergence -> Convergence
+convergeResult : Data -> Int -> Bool -> Float -> Convergence -> Convergence
 convergeResult data maxIter pol ideal calcs =
     if (abs calcs.diff <= 0.01) || maxIter <= 0 then
         calcs
@@ -198,7 +225,7 @@ convergeResult data maxIter pol ideal calcs =
         convergeResult data (maxIter - 1) pol ideal result
 
 
-calcResult : Scale.Data -> Bool -> Float -> Convergence -> Convergence
+calcResult : Data -> Bool -> Float -> Convergence -> Convergence
 calcResult data pol ideal calcs =
     let
         newCalcs =
@@ -219,11 +246,6 @@ calcResult data pol ideal calcs =
             getColor data newT |> Types.asNonEmptyList |> Nonempty.head
     in
     { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
-
-
-padding : List Color.Color -> Float -> List Color.Color
-padding colors f =
-    []
 
 
 colorsNum : List Color.Color -> Int -> List Color.Color
