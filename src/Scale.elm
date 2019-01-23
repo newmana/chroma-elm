@@ -174,7 +174,7 @@ domain newDomain data =
             else
                 createPos data.colors
     in
-    { data | domainValues = Nonempty.Nonempty newMin [ newMax ], pos = newPos }
+    { data | domainValues = Nonempty.Nonempty newMin [ newMax ], pos = newPos, min = newMin, max = newMax }
 
 
 type alias Convergence =
