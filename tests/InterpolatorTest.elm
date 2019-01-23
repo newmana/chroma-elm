@@ -67,6 +67,18 @@ testInterpolate =
             \_ ->
                 case Scale.getColor (Scale.createData Scale.defaultData whiteYellowRedBlackLab) 0.5 of
                     Types.LABColor lab ->
+                        Expect.within (Expect.Absolute 0.0001) lab.lightness 74
+
+                    _ ->
+                        Expect.fail "Wrong type returned"
+        , Test.test "Hot with correction lab" <|
+            \_ ->
+                let
+                    newData =
+                        Scale.createData Scale.defaultData whiteYellowRedBlackLab
+                in
+                case Scale.getColor { newData | useCorrectLightness = True } 0.5 of
+                    Types.LABColor lab ->
                         Expect.within (Expect.Absolute 0.0001) lab.lightness 50
 
                     _ ->

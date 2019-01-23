@@ -95,7 +95,7 @@ Implemment domain <https://github.com/gka/chroma.js/blob/master/src/generator/sc
 Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
 -}
 getColor : Data -> Float -> Types.ExtColor
-getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } val =
+getColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } as data) val =
     let
         startT =
             (val - min) / (max - min)
@@ -103,8 +103,15 @@ getColor { mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, us
         paddingValuesHead =
             Nonempty.head paddingValues
 
+        lightnessCorrectedT =
+            if useCorrectLightness then
+                correctLightness { data | useCorrectLightness = False } startT
+
+            else
+                startT
+
         gammaT =
-            startT ^ gammaValue
+            lightnessCorrectedT ^ gammaValue
 
         paddedT =
             paddingValuesHead + (gammaT * (1 - paddingValuesHead - Nonempty.get 1 paddingValues))
@@ -165,30 +172,47 @@ correctLightness data val =
 
         diff =
             actual - ideal
+
+        allResults =
+            whileStuff data 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
     in
-    Debug.todo "Not Good"
+    allResults.t
 
 
-doStuff data pol t t0 t1 diff ideal =
+whileStuff : Data -> Int -> Bool -> Float -> { diff : Float, t : Float, t0 : Float, t1 : Float } -> { diff : Float, t : Float, t0 : Float, t1 : Float }
+whileStuff data maxIter pol ideal calcs =
+    if (abs calcs.diff <= 0.01) || maxIter <= 0 then
+        calcs
+
+    else
+        let
+            result =
+                doStuff data pol ideal calcs
+        in
+        whileStuff data (maxIter - 1) pol ideal result
+
+
+doStuff : Data -> Bool -> Float -> { diff : Float, t : Float, t0 : Float, t1 : Float } -> { diff : Float, t : Float, t0 : Float, t1 : Float }
+doStuff data pol ideal calcs =
     let
-        newLDiff =
+        newCalcs =
             if pol then
-                diff * -1
+                { calcs | diff = calcs.diff * -1 }
 
             else
-                diff
+                calcs
 
         ( newT, newT0, newT1 ) =
-            if diff < 0 then
-                ( t + ((t1 - t) * 0.5), t, t1 )
+            if newCalcs.diff < 0 then
+                ( newCalcs.t + ((newCalcs.t1 - newCalcs.t) * 0.5), newCalcs.t, newCalcs.t1 )
 
             else
-                ( t + ((t0 - t) * 0.5), t0, t )
+                ( newCalcs.t + ((newCalcs.t0 - newCalcs.t) * 0.5), newCalcs.t0, newCalcs.t )
 
         actual =
             getColor data newT |> Types.asNonEmptyList |> Nonempty.head
     in
-    { diff = diff, t = newT, t0 = newT0, t1 = newT1 }
+    { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
 
 
 padding : List Color.Color -> Float -> List Color.Color
