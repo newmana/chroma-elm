@@ -74,8 +74,8 @@ createPos newColors =
     newPos
 
 
-createData : Data -> Nonempty.Nonempty Types.ExtColor -> Data
-createData data newColors =
+createData : Nonempty.Nonempty Types.ExtColor -> Data -> Data
+createData newColors data =
     let
         ensureTwoColors =
             if Nonempty.length newColors == 1 then
@@ -87,7 +87,7 @@ createData data newColors =
     { data | pos = createPos newColors, colors = ensureTwoColors }
 
 
-{-| Implement domain <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L175>
+{-| Finish <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L119> >
 Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
 -}
 getColor : Data -> Float -> Types.ExtColor
@@ -161,8 +161,8 @@ createDomainPos min max newDomain =
     newPos
 
 
-domain : Data -> Nonempty.Nonempty Float -> Data
-domain data newDomain =
+domain : Nonempty.Nonempty Float -> Data -> Data
+domain newDomain data =
     let
         ( newMin, newMax ) =
             ( Nonempty.head newDomain, Nonempty.get (Nonempty.length newDomain - 1) newDomain )
