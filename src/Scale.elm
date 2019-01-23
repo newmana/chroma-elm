@@ -72,7 +72,7 @@ createPos newColors =
             Nonempty.length newColors - 1 |> toFloat
 
         newPos =
-            Nonempty.indexedMap (\i _ -> ( toFloat i / colLength, toFloat i + 1 / colLength )) newColors
+            Nonempty.indexedMap (\i _ -> ( toFloat i / colLength, toFloat (i + 1) / colLength )) newColors
     in
     newPos
 

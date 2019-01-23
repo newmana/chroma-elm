@@ -1,54 +1,82 @@
-module InterpolatorTest exposing (c1, c2, c3, testDistance, tests)
+module InterpolatorTest exposing (blackLab, redLab, testInterpolate, tests, whiteLab, yellowLab)
 
-import Chroma as Chroma
+import Color as Color
+import Colors.W3CX11 as W3CX11
 import Converter.In.Hex2Rgb as Hex2Rgb
+import Converter.Out.ToLab as ToLab
+import Expect as Expect
+import Interpolator as Interpolator
+import List.Nonempty as Nonempty
 import Result as Result
+import Scale as Scale
 import Test as Test
 import Types as Types
-import UtilTest as UtilTest
 
 
 tests : Test.Test
 tests =
-    Test.describe "Chroma API"
-        [ testDistance
+    Test.describe "Interpolate API"
+        [ testInterpolate
         ]
 
 
-c1 : Result String Types.ExtColor
-c1 =
-    Hex2Rgb.hex2rgb "#fff" |> Result.map Types.ExtColor
+whiteLab : Types.ExtColor
+whiteLab =
+    ToLab.toLabExtColor W3CX11.white
 
 
-c2 : Result String Types.ExtColor
-c2 =
-    Hex2Rgb.hex2rgb "#ff0" |> Result.map Types.ExtColor
+blackLab : Types.ExtColor
+blackLab =
+    ToLab.toLabExtColor W3CX11.black
 
 
-c3 : Result String Types.ExtColor
-c3 =
-    Hex2Rgb.hex2rgb "#f0f" |> Result.map Types.ExtColor
+yellowLab : Types.ExtColor
+yellowLab =
+    ToLab.toLabExtColor W3CX11.yellow
 
 
-testDistance : Test.Test
-testDistance =
-    Test.describe "distance"
-        [ Test.test "Distance 1" <|
+redLab : Types.ExtColor
+redLab =
+    ToLab.toLabExtColor W3CX11.red
+
+
+whiteAndBlackLab =
+    Nonempty.Nonempty whiteLab [ blackLab ]
+
+
+whiteYellowRedBlackLab =
+    Nonempty.Nonempty whiteLab [ yellowLab, redLab, blackLab ]
+
+
+whiteAndBlackRgb =
+    Nonempty.Nonempty (Types.ExtColor W3CX11.white) [ Types.ExtColor W3CX11.black ]
+
+
+testInterpolate : Test.Test
+testInterpolate =
+    Test.describe "Interpolation"
+        [ Test.test "Simple two colour lab" <|
             \_ ->
-                Result.map2 Chroma.distance c1 c2 |> UtilTest.expectResultWithin 0.001 1
-        , Test.test "Distance 2" <|
+                case Scale.getColor (Scale.createData Scale.defaultData whiteAndBlackLab) 0.5 of
+                    Types.LABColor l a b ->
+                        Expect.within (Expect.Absolute 0.0001) l 50
+
+                    _ ->
+                        Expect.fail "Wrong type returned"
+        , Test.test "Hot with no correction lab" <|
             \_ ->
-                Result.map2 Chroma.distance c1 c3 |> UtilTest.expectResultWithin 0.001 1
-        , Test.test "Distance 3" <|
+                case Scale.getColor (Scale.createData Scale.defaultData whiteYellowRedBlackLab) 0.5 of
+                    Types.LABColor l a b ->
+                        Expect.within (Expect.Absolute 0.0001) l 50
+
+                    _ ->
+                        Expect.fail "Wrong type returned"
+        , Test.test "Simple two colour RGB" <|
             \_ ->
-                Result.map2 Chroma.distance255 c1 c2 |> UtilTest.expectResultWithin 0.001 255
-        , Test.test "Distance 4" <|
-            \_ ->
-                Result.map2 Chroma.distance255 c1 c3 |> UtilTest.expectResultWithin 0.001 255
-        , Test.test "Distance 5" <|
-            \_ ->
-                Result.map2 Chroma.distanceWithLab c1 c2 |> UtilTest.expectResultWithin 0.001 96.948
-        , Test.test "Distance 6" <|
-            \_ ->
-                Result.map2 Chroma.distanceWithLab c1 c3 |> UtilTest.expectResultWithin 0.001 122.163
+                case Scale.getColor (Scale.createData Scale.defaultData whiteAndBlackRgb) 0.25 of
+                    Types.ExtColor c ->
+                        Color.toRgba c |> (\rgba -> Expect.within (Expect.Absolute 0.0001) rgba.red 0.75)
+
+                    _ ->
+                        Expect.fail "Wrong type returned"
         ]
