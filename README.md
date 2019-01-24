@@ -6,10 +6,13 @@ Clone of Chroma.js
 - ```yarn run elm make```
 - ```yarn run elm-test```
 
-# Link
+# Links
 
 How to release Elm package:
 - https://medium.com/@Max_Goldstein/how-to-publish-an-elm-package-3053b771e545
+
+Idiomatic Guide to Releasing Elm:
+- https://github.com/dillonkearns/idiomatic-elm-package-guide
 
 # Thanks
 
