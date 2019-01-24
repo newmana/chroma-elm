@@ -4,6 +4,7 @@ module Chroma.Types exposing
     , Hsla
     , LabColor
     , Mode(..)
+    , Rgba255Color
     , RgbaColor
     , asNonEmptyList
     )
@@ -54,6 +55,14 @@ type alias RgbaColor =
     { red : Float
     , green : Float
     , blue : Float
+    , alpha : Float
+    }
+
+
+type alias Rgba255Color =
+    { red : Int
+    , green : Int
+    , blue : Int
     , alpha : Float
     }
 

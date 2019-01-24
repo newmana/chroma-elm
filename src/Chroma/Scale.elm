@@ -89,6 +89,15 @@ createData newColors data =
     { data | pos = createPos newColors, colors = ensureTwoColors }
 
 
+asRgba255 : Types.ExtColor -> Types.Rgba255Color
+asRgba255 color =
+    let
+        realColor =
+            asRgba color
+    in
+    { red = realColor.red * 255 |> round, green = realColor.green * 255 |> round, blue = realColor.blue * 255 |> round, alpha = realColor.alpha }
+
+
 asRgba : Types.ExtColor -> Types.RgbaColor
 asRgba color =
     case color of
