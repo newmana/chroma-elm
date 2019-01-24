@@ -13,6 +13,8 @@ import Color exposing (Color, rgb255)
 import List.Nonempty as Nonempty
 
 
+{-| TBD
+-}
 virdis : Nonempty.Nonempty Color
 virdis =
     Nonempty.Nonempty (rgb255 68 1 84)

@@ -51,151 +51,211 @@ named str =
     Result.fromMaybe ("Cannot find " ++ str) (Dict.get str w3cx11)
 
 
+{-| TBD
+-}
 aliceBlue : Color
 aliceBlue =
     rgb255 240 248 255
 
 
+{-| TBD
+-}
 antiqueWhite : Color
 antiqueWhite =
     rgb255 250 235 215
 
 
+{-| TBD
+-}
 aquamarine : Color
 aquamarine =
     rgb255 127 255 212
 
 
+{-| TBD
+-}
 aqua : Color
 aqua =
     rgb255 0 255 255
 
 
+{-| TBD
+-}
 azure : Color
 azure =
     rgb255 240 255 255
 
 
+{-| TBD
+-}
 beige : Color
 beige =
     rgb255 245 245 220
 
 
+{-| TBD
+-}
 bisque : Color
 bisque =
     rgb255 255 228 196
 
 
+{-| TBD
+-}
 black : Color
 black =
     Color.black
 
 
+{-| TBD
+-}
 blanchedalmond : Color
 blanchedalmond =
     rgb255 255 235 205
 
 
+{-| TBD
+-}
 blue : Color
 blue =
     rgb255 0 0 255
 
 
+{-| TBD
+-}
 blueviolet : Color
 blueviolet =
     rgb255 138 43 226
 
 
+{-| TBD
+-}
 brown : Color
 brown =
     rgb255 165 42 42
 
 
+{-| TBD
+-}
 burlywood : Color
 burlywood =
     rgb255 222 184 135
 
 
+{-| TBD
+-}
 cadetblue : Color
 cadetblue =
     rgb255 95 158 160
 
 
+{-| TBD
+-}
 chartreuse : Color
 chartreuse =
     rgb255 127 255 0
 
 
+{-| TBD
+-}
 chocolate : Color
 chocolate =
     rgb255 210 105 30
 
 
+{-| TBD
+-}
 coral : Color
 coral =
     rgb255 255 127 80
 
 
+{-| TBD
+-}
 cornflowerblue : Color
 cornflowerblue =
     rgb255 100 149 237
 
 
+{-| TBD
+-}
 crimson : Color
 crimson =
     rgb255 220 20 60
 
 
+{-| TBD
+-}
 cyan : Color
 cyan =
     rgb255 0 255 255
 
 
+{-| TBD
+-}
 cornsilk : Color
 cornsilk =
     rgb255 255 248 220
 
 
+{-| TBD
+-}
 firebrick : Color
 firebrick =
     rgb255 178 34 34
 
 
+{-| TBD
+-}
 gold : Color
 gold =
     rgb255 255 215 0
 
 
+{-| TBD
+-}
 hotpink : Color
 hotpink =
     rgb255 255 105 180
 
 
+{-| TBD
+-}
 indigo : Color
 indigo =
     rgb255 75 0 130
 
 
+{-| TBD
+-}
 indianred : Color
 indianred =
     rgb255 205 92 92
 
 
+{-| TBD
+-}
 red : Color
 red =
     rgb255 255 0 0
 
 
+{-| TBD
+-}
 yellow : Color
 yellow =
     rgb255 255 255 0
 
 
+{-| TBD
+-}
 white : Color
 white =
     Color.white
 
 
+{-| TBD
+-}
 w3cx11 : Dict.Dict String Color
 w3cx11 =
     Dict.fromList
