@@ -1,5 +1,5 @@
 # chroma.elm
-Clone of Chroma.js
+Clone of [Chroma.js](https://gka.github.io/chroma.js)
 
 # Development
 - ```yarn install```
