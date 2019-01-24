@@ -5,8 +5,9 @@
     "license": "Apache-2.0",
     "version": "1.0.0",
     "exposed-modules": [
-        "Chroma",
-        "Scale"
+        "Chroma.Chroma",
+        "Chroma.Scale",
+        "Chroma.Interpolator"
     ],
     "elm-version": "0.19.0 <= v < 0.20.0",
     "dependencies": {
