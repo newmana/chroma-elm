@@ -1,11 +1,11 @@
-module Converter.Hex2RgbTest exposing (testHex, tests, threeHex3, threeHex6, threeHex8)
+module Chroma.Converter.Hex2RgbTest exposing (testHex, tests, threeHex3, threeHex6, threeHex8)
 
+import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
+import Chroma.Types as Types
 import Color as Color
-import Converter.In.Hex2Rgb as Hex2Rgb
 import Expect
 import Fuzz as Fuzz
 import Test as Test
-import Types as Types
 import UtilTest as Util
 
 

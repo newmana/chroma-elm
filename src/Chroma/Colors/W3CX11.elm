@@ -1,4 +1,4 @@
-module Colors.W3CX11 exposing
+module Chroma.Colors.W3CX11 exposing
     ( aliceBlue
     , antiqueWhite
     , aqua

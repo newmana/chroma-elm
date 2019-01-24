@@ -1,7 +1,7 @@
-module Interpolator exposing (interpolate)
+module Chroma.Interpolator exposing (interpolate)
 
+import Chroma.Types as Types
 import Color as Color
-import Types as Types
 
 
 interpolate : Types.ExtColor -> Types.ExtColor -> Float -> Types.ExtColor

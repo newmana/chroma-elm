@@ -1,9 +1,9 @@
-module Converter.Out.ToHsl exposing (toHsl)
+module Chroma.Converter.Out.ToHsl exposing (toHsl)
 
+import Chroma.Converter.In.Cmyk2Rgb as Cmyk2Rgb
+import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
+import Chroma.Types as Types
 import Color as Color
-import Converter.In.Cmyk2Rgb as Cmyk2Rgb
-import Converter.In.Lab2Rgb as Lab2Rgb
-import Types as Types
 
 
 toHsl : Types.ExtColor -> Types.Hsla

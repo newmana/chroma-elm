@@ -1,10 +1,10 @@
-module ChromaTest exposing (c1, c2, c3, testDistance, tests)
+module Chroma.ChromaTest exposing (c1, c2, c3, testDistance, tests)
 
-import Chroma as Chroma
-import Converter.In.Hex2Rgb as Hex2Rgb
+import Chroma.Chroma as Chroma
+import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
+import Chroma.Types as Types
 import Result as Result
 import Test as Test
-import Types as Types
 import UtilTest as UtilTest
 
 

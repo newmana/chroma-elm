@@ -1,4 +1,4 @@
-module Colors.Virdis exposing (virdis)
+module Chroma.Colors.Virdis exposing (virdis)
 
 import Color exposing (Color, rgb255)
 import List.Nonempty as Nonempty

@@ -1,9 +1,9 @@
-module Converter.Out.ToLab exposing (toLab, toLabExtColor)
+module Chroma.Converter.Out.ToLab exposing (toLab, toLabExtColor)
 
+import Chroma.Converter.In.Cmyk2Rgb as Cmyk2Rgb
+import Chroma.Converter.Misc.LabConstants as Constants
+import Chroma.Types as Types
 import Color as Color
-import Converter.In.Cmyk2Rgb as Cmyk2Rgb
-import Converter.Misc.LabConstants as Constants
-import Types as Types
 
 
 toLabExtColor : Color.Color -> Types.ExtColor

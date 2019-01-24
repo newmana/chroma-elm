@@ -1,4 +1,4 @@
-module Converter.Misc.LabConstants exposing
+module Chroma.Converter.Misc.LabConstants exposing
     ( kn
     , t0
     , t1

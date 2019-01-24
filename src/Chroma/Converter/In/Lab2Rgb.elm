@@ -1,8 +1,8 @@
-module Converter.In.Lab2Rgb exposing (lab2rgb)
+module Chroma.Converter.In.Lab2Rgb exposing (lab2rgb)
 
+import Chroma.Converter.Misc.LabConstants as Constants
+import Chroma.Types as Types
 import Color as Color
-import Converter.Misc.LabConstants as Constants
-import Types as Types
 
 
 lab2rgb : Types.LabColor -> Color.Color

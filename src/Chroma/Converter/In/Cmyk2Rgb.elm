@@ -1,7 +1,7 @@
-module Converter.In.Cmyk2Rgb exposing (cmyk2rgb)
+module Chroma.Converter.In.Cmyk2Rgb exposing (cmyk2rgb)
 
+import Chroma.Types as Types
 import Color as Color
-import Types as Types
 
 
 cmyk2rgb : { cyan : Float, magenta : Float, yellow : Float, black : Float } -> Color.Color

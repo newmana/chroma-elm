@@ -1,4 +1,4 @@
-module Scale exposing
+module Chroma.Scale exposing
     ( Data
     , classes
     , classesArray
@@ -12,11 +12,11 @@ module Scale exposing
     , getColor
     )
 
+import Chroma.Colors.W3CX11 as W3CX11
+import Chroma.Interpolator as Interpolator
+import Chroma.Types as Types
 import Color as Color
-import Colors.W3CX11 as W3CX11
-import Interpolator as Interpolator
 import List.Nonempty as Nonempty
-import Types as Types
 
 
 type alias Data =

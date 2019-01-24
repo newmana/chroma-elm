@@ -1,4 +1,4 @@
-module Colors.Brewer exposing
+module Chroma.Colors.Brewer exposing
     ( accent
     , blues
     , brBG

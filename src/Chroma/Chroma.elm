@@ -1,4 +1,4 @@
-module Chroma exposing
+module Chroma.Chroma exposing
     ( chroma
     , distance
     , distance255
@@ -7,16 +7,16 @@ module Chroma exposing
     , scaleDefault
     )
 
+import Chroma.Colors.W3CX11 as W3CX11
+import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
+import Chroma.Converter.Out.ToLab as ToLab
+import Chroma.Scale as Scale
+import Chroma.Types as Types
 import Color as Color
-import Colors.W3CX11 as W3CX11
-import Converter.In.Hex2Rgb as Hex2Rgb
-import Converter.Out.ToLab as ToLab
 import Debug
 import Flip as Flip
 import List.Nonempty as Nonempty
 import Result as Result
-import Scale as Scale
-import Types as Types
 
 
 chroma : String -> Result String Types.ExtColor

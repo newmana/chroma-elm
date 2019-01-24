@@ -1,4 +1,4 @@
-module Converter.In.Hex2Rgb exposing
+module Chroma.Converter.In.Hex2Rgb exposing
     ( hex2rgb
     , hex3Or6Or8
     )

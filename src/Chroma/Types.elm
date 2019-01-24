@@ -1,4 +1,4 @@
-module Types exposing
+module Chroma.Types exposing
     ( CymkColor
     , ExtColor(..)
     , Hsla
