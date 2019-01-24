@@ -1,5 +1,14 @@
 module Chroma.Colors.Virdis exposing (virdis)
 
+{-| The objectively, best color scheme (Somewhere Over the Rainbow: An Empirical Assessmentof Quantitative Colormaps <https://idl.cs.washington.edu/files/2018-QuantitativeColor-CHI.pdf>)
+
+
+# Colour Ramp
+
+@docs virdis
+
+-}
+
 import Color exposing (Color, rgb255)
 import List.Nonempty as Nonempty
 

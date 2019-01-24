@@ -1,42 +1,51 @@
 module Chroma.Colors.W3CX11 exposing
-    ( aliceBlue
-    , antiqueWhite
-    , aqua
-    , aquamarine
-    , azure
-    , beige
-    , bisque
-    , black
-    , blanchedalmond
-    , blue
-    , blueviolet
-    , brown
-    , burlywood
-    , cadetblue
-    , chartreuse
-    , chocolate
-    , coral
-    , cornflowerblue
-    , cornsilk
-    , crimson
-    , cyan
+    ( named, w3cx11
+    , aliceBlue, antiqueWhite, aqua, azure, aquamarine
+    , beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
+    , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
     , firebrick
     , gold
     , hotpink
-    , indianred
-    , indigo
-    , named
+    , indianred, indigo
     , red
-    , w3cx11
     , white
     , yellow
     )
+
+{-| All of the X11 color names <<https://en.wikipedia.org/wiki/X11_color_names>
+
+
+# Definition
+
+@docs named, w3cx11
+
+
+# Colours
+
+@docs aliceBlue, antiqueWhite, aqua, azure, aquamarine
+@docs beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
+@docs chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
+@docs firebrick
+@docs gold
+@docs hotpink
+@docs indianred, indigo
+@docs red
+@docs white
+@docs yellow
+
+-}
 
 import Color exposing (Color, rgb255)
 import Dict
 import Result
 
 
+{-| Lookup a colour by name.
+
+    named "red"
+    --> Ok rgb255 255 0 0 0
+
+-}
 named : String -> Result String Color.Color
 named str =
     Result.fromMaybe ("Cannot find " ++ str) (Dict.get str w3cx11)

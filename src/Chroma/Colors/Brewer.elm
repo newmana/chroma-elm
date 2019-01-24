@@ -36,6 +36,9 @@ module Chroma.Colors.Brewer exposing
     , ylOrRd
     )
 
+{-| All colorbrewer 2.0 colors <http://colorbrewer2.org/>
+-}
+
 import Color exposing (Color, rgb255)
 import List.Nonempty as Nonempty
 

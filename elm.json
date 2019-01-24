@@ -7,7 +7,10 @@
     "exposed-modules": [
         "Chroma.Chroma",
         "Chroma.Scale",
-        "Chroma.Interpolator"
+        "Chroma.Interpolator",
+        "Chroma.Colors.Brewer",
+        "Chroma.Colors.Virdis",
+        "Chroma.Colors.W3CX11"
     ],
     "elm-version": "0.19.0 <= v < 0.20.0",
     "dependencies": {
