@@ -1,16 +1,21 @@
 module Chroma.Scale exposing
-    ( Data
-    , classes
-    , classesArray
-    , colorsFormat
-    , colorsNum
-    , correctLightness
-    , createData
-    , createPos
-    , defaultData
-    , domain
-    , getColor
+    ( getColor, domain, correctLightness, Data, classes, createData, defaultData
+    , asRgba255, asRgba
     )
+
+{-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
+
+
+# Definition
+
+@docs getColor, domain, correctLightness, Data, classes, createData, defaultData
+
+
+# Helpers
+
+@docs asRgba255, asRgba
+
+-}
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Cmyk2Rgb as Cymk2Rgb
@@ -21,6 +26,8 @@ import Color as Color
 import List.Nonempty as Nonempty
 
 
+{-| Configuration data used by most functions.
+-}
 type alias Data =
     { mode : Types.Mode
     , nanColor : Color.Color
@@ -39,6 +46,8 @@ type alias Data =
     }
 
 
+{-| Sensible default configuration defaults: RGB, domain 0-1, pos 0, 1,and white and black colour range.
+-}
 defaultData : Data
 defaultData =
     { mode = Types.RGB
@@ -64,6 +73,8 @@ defaultData =
 -- mode is equidistant, log, k-means or quantile
 
 
+{-| Recalculate pos based on new colours.
+-}
 createPos : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty ( Float, Float )
 createPos newColors =
     let
@@ -76,6 +87,8 @@ createPos newColors =
     newPos
 
 
+{-| Setup new configuration with the given colours.
+-}
 createData : Nonempty.Nonempty Types.ExtColor -> Data -> Data
 createData newColors data =
     let
@@ -89,6 +102,8 @@ createData newColors data =
     { data | pos = createPos newColors, colors = ensureTwoColors }
 
 
+{-| Takes a result from getColor and returns Integer (0-255) RGB values.
+-}
 asRgba255 : Types.ExtColor -> Types.Rgba255Color
 asRgba255 color =
     let
@@ -98,6 +113,8 @@ asRgba255 color =
     { red = realColor.red * 255 |> round, green = realColor.green * 255 |> round, blue = realColor.blue * 255 |> round, alpha = realColor.alpha }
 
 
+{-| Takes a result from getColor and returns Float (0-1) RGB values.
+-}
 asRgba : Types.ExtColor -> Types.RgbaColor
 asRgba color =
     case color of
@@ -162,22 +179,27 @@ getColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, u
         Interpolator.interpolate (Nonempty.get finishedIndex colors) (Nonempty.get (finishedIndex + 1) colors) t
 
 
-createDomainPos : Float -> Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty ( Float, Float )
-createDomainPos min max newDomain =
+createDomainPos : Nonempty.Nonempty ( Float, Float ) -> Float -> Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty ( Float, Float )
+createDomainPos oldPos min max newDomain =
     let
         newDenom =
             max - min
 
-        nonEmptyTail =
+        maybeNonEmptyTail =
             case Nonempty.tail newDomain of
                 [] ->
-                    Debug.todo "Should not happen"
+                    Nothing
 
                 h :: r ->
-                    Nonempty.Nonempty h r
+                    Just (Nonempty.Nonempty h r)
 
         pairUp =
-            Nonempty.zip newDomain nonEmptyTail
+            case maybeNonEmptyTail of
+                Nothing ->
+                    oldPos
+
+                Just nonEmptyTail ->
+                    Nonempty.zip newDomain nonEmptyTail
 
         newPos =
             Nonempty.indexedMap (\i ( d1, d2 ) -> ( d1 - min / newDenom, d2 - min / newDenom )) pairUp
@@ -185,6 +207,8 @@ createDomainPos min max newDomain =
     newPos
 
 
+{-| Set a new domain like [0,100] rather than the default [0,1]
+-}
 domain : Nonempty.Nonempty Float -> Data -> Data
 domain newDomain data =
     let
@@ -193,7 +217,7 @@ domain newDomain data =
 
         newPos =
             if Nonempty.length newDomain == Nonempty.length data.colors && newMin /= newMax then
-                createDomainPos newMin newMax newDomain
+                createDomainPos data.pos newMin newMax newDomain
 
             else
                 createPos data.colors
@@ -209,6 +233,8 @@ type alias Convergence =
     }
 
 
+{-| Given a data change the lightness value (need to be LAB).
+-}
 correctLightness : Data -> Float -> Float
 correctLightness data val =
     let
@@ -282,6 +308,8 @@ colorsFormat colors format num =
     []
 
 
+{-| TBD
+-}
 classes : List Color.Color -> Int -> List Color.Color
 classes colors num =
     []

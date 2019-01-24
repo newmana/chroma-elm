@@ -1,11 +1,23 @@
 module Chroma.Chroma exposing
-    ( chroma
-    , distance
-    , distance255
-    , distanceWithLab
-    , scale
+    ( chroma, scale, distance, distance255, distanceWithLab
     , scaleDefault
     )
+
+{-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
+
+Currently, incomplete - on Scale works.
+
+
+# Definition
+
+@docs chroma, scale, distance, distance255, distanceWithLab
+
+
+# Helpers
+
+@docs scaleDefault
+
+-}
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
@@ -13,12 +25,13 @@ import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Scale as Scale
 import Chroma.Types as Types
 import Color as Color
-import Debug
 import Flip as Flip
 import List.Nonempty as Nonempty
 import Result as Result
 
 
+{-| TBD
+-}
 chroma : String -> Result String Types.ExtColor
 chroma str =
     case W3CX11.named str of
@@ -29,16 +42,22 @@ chroma str =
             Hex2Rgb.hex2rgb str |> Result.map Types.ExtColor
 
 
+{-| TBD
+-}
 scaleDefault : List (Float -> Types.ExtColor)
 scaleDefault =
     scale Scale.defaultData [ Types.ExtColor W3CX11.white, Types.ExtColor W3CX11.black ]
 
 
+{-| TBD
+-}
 scale : Scale.Data -> List Types.ExtColor -> List (Float -> Types.ExtColor)
-scale colors =
-    Debug.todo ""
+scale data colors =
+    []
 
 
+{-| TBD
+-}
 distanceWithLab : Types.ExtColor -> Types.ExtColor -> Float
 distanceWithLab color1 color2 =
     let
@@ -48,6 +67,8 @@ distanceWithLab color1 color2 =
     distance (labColor color1) (labColor color2)
 
 
+{-| TBD
+-}
 distance255 : Types.ExtColor -> Types.ExtColor -> Float
 distance255 color1 color2 =
     let
@@ -60,6 +81,8 @@ distance255 color1 color2 =
     calcDistance fstColor255 sndColor255
 
 
+{-| TBD
+-}
 distance : Types.ExtColor -> Types.ExtColor -> Float
 distance color1 color2 =
     let
