@@ -12,7 +12,7 @@ module Chroma.Colors.W3CX11 exposing
     , yellow
     )
 
-{-| All of the X11 color names <<https://en.wikipedia.org/wiki/X11_color_names>
+{-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
 
 
 # Definition
@@ -43,7 +43,7 @@ import Result
 {-| Lookup a colour by name.
 
     named "red"
-    --> Ok rgb255 255 0 0 0
+    --> Ok (RgbaSpace 1 0 0 1) : Result String Color.Color
 
 -}
 named : String -> Result String Color.Color
