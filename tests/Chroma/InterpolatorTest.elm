@@ -1,4 +1,4 @@
-module InterpolatorTest exposing (blackLab, redLab, testInterpolate, tests, whiteLab, yellowLab)
+module Chroma.InterpolatorTest exposing (blackLab, redLab, testInterpolate, tests, whiteLab, yellowLab)
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
@@ -123,7 +123,7 @@ testInterpolate =
                     _ ->
                         Expect.fail "Wrong type returned"
 
-        --         Test.test "Hot with correction and domain [0,100] lab" <|
+        --        , Test.test "Hot with correction and domain [0,100] lab" <|
         --            \_ ->
         --                let
         --                    newData =
@@ -149,22 +149,19 @@ testInterpolate =
                     _ ->
                         Expect.fail "Wrong type returned"
 
-        --          Test.test "Hot with correction and domain [0,20,40,60,80,100] lab" <|
+        --        , Test.test "Hot with correction and domain [0,20,40,60,80,100] lab" <|
         --            \_ ->
         --                let
         --                    newData =
         --                        Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 20, 40, 60, 80, 100 ]) |> whiteYellowRedBlackLabColors
         --
-        --                    _ =
-        --                        Debug.log "New data" newData
         --                in
         --                case Scale.getColor { newData | useCorrectLightness = True } 50 of
         --                    Types.LABColor lab ->
-        --                        Expect.within (Expect.Absolute 0.0001) lab.lightness 50
+        --                        Expect.within (Expect.Absolute 0.0001) lab.lightness 49
         --
         --                    _ ->
         --                        Expect.fail "Wrong type returned"
-        --
         , Test.test "Simple two colour RGB" <|
             \_ ->
                 let

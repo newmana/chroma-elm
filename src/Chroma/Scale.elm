@@ -155,28 +155,37 @@ getColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, u
 
         boundedT =
             clamp 0 1 paddedT
-    in
-    if boundedT <= 0 then
-        Nonempty.head colors
 
-    else if boundedT >= 1 then
-        Nonempty.get -1 colors
+        posMax =
+            Nonempty.length pos - 1
 
-    else
-        let
-            ( t, finishedIndex, _ ) =
-                Nonempty.foldl
-                    (\( p0, p1 ) ( result, foundIndex, i ) ->
-                        if boundedT > p0 && boundedT < p1 then
-                            ( (boundedT - p0) / (p1 - p0), i, i + 1 )
+        ( _, finalResult, _ ) =
+            Nonempty.foldl
+                (\( p0, p1 ) ( found, result, i ) ->
+                    if not found then
+                        if (boundedT <= p0) || (boundedT >= p0 && i == posMax) then
+                            ( True, Nonempty.get i colors, i )
+
+                        else if boundedT > p0 && boundedT < p1 then
+                            let
+                                newT =
+                                    (boundedT - p0) / (p1 - p0)
+
+                                interT =
+                                    Interpolator.interpolate (Nonempty.get i colors) (Nonempty.get (i + 1) colors) newT
+                            in
+                            ( True, interT, i )
 
                         else
-                            ( result, foundIndex, i + 1 )
-                    )
-                    ( 0, 0, 0 )
-                    pos
-        in
-        Interpolator.interpolate (Nonempty.get finishedIndex colors) (Nonempty.get (finishedIndex + 1) colors) t
+                            ( found, result, i + 1 )
+
+                    else
+                        ( found, result, i + 1 )
+                )
+                ( False, Types.ExtColor W3CX11.black, 0 )
+                pos
+    in
+    finalResult
 
 
 createDomainPos : Nonempty.Nonempty ( Float, Float ) -> Float -> Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty ( Float, Float )
