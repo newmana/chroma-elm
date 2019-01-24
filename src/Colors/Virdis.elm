@@ -4,12 +4,8 @@ import Color exposing (Color, rgb255)
 import List.Nonempty as Nonempty
 
 
-
--- Sequential
-
-
-orRd : Nonempty.Nonempty Color
-orRd =
+virdis : Nonempty.Nonempty Color
+virdis =
     Nonempty.Nonempty (rgb255 68 1 84)
         [ rgb255 72 21 103
         , rgb255 72 38 119
