@@ -1,18 +1,20 @@
-module Chroma.Types exposing
-    ( CymkColor
-    , ExtColor(..)
-    , Hsla
-    , LabColor
-    , Mode(..)
-    , Rgba255Color
-    , RgbaColor
-    , asNonEmptyList
-    )
+module Chroma.Types exposing (CymkColor, ExtColor(..), Hsla, LabColor, Mode(..), Rgba255Color, RgbaColor, asNonEmptyList)
+
+{-| Types
+
+
+# Definition
+
+@docs CymkColor, ExtColor, Hsla, LabColor, Mode, Rgba255Color, RgbaColor, asNonEmptyList
+
+-}
 
 import Color as Color
 import List.Nonempty as Nonempty
 
 
+{-| TBD
+-}
 type Mode
     = CMYK
       --    | CSS
@@ -30,12 +32,16 @@ type Mode
 --    | Temperature
 
 
+{-| TBD
+-}
 type ExtColor
     = ExtColor Color.Color
     | CMYKColor CymkColor
     | LABColor LabColor
 
 
+{-| TBD
+-}
 type alias LabColor =
     { lightness : Float
     , labA : Float
@@ -43,6 +49,8 @@ type alias LabColor =
     }
 
 
+{-| TBD
+-}
 type alias CymkColor =
     { cyan : Float
     , magenta : Float
@@ -51,6 +59,8 @@ type alias CymkColor =
     }
 
 
+{-| TBD
+-}
 type alias RgbaColor =
     { red : Float
     , green : Float
@@ -59,6 +69,8 @@ type alias RgbaColor =
     }
 
 
+{-| TBD
+-}
 type alias Rgba255Color =
     { red : Int
     , green : Int
@@ -67,6 +79,8 @@ type alias Rgba255Color =
     }
 
 
+{-| TBD
+-}
 type alias Hsla =
     { hue : Float
     , saturation : Float
@@ -75,6 +89,8 @@ type alias Hsla =
     }
 
 
+{-| TBD
+-}
 asNonEmptyList : ExtColor -> Nonempty.Nonempty Float
 asNonEmptyList color =
     case color of

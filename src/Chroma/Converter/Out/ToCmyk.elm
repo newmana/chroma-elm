@@ -1,11 +1,22 @@
 module Chroma.Converter.Out.ToCmyk exposing (toCmyk)
 
+{-| Convert ExtColor to CMYK
+
+
+# Definition
+
+@docs toCmyk
+
+-}
+
 import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Types as Types
 import Color as Color
 import Flip as Flip
 
 
+{-| TBD
+-}
 toCmyk : Types.ExtColor -> Types.CymkColor
 toCmyk color =
     let

@@ -1,8 +1,19 @@
 module Chroma.Converter.In.Cmyk2Rgb exposing (cmyk2rgb)
 
+{-| Convert CMYK to RGB (floats)
+
+
+# Definition
+
+@docs cmyk2rgb
+
+-}
+
 import Color as Color
 
 
+{-| TBD
+-}
 cmyk2rgb : { cyan : Float, magenta : Float, yellow : Float, black : Float } -> Color.Color
 cmyk2rgb { cyan, magenta, yellow, black } =
     let

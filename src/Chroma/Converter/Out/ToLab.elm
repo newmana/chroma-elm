@@ -1,4 +1,21 @@
-module Chroma.Converter.Out.ToLab exposing (toLab, toLabExtColor)
+module Chroma.Converter.Out.ToLab exposing
+    ( toLab
+    , toLabExtColor
+    )
+
+{-| Convert ExtColor to LAB
+
+
+# Definition
+
+@docs toLab
+
+
+# Helper
+
+@docs toLabExtColor
+
+-}
 
 import Chroma.Converter.In.Cmyk2Rgb as Cmyk2Rgb
 import Chroma.Converter.Misc.LabConstants as Constants
@@ -6,11 +23,15 @@ import Chroma.Types as Types
 import Color as Color
 
 
+{-| TBD
+-}
 toLabExtColor : Color.Color -> Types.ExtColor
 toLabExtColor color =
     toLab (Types.ExtColor color) |> Types.LABColor
 
 
+{-| TBD
+-}
 toLab : Types.ExtColor -> Types.LabColor
 toLab color =
     case color of

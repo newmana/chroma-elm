@@ -1,7 +1,13 @@
-module Chroma.Converter.In.Hex2Rgb exposing
-    ( hex2rgb
-    , hex3Or6Or8
-    )
+module Chroma.Converter.In.Hex2Rgb exposing (hex2rgb)
+
+{-| Convert Hex String (like #ffffff and #fff) to RGB (floats)
+
+
+# Definition
+
+@docs hex2rgb
+
+-}
 
 import Char
 import Color as Color
@@ -101,6 +107,8 @@ hex3Or6Or8 str =
     removeHash (String.toList str) |> Maybe.andThen convertFromHex
 
 
+{-| TBD
+-}
 hex2rgb : String -> Result String Color.Color
 hex2rgb hex =
     case hex3Or6Or8 hex of
