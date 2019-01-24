@@ -13,6 +13,8 @@ module Chroma.Scale exposing
     )
 
 import Chroma.Colors.W3CX11 as W3CX11
+import Chroma.Converter.In.Cmyk2Rgb as Cymk2Rgb
+import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Interpolator as Interpolator
 import Chroma.Types as Types
 import Color as Color
@@ -85,6 +87,19 @@ createData newColors data =
                 newColors
     in
     { data | pos = createPos newColors, colors = ensureTwoColors }
+
+
+asRgba : Types.ExtColor -> Types.RgbaColor
+asRgba color =
+    case color of
+        Types.ExtColor c ->
+            Color.toRgba c
+
+        Types.CMYKColor cmyk ->
+            Cymk2Rgb.cmyk2rgb cmyk |> Color.toRgba
+
+        Types.LABColor lab ->
+            Lab2Rgb.lab2rgb lab |> Color.toRgba
 
 
 {-| Finish <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L119> >
