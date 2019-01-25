@@ -122,19 +122,18 @@ testInterpolate =
 
                     _ ->
                         Expect.fail "Wrong type returned"
+        , Test.test "Hot with correction and domain [0,100] lab" <|
+            \_ ->
+                let
+                    newData =
+                        Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 100 ]) |> whiteYellowRedBlackLabColors
+                in
+                case Scale.getColor { newData | useCorrectLightness = True } 50 of
+                    Types.LABColor lab ->
+                        Expect.within (Expect.Absolute 1.0) lab.lightness 50
 
-        --        , Test.test "Hot with correction and domain [0,100] lab" <|
-        --            \_ ->
-        --                let
-        --                    newData =
-        --                        Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 100 ]) |> whiteYellowRedBlackLabColors
-        --                in
-        --                case Scale.getColor { newData | useCorrectLightness = True } 50 of
-        --                    Types.LABColor lab ->
-        --                        Expect.within (Expect.Absolute 0.0001) lab.lightness 50
-        --
-        --                    _ ->
-        --                        Expect.fail "Wrong type returned"
+                    _ ->
+                        Expect.fail "Wrong type returned"
         , Test.test "Hot with no correction and domain [0,20,40,60,80,100] lab" <|
             \_ ->
                 let
@@ -148,20 +147,18 @@ testInterpolate =
 
                     _ ->
                         Expect.fail "Wrong type returned"
+        , Test.test "Hot with correction and domain [0,20,40,60,80,100] lab" <|
+            \_ ->
+                let
+                    newData =
+                        Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 20, 40, 60, 80, 100 ]) |> whiteYellowRedBlackLabColors
+                in
+                case Scale.getColor { newData | useCorrectLightness = True } 50 of
+                    Types.LABColor lab ->
+                        Expect.within (Expect.Absolute 1.0) lab.lightness 50
 
-        --        , Test.test "Hot with correction and domain [0,20,40,60,80,100] lab" <|
-        --            \_ ->
-        --                let
-        --                    newData =
-        --                        Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 20, 40, 60, 80, 100 ]) |> whiteYellowRedBlackLabColors
-        --
-        --                in
-        --                case Scale.getColor { newData | useCorrectLightness = True } 50 of
-        --                    Types.LABColor lab ->
-        --                        Expect.within (Expect.Absolute 0.0001) lab.lightness 49
-        --
-        --                    _ ->
-        --                        Expect.fail "Wrong type returned"
+                    _ ->
+                        Expect.fail "Wrong type returned"
         , Test.test "Simple two colour RGB" <|
             \_ ->
                 let

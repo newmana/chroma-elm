@@ -30,6 +30,7 @@ import List.Nonempty as Nonempty
 -}
 type alias Data =
     { mode : Types.Mode
+    , interpolateValue : Bool
     , nanColor : Color.Color
     , spread : Float
     , isFixed : Bool
@@ -51,6 +52,7 @@ type alias Data =
 defaultData : Data
 defaultData =
     { mode = Types.RGB
+    , interpolateValue = True
     , nanColor = Color.rgb 204 204 204
     , spread = 0
     , isFixed = False
@@ -93,7 +95,7 @@ createData : Nonempty.Nonempty Types.ExtColor -> Data -> Data
 createData newColors data =
     let
         ensureTwoColors =
-            if Nonempty.length newColors == 1 then
+            if Nonempty.isSingleton newColors then
                 Nonempty.cons (Nonempty.head newColors) newColors
 
             else
@@ -135,7 +137,11 @@ getColor : Data -> Float -> Types.ExtColor
 getColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } as data) val =
     let
         startT =
-            (val - min) / (max - min)
+            if data.interpolateValue && min /= max then
+                (val - min) / (max - min)
+
+            else
+                val
 
         paddingValuesHead =
             Nonempty.head paddingValues
@@ -247,17 +253,20 @@ type alias Convergence =
 correctLightness : Data -> Float -> Float
 correctLightness data val =
     let
+        correctData =
+            { data | interpolateValue = False }
+
         l0 =
-            getColor data 0 |> Types.asNonEmptyList |> Nonempty.head
+            getColor correctData 0 |> Types.asNonEmptyList |> Nonempty.head
 
         l1 =
-            getColor data 1 |> Types.asNonEmptyList |> Nonempty.head
+            getColor correctData 1 |> Types.asNonEmptyList |> Nonempty.head
 
         pol =
             l0 > l1
 
         actual =
-            getColor data val |> Types.asNonEmptyList |> Nonempty.head
+            getColor correctData val |> Types.asNonEmptyList |> Nonempty.head
 
         ideal =
             l0 + ((l1 - l0) * val)
@@ -266,7 +275,7 @@ correctLightness data val =
             actual - ideal
 
         allResults =
-            convergeResult data 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
+            convergeResult correctData 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
     in
     allResults.t
 
