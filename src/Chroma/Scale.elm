@@ -30,7 +30,6 @@ import List.Nonempty as Nonempty
 -}
 type alias Data =
     { mode : Types.Mode
-    , interpolateValue : Bool
     , nanColor : Color.Color
     , spread : Float
     , isFixed : Bool
@@ -52,7 +51,6 @@ type alias Data =
 defaultData : Data
 defaultData =
     { mode = Types.RGB
-    , interpolateValue = True
     , nanColor = Color.rgb 204 204 204
     , spread = 0
     , isFixed = False
@@ -134,15 +132,13 @@ asRgba color =
 Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
 -}
 getColor : Data -> Float -> Types.ExtColor
-getColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } as data) val =
+getColor data val =
+    getDirectColor data ((val - data.min) / (data.max - data.min))
+
+
+getDirectColor : Data -> Float -> Types.ExtColor
+getDirectColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } as data) startT =
     let
-        startT =
-            if data.interpolateValue && min /= max then
-                (val - min) / (max - min)
-
-            else
-                val
-
         paddingValuesHead =
             Nonempty.head paddingValues
 
@@ -253,20 +249,17 @@ type alias Convergence =
 correctLightness : Data -> Float -> Float
 correctLightness data val =
     let
-        correctData =
-            { data | interpolateValue = False }
-
         l0 =
-            getColor correctData 0 |> Types.asNonEmptyList |> Nonempty.head
+            getDirectColor data 0 |> Types.asNonEmptyList |> Nonempty.head
 
         l1 =
-            getColor correctData 1 |> Types.asNonEmptyList |> Nonempty.head
+            getDirectColor data 1 |> Types.asNonEmptyList |> Nonempty.head
 
         pol =
             l0 > l1
 
         actual =
-            getColor correctData val |> Types.asNonEmptyList |> Nonempty.head
+            getDirectColor data val |> Types.asNonEmptyList |> Nonempty.head
 
         ideal =
             l0 + ((l1 - l0) * val)
@@ -275,7 +268,7 @@ correctLightness data val =
             actual - ideal
 
         allResults =
-            convergeResult correctData 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
+            convergeResult data 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
     in
     allResults.t
 
@@ -311,7 +304,7 @@ calcResult data pol ideal calcs =
                 ( newCalcs.t + ((newCalcs.t0 - newCalcs.t) * 0.5), newCalcs.t0, newCalcs.t )
 
         actual =
-            getColor data newT |> Types.asNonEmptyList |> Nonempty.head
+            getDirectColor data newT |> Types.asNonEmptyList |> Nonempty.head
     in
     { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
 
