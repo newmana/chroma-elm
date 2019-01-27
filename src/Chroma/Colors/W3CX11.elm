@@ -200,6 +200,174 @@ cornsilk =
 
 {-| TBD
 -}
+darkolivegreen : Color
+darkolivegreen =
+    rgb255 85 107 47
+
+
+{-| TBD
+-}
+darkseagreen : Color
+darkseagreen =
+    rgb255 143 188 143
+
+
+{-| TBD
+-}
+darkslategrey : Color
+darkslategrey =
+    rgb255 47 79 79
+
+
+{-| TBD
+-}
+dimgray : Color
+dimgray =
+    rgb255 105 105 105
+
+
+{-| TBD
+-}
+darkslategray : Color
+darkslategray =
+    rgb255 47 79 79
+
+
+{-| TBD
+-}
+dodgerblue : Color
+dodgerblue =
+    rgb255 30 144 255
+
+
+{-| TBD
+-}
+darkgrey : Color
+darkgrey =
+    rgb255 169 169 169
+
+
+{-| TBD
+-}
+darkturquoise : Color
+darkturquoise =
+    rgb255 0 206 209
+
+
+{-| TBD
+-}
+darkgreen : Color
+darkgreen =
+    rgb255 0 100 0
+
+
+{-| TBD
+-}
+darkviolet : Color
+darkviolet =
+    rgb255 148 0 211
+
+
+{-| TBD
+-}
+darkgray : Color
+darkgray =
+    rgb255 169 169 169
+
+
+{-| TBD
+-}
+darkslateblue : Color
+darkslateblue =
+    rgb255 47 79 79
+
+
+{-| TBD
+-}
+deeppink : Color
+deeppink =
+    rgb255 255 20 147
+
+
+{-| TBD
+-}
+darkmagenta : Color
+darkmagenta =
+    rgb255 139 0 139
+
+
+{-| TBD
+-}
+darkgoldenrod : Color
+darkgoldenrod =
+    rgb255 184 134 11
+
+
+{-| TBD
+-}
+dimgrey : Color
+dimgrey =
+    rgb255 105 105 105
+
+
+{-| TBD
+-}
+darkblue : Color
+darkblue =
+    rgb255 0 0 139
+
+
+{-| TBD
+-}
+darkkhaki : Color
+darkkhaki =
+    rgb255 189 183 107
+
+
+{-| TBD
+-}
+darkcyan : Color
+darkcyan =
+    rgb255 0 139 139
+
+
+{-| TBD
+-}
+darkorchid : Color
+darkorchid =
+    rgb255 153 50 204
+
+
+{-| TBD
+-}
+deepskyblue : Color
+deepskyblue =
+    rgb255 0 191 255
+
+
+{-| TBD
+-}
+darkred : Color
+darkred =
+    rgb255 139 0 0
+
+
+{-| TBD
+-}
+darkorange : Color
+darkorange =
+    rgb255 255 140 0
+
+
+{-| TBD
+-}
+darksalmon : Color
+darksalmon =
+    rgb255 233 150 122
+
+
+{-| TBD
+-}
 firebrick : Color
 firebrick =
     rgb255 178 34 34
@@ -266,9 +434,9 @@ w3cx11 =
         , ( "indianred", indianred )
         , ( "yellow", yellow )
         , ( "mistyrose", rgb255 255 228 225 )
-        , ( "darkolivegreen", rgb255 85 107 47 )
+        , ( "darkolivegreen", darkolivegreen )
         , ( "olive", rgb255 128 128 0 )
-        , ( "darkseagreen", rgb255 143 188 143 )
+        , ( "darkseagreen", darkseagreen )
         , ( "pink", rgb255 255 192 203 )
         , ( "tomato", rgb255 255 99 71 )
         , ( "lightcoral", rgb255 240 128 128 )
@@ -276,7 +444,7 @@ w3cx11 =
         , ( "navajowhite", rgb255 255 222 173 )
         , ( "lime", rgb255 0 255 0 )
         , ( "palegreen", rgb255 152 251 152 )
-        , ( "darkslategrey", rgb255 47 79 79 )
+        , ( "darkslategrey", darkslategrey )
         , ( "greenyellow", rgb255 173 255 47 )
         , ( "burlywood", burlywood )
         , ( "seashell", rgb255 255 245 238 )
@@ -285,7 +453,7 @@ w3cx11 =
         , ( "papayawhip", rgb255 255 239 213 )
         , ( "blanchedalmond", blanchedalmond )
         , ( "chartreuse", chartreuse )
-        , ( "dimgray", rgb255 105 105 105 )
+        , ( "dimgray", dimgray )
         , ( "black", black )
         , ( "peachpuff", rgb255 255 218 185 )
         , ( "springgreen", rgb255 0 255 127 )
@@ -293,16 +461,16 @@ w3cx11 =
         , ( "white", white )
         , ( "orange", rgb255 255 165 0 )
         , ( "lightsalmon", rgb255 255 160 122 )
-        , ( "darkslategray", rgb255 47 79 79 )
+        , ( "darkslategray", darkslategray )
         , ( "brown", brown )
         , ( "ivory", rgb255 255 255 240 )
-        , ( "dodgerblue", rgb255 30 144 255 )
+        , ( "dodgerblue", dodgerblue )
         , ( "peru", rgb255 205 133 63 )
         , ( "lawngreen", rgb255 124 252 0 )
         , ( "chocolate", chocolate )
         , ( "crimson", crimson )
         , ( "forestgreen", rgb255 34 139 34 )
-        , ( "darkgrey", rgb255 169 169 169 )
+        , ( "darkgrey", darkgrey )
         , ( "lightseagreen", rgb255 32 178 170 )
         , ( "cyan", cyan )
         , ( "mintcream", rgb255 245 255 250 )
@@ -311,30 +479,30 @@ w3cx11 =
         , ( "mediumorchid", rgb255 186 85 211 )
         , ( "skyblue", rgb255 135 206 235 )
         , ( "gray", rgb255 128 128 128 )
-        , ( "darkturquoise", rgb255 0 206 209 )
+        , ( "darkturquoise", darkturquoise )
         , ( "goldenrod", rgb255 218 165 32 )
-        , ( "darkgreen", rgb255 0 100 0 )
+        , ( "darkgreen", darkgreen )
         , ( "floralwhite", rgb255 255 250 240 )
-        , ( "darkviolet", rgb255 148 0 211 )
-        , ( "darkgray", rgb255 169 169 169 )
+        , ( "darkviolet", darkviolet )
+        , ( "darkgray", darkgray )
         , ( "moccasin", rgb255 255 228 181 )
         , ( "saddlebrown", rgb255 139 69 19 )
         , ( "grey", rgb255 128 128 128 )
-        , ( "darkslateblue", rgb255 47 79 79 )
+        , ( "darkslateblue", darkslateblue )
         , ( "lightskyblue", rgb255 135 206 250 )
         , ( "lightpink", rgb255 255 182 193 )
         , ( "mediumvioletred", rgb255 199 21 133 )
         , ( "slategrey", rgb255 112 128 144 )
         , ( "red", red )
-        , ( "deeppink", rgb255 255 20 147 )
+        , ( "deeppink", deeppink )
         , ( "limegreen", rgb255 50 205 50 )
-        , ( "darkmagenta", rgb255 139 0 139 )
+        , ( "darkmagenta", darkmagenta )
         , ( "palegoldenrod", rgb255 238 232 170 )
         , ( "plum", rgb255 221 160 221 )
         , ( "turquoise", rgb255 64 224 208 )
         , ( "lightgrey", rgb255 211 211 211 )
         , ( "lightgoldenrodyellow", rgb255 250 250 210 )
-        , ( "darkgoldenrod", rgb255 184 134 11 )
+        , ( "darkgoldenrod", darkgoldenrod )
         , ( "lavender", rgb255 230 230 250 )
         , ( "maroon", rgb255 128 0 0 )
         , ( "yellowgreen", rgb255 154 205 50 )
@@ -343,7 +511,7 @@ w3cx11 =
         , ( "violet", rgb255 238 130 238 )
         , ( "navy", rgb255 0 0 128 )
         , ( "magenta", rgb255 255 0 255 )
-        , ( "dimgrey", rgb255 105 105 105 )
+        , ( "dimgrey", dimgrey )
         , ( "tan", rgb255 210 180 140 )
         , ( "rosybrown", rgb255 188 143 143 )
         , ( "olivedrab", rgb255 107 142 35 )
@@ -354,10 +522,10 @@ w3cx11 =
         , ( "cornflowerblue", cornflowerblue )
         , ( "slateblue", rgb255 106 90 205 )
         , ( "linen", rgb255 250 240 230 )
-        , ( "darkblue", rgb255 0 0 139 )
+        , ( "darkblue", darkblue )
         , ( "powderblue", rgb255 176 224 230 )
         , ( "seagreen", rgb255 46 139 87 )
-        , ( "darkkhaki", rgb255 189 183 107 )
+        , ( "darkkhaki", darkkhaki )
         , ( "snow", rgb255 255 250 250 )
         , ( "sienna", rgb255 160 82 45 )
         , ( "mediumblue", rgb255 0 0 205 )
@@ -370,14 +538,14 @@ w3cx11 =
         , ( "paleturquoise", rgb255 175 238 238 )
         , ( "bisque", bisque )
         , ( "slategray", rgb255 112 128 144 )
-        , ( "darkcyan", rgb255 0 139 139 )
+        , ( "darkcyan", darkcyan )
         , ( "khaki", rgb255 240 230 140 )
         , ( "wheat", rgb255 245 222 179 )
         , ( "teal", rgb255 0 128 128 )
-        , ( "darkorchid", rgb255 153 50 204 )
-        , ( "deepskyblue", rgb255 0 191 255 )
+        , ( "darkorchid", darkorchid )
+        , ( "deepskyblue", deepskyblue )
         , ( "salmon", rgb255 250 128 114 )
-        , ( "darkred", rgb255 139 0 0 )
+        , ( "darkred", darkred )
         , ( "steelblue", rgb255 70 130 180 )
         , ( "palevioletred", rgb255 219 112 147 )
         , ( "lightslategray", rgb255 119 136 153 )
@@ -398,9 +566,9 @@ w3cx11 =
         , ( "aqua", aqua )
         , ( "whitesmoke", rgb255 245 245 245 )
         , ( "mediumslateblue", rgb255 123 104 238 )
-        , ( "darkorange", rgb255 255 140 0 )
+        , ( "darkorange", darkorange )
         , ( "mediumaquamarine", rgb255 102 205 170 )
-        , ( "darksalmon", rgb255 233 150 122 )
+        , ( "darksalmon", darksalmon )
         , ( "beige", beige )
         , ( "blueviolet", blueviolet )
         , ( "azure", azure )
