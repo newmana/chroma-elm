@@ -9,12 +9,13 @@ module Chroma.Converter.In.Cmyk2Rgb exposing (cmyk2rgb)
 
 -}
 
+import Chroma.Types as Types
 import Color as Color
 
 
 {-| TBD
 -}
-cmyk2rgb : { cyan : Float, magenta : Float, yellow : Float, black : Float } -> Color.Color
+cmyk2rgb : Types.CymkColor -> Color.Color
 cmyk2rgb { cyan, magenta, yellow, black } =
     let
         convert x =

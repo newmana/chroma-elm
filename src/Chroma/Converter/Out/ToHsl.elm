@@ -20,7 +20,7 @@ import Color as Color
 toHsl : Types.ExtColor -> Types.Hsla
 toHsl color =
     case color of
-        Types.ExtColor c ->
+        Types.RGBColor c ->
             Color.toHsla c
 
         Types.CMYKColor cmyk ->

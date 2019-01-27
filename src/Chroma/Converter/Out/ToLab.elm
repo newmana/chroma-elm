@@ -3,7 +3,7 @@ module Chroma.Converter.Out.ToLab exposing
     , toLabExtColor
     )
 
-{-| Convert ExtColor to LAB
+{-| Convert RgbColor to LAB
 
 
 # Definition
@@ -27,7 +27,7 @@ import Color as Color
 -}
 toLabExtColor : Color.Color -> Types.ExtColor
 toLabExtColor color =
-    toLab (Types.ExtColor color) |> Types.LABColor
+    toLab (Types.RGBColor color) |> Types.LABColor
 
 
 {-| TBD
@@ -35,7 +35,7 @@ toLabExtColor color =
 toLab : Types.ExtColor -> Types.LabColor
 toLab color =
     case color of
-        Types.ExtColor c ->
+        Types.RGBColor c ->
             Color.toRgba c |> calcLab
 
         Types.CMYKColor cmyk ->

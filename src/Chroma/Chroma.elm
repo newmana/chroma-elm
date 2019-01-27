@@ -21,7 +21,9 @@ Currently, incomplete - on Scale works.
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
+import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Converter.Out.ToLab as ToLab
+import Chroma.Converter.Out.ToRgb as ToRgb
 import Chroma.Scale as Scale
 import Chroma.Types as Types
 import Color as Color
@@ -36,17 +38,17 @@ chroma : String -> Result String Types.ExtColor
 chroma str =
     case W3CX11.named str of
         Ok value ->
-            Ok (Types.ExtColor value)
+            Ok (Types.RGBColor value)
 
         Err err ->
-            Hex2Rgb.hex2rgb str |> Result.map Types.ExtColor
+            Hex2Rgb.hex2rgb str |> Result.map Types.RGBColor
 
 
 {-| TBD
 -}
 scaleDefault : List (Float -> Types.ExtColor)
 scaleDefault =
-    scale Scale.defaultData [ Types.ExtColor W3CX11.white, Types.ExtColor W3CX11.black ]
+    scale Scale.defaultData [ Types.RGBColor W3CX11.white, Types.RGBColor W3CX11.black ]
 
 
 {-| TBD
@@ -73,10 +75,10 @@ distance255 : Types.ExtColor -> Types.ExtColor -> Float
 distance255 color1 color2 =
     let
         fstColor255 =
-            Types.asNonEmptyList color1 |> Nonempty.map (\x -> x * 255)
+            ToRgb.toNonEmptyList color1 |> Nonempty.map (\x -> x * 255)
 
         sndColor255 =
-            Types.asNonEmptyList color2 |> Nonempty.map (\x -> x * 255)
+            ToRgb.toNonEmptyList color2 |> Nonempty.map (\x -> x * 255)
     in
     calcDistance fstColor255 sndColor255
 
@@ -87,10 +89,10 @@ distance : Types.ExtColor -> Types.ExtColor -> Float
 distance color1 color2 =
     let
         aColor1 =
-            Types.asNonEmptyList color1
+            ToRgb.toNonEmptyList color1
 
         aColor2 =
-            Types.asNonEmptyList color2
+            ToRgb.toNonEmptyList color2
     in
     calcDistance aColor1 aColor2
 

@@ -24,7 +24,7 @@ CMYK may not work correctly. Will return black if the types are not the same.
 interpolate : Types.ExtColor -> Types.ExtColor -> Float -> Types.ExtColor
 interpolate col1 col2 f =
     case ( col1, col2 ) of
-        ( Types.ExtColor color1, Types.ExtColor color2 ) ->
+        ( Types.RGBColor color1, Types.RGBColor color2 ) ->
             interpolateRGB color1 color2 f
 
         ( Types.LABColor lab1, Types.LABColor lab2 ) ->
@@ -34,7 +34,7 @@ interpolate col1 col2 f =
             interpolateRGB (cmyk1 |> Cmyk2Rgb.cmyk2rgb) (cmyk2 |> Cmyk2Rgb.cmyk2rgb) f |> ToCmyk.toCmyk |> Types.CMYKColor
 
         _ ->
-            Types.ExtColor W3CX11.black
+            Types.RGBColor W3CX11.black
 
 
 interpolateRGB : Color.Color -> Color.Color -> Float -> Types.ExtColor
@@ -55,7 +55,7 @@ interpolateRGB color1 color2 f =
         b =
             rgba1.blue + f * (rgba2.blue - rgba1.blue)
     in
-    Color.rgb r g b |> Types.ExtColor
+    Color.rgb r g b |> Types.RGBColor
 
 
 interpolateLAB : { lightness : Float, labA : Float, labB : Float } -> { lightness : Float, labA : Float, labB : Float } -> Float -> Types.ExtColor

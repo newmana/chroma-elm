@@ -1,11 +1,11 @@
-module Chroma.Types exposing (CymkColor, ExtColor(..), Hsla, LabColor, Mode(..), Rgba255Color, RgbaColor, asNonEmptyList)
+module Chroma.Types exposing (CymkColor, ExtColor(..), Hsla, LabColor, Mode(..), Rgba255Color, RgbaColor)
 
 {-| Types
 
 
 # Definition
 
-@docs CymkColor, ExtColor, Hsla, LabColor, Mode, Rgba255Color, RgbaColor, asNonEmptyList
+@docs CymkColor, ExtColor, Hsla, LabColor, Mode, Rgba255Color, RgbaColor
 
 -}
 
@@ -20,7 +20,7 @@ type Mode
       --    | CSS
       --    | HEX
       --    | HSI
-      --    | HSL
+    | HSL
       --    | HSV
     | LAB
       --    | LCH
@@ -35,7 +35,7 @@ type Mode
 {-| TBD
 -}
 type ExtColor
-    = ExtColor Color.Color
+    = RGBColor Color.Color
     | CMYKColor CymkColor
     | LABColor LabColor
 
@@ -87,22 +87,3 @@ type alias Hsla =
     , lightness : Float
     , alpha : Float
     }
-
-
-{-| TBD
--}
-asNonEmptyList : ExtColor -> Nonempty.Nonempty Float
-asNonEmptyList color =
-    case color of
-        ExtColor c ->
-            let
-                { red, green, blue, alpha } =
-                    Color.toRgba c
-            in
-            Nonempty.Nonempty red [ green, blue, alpha ]
-
-        CMYKColor { cyan, magenta, yellow, black } ->
-            Nonempty.Nonempty cyan [ magenta, yellow, black ]
-
-        LABColor { lightness, labA, labB } ->
-            Nonempty.Nonempty lightness [ labA, labB ]

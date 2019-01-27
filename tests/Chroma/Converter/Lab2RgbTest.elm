@@ -22,7 +22,7 @@ testLab =
     Test.describe "lab"
         [ Test.fuzz Util.validRgb "should round trip between RGB and LAB" <|
             \testRgb ->
-                Types.ExtColor testRgb
+                Types.RGBColor testRgb
                     |> OutLab.toLab
                     |> InLab.lab2rgb
                     |> Util.expectColorResultWithin 0.0001 testRgb

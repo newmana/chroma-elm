@@ -1,7 +1,4 @@
-module Chroma.Scale exposing
-    ( getColor, domain, correctLightness, Data, classes, createData, defaultData
-    , asRgba255, asRgba
-    )
+module Chroma.Scale exposing (getColor, domain, correctLightness, Data, classes, createData, defaultData)
 
 {-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
 
@@ -10,16 +7,12 @@ module Chroma.Scale exposing
 
 @docs getColor, domain, correctLightness, Data, classes, createData, defaultData
 
-
-# Helpers
-
-@docs asRgba255, asRgba
-
 -}
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Cmyk2Rgb as Cymk2Rgb
 import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
+import Chroma.Converter.Out.ToRgb as ToRgb
 import Chroma.Interpolator as Interpolator
 import Chroma.Types as Types
 import Color as Color
@@ -58,7 +51,7 @@ defaultData =
     , pos = Nonempty.fromElement ( 0, 1 )
     , paddingValues = Nonempty.Nonempty 0 [ 0 ]
     , useClasses = False
-    , colors = Nonempty.Nonempty (Types.ExtColor W3CX11.white) [ Types.ExtColor W3CX11.black ]
+    , colors = Nonempty.Nonempty (Types.RGBColor W3CX11.white) [ Types.RGBColor W3CX11.black ]
     , useOut = False
     , min = 0
     , max = 1
@@ -100,32 +93,6 @@ createData newColors data =
                 newColors
     in
     { data | pos = createPos newColors, colors = ensureTwoColors }
-
-
-{-| Takes a result from getColor and returns Integer (0-255) RGB values.
--}
-asRgba255 : Types.ExtColor -> Types.Rgba255Color
-asRgba255 color =
-    let
-        realColor =
-            asRgba color
-    in
-    { red = realColor.red * 255 |> round, green = realColor.green * 255 |> round, blue = realColor.blue * 255 |> round, alpha = realColor.alpha }
-
-
-{-| Takes a result from getColor and returns Float (0-1) RGB values.
--}
-asRgba : Types.ExtColor -> Types.RgbaColor
-asRgba color =
-    case color of
-        Types.ExtColor c ->
-            Color.toRgba c
-
-        Types.CMYKColor cmyk ->
-            Cymk2Rgb.cmyk2rgb cmyk |> Color.toRgba
-
-        Types.LABColor lab ->
-            Lab2Rgb.lab2rgb lab |> Color.toRgba
 
 
 {-| Finish <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L119> >
@@ -184,7 +151,7 @@ getDirectColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingVal
                     else
                         ( found, result, i + 1 )
                 )
-                ( False, Types.ExtColor W3CX11.black, 0 )
+                ( False, Types.RGBColor W3CX11.black, 0 )
                 pos
     in
     finalResult
@@ -250,16 +217,16 @@ correctLightness : Data -> Float -> Float
 correctLightness data val =
     let
         l0 =
-            getDirectColor data 0 |> Types.asNonEmptyList |> Nonempty.head
+            getDirectColor data 0 |> ToRgb.toNonEmptyList |> Nonempty.head
 
         l1 =
-            getDirectColor data 1 |> Types.asNonEmptyList |> Nonempty.head
+            getDirectColor data 1 |> ToRgb.toNonEmptyList |> Nonempty.head
 
         pol =
             l0 > l1
 
         actual =
-            getDirectColor data val |> Types.asNonEmptyList |> Nonempty.head
+            getDirectColor data val |> ToRgb.toNonEmptyList |> Nonempty.head
 
         ideal =
             l0 + ((l1 - l0) * val)
@@ -304,7 +271,7 @@ calcResult data pol ideal calcs =
                 ( newCalcs.t + ((newCalcs.t0 - newCalcs.t) * 0.5), newCalcs.t0, newCalcs.t )
 
         actual =
-            getDirectColor data newT |> Types.asNonEmptyList |> Nonempty.head
+            getDirectColor data newT |> ToRgb.toNonEmptyList |> Nonempty.head
     in
     { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
 

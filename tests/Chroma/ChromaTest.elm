@@ -1,8 +1,11 @@
 module Chroma.ChromaTest exposing (c1, c2, c3, testDistance, tests)
 
 import Chroma.Chroma as Chroma
+import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
+import Chroma.Converter.Out.ToHex as OutHex
 import Chroma.Types as Types
+import Expect as Expect
 import Result as Result
 import Test as Test
 import UtilTest as UtilTest
@@ -11,23 +14,42 @@ import UtilTest as UtilTest
 tests : Test.Test
 tests =
     Test.describe "Chroma API"
-        [ testDistance
+        [ testStringToColor
+        , testDistance
         ]
 
 
 c1 : Result String Types.ExtColor
 c1 =
-    Hex2Rgb.hex2rgb "#fff" |> Result.map Types.ExtColor
+    Hex2Rgb.hex2rgb "#fff" |> Result.map Types.RGBColor
 
 
 c2 : Result String Types.ExtColor
 c2 =
-    Hex2Rgb.hex2rgb "#ff0" |> Result.map Types.ExtColor
+    Hex2Rgb.hex2rgb "#ff0" |> Result.map Types.RGBColor
 
 
 c3 : Result String Types.ExtColor
 c3 =
-    Hex2Rgb.hex2rgb "#f0f" |> Result.map Types.ExtColor
+    Hex2Rgb.hex2rgb "#f0f" |> Result.map Types.RGBColor
+
+
+testStringToColor : Test.Test
+testStringToColor =
+    Test.describe "color"
+        [ Test.test "Hotpink string" <|
+            \_ ->
+                "hotpink" |> Chroma.chroma |> Expect.equal (Result.Ok (Types.RGBColor W3CX11.hotpink))
+        , Test.test "Hotpink to hex string" <|
+            \_ ->
+                "hotpink" |> Chroma.chroma |> Result.map OutHex.toHex |> Expect.equal (Result.Ok "#ff69b4")
+        , Test.test "A pink hex" <|
+            \_ ->
+                "#ff3399" |> Chroma.chroma |> Result.map OutHex.toHex |> Expect.equal (Result.Ok "#ff3399")
+        , Test.test "A pink three letter hex" <|
+            \_ ->
+                "f39" |> Chroma.chroma |> Result.map OutHex.toHex |> Expect.equal (Result.Ok "#ff3399")
+        ]
 
 
 testDistance : Test.Test

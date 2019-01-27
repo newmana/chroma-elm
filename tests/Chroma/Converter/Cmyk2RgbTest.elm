@@ -22,7 +22,7 @@ testCymk =
     Test.describe "cmyk"
         [ Test.fuzz Util.validRgb "should round trip between RGB and CYMK" <|
             \testRgb ->
-                Types.ExtColor testRgb
+                Types.RGBColor testRgb
                     |> OutCmyk.toCmyk
                     |> InCmyk.cmyk2rgb
                     |> Util.expectColorResultWithin 0.00001 testRgb

@@ -9,19 +9,59 @@ module Chroma.Converter.In.Hex2Rgb exposing (hex2rgb)
 
 -}
 
-import Char
+import Char as Char
 import Color as Color
-import List
+import List as List
 
 
-twoBase16To1 : Char -> Char -> Maybe Float
-twoBase16To1 char1 char2 =
-    Maybe.map identity (twoBase16 char1 char2)
+{-| TBD
+-}
+hex2rgb : String -> Result String Color.Color
+hex2rgb hex =
+    case hex3Or6Or8 hex of
+        Just x ->
+            Ok x
+
+        Nothing ->
+            Err ("unknown color: " ++ hex)
+
+
+hex3Or6Or8 : String -> Maybe Color.Color
+hex3Or6Or8 str =
+    let
+        removeHash charList =
+            case List.head charList of
+                Just '#' ->
+                    Just (List.drop 1 charList)
+
+                _ ->
+                    Just charList
+
+        convertFromHex hexStr =
+            case hexStr of
+                r :: g :: b :: [] ->
+                    Maybe.map3 Color.rgb (twoBase16 r r) (twoBase16 g g) (twoBase16 b b)
+
+                r1 :: r2 :: g1 :: g2 :: b1 :: b2 :: [] ->
+                    Maybe.map3 Color.rgb (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2)
+
+                r1 :: r2 :: g1 :: g2 :: b1 :: b2 :: a1 :: a2 :: [] ->
+                    Maybe.map4 (\newR newG newB newA -> Color.fromRgba { red = newR, green = newG, blue = newB, alpha = newA }) (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2) (twoBase16To1 a1 a2)
+
+                _ ->
+                    Nothing
+    in
+    removeHash (String.toList str) |> Maybe.andThen convertFromHex
 
 
 twoBase16 : Char -> Char -> Maybe Float
 twoBase16 char1 char2 =
     Maybe.map2 (\x1 x2 -> (x1 * 16 + x2) / 255) (fromBase16 char1) (fromBase16 char2)
+
+
+twoBase16To1 : Char -> Char -> Maybe Float
+twoBase16To1 char1 char2 =
+    Maybe.map identity (twoBase16 char1 char2)
 
 
 fromBase16 : Char -> Maybe number
@@ -77,43 +117,3 @@ fromBase16 char =
 
         nonHex ->
             Nothing
-
-
-hex3Or6Or8 : String -> Maybe Color.Color
-hex3Or6Or8 str =
-    let
-        removeHash charList =
-            case List.head charList of
-                Just '#' ->
-                    Just (List.drop 1 charList)
-
-                _ ->
-                    Just charList
-
-        convertFromHex hexStr =
-            case hexStr of
-                r :: g :: b :: [] ->
-                    Maybe.map3 Color.rgb (twoBase16 r r) (twoBase16 g g) (twoBase16 b b)
-
-                r1 :: r2 :: g1 :: g2 :: b1 :: b2 :: [] ->
-                    Maybe.map3 Color.rgb (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2)
-
-                r1 :: r2 :: g1 :: g2 :: b1 :: b2 :: a1 :: a2 :: [] ->
-                    Maybe.map4 (\newR newG newB newA -> Color.fromRgba { red = newR, green = newG, blue = newB, alpha = newA }) (twoBase16 r1 r2) (twoBase16 g1 g2) (twoBase16 b1 b2) (twoBase16To1 a1 a2)
-
-                _ ->
-                    Nothing
-    in
-    removeHash (String.toList str) |> Maybe.andThen convertFromHex
-
-
-{-| TBD
--}
-hex2rgb : String -> Result String Color.Color
-hex2rgb hex =
-    case hex3Or6Or8 hex of
-        Just x ->
-            Ok x
-
-        Nothing ->
-            Err ("unknown color: " ++ hex)

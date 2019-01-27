@@ -35,7 +35,7 @@ toCmyk color =
             { cyan = f red, magenta = f green, yellow = f blue, black = k }
     in
     case color of
-        Types.ExtColor c ->
+        Types.RGBColor c ->
             Color.toRgba c |> convert
 
         Types.CMYKColor cmyk ->

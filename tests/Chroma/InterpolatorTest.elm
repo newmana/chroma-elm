@@ -47,7 +47,7 @@ whiteAndBlackLab =
 
 whiteAndBlackRgb : Scale.Data -> Scale.Data
 whiteAndBlackRgb =
-    Scale.createData (Nonempty.Nonempty (Types.ExtColor W3CX11.white) [ Types.ExtColor W3CX11.black ])
+    Scale.createData (Nonempty.Nonempty (Types.RGBColor W3CX11.white) [ Types.RGBColor W3CX11.black ])
 
 
 whiteYellowRedBlackLab : Scale.Data -> Scale.Data
@@ -130,7 +130,7 @@ testInterpolate =
         , Test.test "Simple two colour RGB" <|
             \_ ->
                 case Scale.getColor (whiteAndBlackRgb Scale.defaultData) 0.25 of
-                    Types.ExtColor c ->
+                    Types.RGBColor c ->
                         Color.toRgba c |> (\rgba -> Expect.within (Expect.Absolute 0.0001) rgba.red 0.75)
 
                     _ ->
