@@ -31,6 +31,7 @@ module Chroma.Colors.W3CX11 exposing
 @docs hotpink
 @docs indianred, indigo
 @docs red
+@docs lightgreen
 @docs white
 @docs yellow
 
@@ -404,6 +405,13 @@ indianred =
 
 {-| TBD
 -}
+lightgreen : Color
+lightgreen =
+    rgb255 144 238 144
+
+
+{-| TBD
+-}
 red : Color
 red =
     rgb255 255 0 0
@@ -552,7 +560,7 @@ w3cx11 =
         , ( "lightslategray", rgb255 119 136 153 )
         , ( "aliceblue", aliceBlue )
         , ( "lightslategrey", rgb255 119 136 153 )
-        , ( "lightgreen", rgb255 144 238 144 )
+        , ( "lightgreen", lightgreen )
         , ( "orchid", rgb255 218 112 214 )
         , ( "gainsboro", rgb255 220 220 220 )
         , ( "mediumseagreen", rgb255 60 179 113 )
