@@ -1,6 +1,6 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, distance, distance255, distanceWithLab
-    , scaleDefault
+    ( chroma, scale, distance, distance255, distanceWithLab, domain
+    , scaleDefault, scaleWith, domainWith
     )
 
 {-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
@@ -10,12 +10,12 @@ Currently, incomplete - on Scale works.
 
 # Definition
 
-@docs chroma, scale, distance, distance255, distanceWithLab
+@docs chroma, scale, distance, distance255, distanceWithLab, domain
 
 
 # Helpers
 
-@docs scaleDefault
+@docs scaleDefault, scaleWith, domainWith
 
 -}
 
@@ -46,16 +46,52 @@ chroma str =
 
 {-| TBD
 -}
-scaleDefault : List (Float -> Types.ExtColor)
+scaleDefault : ( Scale.Data, Float -> Types.ExtColor )
 scaleDefault =
-    scale Scale.defaultData [ Types.RGBColor W3CX11.white, Types.RGBColor W3CX11.black ]
+    scaleWith Scale.defaultData Scale.defaultData.colors
 
 
 {-| TBD
 -}
-scale : Scale.Data -> List Types.ExtColor -> List (Float -> Types.ExtColor)
-scale data colors =
-    []
+scale : Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+scale colors =
+    scaleWith Scale.defaultData colors
+
+
+{-| TBD
+-}
+scaleWith : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+scaleWith data colors =
+    let
+        newData =
+            { data | colors = colors }
+    in
+    ( newData, Scale.getColor newData )
+
+
+{-| TBD
+-}
+domain : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+domain newDomain colors =
+    let
+        ( newData, f ) =
+            scale colors
+
+        domainData =
+            Scale.domain newDomain newData
+    in
+    scaleWith domainData colors
+
+
+{-| TBD
+-}
+domainWith : Nonempty.Nonempty Float -> Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+domainWith newDomain data colors =
+    let
+        domainData =
+            Scale.domain newDomain data
+    in
+    scaleWith domainData colors
 
 
 {-| TBD

@@ -1,11 +1,13 @@
 module Chroma.ChromaTest exposing (c1, c2, c3, testDistance, tests)
 
 import Chroma.Chroma as Chroma
+import Chroma.Colors.Brewer as Brewer
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
-import Chroma.Converter.Out.ToHex as OutHex
+import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Types as Types
 import Expect as Expect
+import List.Nonempty as Nonempty
 import Result as Result
 import Test as Test
 import UtilTest as UtilTest
@@ -15,6 +17,7 @@ tests : Test.Test
 tests =
     Test.describe "Chroma API"
         [ testStringToColor
+        , testScaleAndDomain
         , testDistance
         ]
 
@@ -42,13 +45,29 @@ testStringToColor =
                 "hotpink" |> Chroma.chroma |> Expect.equal (Result.Ok (Types.RGBColor W3CX11.hotpink))
         , Test.test "Hotpink to hex string" <|
             \_ ->
-                "hotpink" |> Chroma.chroma |> Result.map OutHex.toHex |> Expect.equal (Result.Ok "#ff69b4")
+                "hotpink" |> Chroma.chroma |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#ff69b4")
         , Test.test "A pink hex" <|
             \_ ->
-                "#ff3399" |> Chroma.chroma |> Result.map OutHex.toHex |> Expect.equal (Result.Ok "#ff3399")
+                "#ff3399" |> Chroma.chroma |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#ff3399")
         , Test.test "A pink three letter hex" <|
             \_ ->
-                "f39" |> Chroma.chroma |> Result.map OutHex.toHex |> Expect.equal (Result.Ok "#ff3399")
+                "f39" |> Chroma.chroma |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#ff3399")
+        ]
+
+
+testScaleAndDomain : Test.Test
+testScaleAndDomain =
+    Test.describe "scale and domain API"
+        [ Test.test "Simple test" <|
+            \_ ->
+                let
+                    setup =
+                        Chroma.domain (Nonempty.Nonempty 0.0 [ 100.0 ]) (Nonempty.map Types.RGBColor Brewer.rdYlGn)
+
+                    result =
+                        setup |> Tuple.second
+                in
+                Expect.equal "#ffffbf" (ToHex.toHex (result 50))
         ]
 
 
