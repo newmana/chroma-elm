@@ -159,27 +159,28 @@ puBuGn =
 
 
 -- Diverging
+-- Change to 11 not 9 - First 3 done https://github.com/gka/chroma.js/blob/master/src/colors/colorbrewer.js
 
 
 {-| TBD
 -}
 spectral : Nonempty.Nonempty Color
 spectral =
-    Nonempty.Nonempty (rgb255 213 62 79) [ rgb255 244 109 67, rgb255 253 174 97, rgb255 254 224 139, rgb255 255 255 191, rgb255 230 245 152, rgb255 171 221 164, rgb255 102 194 165, rgb255 50 136 189 ]
+    Nonempty.Nonempty (rgb255 158 1 66) [ rgb255 213 62 79, rgb255 244 109 67, rgb255 253 174 97, rgb255 254 224 139, rgb255 255 255 191, rgb255 230 245 152, rgb255 171 221 164, rgb255 102 194 165, rgb255 50 136 189, rgb255 94 79 162 ]
 
 
 {-| TBD
 -}
 rdYlGn : Nonempty.Nonempty Color
 rdYlGn =
-    Nonempty.Nonempty (rgb255 215 48 39) [ rgb255 244 109 67, rgb255 253 174 97, rgb255 254 224 139, rgb255 255 255 191, rgb255 217 239 139, rgb255 166 217 106, rgb255 102 189 99, rgb255 26 152 80 ]
+    Nonempty.Nonempty (rgb255 165 0 38) [ rgb255 215 48 39, rgb255 244 109 67, rgb255 253 174 97, rgb255 254 224 139, rgb255 255 255 191, rgb255 217 239 139, rgb255 166 217 106, rgb255 102 189 99, rgb255 26 152 80, rgb255 0 104 55 ]
 
 
 {-| TBD
 -}
 rdBu : Nonempty.Nonempty Color
 rdBu =
-    Nonempty.Nonempty (rgb255 178 24 43) [ rgb255 214 96 77, rgb255 244 165 130, rgb255 253 219 199, rgb255 247 247 247, rgb255 209 229 240, rgb255 146 197 222, rgb255 67 147 195, rgb255 33 102 172 ]
+    Nonempty.Nonempty (rgb255 103 0 31) [ rgb255 178 24 43, rgb255 214 96 77, rgb255 244 165 130, rgb255 253 219 199, rgb255 247 247 247, rgb255 209 229 240, rgb255 146 197 222, rgb255 67 147 195, rgb255 33 102 172, rgb255 5 48 97 ]
 
 
 {-| TBD
