@@ -3,11 +3,13 @@ module Chroma.Colors.W3CX11 exposing
     , aliceBlue, antiqueWhite, aqua, azure, aquamarine
     , beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
     , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
+    , darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
     , firebrick
     , gold
     , hotpink
     , indianred, indigo
     , red
+    , lightgreen
     , white
     , yellow
     )
