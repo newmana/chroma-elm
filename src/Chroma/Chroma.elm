@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, distance, distance255, distanceWithLab, domain
+    ( chroma, scale, domain, distance, distance255, distanceWithLab
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, scale, distance, distance255, distanceWithLab, domain
+@docs chroma, scale, domain, distance, distance255, distanceWithLab, domain
 
 
 # Helpers
