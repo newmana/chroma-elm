@@ -5,8 +5,6 @@ module Chroma.Chroma exposing
 
 {-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
 
-Currently, incomplete - on Scale works.
-
 
 # Definition
 
@@ -32,7 +30,7 @@ import List.Nonempty as Nonempty
 import Result as Result
 
 
-{-| TBD
+{-| Given a valid hex string (6 or 3) produce an RGB Color.
 -}
 chroma : String -> Result String Types.ExtColor
 chroma str =
@@ -44,21 +42,21 @@ chroma str =
             Hex2Rgb.hex2rgb str |> Result.map Types.RGBColor
 
 
-{-| TBD
+{-| Return a new configuration and a function from float to color based on default values - colors White to Black, domain 0 - 1.
 -}
 scaleDefault : ( Scale.Data, Float -> Types.ExtColor )
 scaleDefault =
     scaleWith Scale.defaultData Scale.defaultData.colors
 
 
-{-| TBD
+{-| Return a new configuration and a function from float to color based on default values and the given colors.
 -}
 scale : Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 scale colors =
     scaleWith Scale.defaultData colors
 
 
-{-| TBD
+{-| Return a new configuration and a function from float to color based on the given configuration values and the given colors.
 -}
 scaleWith : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 scaleWith data colors =
@@ -69,7 +67,7 @@ scaleWith data colors =
     ( newData, Scale.getColor newData )
 
 
-{-| TBD
+{-| Return a new configuration and a function from float to color based on default values, the given colors and domain.
 -}
 domain : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 domain newDomain colors =
@@ -83,7 +81,7 @@ domain newDomain colors =
     scaleWith domainData colors
 
 
-{-| TBD
+{-| Return a new configuration and a function from float to color based on the given configuration values, the given colors and domain.
 -}
 domainWith : Nonempty.Nonempty Float -> Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 domainWith newDomain data colors =
@@ -94,7 +92,7 @@ domainWith newDomain data colors =
     scaleWith domainData colors
 
 
-{-| TBD
+{-| Calculate the distance in LAB color space.
 -}
 distanceWithLab : Types.ExtColor -> Types.ExtColor -> Float
 distanceWithLab color1 color2 =
@@ -105,7 +103,7 @@ distanceWithLab color1 color2 =
     distance (labColor color1) (labColor color2)
 
 
-{-| TBD
+{-| Calculate the distance in RGB 255 color space.
 -}
 distance255 : Types.ExtColor -> Types.ExtColor -> Float
 distance255 color1 color2 =
@@ -119,7 +117,7 @@ distance255 color1 color2 =
     calcDistance fstColor255 sndColor255
 
 
-{-| TBD
+{-| Calculate the distance in RGB color space.
 -}
 distance : Types.ExtColor -> Types.ExtColor -> Float
 distance color1 color2 =
