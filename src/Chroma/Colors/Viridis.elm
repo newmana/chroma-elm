@@ -4,7 +4,7 @@ module Chroma.Colors.Viridis exposing (viridis)
 
 [Somewhere Over the Rainbow: An Empirical Assessmentof Quantitative Colormaps](https://idl.cs.washington.edu/files/2018-QuantitativeColor-CHI.pdf).
 
-![Viridis](https://raw.githubusercontent.com/newmana/chroma-elm/master/images/viridis.png)
+![Viridis](<https://raw.githubusercontent.com/newmana/chroma-elm/master/images/viridis.png> =250x)
 
 
 # Colour Scale

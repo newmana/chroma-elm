@@ -2,7 +2,7 @@ module Chroma.Colors.Magma exposing (magma)
 
 {-| Magma colour scale.
 
-![Magma](https://raw.githubusercontent.com/newmana/chroma-elm/master/images/magma.png)
+![Magma](<https://raw.githubusercontent.com/newmana/chroma-elm/master/images/magma.png> =250x)
 
 
 # Colour Scale

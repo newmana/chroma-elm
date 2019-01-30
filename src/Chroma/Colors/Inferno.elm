@@ -2,7 +2,7 @@ module Chroma.Colors.Inferno exposing (inferno)
 
 {-| Inferno colour scale.
 
-![Inferno](https://raw.githubusercontent.com/newmana/chroma-elm/master/images/inferno.png)
+![Inferno](<https://raw.githubusercontent.com/newmana/chroma-elm/master/images/inferno.png> =250x)
 
 
 # Colour Scale
