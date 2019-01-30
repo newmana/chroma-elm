@@ -2,6 +2,8 @@ module Chroma.Colors.Inferno exposing (magma)
 
 {-| Magma colour scale.
 
+![Magma](https://raw.githubusercontent.com/newmana/chroma-elm/master/images/magma.png)
+
 
 # Colour Scale
 
