@@ -1,11 +1,13 @@
-module Chroma.Colors.Virdis exposing (virdis)
+module Chroma.Colors.Viridis exposing (viridis)
 
-{-| The objectively, best color scheme (Somewhere Over the Rainbow: An Empirical Assessmentof Quantitative Colormaps <https://idl.cs.washington.edu/files/2018-QuantitativeColor-CHI.pdf>)
+{-| Viridis colour scale.
+
+[Somewhere Over the Rainbow: An Empirical Assessmentof Quantitative Colormaps](https://idl.cs.washington.edu/files/2018-QuantitativeColor-CHI.pdf).
 
 
-# Colour Ramp
+# Colour Scale
 
-@docs virdis
+@docs viridis
 
 -}
 
@@ -15,8 +17,8 @@ import List.Nonempty as Nonempty
 
 {-| TBD
 -}
-virdis : Nonempty.Nonempty Color
-virdis =
+viridis : Nonempty.Nonempty Color
+viridis =
     Nonempty.Nonempty (rgb255 68 1 84)
         [ rgb255 72 21 103
         , rgb255 72 38 119
