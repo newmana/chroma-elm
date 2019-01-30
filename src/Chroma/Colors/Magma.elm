@@ -1,4 +1,4 @@
-module Chroma.Colors.Inferno exposing (magma)
+module Chroma.Colors.Magma exposing (magma)
 
 {-| Magma colour scale.
 
