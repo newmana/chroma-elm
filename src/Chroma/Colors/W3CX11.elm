@@ -5,11 +5,12 @@ module Chroma.Colors.W3CX11 exposing
     , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
     , darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
     , firebrick
-    , gold
+    , gold, grey
     , hotpink
     , indianred, indigo
+    , lightgrey, lightslategrey, lightgreen
     , red
-    , lightgreen
+    , slategrey
     , white
     , yellow
     )
@@ -29,11 +30,12 @@ module Chroma.Colors.W3CX11 exposing
 @docs chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
 @docs darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
 @docs firebrick
-@docs gold
+@docs gold, grey
 @docs hotpink
 @docs indianred, indigo
+@docs lightgrey, lightslategrey, lightgreen
 @docs red
-@docs lightgreen
+@docs slategrey
 @docs white
 @docs yellow
 
@@ -386,6 +388,13 @@ gold =
 
 {-| TBD
 -}
+grey : Color
+grey =
+    rgb255 128 128 128
+
+
+{-| TBD
+-}
 hotpink : Color
 hotpink =
     rgb255 255 105 180
@@ -414,9 +423,30 @@ lightgreen =
 
 {-| TBD
 -}
+lightgrey : Color
+lightgrey =
+    rgb255 211 211 211
+
+
+{-| TBD
+-}
+lightslategrey : Color
+lightslategrey =
+    rgb255 119 136 153
+
+
+{-| TBD
+-}
 red : Color
 red =
     rgb255 255 0 0
+
+
+{-| TBD
+-}
+slategrey : Color
+slategrey =
+    rgb255 112 128 144
 
 
 {-| TBD
@@ -498,12 +528,12 @@ w3cx11 =
         , ( "darkgray", darkgray )
         , ( "moccasin", rgb255 255 228 181 )
         , ( "saddlebrown", rgb255 139 69 19 )
-        , ( "grey", rgb255 128 128 128 )
+        , ( "grey", grey )
         , ( "darkslateblue", darkslateblue )
         , ( "lightskyblue", rgb255 135 206 250 )
         , ( "lightpink", rgb255 255 182 193 )
         , ( "mediumvioletred", rgb255 199 21 133 )
-        , ( "slategrey", rgb255 112 128 144 )
+        , ( "slategrey", slategrey )
         , ( "red", red )
         , ( "deeppink", deeppink )
         , ( "limegreen", rgb255 50 205 50 )
@@ -511,7 +541,7 @@ w3cx11 =
         , ( "palegoldenrod", rgb255 238 232 170 )
         , ( "plum", rgb255 221 160 221 )
         , ( "turquoise", rgb255 64 224 208 )
-        , ( "lightgrey", rgb255 211 211 211 )
+        , ( "lightgrey", lightgrey )
         , ( "lightgoldenrodyellow", rgb255 250 250 210 )
         , ( "darkgoldenrod", darkgoldenrod )
         , ( "lavender", rgb255 230 230 250 )
@@ -561,7 +591,7 @@ w3cx11 =
         , ( "palevioletred", rgb255 219 112 147 )
         , ( "lightslategray", rgb255 119 136 153 )
         , ( "aliceblue", aliceBlue )
-        , ( "lightslategrey", rgb255 119 136 153 )
+        , ( "lightslategrey", lightslategrey )
         , ( "lightgreen", lightgreen )
         , ( "orchid", rgb255 218 112 214 )
         , ( "gainsboro", rgb255 220 220 220 )
