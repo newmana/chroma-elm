@@ -61,23 +61,17 @@ testScaleAndDomain =
         [ Test.test "Simple test" <|
             \_ ->
                 let
-                    setup =
+                    ( _, f ) =
                         Chroma.domain (Nonempty.Nonempty 0.0 [ 100.0 ]) (Nonempty.map Types.RGBColor Brewer.rdYlGn)
-
-                    result =
-                        setup |> Tuple.second
                 in
-                Expect.equal "#ffffbf" (ToHex.toHex (result 50))
+                Expect.equal "#ffffbf" (ToHex.toHex (f 50))
         , Test.test "Multi Domain Test" <|
             \_ ->
                 let
-                    setup =
+                    ( _, f ) =
                         Chroma.domain (Nonempty.Nonempty 0.0 [ 0.25, 1.0 ]) (Nonempty.map Types.RGBColor (Nonempty.Nonempty W3CX11.red [ W3CX11.yellow, W3CX11.green ]))
-
-                    result =
-                        setup |> Tuple.second
                 in
-                Expect.equal "#aad500" (ToHex.toHex (result 0.5))
+                Expect.equal "#aad500" (ToHex.toHex (f 0.5))
         ]
 
 
