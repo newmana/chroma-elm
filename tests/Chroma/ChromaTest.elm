@@ -6,6 +6,7 @@ import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Types as Types
+import Color exposing (Color, rgb255)
 import Expect as Expect
 import List.Nonempty as Nonempty
 import Result as Result
@@ -16,9 +17,10 @@ import UtilTest as UtilTest
 tests : Test.Test
 tests =
     Test.describe "Chroma API"
-        [ testStringToColor
-        , testScaleAndDomain
-        , testDistance
+        [ --        testStringToColor
+          testScaleAndDomain
+
+        --        , testDistance
         ]
 
 
@@ -57,21 +59,26 @@ testStringToColor =
 
 testScaleAndDomain : Test.Test
 testScaleAndDomain =
+    let
+        ( _, f ) =
+            Chroma.domain (Nonempty.Nonempty 0.0 [ 100.0 ]) (Nonempty.map Types.RGBColor Brewer.rdYlGn)
+
+        ( _, g ) =
+            Chroma.domain (Nonempty.Nonempty -1192 [ 0, 66 ]) (Nonempty.map Types.RGBColor (Nonempty.Nonempty (rgb255 140 81 10) [ rgb255 245 245 245, rgb255 1 102 94 ]))
+    in
     Test.describe "scale and domain API"
         [ Test.test "Simple test" <|
             \_ ->
-                let
-                    ( _, f ) =
-                        Chroma.domain (Nonempty.Nonempty 0.0 [ 100.0 ]) (Nonempty.map Types.RGBColor Brewer.rdYlGn)
-                in
                 Expect.equal "#ffffbf" (ToHex.toHex (f 50))
         , Test.test "Multi Domain Test" <|
             \_ ->
-                let
-                    ( _, f ) =
-                        Chroma.domain (Nonempty.Nonempty 0.0 [ 0.25, 1.0 ]) (Nonempty.map Types.RGBColor (Nonempty.Nonempty W3CX11.red [ W3CX11.yellow, W3CX11.green ]))
-                in
-                Expect.equal "#aad500" (ToHex.toHex (f 0.5))
+                Expect.equal "#e0c58d" (ToHex.toHex (g -860))
+        , Test.test "Multi Domain Test Arbitrary 2" <|
+            \_ ->
+                Expect.equal "#f5f5f5" (ToHex.toHex (g 0))
+        , Test.test "Multi Domain Test Arbitrary 3" <|
+            \_ ->
+                Expect.equal "#afd7d4" (ToHex.toHex (g 30))
         ]
 
 

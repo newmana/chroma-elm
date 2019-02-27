@@ -106,9 +106,6 @@ getColor data val =
 getDirectColor : Data -> Float -> Types.ExtColor
 getDirectColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } as data) startT =
     let
-        paddingValuesHead =
-            Nonempty.head paddingValues
-
         lightnessCorrectedT =
             if useCorrectLightness then
                 correctLightness { data | useCorrectLightness = False } startT
@@ -120,7 +117,7 @@ getDirectColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingVal
             lightnessCorrectedT ^ gammaValue
 
         paddedT =
-            paddingValuesHead + (gammaT * (1 - paddingValuesHead - Nonempty.get 1 paddingValues))
+            Nonempty.get 0 paddingValues + (gammaT * (1 - Nonempty.get 0 paddingValues - Nonempty.get 1 paddingValues))
 
         boundedT =
             clamp 0 1 paddedT
@@ -191,7 +188,7 @@ domain : Nonempty.Nonempty Float -> Data -> Data
 domain newDomain data =
     let
         ( newMin, newMax ) =
-            ( Nonempty.head newDomain, Nonempty.get (Nonempty.length newDomain - 1) newDomain )
+            ( Nonempty.head newDomain, Nonempty.get -1 newDomain )
 
         newPos =
             if Nonempty.length newDomain == Nonempty.length data.colors && newMin /= newMax then
