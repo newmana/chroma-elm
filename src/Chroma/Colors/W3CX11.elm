@@ -30,7 +30,7 @@ module Chroma.Colors.W3CX11 exposing
 @docs chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
 @docs darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
 @docs firebrick
-@docs gold, grey
+@docs gainsboro, ghostwhite, gold, goldenrod, green, greenyellow, gray, grey
 @docs hotpink
 @docs indianred, indigo
 @docs lightgrey, lightslategrey, lightgreen
@@ -381,9 +381,51 @@ firebrick =
 
 {-| TBD
 -}
+gainsboro : Color
+gainsboro =
+    rgb255 220 220 220
+
+
+{-| TBD
+-}
+ghostwhite : Color
+ghostwhite =
+    rgb255 248 248 255
+
+
+{-| TBD
+-}
 gold : Color
 gold =
     rgb255 255 215 0
+
+
+{-| TBD
+-}
+green : Color
+green =
+    rgb255 0 128 0
+
+
+{-| TBD
+-}
+greenyellow : Color
+greenyellow =
+    rgb255 173 255 47
+
+
+{-| TBD
+-}
+goldenrod : Color
+goldenrod =
+    rgb255 218 165 32
+
+
+{-| TBD
+-}
+gray : Color
+gray =
+    rgb255 128 128 128
 
 
 {-| TBD
@@ -591,7 +633,7 @@ w3cx11 =
         , ( "lime", rgb255 0 255 0 )
         , ( "palegreen", rgb255 152 251 152 )
         , ( "darkslategrey", darkslategrey )
-        , ( "greenyellow", rgb255 173 255 47 )
+        , ( "greenyellow", greenyellow )
         , ( "burlywood", burlywood )
         , ( "seashell", seashell )
         , ( "mediumspringgreen", rgb255 0 250 154 )
@@ -624,9 +666,9 @@ w3cx11 =
         , ( "antiquewhite", antiqueWhite )
         , ( "mediumorchid", rgb255 186 85 211 )
         , ( "skyblue", skyblue )
-        , ( "gray", rgb255 128 128 128 )
+        , ( "gray", gray )
         , ( "darkturquoise", darkturquoise )
-        , ( "goldenrod", rgb255 218 165 32 )
+        , ( "goldenrod", goldenrod )
         , ( "darkgreen", darkgreen )
         , ( "floralwhite", rgb255 255 250 240 )
         , ( "darkviolet", darkviolet )
@@ -663,7 +705,7 @@ w3cx11 =
         , ( "olivedrab", rgb255 107 142 35 )
         , ( "blue", blue )
         , ( "lightblue", rgb255 173 216 230 )
-        , ( "ghostwhite", rgb255 248 248 255 )
+        , ( "ghostwhite", ghostwhite )
         , ( "honeydew", rgb255 240 255 240 )
         , ( "cornflowerblue", cornflowerblue )
         , ( "slateblue", slateblue )
@@ -677,7 +719,7 @@ w3cx11 =
         , ( "mediumblue", rgb255 0 0 205 )
         , ( "royalblue", rgb255 65 105 225 )
         , ( "lightcyan", rgb255 224 255 255 )
-        , ( "green", rgb255 0 128 0 )
+        , ( "green", green )
         , ( "mediumpurple", rgb255 147 112 219 )
         , ( "midnightblue", rgb255 25 25 112 )
         , ( "cornsilk", cornsilk )
@@ -699,7 +741,7 @@ w3cx11 =
         , ( "lightslategrey", lightslategrey )
         , ( "lightgreen", lightgreen )
         , ( "orchid", rgb255 218 112 214 )
-        , ( "gainsboro", rgb255 220 220 220 )
+        , ( "gainsboro", gainsboro )
         , ( "mediumseagreen", rgb255 60 179 113 )
         , ( "lightgray", rgb255 211 211 211 )
         , ( "mediumturquoise", rgb255 72 209 204 )

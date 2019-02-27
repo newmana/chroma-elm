@@ -68,6 +68,15 @@ testScaleAndDomain =
                         setup |> Tuple.second
                 in
                 Expect.equal "#ffffbf" (ToHex.toHex (result 50))
+        , \_ ->
+            let
+                setup =
+                    Chroma.domain (Nonempty.Nonempty 0.0 [ 25.0, 100.0 ]) (Nonempty.map Types.RGBColor [ W3CX11.red, W3CX11.yellow, W3CX11.green ])
+
+                result =
+                    setup |> Tuple.second
+            in
+            Expect.equal "#ffffbf" (ToHex.toHex (result 50))
         ]
 
 
