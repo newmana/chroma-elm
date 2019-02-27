@@ -177,7 +177,7 @@ createDomainPos oldPos min max newDomain =
                     Nonempty.zip newDomain nonEmptyTail
 
         newPos =
-            Nonempty.indexedMap (\i ( d1, d2 ) -> ( d1 - min / newDenom, d2 - min / newDenom )) pairUp
+            Nonempty.indexedMap (\i ( d1, d2 ) -> ( (d1 - min) / newDenom, (d2 - min) / newDenom )) pairUp
     in
     newPos
 
