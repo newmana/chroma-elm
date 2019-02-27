@@ -8,8 +8,11 @@ module Chroma.Colors.W3CX11 exposing
     , gainsboro, ghostwhite, gold, goldenrod, green, greenyellow, gray, grey
     , hotpink
     , indianred, indigo
-    , lightgrey, lightslategrey, lightgreen
-    , red
+    , lightgreen, lightgrey, lightslategrey, lightsteelblue
+    , mediumaquamarine, mediumslateblue
+    , oldlace
+    , purple
+    , red, rebeccapurple
     , sandybrown, salmon, seagreen, seashell, sienna, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
     , wheat, white, whitesmoke
     , yellow, yellowgreen
@@ -33,8 +36,11 @@ module Chroma.Colors.W3CX11 exposing
 @docs gainsboro, ghostwhite, gold, goldenrod, green, greenyellow, gray, grey
 @docs hotpink
 @docs indianred, indigo
-@docs lightgrey, lightslategrey, lightgreen
-@docs red
+@docs lightgreen, lightgrey, lightslategrey, lightsteelblue
+@docs mediumaquamarine, mediumslateblue
+@docs oldlace
+@docs purple
+@docs red, rebeccapurple
 @docs sandybrown, salmon, seagreen, seashell, sienna, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
 @docs wheat, white, whitesmoke
 @docs yellow, yellowgreen
@@ -479,6 +485,48 @@ lightslategrey =
 
 {-| TBD
 -}
+lightsteelblue : Color
+lightsteelblue =
+    rgb255 176 196 222
+
+
+{-| TBD
+-}
+mediumaquamarine : Color
+mediumaquamarine =
+    rgb255 102 205 170
+
+
+{-| TBD
+-}
+mediumslateblue : Color
+mediumslateblue =
+    rgb255 123 104 238
+
+
+{-| TBD
+-}
+oldlace : Color
+oldlace =
+    rgb255 253 245 230
+
+
+{-| TBD
+-}
+purple : Color
+purple =
+    rgb255 128 0 128
+
+
+{-| TBD
+-}
+rebeccapurple : Color
+rebeccapurple =
+    rgb255 102 51 153
+
+
+{-| TBD
+-}
 red : Color
 red =
     rgb255 255 0 0
@@ -750,17 +798,17 @@ w3cx11 =
         , ( "lightyellow", rgb255 255 255 224 )
         , ( "lavenderblush", rgb255 255 240 245 )
         , ( "coral", coral )
-        , ( "purple", rgb255 128 0 128 )
+        , ( "purple", purple )
         , ( "aqua", aqua )
         , ( "whitesmoke", whitesmoke )
-        , ( "mediumslateblue", rgb255 123 104 238 )
+        , ( "mediumslateblue", mediumslateblue )
         , ( "darkorange", darkorange )
-        , ( "mediumaquamarine", rgb255 102 205 170 )
+        , ( "mediumaquamarine", mediumaquamarine )
         , ( "darksalmon", darksalmon )
         , ( "beige", beige )
         , ( "blueviolet", blueviolet )
         , ( "azure", azure )
-        , ( "lightsteelblue", rgb255 176 196 222 )
-        , ( "oldlace", rgb255 253 245 230 )
-        , ( "rebeccapurple", rgb255 102 51 153 )
+        , ( "lightsteelblue", lightsteelblue )
+        , ( "oldlace", oldlace )
+        , ( "rebeccapurple", rebeccapurple )
         ]
