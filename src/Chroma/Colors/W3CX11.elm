@@ -5,7 +5,7 @@ module Chroma.Colors.W3CX11 exposing
     , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
     , darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
     , firebrick
-    , gold, grey
+    , gainsboro, ghostwhite, gold, goldenrod, green, greenyellow, gray, grey
     , hotpink
     , indianred, indigo
     , lightgrey, lightslategrey, lightgreen
