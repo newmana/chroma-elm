@@ -10,9 +10,9 @@ module Chroma.Colors.W3CX11 exposing
     , indianred, indigo
     , lightgrey, lightslategrey, lightgreen
     , red
-    , slategrey
-    , white
-    , yellow
+    , sandybrown, salmon, seagreen, seashell, sienna, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
+    , wheat, white, whitesmoke
+    , yellow, yellowgreen
     )
 
 {-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
@@ -35,7 +35,7 @@ module Chroma.Colors.W3CX11 exposing
 @docs indianred, indigo
 @docs lightgrey, lightslategrey, lightgreen
 @docs red
-@docs slategrey
+@docs sandybrown, salmon, seagreen, seashell, sienna, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
 @docs wheat, white, whitesmoke
 @docs yellow, yellowgreen
 
@@ -444,9 +444,93 @@ red =
 
 {-| TBD
 -}
+saddlebrown : Color
+saddlebrown =
+    rgb255 139 69 19
+
+
+{-| TBD
+-}
+sandybrown : Color
+sandybrown =
+    rgb255 244 164 96
+
+
+{-| TBD
+-}
+salmon : Color
+salmon =
+    rgb255 250 128 114
+
+
+{-| TBD
+-}
+seagreen : Color
+seagreen =
+    rgb255 46 139 87
+
+
+{-| TBD
+-}
+seashell : Color
+seashell =
+    rgb255 255 245 238
+
+
+{-| TBD
+-}
+sienna : Color
+sienna =
+    rgb255 160 82 45
+
+
+{-| TBD
+-}
+silver : Color
+silver =
+    rgb255 192 192 192
+
+
+{-| TBD
+-}
+slateblue : Color
+slateblue =
+    rgb255 106 90 205
+
+
+{-| TBD
+-}
+slategray : Color
+slategray =
+    rgb255 112 128 144
+
+
+{-| TBD
+-}
 slategrey : Color
 slategrey =
     rgb255 112 128 144
+
+
+{-| TBD
+-}
+steelblue : Color
+steelblue =
+    rgb255 70 130 180
+
+
+{-| TBD
+-}
+skyblue : Color
+skyblue =
+    rgb255 135 206 235
+
+
+{-| TBD
+-}
+springgreen : Color
+springgreen =
+    rgb255 0 255 127
 
 
 {-| TBD
@@ -509,7 +593,7 @@ w3cx11 =
         , ( "darkslategrey", darkslategrey )
         , ( "greenyellow", rgb255 173 255 47 )
         , ( "burlywood", burlywood )
-        , ( "seashell", rgb255 255 245 238 )
+        , ( "seashell", seashell )
         , ( "mediumspringgreen", rgb255 0 250 154 )
         , ( "fuchsia", rgb255 255 0 255 )
         , ( "papayawhip", rgb255 255 239 213 )
@@ -518,7 +602,7 @@ w3cx11 =
         , ( "dimgray", dimgray )
         , ( "black", black )
         , ( "peachpuff", rgb255 255 218 185 )
-        , ( "springgreen", rgb255 0 255 127 )
+        , ( "springgreen", springgreen )
         , ( "aquamarine", aquamarine )
         , ( "white", white )
         , ( "orange", rgb255 255 165 0 )
@@ -539,7 +623,7 @@ w3cx11 =
         , ( "silver", rgb255 192 192 192 )
         , ( "antiquewhite", antiqueWhite )
         , ( "mediumorchid", rgb255 186 85 211 )
-        , ( "skyblue", rgb255 135 206 235 )
+        , ( "skyblue", skyblue )
         , ( "gray", rgb255 128 128 128 )
         , ( "darkturquoise", darkturquoise )
         , ( "goldenrod", rgb255 218 165 32 )
@@ -568,7 +652,7 @@ w3cx11 =
         , ( "lavender", rgb255 230 230 250 )
         , ( "maroon", rgb255 128 0 0 )
         , ( "yellowgreen", yellowgreen )
-        , ( "sandybrown", rgb255 244 164 96 )
+        , ( "sandybrown", sandybrown )
         , ( "thistle", rgb255 216 191 216 )
         , ( "violet", rgb255 238 130 238 )
         , ( "navy", rgb255 0 0 128 )
@@ -582,14 +666,14 @@ w3cx11 =
         , ( "ghostwhite", rgb255 248 248 255 )
         , ( "honeydew", rgb255 240 255 240 )
         , ( "cornflowerblue", cornflowerblue )
-        , ( "slateblue", rgb255 106 90 205 )
+        , ( "slateblue", slateblue )
         , ( "linen", rgb255 250 240 230 )
         , ( "darkblue", darkblue )
         , ( "powderblue", rgb255 176 224 230 )
-        , ( "seagreen", rgb255 46 139 87 )
+        , ( "seagreen", seagreen )
         , ( "darkkhaki", darkkhaki )
         , ( "snow", rgb255 255 250 250 )
-        , ( "sienna", rgb255 160 82 45 )
+        , ( "sienna", sienna )
         , ( "mediumblue", rgb255 0 0 205 )
         , ( "royalblue", rgb255 65 105 225 )
         , ( "lightcyan", rgb255 224 255 255 )
@@ -599,16 +683,16 @@ w3cx11 =
         , ( "cornsilk", cornsilk )
         , ( "paleturquoise", rgb255 175 238 238 )
         , ( "bisque", bisque )
-        , ( "slategray", rgb255 112 128 144 )
+        , ( "slategray", slategray )
         , ( "darkcyan", darkcyan )
         , ( "khaki", rgb255 240 230 140 )
         , ( "wheat", wheat )
         , ( "teal", rgb255 0 128 128 )
         , ( "darkorchid", darkorchid )
         , ( "deepskyblue", deepskyblue )
-        , ( "salmon", rgb255 250 128 114 )
+        , ( "salmon", salmon )
         , ( "darkred", darkred )
-        , ( "steelblue", rgb255 70 130 180 )
+        , ( "steelblue", steelblue )
         , ( "palevioletred", rgb255 219 112 147 )
         , ( "lightslategray", rgb255 119 136 153 )
         , ( "aliceblue", aliceBlue )
