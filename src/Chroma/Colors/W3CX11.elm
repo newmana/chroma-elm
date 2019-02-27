@@ -36,8 +36,8 @@ module Chroma.Colors.W3CX11 exposing
 @docs lightgrey, lightslategrey, lightgreen
 @docs red
 @docs slategrey
-@docs white
-@docs yellow
+@docs wheat, white, whitesmoke
+@docs yellow, yellowgreen
 
 -}
 
@@ -451,6 +451,27 @@ slategrey =
 
 {-| TBD
 -}
+white : Color
+white =
+    Color.white
+
+
+{-| TBD
+-}
+wheat : Color
+wheat =
+    rgb255 245 222 179
+
+
+{-| TBD
+-}
+whitesmoke : Color
+whitesmoke =
+    rgb255 245 245 245
+
+
+{-| TBD
+-}
 yellow : Color
 yellow =
     rgb255 255 255 0
@@ -458,9 +479,9 @@ yellow =
 
 {-| TBD
 -}
-white : Color
-white =
-    Color.white
+yellowgreen : Color
+yellowgreen =
+    rgb255 154 205 50
 
 
 {-| TBD
@@ -546,7 +567,7 @@ w3cx11 =
         , ( "darkgoldenrod", darkgoldenrod )
         , ( "lavender", rgb255 230 230 250 )
         , ( "maroon", rgb255 128 0 0 )
-        , ( "yellowgreen", rgb255 154 205 50 )
+        , ( "yellowgreen", yellowgreen )
         , ( "sandybrown", rgb255 244 164 96 )
         , ( "thistle", rgb255 216 191 216 )
         , ( "violet", rgb255 238 130 238 )
@@ -581,7 +602,7 @@ w3cx11 =
         , ( "slategray", rgb255 112 128 144 )
         , ( "darkcyan", darkcyan )
         , ( "khaki", rgb255 240 230 140 )
-        , ( "wheat", rgb255 245 222 179 )
+        , ( "wheat", wheat )
         , ( "teal", rgb255 0 128 128 )
         , ( "darkorchid", darkorchid )
         , ( "deepskyblue", deepskyblue )
@@ -605,7 +626,7 @@ w3cx11 =
         , ( "coral", coral )
         , ( "purple", rgb255 128 0 128 )
         , ( "aqua", aqua )
-        , ( "whitesmoke", rgb255 245 245 245 )
+        , ( "whitesmoke", whitesmoke )
         , ( "mediumslateblue", rgb255 123 104 238 )
         , ( "darkorange", darkorange )
         , ( "mediumaquamarine", rgb255 102 205 170 )
