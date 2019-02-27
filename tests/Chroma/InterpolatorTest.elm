@@ -56,6 +56,11 @@ yellowRgb =
     Types.RGBColor W3CX11.yellow
 
 
+lightGreen : Types.ExtColor
+lightGreen =
+    Types.RGBColor W3CX11.lightgreen
+
+
 bluishRgb : Types.ExtColor
 bluishRgb =
     Types.RGBColor (Color.rgb255 0 138 229)
@@ -184,6 +189,9 @@ testBrewerRgbWithDomain =
     let
         newData =
             Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 100 ]) |> Scale.createData (Nonempty.map Types.RGBColor Brewer.rdYlGn)
+
+        newDataMultiDomain =
+            Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 0.25, 1 ]) |> Scale.createData (Nonempty.Nonempty yellowRgb [ lightGreen, bluishRgb ])
     in
     Test.describe "Brewer Red Yellow Green Scale with 0,100 domain "
         [ Test.test "Test start of two" <|
@@ -198,6 +206,18 @@ testBrewerRgbWithDomain =
         , Test.test "Test end of two" <|
             \_ ->
                 expectScaleWithDomainRgbHex newData 100 "#006837"
+        , Test.test "Three colour RGB start" <|
+            \_ ->
+                expectScaleWithDomainRgbHex newDataMultiDomain 0.0 (ToHex.toHex yellowRgb)
+        , Test.test "Three colour RGB on second" <|
+            \_ ->
+                expectScaleWithDomainRgbHex newDataMultiDomain 0.25 (ToHex.toHex lightGreen)
+        , Test.test "Three colour RGB midpoint" <|
+            \_ ->
+                expectScaleWithDomainRgbHex newDataMultiDomain 0.5 "#60cdac"
+        , Test.test "Three colour RGB end" <|
+            \_ ->
+                expectScaleWithDomainRgbHex newDataMultiDomain 1.0 (ToHex.toHex bluishRgb)
         ]
 
 
