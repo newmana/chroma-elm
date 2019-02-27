@@ -188,10 +188,10 @@ testBrewerRgbWithDomain : Test.Test
 testBrewerRgbWithDomain =
     let
         newData =
-            Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 100 ]) |> Scale.createData (Nonempty.map Types.RGBColor Brewer.rdYlGn)
+            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBColor Brewer.rdYlGn) |> Scale.domain (Nonempty.Nonempty 0 [ 100 ])
 
         newDataMultiDomain =
-            Scale.defaultData |> Scale.domain (Nonempty.Nonempty 0 [ 0.25, 1 ]) |> Scale.createData (Nonempty.Nonempty yellowRgb [ lightGreen, bluishRgb ])
+            Scale.defaultData |> Scale.createData (Nonempty.Nonempty yellowRgb [ lightGreen, bluishRgb ]) |> Scale.domain (Nonempty.Nonempty 0 [ 0.25, 1 ])
     in
     Test.describe "Brewer Red Yellow Green Scale with 0,100 domain "
         [ Test.test "Test start of two" <|

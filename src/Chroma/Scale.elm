@@ -169,7 +169,7 @@ createDomainPos oldPos min max newDomain =
                     Nothing
 
                 h :: r ->
-                    Just (Nonempty.Nonempty h r)
+                    Just (Nonempty.Nonempty h (r ++ [ Nonempty.get -1 newDomain ]))
 
         pairUp =
             case maybeNonEmptyTail of
