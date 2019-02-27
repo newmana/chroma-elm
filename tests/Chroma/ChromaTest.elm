@@ -17,10 +17,9 @@ import UtilTest as UtilTest
 tests : Test.Test
 tests =
     Test.describe "Chroma API"
-        [ --        testStringToColor
-          testScaleAndDomain
-
-        --        , testDistance
+        [ testStringToColor
+        , testScaleAndDomain
+        , testDistance
         ]
 
 
@@ -64,19 +63,19 @@ testScaleAndDomain =
             Chroma.domain (Nonempty.Nonempty 0.0 [ 100.0 ]) (Nonempty.map Types.RGBColor Brewer.rdYlGn)
 
         ( _, g ) =
-            Chroma.domain (Nonempty.Nonempty -1192 [ 0, 66 ]) (Nonempty.map Types.RGBColor (Nonempty.Nonempty (rgb255 140 81 10) [ rgb255 245 245 245, rgb255 1 102 94 ]))
+            Chroma.domain (Nonempty.Nonempty -1192 [ 0, 66 ]) (Nonempty.map Types.RGBColor (Nonempty.Nonempty (rgb255 216 179 101) [ rgb255 245 245 245, rgb255 90 180 172 ]))
     in
     Test.describe "scale and domain API"
         [ Test.test "Simple test" <|
             \_ ->
                 Expect.equal "#ffffbf" (ToHex.toHex (f 50))
-        , Test.test "Multi Domain Test" <|
+        , Test.test "Multi Domain Test Negative" <|
             \_ ->
                 Expect.equal "#e0c58d" (ToHex.toHex (g -860))
-        , Test.test "Multi Domain Test Arbitrary 2" <|
+        , Test.test "Multi Domain Test Zero" <|
             \_ ->
                 Expect.equal "#f5f5f5" (ToHex.toHex (g 0))
-        , Test.test "Multi Domain Test Arbitrary 3" <|
+        , Test.test "Multi Domain Test Positive" <|
             \_ ->
                 Expect.equal "#afd7d4" (ToHex.toHex (g 30))
         ]

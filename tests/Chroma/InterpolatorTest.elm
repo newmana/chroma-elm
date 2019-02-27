@@ -194,7 +194,7 @@ testBrewerRgbWithDomain =
             Scale.defaultData |> Scale.createData (Nonempty.Nonempty yellowRgb [ lightGreen, bluishRgb ]) |> Scale.domain (Nonempty.Nonempty 0 [ 0.25, 1 ])
 
         newArbitrary =
-            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBColor (Nonempty.Nonempty (Color.rgb255 140 81 10) [ Color.rgb255 245 245 245, Color.rgb255 1 102 94 ])) |> Scale.domain (Nonempty.Nonempty -1192 [ 0, 66 ])
+            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBColor (Nonempty.Nonempty (Color.rgb255 216 179 101) [ Color.rgb255 245 245 245, Color.rgb255 90 180 172 ])) |> Scale.domain (Nonempty.Nonempty -1192 [ 0, 66 ])
     in
     Test.describe "Brewer Red Yellow Green Scale with 0,100 domain "
         [ Test.test "Test start of two" <|
