@@ -115,5 +115,5 @@ fromBase16 char =
         'f' ->
             Just 15
 
-        nonHex ->
+        _ ->
             Nothing

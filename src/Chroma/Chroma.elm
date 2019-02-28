@@ -19,13 +19,10 @@ module Chroma.Chroma exposing
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
-import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Converter.Out.ToRgb as ToRgb
 import Chroma.Scale as Scale
 import Chroma.Types as Types
-import Color as Color
-import Flip as Flip
 import List.Nonempty as Nonempty
 import Result as Result
 
@@ -38,7 +35,7 @@ chroma str =
         Ok value ->
             Ok (Types.RGBColor value)
 
-        Err err ->
+        Err _ ->
             Hex2Rgb.hex2rgb str |> Result.map Types.RGBColor
 
 
@@ -72,7 +69,7 @@ scaleWith data colors =
 domain : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 domain newDomain colors =
     let
-        ( newData, f ) =
+        ( newData, _ ) =
             scale colors
 
         domainData =

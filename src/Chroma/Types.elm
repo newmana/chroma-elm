@@ -10,7 +10,6 @@ module Chroma.Types exposing (CymkColor, ExtColor(..), Hsla, HslaDegrees, LabCol
 -}
 
 import Color as Color
-import List.Nonempty as Nonempty
 
 
 {-| TBD

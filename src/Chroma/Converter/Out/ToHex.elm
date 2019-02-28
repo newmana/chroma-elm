@@ -11,7 +11,6 @@ module Chroma.Converter.Out.ToHex exposing (toHex)
 
 import Chroma.Converter.Out.ToRgb as ToRgb
 import Chroma.Types as Types
-import Color as Color
 import Hex as Hex
 
 

@@ -10,8 +10,6 @@ module Chroma.Scale exposing (getColor, domain, correctLightness, Data, classes,
 -}
 
 import Chroma.Colors.W3CX11 as W3CX11
-import Chroma.Converter.In.Cmyk2Rgb as Cymk2Rgb
-import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Converter.Out.ToRgb as ToRgb
 import Chroma.Interpolator as Interpolator
 import Chroma.Types as Types
@@ -177,7 +175,7 @@ createDomainPos oldPos min max newDomain =
                     Nonempty.zip newDomain nonEmptyTail
 
         newPos =
-            Nonempty.indexedMap (\i ( d1, d2 ) -> ( (d1 - min) / newDenom, (d2 - min) / newDenom )) pairUp
+            Nonempty.indexedMap (\_ ( d1, d2 ) -> ( (d1 - min) / newDenom, (d2 - min) / newDenom )) pairUp
     in
     newPos
 
@@ -279,17 +277,17 @@ colorsNum colors num =
 
 
 colorsFormat : List Color.Color -> String -> Int -> List Color.Color
-colorsFormat colors format num =
+colorsFormat _ _ _ =
     []
 
 
 {-| TBD
 -}
 classes : List Color.Color -> Int -> List Color.Color
-classes colors num =
+classes _ _ =
     []
 
 
 classesArray : List Color.Color -> List Float -> List Color.Color
-classesArray colors arr =
+classesArray _ _ =
     []

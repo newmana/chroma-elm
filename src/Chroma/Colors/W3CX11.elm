@@ -13,7 +13,8 @@ module Chroma.Colors.W3CX11 exposing
     , oldlace
     , purple
     , red, rebeccapurple
-    , sandybrown, salmon, seagreen, seashell, sienna, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
+    , sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
+    , tan, teal, thistle, tomato, turquoise
     , wheat, white, whitesmoke
     , yellow, yellowgreen
     )
@@ -41,7 +42,8 @@ module Chroma.Colors.W3CX11 exposing
 @docs oldlace
 @docs purple
 @docs red, rebeccapurple
-@docs sandybrown, salmon, seagreen, seashell, sienna, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
+@docs sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
+@docs tan, teal, thistle, tomato, turquoise
 @docs wheat, white, whitesmoke
 @docs yellow, yellowgreen
 
@@ -625,6 +627,41 @@ springgreen =
 
 {-| TBD
 -}
+tan : Color
+tan =
+    rgb255 210 180 140
+
+
+{-| TBD
+-}
+teal : Color
+teal =
+    rgb255 0 128 128
+
+
+{-| TBD
+-}
+thistle : Color
+thistle =
+    rgb255 216 191 216
+
+
+{-| TBD
+-}
+tomato : Color
+tomato =
+    rgb255 255 99 71
+
+
+{-| TBD
+-}
+turquoise : Color
+turquoise =
+    rgb255 64 224 208
+
+
+{-| TBD
+-}
 white : Color
 white =
     Color.white
@@ -674,7 +711,7 @@ w3cx11 =
         , ( "olive", rgb255 128 128 0 )
         , ( "darkseagreen", darkseagreen )
         , ( "pink", rgb255 255 192 203 )
-        , ( "tomato", rgb255 255 99 71 )
+        , ( "tomato", tomato )
         , ( "lightcoral", rgb255 240 128 128 )
         , ( "orangered", rgb255 255 69 0 )
         , ( "navajowhite", rgb255 255 222 173 )
@@ -722,7 +759,7 @@ w3cx11 =
         , ( "darkviolet", darkviolet )
         , ( "darkgray", darkgray )
         , ( "moccasin", rgb255 255 228 181 )
-        , ( "saddlebrown", rgb255 139 69 19 )
+        , ( "saddlebrown", saddlebrown )
         , ( "grey", grey )
         , ( "darkslateblue", darkslateblue )
         , ( "lightskyblue", rgb255 135 206 250 )
@@ -735,7 +772,7 @@ w3cx11 =
         , ( "darkmagenta", darkmagenta )
         , ( "palegoldenrod", rgb255 238 232 170 )
         , ( "plum", rgb255 221 160 221 )
-        , ( "turquoise", rgb255 64 224 208 )
+        , ( "turquoise", turquoise )
         , ( "lightgrey", lightgrey )
         , ( "lightgoldenrodyellow", rgb255 250 250 210 )
         , ( "darkgoldenrod", darkgoldenrod )
@@ -743,12 +780,12 @@ w3cx11 =
         , ( "maroon", rgb255 128 0 0 )
         , ( "yellowgreen", yellowgreen )
         , ( "sandybrown", sandybrown )
-        , ( "thistle", rgb255 216 191 216 )
+        , ( "thistle", thistle )
         , ( "violet", rgb255 238 130 238 )
         , ( "navy", rgb255 0 0 128 )
         , ( "magenta", rgb255 255 0 255 )
         , ( "dimgrey", dimgrey )
-        , ( "tan", rgb255 210 180 140 )
+        , ( "tan", tan )
         , ( "rosybrown", rgb255 188 143 143 )
         , ( "olivedrab", rgb255 107 142 35 )
         , ( "blue", blue )
@@ -777,7 +814,7 @@ w3cx11 =
         , ( "darkcyan", darkcyan )
         , ( "khaki", rgb255 240 230 140 )
         , ( "wheat", wheat )
-        , ( "teal", rgb255 0 128 128 )
+        , ( "teal", teal )
         , ( "darkorchid", darkorchid )
         , ( "deepskyblue", deepskyblue )
         , ( "salmon", salmon )
