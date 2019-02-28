@@ -93,8 +93,7 @@ createData newColors data =
     { data | pos = createPos newColors, colors = ensureTwoColors }
 
 
-{-| Finish <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L119> >
-Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
+{-| TODO - Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
 -}
 getColor : Data -> Float -> Types.ExtColor
 getColor data val =
