@@ -86,11 +86,15 @@ domainWith newDomain data colors =
     ( newData, Scale.getColor newData )
 
 
+{-| Remove a fraction of the color gradient (0 -> 1). Applies both sides the same.
+-}
 padding : Float -> ( Scale.Data, Float -> Types.ExtColor ) -> ( Scale.Data, Float -> Types.ExtColor )
 padding both dataAndF =
     paddingBoth ( both, both ) dataAndF
 
 
+{-| Remove a fraction of the color gradient (0 -> 1).
+-}
 paddingBoth : ( Float, Float ) -> ( Scale.Data, Float -> Types.ExtColor ) -> ( Scale.Data, Float -> Types.ExtColor )
 paddingBoth ( newLeft, newRight ) ( data, _ ) =
     let
