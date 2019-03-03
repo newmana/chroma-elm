@@ -17,9 +17,10 @@ import UtilTest as UtilTest
 tests : Test.Test
 tests =
     Test.describe "Chroma API"
-        [ testStringToColor
-        , testScaleAndDomain
-        , testDistance
+        [ --        testStringToColor
+          --        , testScaleAndDomain
+          --        , testDistance
+          testPadding
         ]
 
 
@@ -102,4 +103,29 @@ testDistance =
         , Test.test "Distance 6" <|
             \_ ->
                 Result.map2 Chroma.distanceWithLab c1 c3 |> UtilTest.expectResultWithin 0.001 122.163
+        ]
+
+
+testPadding : Test.Test
+testPadding =
+    let
+        ( _, f ) =
+            Chroma.scale (Nonempty.map Types.RGBColor Brewer.rdYlGn) |> Chroma.padding 0.15
+
+        ( _, bothF ) =
+            Chroma.scale (Nonempty.map Types.RGBColor Brewer.rdYlGn) |> Chroma.paddingBoth ( -0.15, 0.15 )
+    in
+    Test.describe "scale and padding API"
+        [ Test.test "Padded left" <|
+            \_ ->
+                Expect.equal "#f67a49" (ToHex.toHex (f 0.1))
+        , Test.test "Padded right" <|
+            \_ ->
+                Expect.equal "#73c364" (ToHex.toHex (f 0.9))
+        , Test.test "Padded left both" <|
+            \_ ->
+                Expect.equal "#a50026" (ToHex.toHex (bothF 0.1))
+        , Test.test "Padded right both" <|
+            \_ ->
+                Expect.equal "#86cb67" (ToHex.toHex (bothF 0.9))
         ]

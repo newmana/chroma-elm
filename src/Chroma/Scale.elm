@@ -20,13 +20,11 @@ import List.Nonempty as Nonempty
 {-| Configuration data used by most functions.
 -}
 type alias Data =
-    { mode : Types.Mode
-    , nanColor : Color.Color
+    { nanColor : Color.Color
     , spread : Float
-    , isFixed : Bool
     , domainValues : Nonempty.Nonempty Float
     , pos : Nonempty.Nonempty ( Float, Float )
-    , paddingValues : Nonempty.Nonempty Float
+    , paddingValues : ( Float, Float )
     , useClasses : Bool
     , colors : Nonempty.Nonempty Types.ExtColor
     , useOut : Bool
@@ -41,13 +39,11 @@ type alias Data =
 -}
 defaultData : Data
 defaultData =
-    { mode = Types.RGB
-    , nanColor = Color.rgb 204 204 204
+    { nanColor = Color.rgb 204 204 204
     , spread = 0
-    , isFixed = False
     , domainValues = Nonempty.Nonempty 0 [ 1 ]
     , pos = Nonempty.fromElement ( 0, 1 )
-    , paddingValues = Nonempty.Nonempty 0 [ 0 ]
+    , paddingValues = ( 0, 0 )
     , useClasses = False
     , colors = Nonempty.Nonempty (Types.RGBColor W3CX11.white) [ Types.RGBColor W3CX11.black ]
     , useOut = False
@@ -101,7 +97,7 @@ getColor data val =
 
 
 getDirectColor : Data -> Float -> Types.ExtColor
-getDirectColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } as data) startT =
+getDirectColor ({ nanColor, spread, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } as data) startT =
     let
         lightnessCorrectedT =
             if useCorrectLightness then
@@ -113,8 +109,11 @@ getDirectColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingVal
         gammaT =
             lightnessCorrectedT ^ gammaValue
 
+        ( padLeft, padRight ) =
+            paddingValues
+
         paddedT =
-            Nonempty.get 0 paddingValues + (gammaT * (1 - Nonempty.get 0 paddingValues - Nonempty.get 1 paddingValues))
+            padLeft + (gammaT * (1 - padLeft - padRight))
 
         boundedT =
             clamp 0 1 paddedT
