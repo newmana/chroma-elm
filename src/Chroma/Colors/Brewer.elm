@@ -7,17 +7,17 @@ module Chroma.Colors.Brewer exposing
 {-| All colorbrewer 2.0 colors <http://colorbrewer2.org/>
 
 
-# Sequential Colour Ramp
+# Sequential Color Ramp
 
 @docs orRd, puBu, buPu, oranges, buGn, ylOrBr, ylGn, reds, rdPu, greens, ylGnBu, purples, gnBu, greys, ylOrRd, puRd, blues, puBuGn
 
 
-# Diverging Colour Ramp
+# Diverging Color Ramp
 
 @docs brBG, pRGn, piYG, puOr, rdBu, rdGy, rdYlBu, rdYlGn, spectral
 
 
-# Qualitative Colour Ramp
+# Qualitative Color Ramp
 
 @docs set1, set2, accent, set3, dark2, paired, pastel2, pastel1
 

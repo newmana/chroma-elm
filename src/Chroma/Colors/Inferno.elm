@@ -1,11 +1,11 @@
 module Chroma.Colors.Inferno exposing (inferno)
 
-{-| Inferno colour scale.
+{-| Inferno color scale.
 
 ![Inferno](https://raw.githubusercontent.com/newmana/chroma-elm/master/images/inferno4.png)
 
 
-# Colour Scale
+# Color Scale
 
 @docs inferno
 

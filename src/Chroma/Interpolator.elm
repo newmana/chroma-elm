@@ -1,6 +1,6 @@
 module Chroma.Interpolator exposing (interpolate)
 
-{-| Provides interpolation between two colours of the same colour space.
+{-| Provides interpolation between two colors of the same color space.
 
 
 # Definition
@@ -16,7 +16,7 @@ import Chroma.Types as Types
 import Color as Color
 
 
-{-| Return a new colour based on interpolating on two colours and a weighting between them.
+{-| Return a new color based on interpolating on two colors and a weighting between them.
 
 CMYK may not work correctly. Will return black if the types are not the same.
 

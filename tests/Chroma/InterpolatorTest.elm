@@ -209,16 +209,16 @@ testBrewerRgbWithDomain =
         , Test.test "Test end of two" <|
             \_ ->
                 expectScaleWithDomainRgbHex newData 100 "#006837"
-        , Test.test "Three colour RGB start" <|
+        , Test.test "Three color RGB start" <|
             \_ ->
                 expectScaleWithDomainRgbHex newDataMultiDomain 0.0 (ToHex.toHex yellowRgb)
-        , Test.test "Three colour RGB on second" <|
+        , Test.test "Three color RGB on second" <|
             \_ ->
                 expectScaleWithDomainRgbHex newDataMultiDomain 0.25 (ToHex.toHex lightGreen)
-        , Test.test "Three colour RGB midpoint" <|
+        , Test.test "Three color RGB midpoint" <|
             \_ ->
                 expectScaleWithDomainRgbHex newDataMultiDomain 0.5 "#60cdac"
-        , Test.test "Three colour RGB end" <|
+        , Test.test "Three color RGB end" <|
             \_ ->
                 expectScaleWithDomainRgbHex newDataMultiDomain 1.0 (ToHex.toHex bluishRgb)
         , Test.test "Multi Domain Test Arbitrary" <|
@@ -230,7 +230,7 @@ testBrewerRgbWithDomain =
 testInterpolate : Test.Test
 testInterpolate =
     Test.describe "Interpolation"
-        [ Test.test "Simple two colour lab" <|
+        [ Test.test "Simple two color lab" <|
             \_ ->
                 let
                     newData =
@@ -290,7 +290,7 @@ testInterpolate =
                             |> (\d -> { d | useCorrectLightness = True })
                 in
                 expectScaleWithDomainLab newData 50 50
-        , Test.test "Simple two colour RGB" <|
+        , Test.test "Simple two color RGB" <|
             \_ ->
                 expectScaleWithDomainRgb (whiteAndBlackRgb Scale.defaultData) 0.25 0.75
         ]

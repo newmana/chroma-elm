@@ -28,11 +28,11 @@ toHex color =
 toPaddedHex : Int -> String
 toPaddedHex color =
     let
-        colourString =
+        colorString =
             Hex.toString color
     in
-    if String.length colourString == 1 then
-        "0" ++ colourString
+    if String.length colorString == 1 then
+        "0" ++ colorString
 
     else
-        colourString
+        colorString

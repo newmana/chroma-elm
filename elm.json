@@ -4,26 +4,36 @@
     "summary": "A clone of the very useful chroma.js in Elm",
     "license": "Apache-2.0",
     "version": "4.3.0",
-    "exposed-modules": [
-        "Chroma.Chroma",
-        "Chroma.Interpolator",
-        "Chroma.Scale",
-        "Chroma.Types",
-        "Chroma.Converter.In.Cmyk2Rgb",
-        "Chroma.Converter.In.Hex2Rgb",
-        "Chroma.Converter.In.Hsl2Rgb",
-        "Chroma.Converter.In.Lab2Rgb",
-        "Chroma.Converter.Out.ToCmyk",
-        "Chroma.Converter.Out.ToHex",
-        "Chroma.Converter.Out.ToHsl",
-        "Chroma.Converter.Out.ToLab",
-        "Chroma.Converter.Out.ToRgb",
-        "Chroma.Colors.Brewer",
-        "Chroma.Colors.Viridis",
-        "Chroma.Colors.Inferno",
-        "Chroma.Colors.Magma",
-        "Chroma.Colors.W3CX11"
-    ],
+    "exposed-modules": {
+        "Main API": [
+            "Chroma.Chroma"
+        ],
+        "Input": [
+            "Chroma.Converter.In.Cmyk2Rgb",
+            "Chroma.Converter.In.Hex2Rgb",
+            "Chroma.Converter.In.Hsl2Rgb",
+            "Chroma.Converter.In.Lab2Rgb"
+        ],
+        "Output": [
+            "Chroma.Converter.Out.ToCmyk",
+            "Chroma.Converter.Out.ToHex",
+            "Chroma.Converter.Out.ToHsl",
+            "Chroma.Converter.Out.ToLab",
+            "Chroma.Converter.Out.ToRgb"
+        ],
+        "Colors": [
+            "Chroma.Colors.Brewer",
+            "Chroma.Colors.Viridis",
+            "Chroma.Colors.Inferno",
+            "Chroma.Colors.Magma",
+            "Chroma.Colors.W3CX11"
+        ],
+        "Helpers": [
+            "Chroma.Types",
+            "Chroma.Interpolator",
+            "Chroma.Scale"
+        ]
+    },
     "elm-version": "0.19.0 <= v < 0.20.0",
     "dependencies": {
         "avh4/elm-color": "1.0.0 <= v < 2.0.0",

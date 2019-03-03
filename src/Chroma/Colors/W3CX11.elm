@@ -27,7 +27,7 @@ module Chroma.Colors.W3CX11 exposing
 @docs named, w3cx11
 
 
-# Colours
+# Colors
 
 @docs aliceBlue, antiqueWhite, aqua, azure, aquamarine
 @docs beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
@@ -54,7 +54,7 @@ import Dict
 import Result
 
 
-{-| Lookup a colour by name.
+{-| Lookup a color by name.
 
     named "red"
     --> Ok (RgbaSpace 1 0 0 1) : Result String Color.Color

@@ -1,11 +1,11 @@
 module Chroma.Colors.Magma exposing (magma)
 
-{-| Magma colour scale.
+{-| Magma color scale.
 
 ![Magma](https://raw.githubusercontent.com/newmana/chroma-elm/master/images/magma4.png)
 
 
-# Colour Scale
+# Color Scale
 
 @docs magma
 

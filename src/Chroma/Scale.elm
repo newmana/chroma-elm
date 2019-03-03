@@ -37,7 +37,7 @@ type alias Data =
     }
 
 
-{-| Sensible default configuration defaults: RGB, domain 0-1, pos 0, 1,and white and black colour range.
+{-| Sensible default configuration defaults: RGB, domain 0-1, pos 0, 1,and white and black color range.
 -}
 defaultData : Data
 defaultData =
@@ -64,7 +64,7 @@ defaultData =
 -- mode is equidistant, log, k-means or quantile
 
 
-{-| Recalculate pos based on new colours.
+{-| Recalculate pos based on new colors.
 -}
 createPos : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty ( Float, Float )
 createPos newColors =
@@ -78,7 +78,7 @@ createPos newColors =
     newPos
 
 
-{-| Setup new configuration with the given colours.
+{-| Setup new configuration with the given colors.
 -}
 createData : Nonempty.Nonempty Types.ExtColor -> Data -> Data
 createData newColors data =
@@ -118,21 +118,27 @@ getDirectColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingVal
 
         boundedT =
             clamp 0 1 paddedT
+    in
+    findAndInterpolateColor colors pos boundedT
 
+
+findAndInterpolateColor : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty ( Float, Float ) -> Float -> Types.ExtColor
+findAndInterpolateColor colors pos t =
+    let
         posMax =
             Nonempty.length pos - 1
 
-        ( _, finalResult, _ ) =
+        ( _, interpolatedResult, _ ) =
             Nonempty.foldl
                 (\( p0, p1 ) ( found, result, i ) ->
                     if not found then
-                        if (boundedT <= p0) || (boundedT >= p0 && i == posMax) then
+                        if (t <= p0) || (t >= p0 && i == posMax) then
                             ( True, Nonempty.get i colors, i )
 
-                        else if boundedT > p0 && boundedT < p1 then
+                        else if t > p0 && t < p1 then
                             let
                                 newT =
-                                    (boundedT - p0) / (p1 - p0)
+                                    (t - p0) / (p1 - p0)
 
                                 interT =
                                     Interpolator.interpolate (Nonempty.get i colors) (Nonempty.get (i + 1) colors) newT
@@ -148,7 +154,7 @@ getDirectColor ({ mode, nanColor, spread, isFixed, domainValues, pos, paddingVal
                 ( False, Types.RGBColor W3CX11.black, 0 )
                 pos
     in
-    finalResult
+    interpolatedResult
 
 
 createDomainPos : Nonempty.Nonempty ( Float, Float ) -> Float -> Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty ( Float, Float )
