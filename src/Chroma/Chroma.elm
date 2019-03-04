@@ -39,21 +39,21 @@ chroma str =
             Hex2Rgb.hex2rgb str |> Result.map Types.RGBColor
 
 
-{-| Return a new configuration and a function from float to color based on default values - colors White to Black, domain 0 - 1.
+{-| Return a new configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.
 -}
 scaleDefault : ( Scale.Data, Float -> Types.ExtColor )
 scaleDefault =
     ( Scale.defaultData, Scale.getColor Scale.defaultData )
 
 
-{-| Return a new configuration and a function from float to color based on default values and the given colors.
+{-| Return a new configuration and a function from a float to color based on default values and the given colors.
 -}
 scale : Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 scale colors =
     scaleWith Scale.defaultData colors
 
 
-{-| Return a new configuration and a function from float to color based on the given configuration values and the given colors.
+{-| Return a new configuration and a function from a float to color based on the given configuration values and the given colors.
 -}
 scaleWith : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 scaleWith data colors =
@@ -64,7 +64,8 @@ scaleWith data colors =
     ( newData, Scale.getColor newData )
 
 
-{-| Return a new configuration and a function from float to color based on default values, the given colors and domain.
+{-| Return a new configuration and a function from a float to color based on a new domain, colors (must be the same
+length as the domain) and default configuration.
 -}
 domain : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 domain newDomain colors =
@@ -75,7 +76,8 @@ domain newDomain colors =
     ( newData, Scale.getColor newData )
 
 
-{-| Return a new configuration and a function from float to color based on the given configuration values, the given colors and domain.
+{-| Return a new configuration and a function from a float to color based on a new domain, an existing configuration,
+and colors (must be the same length as the domain).
 -}
 domainWith : Nonempty.Nonempty Float -> Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 domainWith newDomain data colors =
