@@ -19,7 +19,7 @@ import Color as Color
 toCmyk : Types.ExtColor -> Types.CymkColor
 toCmyk color =
     let
-        convert { alpha, blue, green, red } =
+        convert { red, green, blue, alpha } =
             let
                 f x =
                     if k < 1 then
