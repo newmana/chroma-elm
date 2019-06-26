@@ -1,4 +1,4 @@
-# chroma.elm
+# chroma-elm
 Clone of [Chroma.js](https://gka.github.io/chroma.js)
 
 # Development
