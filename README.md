@@ -1,6 +1,8 @@
 # chroma-elm
 Clone of [Chroma.js](https://gka.github.io/chroma.js)
 
+[Example Site](https://newmana.github.io/chroma-elm/)
+
 # Development
 - ```yarn install```
 - ```yarn run elm make```
