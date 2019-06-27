@@ -3,99 +3,143 @@
 
 module Main exposing (main)
 
-import Browser
+import Browser as Browser
+import Browser.Navigation as BrowserNavigation
 import Html as Html
-import Html.Attributes as HtmlAttributes
+import Json.Decode as JsonDecode
+import Model as Model
+import Page.Chroma as PageChroma
+import Page.Color as PageColor
+import Page.Convertor as Convertor
+import Page.GettingStarted as PageGettingStarted
+import Page.Interpolator as PageInterpolator
+import Route as Route
+import Url as Url
+import View as View
 
 
+type Msg
+    = ChangedRoute (Maybe Route.Route)
+    | ChangedUrl Url.Url
+    | ClickedLink Browser.UrlRequest
+    | GetStartedMsg
+    | ChromaMsg
+    | InterpolatorMsg
+    | ConvertorMsg
+    | ColorsMsg
+
+
+update : Msg -> Model.Model -> ( Model.Model, Cmd Msg )
+update msg model =
+    case msg of
+        ClickedLink urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    case url.fragment of
+                        Nothing ->
+                            ( model, Cmd.none )
+
+                        Just _ ->
+                            ( model
+                            , BrowserNavigation.pushUrl model.key (Url.toString url)
+                            )
+
+                Browser.External href ->
+                    ( model
+                    , BrowserNavigation.load href
+                    )
+
+        ChangedUrl url ->
+            changeUrl url model.key
+
+        GetStartedMsg ->
+            ( { model | page = Model.GetStarted }, Cmd.none )
+
+        ChromaMsg ->
+            ( { model | page = Model.Chroma }, Cmd.none )
+
+        InterpolatorMsg ->
+            ( { model | page = Model.Interpolator }, Cmd.none )
+
+        ConvertorMsg ->
+            ( { model | page = Model.Convertor }, Cmd.none )
+
+        ColorsMsg ->
+            ( { model | page = Model.Colors }, Cmd.none )
+
+        _ ->
+            ( model, Cmd.none )
+
+
+init : flags -> Url.Url -> BrowserNavigation.Key -> ( Model.Model, Cmd Msg )
+init flags url nav =
+    changeUrl url nav
+
+
+changeUrl : Url.Url -> BrowserNavigation.Key -> ( Model.Model, Cmd Msg )
+changeUrl url nav =
+    let
+        maybeRoute =
+            Route.fromUrl url
+    in
+    case maybeRoute of
+        Nothing ->
+            ( Model.defaultModel nav, Cmd.none )
+
+        Just r ->
+            case r of
+                Route.Home ->
+                    update GetStartedMsg (Model.defaultModel nav)
+
+                Route.Chroma ->
+                    update ChromaMsg (Model.defaultModel nav)
+
+                Route.Interpolator ->
+                    update InterpolatorMsg (Model.defaultModel nav)
+
+                Route.Convertor ->
+                    update ConvertorMsg (Model.defaultModel nav)
+
+                Route.Colors ->
+                    update ColorsMsg (Model.defaultModel nav)
+
+
+subscriptions model =
+    Sub.none
+
+
+view : Model.Model -> Browser.Document msg
+view model =
+    let
+        page =
+            case model.page of
+                Model.GetStarted ->
+                    PageGettingStarted.content
+
+                Model.Chroma ->
+                    PageChroma.content
+
+                Model.Interpolator ->
+                    PageInterpolator.content
+
+                Model.Convertor ->
+                    Convertor.content
+
+                Model.Colors ->
+                    PageColor.content
+    in
+    { title = "chroma-elm"
+    , body = [ View.view model page ]
+    }
+
+
+main : Program JsonDecode.Value Model.Model Msg
 main =
-    view
-
-
-view =
-    Html.div []
-        [ Html.nav
-            [ HtmlAttributes.class "navbar"
-            , HtmlAttributes.class "is-transparent"
-            , HtmlAttributes.class "is-fixed-top"
-            ]
-            [ Html.div [ HtmlAttributes.class "navbar-brand" ]
-                [ Html.h1
-                    [ HtmlAttributes.class "title"
-                    , HtmlAttributes.class "is-2"
-                    ]
-                    [ Html.text "chroma-elm" ]
-                ]
-            , Html.div [ HtmlAttributes.class "navbar-menu" ] []
-            ]
-        , Html.section
-            [ HtmlAttributes.class "section"
-            ]
-            [ Html.div
-                [ HtmlAttributes.class "container"
-                ]
-                [ Html.div
-                    [ HtmlAttributes.class "columns"
-                    ]
-                    [ Html.div
-                        [ HtmlAttributes.class "column"
-                        ]
-                        [ Html.h2
-                            [ HtmlAttributes.class "title"
-                            , HtmlAttributes.class "is-4"
-                            ]
-                            [ Html.span
-                                [ HtmlAttributes.class "shadow"
-                                , HtmlAttributes.class "is-turquoise"
-                                ]
-                                [ Html.a
-                                    [ HtmlAttributes.href "#start"
-                                    ]
-                                    [ Html.text "Getting Started" ]
-                                ]
-                            ]
-                        , Html.h3
-                            [ HtmlAttributes.class "title"
-                            , HtmlAttributes.class "is-4"
-                            ]
-                            [ Html.a
-                                [ HtmlAttributes.href "#api"
-                                ]
-                                [ Html.text "API" ]
-                            ]
-                        , Html.div
-                            [ HtmlAttributes.class "list"
-                            , HtmlAttributes.class "is-hoverable"
-                            ]
-                            [ Html.a
-                                [ HtmlAttributes.class "list-item"
-                                , HtmlAttributes.class "is-active"
-                                , HtmlAttributes.href "#chroma"
-                                ]
-                                [ Html.text "Chroma" ]
-                            , Html.a
-                                [ HtmlAttributes.class "list-item"
-                                , HtmlAttributes.href "#interpolator"
-                                ]
-                                [ Html.text "Interpolator" ]
-                            , Html.a
-                                [ HtmlAttributes.class "list-item"
-                                , HtmlAttributes.href "#convertor"
-                                ]
-                                [ Html.text "Convertor" ]
-                            ]
-                        ]
-                    , Html.div
-                        [ HtmlAttributes.class "column"
-                        ]
-                        [ Html.h1
-                            [ HtmlAttributes.class "title" ]
-                            [ Html.text "Hello, Elm!" ]
-                        , Html.p
-                            [ HtmlAttributes.class "subtitle" ]
-                            [ Html.text "Some content" ]
-                        ]
-                    ]
-                ]
-            ]
-        ]
+    Browser.application
+        { init = init
+        , onUrlChange = ChangedUrl
+        , onUrlRequest = ClickedLink
+        , subscriptions = subscriptions
+        , update = update
+        , view = view
+        }
