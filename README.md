@@ -6,6 +6,12 @@ Clone of [Chroma.js](https://gka.github.io/chroma.js)
 - ```yarn run elm make```
 - ```yarn run elm-test```
 
+## Documentation
+- ```yarn run parcel examples/index.html```
+
+## Publish to GitHub
+- ```yarn run parcel examples/index.html --out-dir docs  --public-url ./```
+
 # Links
 
 How to release Elm package:
