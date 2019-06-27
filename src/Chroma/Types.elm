@@ -5,7 +5,7 @@ module Chroma.Types exposing (CymkColor, ExtColor(..), Hsla, HslaDegrees, LabCol
 
 # Definition
 
-@docs CymkColor, ExtColor, Hsla, HslaDegrees, LabColor, Mode, Rgba255Color, RgbaColor
+@docs CymkColor, ExtColor, Hsla, HslaDegrees, LabColor, Rgba255Color, RgbaColor
 
 -}
 
