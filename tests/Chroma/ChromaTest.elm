@@ -17,10 +17,10 @@ import UtilTest as UtilTest
 tests : Test.Test
 tests =
     Test.describe "Chroma API"
-        [ --        testStringToColor
-          --        , testScaleAndDomain
-          --        , testDistance
-          testPadding
+        [ testStringToColor
+        , testScaleAndDomain
+        , testDistance
+        , testPadding
         ]
 
 
