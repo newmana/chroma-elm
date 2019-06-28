@@ -1,11 +1,11 @@
-module Chroma.Types exposing (CymkColor, ExtColor(..), Hsla, HslaDegrees, LabColor, Rgba255Color, RgbaColor)
+module Chroma.Types exposing (CymkColor, ExtColor(..), Hsla, HslaDegrees, LabColor, Rgba255Color, RgbaColor, LchColor)
 
 {-| Types
 
 
 # Definition
 
-@docs CymkColor, ExtColor, Hsla, HslaDegrees, LabColor, Rgba255Color, RgbaColor
+@docs CymkColor, ExtColor, Hsla, HslaDegrees, LabColor, Rgba255Color, RgbaColor, LchColor
 
 -}
 
@@ -76,4 +76,13 @@ type alias HslaDegrees =
     , saturation : Float
     , lightness : Float
     , alpha : Float
+    }
+
+
+{-| LCH where Luminance is 0..100, Chroma is 0..230, and Hue is 0..360.
+-}
+type alias LchColor =
+    { luminance : Float
+    , chroma : Float
+    , hue : Float
     }
