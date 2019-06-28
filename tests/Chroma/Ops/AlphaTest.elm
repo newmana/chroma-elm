@@ -4,6 +4,7 @@ import Chroma.Chroma as Chroma
 import Chroma.Converter.Out.ToHex as OutHex
 import Chroma.Ops.Alpha as OpsAlpha
 import Chroma.Types as Types
+import Color as Color
 import Expect
 import Test as Test
 import UtilTest as UtilTest
@@ -19,14 +20,19 @@ tests =
 
 testGettingAlpha : Test.Test
 testGettingAlpha =
-    Test.describe "Set Alpha on a Color"
-        [ Test.test "of red" <|
+    Test.describe "Get Alpha on a Color"
+        [ Test.test "of rgba color" <|
+            \_ ->
+                Types.RGBColor (Color.rgba 255 0 0 0.35)
+                    |> OpsAlpha.alpha
+                    |> Expect.within (Expect.Absolute 0.0001) 0.35
+        , Test.test "of red as a string, alpha 1" <|
             \_ ->
                 "ff0000ff"
                     |> Chroma.chroma
                     |> Result.map OpsAlpha.alpha
                     |> UtilTest.expectResultWithin 0.01 1.0
-        , Test.test "Red to non-zero value" <|
+        , Test.test "of red as a string, alpha 0.5ish" <|
             \_ ->
                 "ff000080"
                     |> Chroma.chroma
@@ -37,7 +43,7 @@ testGettingAlpha =
 
 testSettingAlpha : Test.Test
 testSettingAlpha =
-    Test.describe "Get Alpha on a Color"
+    Test.describe "Set Alpha on a Color"
         [ Test.test "of red" <|
             \_ ->
                 "red"
