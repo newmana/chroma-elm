@@ -8,9 +8,11 @@ module UtilTest exposing
     , hex3
     , hex6
     , hex8
+    , validLch
     , validRgb
     )
 
+import Chroma.Types as Types
 import Color as Color
 import Expect as Expect
 import Fuzz as Fuzz
@@ -20,6 +22,11 @@ import Result as Result
 validRgb : Fuzz.Fuzzer Color.Color
 validRgb =
     Fuzz.map3 Color.rgb (Fuzz.floatRange 0 1) (Fuzz.floatRange 0 1) (Fuzz.floatRange 0 1)
+
+
+validLch : Fuzz.Fuzzer Types.LchColor
+validLch =
+    Fuzz.map3 (\l c h -> { luminance = l, chroma = c, hue = h }) (Fuzz.floatRange 0 100) (Fuzz.floatRange 0 230) (Fuzz.floatRange 0 360)
 
 
 expectResultWithin : Float -> Float -> Result String Float -> Expect.Expectation
