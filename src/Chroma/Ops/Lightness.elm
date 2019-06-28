@@ -13,9 +13,7 @@ import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Converter.Misc.LabConstants as LabConstants
 import Chroma.Converter.Out.ToCmyk as OutCymk
 import Chroma.Converter.Out.ToLab as OutLab
-import Chroma.Converter.Out.ToRgb as OutRgb
 import Chroma.Types as Types
-import Color as Color
 
 
 {-| Darken

@@ -10,7 +10,7 @@ module Chroma.Colors.W3CX11 exposing
     , indianred, indigo
     , lavender, lavenderblush, lemonchiffon, lightblue, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, limegreen, linen
     , maroon, mediumaquamarine, mediumblue, mediumpurple, mediumslateblue, mediumorchid, mediumspringgreen, mediumseagreen, mediumturquoise, mediumvioletred, midnightblue, mintcream, mistyrose, moccasin
-    , oldlace
+    , oldlace, orchid
     , purple
     , red, rebeccapurple
     , sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
@@ -39,7 +39,7 @@ module Chroma.Colors.W3CX11 exposing
 @docs indianred, indigo
 @docs lavender, lavenderblush, lemonchiffon, lightblue, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, limegreen, linen
 @docs maroon, mediumaquamarine, mediumblue, mediumpurple, mediumslateblue, mediumorchid, mediumspringgreen, mediumseagreen, mediumturquoise, mediumvioletred, midnightblue, mintcream, mistyrose, moccasin
-@docs oldlace
+@docs oldlace, orchid
 @docs purple
 @docs red, rebeccapurple
 @docs sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
@@ -690,6 +690,13 @@ oldlace =
 
 {-| TBD
 -}
+orchid : Color
+orchid =
+    rgb255 218 112 214
+
+
+{-| TBD
+-}
 purple : Color
 purple =
     rgb255 128 0 128
@@ -1000,7 +1007,7 @@ w3cx11 =
         , ( "aliceblue", aliceBlue )
         , ( "lightslategrey", lightslategrey )
         , ( "lightgreen", lightgreen )
-        , ( "orchid", rgb255 218 112 214 )
+        , ( "orchid", orchid )
         , ( "gainsboro", gainsboro )
         , ( "mediumseagreen", mediumseagreen )
         , ( "lightgray", lightgray )

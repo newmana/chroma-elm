@@ -12,7 +12,6 @@ module Chroma.Ops.Alpha exposing
 
 -}
 
-import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Converter.Misc.LabConstants as LabConstants
 import Chroma.Converter.Out.ToCmyk as OutCymk
 import Chroma.Converter.Out.ToLab as OutLab
