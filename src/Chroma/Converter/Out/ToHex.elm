@@ -1,4 +1,7 @@
-module Chroma.Converter.Out.ToHex exposing (toHex)
+module Chroma.Converter.Out.ToHex exposing
+    ( toHex
+    , toHexAlpha
+    )
 
 {-| Convert ExtColors to hex string (#RGB)
 
@@ -23,6 +26,15 @@ toHex color =
             ToRgb.toRgba255 color
     in
     "#" ++ toPaddedHex red ++ toPaddedHex green ++ toPaddedHex blue
+
+
+toHexAlpha : Types.ExtColor -> String
+toHexAlpha color =
+    let
+        { red, green, blue, alpha } =
+            ToRgb.toRgba255 color
+    in
+    "#" ++ toPaddedHex red ++ toPaddedHex green ++ toPaddedHex blue ++ toPaddedHex (round (255 * alpha))
 
 
 toPaddedHex : Int -> String

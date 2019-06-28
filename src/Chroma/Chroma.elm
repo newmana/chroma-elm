@@ -27,7 +27,7 @@ import List.Nonempty as Nonempty
 import Result as Result
 
 
-{-| Given a valid hex string (6 or 3) produce an RGB Color.
+{-| Given a valid hex string (8, 6 or 3) produce an RGB Color.
 -}
 chroma : String -> Result String Types.ExtColor
 chroma str =
