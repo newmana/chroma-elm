@@ -40,7 +40,7 @@ lab2rgb lab =
         b =
             (0.0556434 * x) + (-0.2040259 * y) + (1.0572252 * z) |> xyz2rgb
     in
-    Color.rgb r g b
+    Color.rgb (clamp 0 1 r) (clamp 0 1 g) (clamp 0 1 b)
 
 
 lab2xyz : Float -> Float

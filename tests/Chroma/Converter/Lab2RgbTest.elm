@@ -14,6 +14,7 @@ tests : Test.Test
 tests =
     Test.describe "LAB Converters"
         [ testLab
+        , testLimits
         ]
 
 
@@ -26,4 +27,22 @@ testLab =
                     |> OutLab.toLab
                     |> InLab.lab2rgb
                     |> Util.expectColorResultWithin 0.0001 testRgb
+        ]
+
+
+testLimits : Test.Test
+testLimits =
+    Test.describe "lab limits"
+        [ Test.test "too low" <|
+            \_ ->
+                Types.RGBColor (Color.rgb255 -10 0 0)
+                    |> OutLab.toLab
+                    |> InLab.lab2rgb
+                    |> Util.expectColorResultWithin 0.0001 (Color.rgb 0 0 0)
+        , Test.test "too high" <|
+            \_ ->
+                Types.RGBColor (Color.rgb255 300 0 0)
+                    |> OutLab.toLab
+                    |> InLab.lab2rgb
+                    |> Util.expectColorResultWithin 0.0001 (Color.rgb 1 0 0)
         ]
