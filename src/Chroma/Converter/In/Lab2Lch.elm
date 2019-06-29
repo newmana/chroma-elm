@@ -24,6 +24,6 @@ lab2lch { lightness, labA, labB } =
             x - mod * toFloat (floor (x / mod))
 
         h =
-            atan2 labB labA * 180 / pi
+            (atan2 labB labA * 180 / pi) + 360 |> floatMod 360
     in
     { luminance = lightness, chroma = c, hue = h }
