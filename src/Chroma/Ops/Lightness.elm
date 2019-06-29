@@ -45,7 +45,8 @@ darken amount color =
             newLab |> OutCymk.toCmyk |> Types.CMYKColor
 
 
-{-| -}
+{-| Brighten
+-}
 brighten : Float -> Types.ExtColor -> Types.ExtColor
 brighten amount color =
     darken (amount * -1) color
