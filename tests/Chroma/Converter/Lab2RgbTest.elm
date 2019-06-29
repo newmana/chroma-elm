@@ -1,4 +1,4 @@
-module Chroma.Converter.Lab2RgbTest exposing (testLab, tests)
+module Chroma.Converter.Lab2RgbTest exposing (tests)
 
 import Chroma.Converter.In.Lab2Rgb as InLab
 import Chroma.Converter.Out.ToLab as OutLab

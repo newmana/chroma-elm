@@ -1,4 +1,4 @@
-module Chroma.Converter.Cmyk2RgbTest exposing (testCymk, tests)
+module Chroma.Converter.Cmyk2RgbTest exposing (tests)
 
 import Chroma.Converter.In.Cmyk2Rgb as InCmyk
 import Chroma.Converter.Out.ToCmyk as OutCmyk

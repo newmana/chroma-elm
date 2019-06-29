@@ -26,7 +26,7 @@ validRgb =
 
 validLch : Fuzz.Fuzzer Types.LchColor
 validLch =
-    Fuzz.map3 (\l c h -> { luminance = l, chroma = c, hue = h }) (Fuzz.floatRange 0 100) (Fuzz.floatRange 0 230) (Fuzz.floatRange 0 360)
+    Fuzz.map3 (\l c h -> { luminance = l, chroma = c, hue = h }) (Fuzz.intRange 0 100 |> Fuzz.map toFloat) (Fuzz.intRange 0 230 |> Fuzz.map toFloat) (Fuzz.intRange 0 360 |> Fuzz.map toFloat)
 
 
 expectResultWithin : Float -> Float -> Result String Float -> Expect.Expectation

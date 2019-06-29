@@ -1,4 +1,4 @@
-module Chroma.Converter.Hex2RgbTest exposing (testHex, tests, threeHex3, threeHex6, threeHex8)
+module Chroma.Converter.Hex2RgbTest exposing (tests)
 
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Types as Types
