@@ -18,6 +18,7 @@ type ExtColor
     = RGBColor Color.Color
     | CMYKColor CymkColor
     | LABColor LabColor
+    | LCHColor LchColor
 
 
 {-| TBD

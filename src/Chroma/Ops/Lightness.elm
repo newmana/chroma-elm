@@ -9,6 +9,7 @@ module Chroma.Ops.Lightness exposing (darken, brighten)
 
 -}
 
+import Chroma.Converter.In.Lab2Lch as Lab2Lch
 import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Converter.Misc.LabConstants as LabConstants
 import Chroma.Converter.Out.ToCmyk as OutCymk
@@ -36,6 +37,9 @@ darken amount color =
 
         Types.LABColor _ ->
             newLab
+
+        Types.LCHColor _ ->
+            Lab2Lch.lab2lch { lightness = newL, labA = labA, labB = labB } |> Types.LCHColor
 
         Types.CMYKColor _ ->
             newLab |> OutCymk.toCmyk |> Types.CMYKColor

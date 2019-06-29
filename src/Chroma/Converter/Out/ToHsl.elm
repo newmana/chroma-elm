@@ -11,6 +11,7 @@ module Chroma.Converter.Out.ToHsl exposing (toHsl)
 
 import Chroma.Converter.In.Cmyk2Rgb as Cmyk2Rgb
 import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
+import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Types as Types
 import Color as Color
 
@@ -28,3 +29,6 @@ toHsl color =
 
         Types.LABColor lab ->
             Lab2Rgb.lab2rgb lab |> Color.toHsla
+
+        Types.LCHColor lch ->
+            Lch2Lab.lch2lab lch |> Lab2Rgb.lab2rgb |> Color.toHsla

@@ -11,6 +11,7 @@ module Chroma.Converter.Out.ToRgb exposing (toRgba, toRgba255, toNonEmptyList)
 
 import Chroma.Converter.In.Cmyk2Rgb as Cmyk2Rgb
 import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
+import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Types as Types
 import Color as Color
 import List.Nonempty as Nonempty
@@ -41,6 +42,9 @@ toRgba color =
         Types.LABColor lab ->
             Lab2Rgb.lab2rgb lab |> Color.toRgba
 
+        Types.LCHColor lch ->
+            Lch2Lab.lch2lab lch |> Lab2Rgb.lab2rgb |> Color.toRgba
+
 
 {-| TBD
 -}
@@ -59,3 +63,6 @@ toNonEmptyList color =
 
         Types.LABColor { lightness, labA, labB } ->
             Nonempty.Nonempty lightness [ labA, labB ]
+
+        Types.LCHColor { luminance, chroma, hue } ->
+            Nonempty.Nonempty luminance [ chroma, hue ]
