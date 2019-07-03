@@ -94,18 +94,15 @@ content =
 
 example1Code : String
 example1Code =
-    "pink" |> Chroma.chroma |> Result.withDefault (Types.RGBColor W3CX11.black) |> OpsLightness.darken 1 |> OpsSaturate.saturate 2 |> OutHex.toHex
+    Chroma.chroma "pink" |> Result.withDefault (Types.RGBColor W3CX11.black) |> OpsLightness.darken 1 |> OpsSaturate.saturate 2 |> OutHex.toHex
 
 
 example1SourceCode : String
 example1SourceCode =
-    """
-"pink" |> Chroma.chroma
-       |> Result.withDefault (Types.RGBColor W3CX11.black)
-       |> OpsLightness.darken 1
-       |> OpsSaturate.saturate 2
-       |> OutHex.toHex
-  """
+    """Chroma.chroma "pink"
+ |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> OpsLightness.darken 1 |> OpsSaturate.saturate 2
+ |> OutHex.toHex  """
 
 
 example1Output : String
