@@ -10268,6 +10268,1057 @@ var author$project$Page$Convertor$content = _List_fromArray(
 					]))
 			]))
 	]);
+var elm$core$Result$withDefault = F2(
+	function (def, result) {
+		if (result.$ === 'Ok') {
+			var a = result.a;
+			return a;
+		} else {
+			return def;
+		}
+	});
+var elm$core$Result$map = F2(
+	function (func, ra) {
+		if (ra.$ === 'Ok') {
+			var a = ra.a;
+			return elm$core$Result$Ok(
+				func(a));
+		} else {
+			var e = ra.a;
+			return elm$core$Result$Err(e);
+		}
+	});
+var elm$core$Result$fromMaybe = F2(
+	function (err, maybe) {
+		if (maybe.$ === 'Just') {
+			var v = maybe.a;
+			return elm$core$Result$Ok(v);
+		} else {
+			return elm$core$Result$Err(err);
+		}
+	});
+var avh4$elm_color$Color$RgbaSpace = F4(
+	function (a, b, c, d) {
+		return {$: 'RgbaSpace', a: a, b: b, c: c, d: d};
+	});
+var avh4$elm_color$Color$scaleFrom255 = function (c) {
+	return c / 255;
+};
+var avh4$elm_color$Color$rgb255 = F3(
+	function (r, g, b) {
+		return A4(
+			avh4$elm_color$Color$RgbaSpace,
+			avh4$elm_color$Color$scaleFrom255(r),
+			avh4$elm_color$Color$scaleFrom255(g),
+			avh4$elm_color$Color$scaleFrom255(b),
+			1.0);
+	});
+var newmana$chroma_elm$Chroma$Colors$W3CX11$aliceBlue = A3(avh4$elm_color$Color$rgb255, 240, 248, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$antiqueWhite = A3(avh4$elm_color$Color$rgb255, 250, 235, 215);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$aqua = A3(avh4$elm_color$Color$rgb255, 0, 255, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$aquamarine = A3(avh4$elm_color$Color$rgb255, 127, 255, 212);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$azure = A3(avh4$elm_color$Color$rgb255, 240, 255, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$beige = A3(avh4$elm_color$Color$rgb255, 245, 245, 220);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$bisque = A3(avh4$elm_color$Color$rgb255, 255, 228, 196);
+var avh4$elm_color$Color$black = A4(avh4$elm_color$Color$RgbaSpace, 0 / 255, 0 / 255, 0 / 255, 1.0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$black = avh4$elm_color$Color$black;
+var newmana$chroma_elm$Chroma$Colors$W3CX11$blanchedalmond = A3(avh4$elm_color$Color$rgb255, 255, 235, 205);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$blue = A3(avh4$elm_color$Color$rgb255, 0, 0, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$blueviolet = A3(avh4$elm_color$Color$rgb255, 138, 43, 226);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$brown = A3(avh4$elm_color$Color$rgb255, 165, 42, 42);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$burlywood = A3(avh4$elm_color$Color$rgb255, 222, 184, 135);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$cadetblue = A3(avh4$elm_color$Color$rgb255, 95, 158, 160);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$chartreuse = A3(avh4$elm_color$Color$rgb255, 127, 255, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$chocolate = A3(avh4$elm_color$Color$rgb255, 210, 105, 30);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$coral = A3(avh4$elm_color$Color$rgb255, 255, 127, 80);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$cornflowerblue = A3(avh4$elm_color$Color$rgb255, 100, 149, 237);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$cornsilk = A3(avh4$elm_color$Color$rgb255, 255, 248, 220);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$crimson = A3(avh4$elm_color$Color$rgb255, 220, 20, 60);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$cyan = A3(avh4$elm_color$Color$rgb255, 0, 255, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkblue = A3(avh4$elm_color$Color$rgb255, 0, 0, 139);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkcyan = A3(avh4$elm_color$Color$rgb255, 0, 139, 139);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkgoldenrod = A3(avh4$elm_color$Color$rgb255, 184, 134, 11);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkgray = A3(avh4$elm_color$Color$rgb255, 169, 169, 169);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkgreen = A3(avh4$elm_color$Color$rgb255, 0, 100, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkgrey = A3(avh4$elm_color$Color$rgb255, 169, 169, 169);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkkhaki = A3(avh4$elm_color$Color$rgb255, 189, 183, 107);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkmagenta = A3(avh4$elm_color$Color$rgb255, 139, 0, 139);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkolivegreen = A3(avh4$elm_color$Color$rgb255, 85, 107, 47);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkorange = A3(avh4$elm_color$Color$rgb255, 255, 140, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkorchid = A3(avh4$elm_color$Color$rgb255, 153, 50, 204);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkred = A3(avh4$elm_color$Color$rgb255, 139, 0, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darksalmon = A3(avh4$elm_color$Color$rgb255, 233, 150, 122);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkseagreen = A3(avh4$elm_color$Color$rgb255, 143, 188, 143);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkslateblue = A3(avh4$elm_color$Color$rgb255, 47, 79, 79);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkslategray = A3(avh4$elm_color$Color$rgb255, 47, 79, 79);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkslategrey = A3(avh4$elm_color$Color$rgb255, 47, 79, 79);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkturquoise = A3(avh4$elm_color$Color$rgb255, 0, 206, 209);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$darkviolet = A3(avh4$elm_color$Color$rgb255, 148, 0, 211);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$deeppink = A3(avh4$elm_color$Color$rgb255, 255, 20, 147);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$deepskyblue = A3(avh4$elm_color$Color$rgb255, 0, 191, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$dimgray = A3(avh4$elm_color$Color$rgb255, 105, 105, 105);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$dimgrey = A3(avh4$elm_color$Color$rgb255, 105, 105, 105);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$dodgerblue = A3(avh4$elm_color$Color$rgb255, 30, 144, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$firebrick = A3(avh4$elm_color$Color$rgb255, 178, 34, 34);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$gainsboro = A3(avh4$elm_color$Color$rgb255, 220, 220, 220);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$ghostwhite = A3(avh4$elm_color$Color$rgb255, 248, 248, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$gold = A3(avh4$elm_color$Color$rgb255, 255, 215, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$goldenrod = A3(avh4$elm_color$Color$rgb255, 218, 165, 32);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$gray = A3(avh4$elm_color$Color$rgb255, 128, 128, 128);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$green = A3(avh4$elm_color$Color$rgb255, 0, 128, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$greenyellow = A3(avh4$elm_color$Color$rgb255, 173, 255, 47);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$grey = A3(avh4$elm_color$Color$rgb255, 128, 128, 128);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$hotpink = A3(avh4$elm_color$Color$rgb255, 255, 105, 180);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$indianred = A3(avh4$elm_color$Color$rgb255, 205, 92, 92);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$indigo = A3(avh4$elm_color$Color$rgb255, 75, 0, 130);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lavender = A3(avh4$elm_color$Color$rgb255, 230, 230, 250);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lavenderblush = A3(avh4$elm_color$Color$rgb255, 255, 240, 245);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lemonchiffon = A3(avh4$elm_color$Color$rgb255, 255, 250, 205);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightblue = A3(avh4$elm_color$Color$rgb255, 173, 216, 230);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightcyan = A3(avh4$elm_color$Color$rgb255, 224, 255, 255);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightgoldenrodyellow = A3(avh4$elm_color$Color$rgb255, 250, 250, 210);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightgray = A3(avh4$elm_color$Color$rgb255, 211, 211, 211);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightgreen = A3(avh4$elm_color$Color$rgb255, 144, 238, 144);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightgrey = A3(avh4$elm_color$Color$rgb255, 211, 211, 211);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightpink = A3(avh4$elm_color$Color$rgb255, 255, 182, 193);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightskyblue = A3(avh4$elm_color$Color$rgb255, 135, 206, 250);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightslategray = A3(avh4$elm_color$Color$rgb255, 119, 136, 153);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightslategrey = A3(avh4$elm_color$Color$rgb255, 119, 136, 153);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightsteelblue = A3(avh4$elm_color$Color$rgb255, 176, 196, 222);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$lightyellow = A3(avh4$elm_color$Color$rgb255, 255, 255, 224);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$limegreen = A3(avh4$elm_color$Color$rgb255, 50, 205, 50);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$linen = A3(avh4$elm_color$Color$rgb255, 250, 240, 230);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$maroon = A3(avh4$elm_color$Color$rgb255, 128, 0, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumaquamarine = A3(avh4$elm_color$Color$rgb255, 102, 205, 170);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumblue = A3(avh4$elm_color$Color$rgb255, 0, 0, 205);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumorchid = A3(avh4$elm_color$Color$rgb255, 186, 85, 211);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumpurple = A3(avh4$elm_color$Color$rgb255, 147, 112, 219);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumseagreen = A3(avh4$elm_color$Color$rgb255, 60, 179, 113);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumslateblue = A3(avh4$elm_color$Color$rgb255, 123, 104, 238);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumspringgreen = A3(avh4$elm_color$Color$rgb255, 0, 250, 154);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumturquoise = A3(avh4$elm_color$Color$rgb255, 72, 209, 204);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mediumvioletred = A3(avh4$elm_color$Color$rgb255, 199, 21, 133);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$midnightblue = A3(avh4$elm_color$Color$rgb255, 25, 25, 112);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mintcream = A3(avh4$elm_color$Color$rgb255, 245, 255, 250);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$mistyrose = A3(avh4$elm_color$Color$rgb255, 255, 228, 225);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$moccasin = A3(avh4$elm_color$Color$rgb255, 255, 228, 181);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$oldlace = A3(avh4$elm_color$Color$rgb255, 253, 245, 230);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$orchid = A3(avh4$elm_color$Color$rgb255, 218, 112, 214);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$purple = A3(avh4$elm_color$Color$rgb255, 128, 0, 128);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$rebeccapurple = A3(avh4$elm_color$Color$rgb255, 102, 51, 153);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$red = A3(avh4$elm_color$Color$rgb255, 255, 0, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$saddlebrown = A3(avh4$elm_color$Color$rgb255, 139, 69, 19);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$salmon = A3(avh4$elm_color$Color$rgb255, 250, 128, 114);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$sandybrown = A3(avh4$elm_color$Color$rgb255, 244, 164, 96);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$seagreen = A3(avh4$elm_color$Color$rgb255, 46, 139, 87);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$seashell = A3(avh4$elm_color$Color$rgb255, 255, 245, 238);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$sienna = A3(avh4$elm_color$Color$rgb255, 160, 82, 45);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$silver = A3(avh4$elm_color$Color$rgb255, 192, 192, 192);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$skyblue = A3(avh4$elm_color$Color$rgb255, 135, 206, 235);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$slateblue = A3(avh4$elm_color$Color$rgb255, 106, 90, 205);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$slategray = A3(avh4$elm_color$Color$rgb255, 112, 128, 144);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$slategrey = A3(avh4$elm_color$Color$rgb255, 112, 128, 144);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$springgreen = A3(avh4$elm_color$Color$rgb255, 0, 255, 127);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$steelblue = A3(avh4$elm_color$Color$rgb255, 70, 130, 180);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$tan = A3(avh4$elm_color$Color$rgb255, 210, 180, 140);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$teal = A3(avh4$elm_color$Color$rgb255, 0, 128, 128);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$thistle = A3(avh4$elm_color$Color$rgb255, 216, 191, 216);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$tomato = A3(avh4$elm_color$Color$rgb255, 255, 99, 71);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$turquoise = A3(avh4$elm_color$Color$rgb255, 64, 224, 208);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$wheat = A3(avh4$elm_color$Color$rgb255, 245, 222, 179);
+var avh4$elm_color$Color$white = A4(avh4$elm_color$Color$RgbaSpace, 255 / 255, 255 / 255, 255 / 255, 1.0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$white = avh4$elm_color$Color$white;
+var newmana$chroma_elm$Chroma$Colors$W3CX11$whitesmoke = A3(avh4$elm_color$Color$rgb255, 245, 245, 245);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$yellow = A3(avh4$elm_color$Color$rgb255, 255, 255, 0);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$yellowgreen = A3(avh4$elm_color$Color$rgb255, 154, 205, 50);
+var newmana$chroma_elm$Chroma$Colors$W3CX11$w3cx11 = elm$core$Dict$fromList(
+	_List_fromArray(
+		[
+			_Utils_Tuple2('indigo', newmana$chroma_elm$Chroma$Colors$W3CX11$indigo),
+			_Utils_Tuple2('gold', newmana$chroma_elm$Chroma$Colors$W3CX11$gold),
+			_Utils_Tuple2('hotpink', newmana$chroma_elm$Chroma$Colors$W3CX11$hotpink),
+			_Utils_Tuple2('firebrick', newmana$chroma_elm$Chroma$Colors$W3CX11$firebrick),
+			_Utils_Tuple2('indianred', newmana$chroma_elm$Chroma$Colors$W3CX11$indianred),
+			_Utils_Tuple2('yellow', newmana$chroma_elm$Chroma$Colors$W3CX11$yellow),
+			_Utils_Tuple2('mistyrose', newmana$chroma_elm$Chroma$Colors$W3CX11$mistyrose),
+			_Utils_Tuple2('darkolivegreen', newmana$chroma_elm$Chroma$Colors$W3CX11$darkolivegreen),
+			_Utils_Tuple2(
+			'olive',
+			A3(avh4$elm_color$Color$rgb255, 128, 128, 0)),
+			_Utils_Tuple2('darkseagreen', newmana$chroma_elm$Chroma$Colors$W3CX11$darkseagreen),
+			_Utils_Tuple2(
+			'pink',
+			A3(avh4$elm_color$Color$rgb255, 255, 192, 203)),
+			_Utils_Tuple2('tomato', newmana$chroma_elm$Chroma$Colors$W3CX11$tomato),
+			_Utils_Tuple2(
+			'lightcoral',
+			A3(avh4$elm_color$Color$rgb255, 240, 128, 128)),
+			_Utils_Tuple2(
+			'orangered',
+			A3(avh4$elm_color$Color$rgb255, 255, 69, 0)),
+			_Utils_Tuple2(
+			'navajowhite',
+			A3(avh4$elm_color$Color$rgb255, 255, 222, 173)),
+			_Utils_Tuple2(
+			'lime',
+			A3(avh4$elm_color$Color$rgb255, 0, 255, 0)),
+			_Utils_Tuple2(
+			'palegreen',
+			A3(avh4$elm_color$Color$rgb255, 152, 251, 152)),
+			_Utils_Tuple2('darkslategrey', newmana$chroma_elm$Chroma$Colors$W3CX11$darkslategrey),
+			_Utils_Tuple2('greenyellow', newmana$chroma_elm$Chroma$Colors$W3CX11$greenyellow),
+			_Utils_Tuple2('burlywood', newmana$chroma_elm$Chroma$Colors$W3CX11$burlywood),
+			_Utils_Tuple2('seashell', newmana$chroma_elm$Chroma$Colors$W3CX11$seashell),
+			_Utils_Tuple2('mediumspringgreen', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumspringgreen),
+			_Utils_Tuple2(
+			'fuchsia',
+			A3(avh4$elm_color$Color$rgb255, 255, 0, 255)),
+			_Utils_Tuple2(
+			'papayawhip',
+			A3(avh4$elm_color$Color$rgb255, 255, 239, 213)),
+			_Utils_Tuple2('blanchedalmond', newmana$chroma_elm$Chroma$Colors$W3CX11$blanchedalmond),
+			_Utils_Tuple2('chartreuse', newmana$chroma_elm$Chroma$Colors$W3CX11$chartreuse),
+			_Utils_Tuple2('dimgray', newmana$chroma_elm$Chroma$Colors$W3CX11$dimgray),
+			_Utils_Tuple2('black', newmana$chroma_elm$Chroma$Colors$W3CX11$black),
+			_Utils_Tuple2(
+			'peachpuff',
+			A3(avh4$elm_color$Color$rgb255, 255, 218, 185)),
+			_Utils_Tuple2('springgreen', newmana$chroma_elm$Chroma$Colors$W3CX11$springgreen),
+			_Utils_Tuple2('aquamarine', newmana$chroma_elm$Chroma$Colors$W3CX11$aquamarine),
+			_Utils_Tuple2('white', newmana$chroma_elm$Chroma$Colors$W3CX11$white),
+			_Utils_Tuple2(
+			'orange',
+			A3(avh4$elm_color$Color$rgb255, 255, 165, 0)),
+			_Utils_Tuple2(
+			'lightsalmon',
+			A3(avh4$elm_color$Color$rgb255, 255, 160, 122)),
+			_Utils_Tuple2('darkslategray', newmana$chroma_elm$Chroma$Colors$W3CX11$darkslategray),
+			_Utils_Tuple2('brown', newmana$chroma_elm$Chroma$Colors$W3CX11$brown),
+			_Utils_Tuple2(
+			'ivory',
+			A3(avh4$elm_color$Color$rgb255, 255, 255, 240)),
+			_Utils_Tuple2('dodgerblue', newmana$chroma_elm$Chroma$Colors$W3CX11$dodgerblue),
+			_Utils_Tuple2(
+			'peru',
+			A3(avh4$elm_color$Color$rgb255, 205, 133, 63)),
+			_Utils_Tuple2(
+			'lawngreen',
+			A3(avh4$elm_color$Color$rgb255, 124, 252, 0)),
+			_Utils_Tuple2('chocolate', newmana$chroma_elm$Chroma$Colors$W3CX11$chocolate),
+			_Utils_Tuple2('crimson', newmana$chroma_elm$Chroma$Colors$W3CX11$crimson),
+			_Utils_Tuple2(
+			'forestgreen',
+			A3(avh4$elm_color$Color$rgb255, 34, 139, 34)),
+			_Utils_Tuple2('darkgrey', newmana$chroma_elm$Chroma$Colors$W3CX11$darkgrey),
+			_Utils_Tuple2(
+			'lightseagreen',
+			A3(avh4$elm_color$Color$rgb255, 32, 178, 170)),
+			_Utils_Tuple2('cyan', newmana$chroma_elm$Chroma$Colors$W3CX11$cyan),
+			_Utils_Tuple2('mintcream', newmana$chroma_elm$Chroma$Colors$W3CX11$mintcream),
+			_Utils_Tuple2('silver', newmana$chroma_elm$Chroma$Colors$W3CX11$silver),
+			_Utils_Tuple2('antiquewhite', newmana$chroma_elm$Chroma$Colors$W3CX11$antiqueWhite),
+			_Utils_Tuple2('mediumorchid', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumorchid),
+			_Utils_Tuple2('skyblue', newmana$chroma_elm$Chroma$Colors$W3CX11$skyblue),
+			_Utils_Tuple2('gray', newmana$chroma_elm$Chroma$Colors$W3CX11$gray),
+			_Utils_Tuple2('darkturquoise', newmana$chroma_elm$Chroma$Colors$W3CX11$darkturquoise),
+			_Utils_Tuple2('goldenrod', newmana$chroma_elm$Chroma$Colors$W3CX11$goldenrod),
+			_Utils_Tuple2('darkgreen', newmana$chroma_elm$Chroma$Colors$W3CX11$darkgreen),
+			_Utils_Tuple2(
+			'floralwhite',
+			A3(avh4$elm_color$Color$rgb255, 255, 250, 240)),
+			_Utils_Tuple2('darkviolet', newmana$chroma_elm$Chroma$Colors$W3CX11$darkviolet),
+			_Utils_Tuple2('darkgray', newmana$chroma_elm$Chroma$Colors$W3CX11$darkgray),
+			_Utils_Tuple2('moccasin', newmana$chroma_elm$Chroma$Colors$W3CX11$moccasin),
+			_Utils_Tuple2('saddlebrown', newmana$chroma_elm$Chroma$Colors$W3CX11$saddlebrown),
+			_Utils_Tuple2('grey', newmana$chroma_elm$Chroma$Colors$W3CX11$grey),
+			_Utils_Tuple2('darkslateblue', newmana$chroma_elm$Chroma$Colors$W3CX11$darkslateblue),
+			_Utils_Tuple2('lightskyblue', newmana$chroma_elm$Chroma$Colors$W3CX11$lightskyblue),
+			_Utils_Tuple2('lightpink', newmana$chroma_elm$Chroma$Colors$W3CX11$lightpink),
+			_Utils_Tuple2('mediumvioletred', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumvioletred),
+			_Utils_Tuple2('slategrey', newmana$chroma_elm$Chroma$Colors$W3CX11$slategrey),
+			_Utils_Tuple2('red', newmana$chroma_elm$Chroma$Colors$W3CX11$red),
+			_Utils_Tuple2('deeppink', newmana$chroma_elm$Chroma$Colors$W3CX11$deeppink),
+			_Utils_Tuple2('limegreen', newmana$chroma_elm$Chroma$Colors$W3CX11$limegreen),
+			_Utils_Tuple2('darkmagenta', newmana$chroma_elm$Chroma$Colors$W3CX11$darkmagenta),
+			_Utils_Tuple2(
+			'palegoldenrod',
+			A3(avh4$elm_color$Color$rgb255, 238, 232, 170)),
+			_Utils_Tuple2(
+			'plum',
+			A3(avh4$elm_color$Color$rgb255, 221, 160, 221)),
+			_Utils_Tuple2('turquoise', newmana$chroma_elm$Chroma$Colors$W3CX11$turquoise),
+			_Utils_Tuple2('lightgrey', newmana$chroma_elm$Chroma$Colors$W3CX11$lightgrey),
+			_Utils_Tuple2('lightgoldenrodyellow', newmana$chroma_elm$Chroma$Colors$W3CX11$lightgoldenrodyellow),
+			_Utils_Tuple2('darkgoldenrod', newmana$chroma_elm$Chroma$Colors$W3CX11$darkgoldenrod),
+			_Utils_Tuple2('lavender', newmana$chroma_elm$Chroma$Colors$W3CX11$lavender),
+			_Utils_Tuple2('maroon', newmana$chroma_elm$Chroma$Colors$W3CX11$maroon),
+			_Utils_Tuple2('yellowgreen', newmana$chroma_elm$Chroma$Colors$W3CX11$yellowgreen),
+			_Utils_Tuple2('sandybrown', newmana$chroma_elm$Chroma$Colors$W3CX11$sandybrown),
+			_Utils_Tuple2('thistle', newmana$chroma_elm$Chroma$Colors$W3CX11$thistle),
+			_Utils_Tuple2(
+			'violet',
+			A3(avh4$elm_color$Color$rgb255, 238, 130, 238)),
+			_Utils_Tuple2(
+			'navy',
+			A3(avh4$elm_color$Color$rgb255, 0, 0, 128)),
+			_Utils_Tuple2(
+			'magenta',
+			A3(avh4$elm_color$Color$rgb255, 255, 0, 255)),
+			_Utils_Tuple2('dimgrey', newmana$chroma_elm$Chroma$Colors$W3CX11$dimgrey),
+			_Utils_Tuple2('tan', newmana$chroma_elm$Chroma$Colors$W3CX11$tan),
+			_Utils_Tuple2(
+			'rosybrown',
+			A3(avh4$elm_color$Color$rgb255, 188, 143, 143)),
+			_Utils_Tuple2(
+			'olivedrab',
+			A3(avh4$elm_color$Color$rgb255, 107, 142, 35)),
+			_Utils_Tuple2('blue', newmana$chroma_elm$Chroma$Colors$W3CX11$blue),
+			_Utils_Tuple2('lightblue', newmana$chroma_elm$Chroma$Colors$W3CX11$lightblue),
+			_Utils_Tuple2('ghostwhite', newmana$chroma_elm$Chroma$Colors$W3CX11$ghostwhite),
+			_Utils_Tuple2(
+			'honeydew',
+			A3(avh4$elm_color$Color$rgb255, 240, 255, 240)),
+			_Utils_Tuple2('cornflowerblue', newmana$chroma_elm$Chroma$Colors$W3CX11$cornflowerblue),
+			_Utils_Tuple2('slateblue', newmana$chroma_elm$Chroma$Colors$W3CX11$slateblue),
+			_Utils_Tuple2('linen', newmana$chroma_elm$Chroma$Colors$W3CX11$linen),
+			_Utils_Tuple2('darkblue', newmana$chroma_elm$Chroma$Colors$W3CX11$darkblue),
+			_Utils_Tuple2(
+			'powderblue',
+			A3(avh4$elm_color$Color$rgb255, 176, 224, 230)),
+			_Utils_Tuple2('seagreen', newmana$chroma_elm$Chroma$Colors$W3CX11$seagreen),
+			_Utils_Tuple2('darkkhaki', newmana$chroma_elm$Chroma$Colors$W3CX11$darkkhaki),
+			_Utils_Tuple2(
+			'snow',
+			A3(avh4$elm_color$Color$rgb255, 255, 250, 250)),
+			_Utils_Tuple2('sienna', newmana$chroma_elm$Chroma$Colors$W3CX11$sienna),
+			_Utils_Tuple2('mediumblue', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumblue),
+			_Utils_Tuple2(
+			'royalblue',
+			A3(avh4$elm_color$Color$rgb255, 65, 105, 225)),
+			_Utils_Tuple2('lightcyan', newmana$chroma_elm$Chroma$Colors$W3CX11$lightcyan),
+			_Utils_Tuple2('green', newmana$chroma_elm$Chroma$Colors$W3CX11$green),
+			_Utils_Tuple2('mediumpurple', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumpurple),
+			_Utils_Tuple2('midnightblue', newmana$chroma_elm$Chroma$Colors$W3CX11$midnightblue),
+			_Utils_Tuple2('cornsilk', newmana$chroma_elm$Chroma$Colors$W3CX11$cornsilk),
+			_Utils_Tuple2(
+			'paleturquoise',
+			A3(avh4$elm_color$Color$rgb255, 175, 238, 238)),
+			_Utils_Tuple2('bisque', newmana$chroma_elm$Chroma$Colors$W3CX11$bisque),
+			_Utils_Tuple2('slategray', newmana$chroma_elm$Chroma$Colors$W3CX11$slategray),
+			_Utils_Tuple2('darkcyan', newmana$chroma_elm$Chroma$Colors$W3CX11$darkcyan),
+			_Utils_Tuple2(
+			'khaki',
+			A3(avh4$elm_color$Color$rgb255, 240, 230, 140)),
+			_Utils_Tuple2('wheat', newmana$chroma_elm$Chroma$Colors$W3CX11$wheat),
+			_Utils_Tuple2('teal', newmana$chroma_elm$Chroma$Colors$W3CX11$teal),
+			_Utils_Tuple2('darkorchid', newmana$chroma_elm$Chroma$Colors$W3CX11$darkorchid),
+			_Utils_Tuple2('deepskyblue', newmana$chroma_elm$Chroma$Colors$W3CX11$deepskyblue),
+			_Utils_Tuple2('salmon', newmana$chroma_elm$Chroma$Colors$W3CX11$salmon),
+			_Utils_Tuple2('darkred', newmana$chroma_elm$Chroma$Colors$W3CX11$darkred),
+			_Utils_Tuple2('steelblue', newmana$chroma_elm$Chroma$Colors$W3CX11$steelblue),
+			_Utils_Tuple2(
+			'palevioletred',
+			A3(avh4$elm_color$Color$rgb255, 219, 112, 147)),
+			_Utils_Tuple2('lightslategray', newmana$chroma_elm$Chroma$Colors$W3CX11$lightslategray),
+			_Utils_Tuple2('aliceblue', newmana$chroma_elm$Chroma$Colors$W3CX11$aliceBlue),
+			_Utils_Tuple2('lightslategrey', newmana$chroma_elm$Chroma$Colors$W3CX11$lightslategrey),
+			_Utils_Tuple2('lightgreen', newmana$chroma_elm$Chroma$Colors$W3CX11$lightgreen),
+			_Utils_Tuple2('orchid', newmana$chroma_elm$Chroma$Colors$W3CX11$orchid),
+			_Utils_Tuple2('gainsboro', newmana$chroma_elm$Chroma$Colors$W3CX11$gainsboro),
+			_Utils_Tuple2('mediumseagreen', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumseagreen),
+			_Utils_Tuple2('lightgray', newmana$chroma_elm$Chroma$Colors$W3CX11$lightgray),
+			_Utils_Tuple2('mediumturquoise', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumturquoise),
+			_Utils_Tuple2('lemonchiffon', newmana$chroma_elm$Chroma$Colors$W3CX11$lemonchiffon),
+			_Utils_Tuple2('cadetblue', newmana$chroma_elm$Chroma$Colors$W3CX11$cadetblue),
+			_Utils_Tuple2('lightyellow', newmana$chroma_elm$Chroma$Colors$W3CX11$lightyellow),
+			_Utils_Tuple2('lavenderblush', newmana$chroma_elm$Chroma$Colors$W3CX11$lavenderblush),
+			_Utils_Tuple2('coral', newmana$chroma_elm$Chroma$Colors$W3CX11$coral),
+			_Utils_Tuple2('purple', newmana$chroma_elm$Chroma$Colors$W3CX11$purple),
+			_Utils_Tuple2('aqua', newmana$chroma_elm$Chroma$Colors$W3CX11$aqua),
+			_Utils_Tuple2('whitesmoke', newmana$chroma_elm$Chroma$Colors$W3CX11$whitesmoke),
+			_Utils_Tuple2('mediumslateblue', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumslateblue),
+			_Utils_Tuple2('darkorange', newmana$chroma_elm$Chroma$Colors$W3CX11$darkorange),
+			_Utils_Tuple2('mediumaquamarine', newmana$chroma_elm$Chroma$Colors$W3CX11$mediumaquamarine),
+			_Utils_Tuple2('darksalmon', newmana$chroma_elm$Chroma$Colors$W3CX11$darksalmon),
+			_Utils_Tuple2('beige', newmana$chroma_elm$Chroma$Colors$W3CX11$beige),
+			_Utils_Tuple2('blueviolet', newmana$chroma_elm$Chroma$Colors$W3CX11$blueviolet),
+			_Utils_Tuple2('azure', newmana$chroma_elm$Chroma$Colors$W3CX11$azure),
+			_Utils_Tuple2('lightsteelblue', newmana$chroma_elm$Chroma$Colors$W3CX11$lightsteelblue),
+			_Utils_Tuple2('oldlace', newmana$chroma_elm$Chroma$Colors$W3CX11$oldlace),
+			_Utils_Tuple2('rebeccapurple', newmana$chroma_elm$Chroma$Colors$W3CX11$rebeccapurple)
+		]));
+var newmana$chroma_elm$Chroma$Colors$W3CX11$named = function (str) {
+	return A2(
+		elm$core$Result$fromMaybe,
+		'Cannot find ' + str,
+		A2(elm$core$Dict$get, str, newmana$chroma_elm$Chroma$Colors$W3CX11$w3cx11));
+};
+var avh4$elm_color$Color$fromRgba = function (components) {
+	return A4(avh4$elm_color$Color$RgbaSpace, components.red, components.green, components.blue, components.alpha);
+};
+var avh4$elm_color$Color$rgb = F3(
+	function (r, g, b) {
+		return A4(avh4$elm_color$Color$RgbaSpace, r, g, b, 1.0);
+	});
+var elm$core$List$drop = F2(
+	function (n, list) {
+		drop:
+		while (true) {
+			if (n <= 0) {
+				return list;
+			} else {
+				if (!list.b) {
+					return list;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs;
+					n = $temp$n;
+					list = $temp$list;
+					continue drop;
+				}
+			}
+		}
+	});
+var elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return elm$core$Maybe$Just(x);
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
+};
+var elm$core$Maybe$andThen = F2(
+	function (callback, maybeValue) {
+		if (maybeValue.$ === 'Just') {
+			var value = maybeValue.a;
+			return callback(value);
+		} else {
+			return elm$core$Maybe$Nothing;
+		}
+	});
+var elm$core$Maybe$map3 = F4(
+	function (func, ma, mb, mc) {
+		if (ma.$ === 'Nothing') {
+			return elm$core$Maybe$Nothing;
+		} else {
+			var a = ma.a;
+			if (mb.$ === 'Nothing') {
+				return elm$core$Maybe$Nothing;
+			} else {
+				var b = mb.a;
+				if (mc.$ === 'Nothing') {
+					return elm$core$Maybe$Nothing;
+				} else {
+					var c = mc.a;
+					return elm$core$Maybe$Just(
+						A3(func, a, b, c));
+				}
+			}
+		}
+	});
+var elm$core$Maybe$map4 = F5(
+	function (func, ma, mb, mc, md) {
+		if (ma.$ === 'Nothing') {
+			return elm$core$Maybe$Nothing;
+		} else {
+			var a = ma.a;
+			if (mb.$ === 'Nothing') {
+				return elm$core$Maybe$Nothing;
+			} else {
+				var b = mb.a;
+				if (mc.$ === 'Nothing') {
+					return elm$core$Maybe$Nothing;
+				} else {
+					var c = mc.a;
+					if (md.$ === 'Nothing') {
+						return elm$core$Maybe$Nothing;
+					} else {
+						var d = md.a;
+						return elm$core$Maybe$Just(
+							A4(func, a, b, c, d));
+					}
+				}
+			}
+		}
+	});
+var elm$core$String$foldr = _String_foldr;
+var elm$core$String$toList = function (string) {
+	return A3(elm$core$String$foldr, elm$core$List$cons, _List_Nil, string);
+};
+var elm$core$Maybe$map2 = F3(
+	function (func, ma, mb) {
+		if (ma.$ === 'Nothing') {
+			return elm$core$Maybe$Nothing;
+		} else {
+			var a = ma.a;
+			if (mb.$ === 'Nothing') {
+				return elm$core$Maybe$Nothing;
+			} else {
+				var b = mb.a;
+				return elm$core$Maybe$Just(
+					A2(func, a, b));
+			}
+		}
+	});
+var elm$core$Char$toLower = _Char_toLower;
+var newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$fromBase16 = function (_char) {
+	var _n0 = elm$core$Char$toLower(_char);
+	switch (_n0.valueOf()) {
+		case '0':
+			return elm$core$Maybe$Just(0);
+		case '1':
+			return elm$core$Maybe$Just(1);
+		case '2':
+			return elm$core$Maybe$Just(2);
+		case '3':
+			return elm$core$Maybe$Just(3);
+		case '4':
+			return elm$core$Maybe$Just(4);
+		case '5':
+			return elm$core$Maybe$Just(5);
+		case '6':
+			return elm$core$Maybe$Just(6);
+		case '7':
+			return elm$core$Maybe$Just(7);
+		case '8':
+			return elm$core$Maybe$Just(8);
+		case '9':
+			return elm$core$Maybe$Just(9);
+		case 'a':
+			return elm$core$Maybe$Just(10);
+		case 'b':
+			return elm$core$Maybe$Just(11);
+		case 'c':
+			return elm$core$Maybe$Just(12);
+		case 'd':
+			return elm$core$Maybe$Just(13);
+		case 'e':
+			return elm$core$Maybe$Just(14);
+		case 'f':
+			return elm$core$Maybe$Just(15);
+		default:
+			return elm$core$Maybe$Nothing;
+	}
+};
+var newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16 = F2(
+	function (char1, char2) {
+		return A3(
+			elm$core$Maybe$map2,
+			F2(
+				function (x1, x2) {
+					return ((x1 * 16) + x2) / 255;
+				}),
+			newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$fromBase16(char1),
+			newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$fromBase16(char2));
+	});
+var elm$core$Maybe$map = F2(
+	function (f, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return elm$core$Maybe$Just(
+				f(value));
+		} else {
+			return elm$core$Maybe$Nothing;
+		}
+	});
+var newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16To1 = F2(
+	function (char1, char2) {
+		return A2(
+			elm$core$Maybe$map,
+			elm$core$Basics$identity,
+			A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, char1, char2));
+	});
+var newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$hex3Or6Or8 = function (str) {
+	var removeHash = function (charList) {
+		var _n15 = elm$core$List$head(charList);
+		if ((_n15.$ === 'Just') && ('#' === _n15.a.valueOf())) {
+			return elm$core$Maybe$Just(
+				A2(elm$core$List$drop, 1, charList));
+		} else {
+			return elm$core$Maybe$Just(charList);
+		}
+	};
+	var convertFromHex = function (hexStr) {
+		_n0$3:
+		while (true) {
+			if ((hexStr.b && hexStr.b.b) && hexStr.b.b.b) {
+				if (!hexStr.b.b.b.b) {
+					var r = hexStr.a;
+					var _n1 = hexStr.b;
+					var g = _n1.a;
+					var _n2 = _n1.b;
+					var b = _n2.a;
+					return A4(
+						elm$core$Maybe$map3,
+						avh4$elm_color$Color$rgb,
+						A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, r, r),
+						A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, g, g),
+						A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, b, b));
+				} else {
+					if (hexStr.b.b.b.b.b && hexStr.b.b.b.b.b.b) {
+						if (!hexStr.b.b.b.b.b.b.b) {
+							var r1 = hexStr.a;
+							var _n3 = hexStr.b;
+							var r2 = _n3.a;
+							var _n4 = _n3.b;
+							var g1 = _n4.a;
+							var _n5 = _n4.b;
+							var g2 = _n5.a;
+							var _n6 = _n5.b;
+							var b1 = _n6.a;
+							var _n7 = _n6.b;
+							var b2 = _n7.a;
+							return A4(
+								elm$core$Maybe$map3,
+								avh4$elm_color$Color$rgb,
+								A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, r1, r2),
+								A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, g1, g2),
+								A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, b1, b2));
+						} else {
+							if (hexStr.b.b.b.b.b.b.b.b && (!hexStr.b.b.b.b.b.b.b.b.b)) {
+								var r1 = hexStr.a;
+								var _n8 = hexStr.b;
+								var r2 = _n8.a;
+								var _n9 = _n8.b;
+								var g1 = _n9.a;
+								var _n10 = _n9.b;
+								var g2 = _n10.a;
+								var _n11 = _n10.b;
+								var b1 = _n11.a;
+								var _n12 = _n11.b;
+								var b2 = _n12.a;
+								var _n13 = _n12.b;
+								var a1 = _n13.a;
+								var _n14 = _n13.b;
+								var a2 = _n14.a;
+								return A5(
+									elm$core$Maybe$map4,
+									F4(
+										function (newR, newG, newB, newA) {
+											return avh4$elm_color$Color$fromRgba(
+												{alpha: newA, blue: newB, green: newG, red: newR});
+										}),
+									A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, r1, r2),
+									A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, g1, g2),
+									A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16, b1, b2),
+									A2(newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$twoBase16To1, a1, a2));
+							} else {
+								break _n0$3;
+							}
+						}
+					} else {
+						break _n0$3;
+					}
+				}
+			} else {
+				break _n0$3;
+			}
+		}
+		return elm$core$Maybe$Nothing;
+	};
+	return A2(
+		elm$core$Maybe$andThen,
+		convertFromHex,
+		removeHash(
+			elm$core$String$toList(str)));
+};
+var newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$hex2rgb = function (hex) {
+	var _n0 = newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$hex3Or6Or8(hex);
+	if (_n0.$ === 'Just') {
+		var x = _n0.a;
+		return elm$core$Result$Ok(x);
+	} else {
+		return elm$core$Result$Err('unknown color: ' + hex);
+	}
+};
+var newmana$chroma_elm$Chroma$Types$RGBColor = function (a) {
+	return {$: 'RGBColor', a: a};
+};
+var newmana$chroma_elm$Chroma$Chroma$chroma = function (str) {
+	var _n0 = newmana$chroma_elm$Chroma$Colors$W3CX11$named(str);
+	if (_n0.$ === 'Ok') {
+		var value = _n0.a;
+		return elm$core$Result$Ok(
+			newmana$chroma_elm$Chroma$Types$RGBColor(value));
+	} else {
+		return A2(
+			elm$core$Result$map,
+			newmana$chroma_elm$Chroma$Types$RGBColor,
+			newmana$chroma_elm$Chroma$Converter$In$Hex2Rgb$hex2rgb(str));
+	}
+};
+var elm$core$String$fromList = _String_fromList;
+var elm$core$Basics$modBy = _Basics_modBy;
+var rtfeldman$elm_hex$Hex$unsafeToDigit = function (num) {
+	unsafeToDigit:
+	while (true) {
+		switch (num) {
+			case 0:
+				return _Utils_chr('0');
+			case 1:
+				return _Utils_chr('1');
+			case 2:
+				return _Utils_chr('2');
+			case 3:
+				return _Utils_chr('3');
+			case 4:
+				return _Utils_chr('4');
+			case 5:
+				return _Utils_chr('5');
+			case 6:
+				return _Utils_chr('6');
+			case 7:
+				return _Utils_chr('7');
+			case 8:
+				return _Utils_chr('8');
+			case 9:
+				return _Utils_chr('9');
+			case 10:
+				return _Utils_chr('a');
+			case 11:
+				return _Utils_chr('b');
+			case 12:
+				return _Utils_chr('c');
+			case 13:
+				return _Utils_chr('d');
+			case 14:
+				return _Utils_chr('e');
+			case 15:
+				return _Utils_chr('f');
+			default:
+				var $temp$num = num;
+				num = $temp$num;
+				continue unsafeToDigit;
+		}
+	}
+};
+var rtfeldman$elm_hex$Hex$unsafePositiveToDigits = F2(
+	function (digits, num) {
+		unsafePositiveToDigits:
+		while (true) {
+			if (num < 16) {
+				return A2(
+					elm$core$List$cons,
+					rtfeldman$elm_hex$Hex$unsafeToDigit(num),
+					digits);
+			} else {
+				var $temp$digits = A2(
+					elm$core$List$cons,
+					rtfeldman$elm_hex$Hex$unsafeToDigit(
+						A2(elm$core$Basics$modBy, 16, num)),
+					digits),
+					$temp$num = (num / 16) | 0;
+				digits = $temp$digits;
+				num = $temp$num;
+				continue unsafePositiveToDigits;
+			}
+		}
+	});
+var rtfeldman$elm_hex$Hex$toString = function (num) {
+	return elm$core$String$fromList(
+		(num < 0) ? A2(
+			elm$core$List$cons,
+			_Utils_chr('-'),
+			A2(rtfeldman$elm_hex$Hex$unsafePositiveToDigits, _List_Nil, -num)) : A2(rtfeldman$elm_hex$Hex$unsafePositiveToDigits, _List_Nil, num));
+};
+var newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex = function (color) {
+	var colorString = rtfeldman$elm_hex$Hex$toString(color);
+	return (elm$core$String$length(colorString) === 1) ? ('0' + colorString) : colorString;
+};
+var elm$core$Basics$round = _Basics_round;
+var avh4$elm_color$Color$toRgba = function (_n0) {
+	var r = _n0.a;
+	var g = _n0.b;
+	var b = _n0.c;
+	var a = _n0.d;
+	return {alpha: a, blue: b, green: g, red: r};
+};
+var newmana$chroma_elm$Chroma$Converter$In$Cmyk2Rgb$cmyk2rgb = function (_n0) {
+	var cyan = _n0.cyan;
+	var magenta = _n0.magenta;
+	var yellow = _n0.yellow;
+	var black = _n0.black;
+	var convert = function (x) {
+		return (x >= 1) ? 0 : ((1 - x) * (1 - black));
+	};
+	return (black >= 1) ? A3(avh4$elm_color$Color$rgb, 0.0, 0.0, 0.0) : A3(
+		avh4$elm_color$Color$rgb,
+		convert(cyan),
+		convert(magenta),
+		convert(yellow));
+};
+var elm$core$Basics$clamp = F3(
+	function (low, high, number) {
+		return (_Utils_cmp(number, low) < 0) ? low : ((_Utils_cmp(number, high) > 0) ? high : number);
+	});
+var elm$core$Basics$pow = _Basics_pow;
+var newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t0 = 4 / 29;
+var newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t1 = 6 / 29;
+var newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t2 = 3 * A2(elm$core$Basics$pow, newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t1, 2);
+var newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2xyz = function (t) {
+	return (_Utils_cmp(t, newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t1) > 0) ? A2(elm$core$Basics$pow, t, 3) : (newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t2 * (t - newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t0));
+};
+var newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$xyz2rgb = function (r) {
+	var x = (r <= 3.04e-3) ? (12.92 * r) : ((1.055 * A2(elm$core$Basics$pow, r, 1 / 2.4)) - 5.5e-2);
+	return x;
+};
+var newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$xn = 0.95047;
+var newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$yn = 1;
+var newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$zn = 1.08883;
+var newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2rgb = function (_n0) {
+	var lightness = _n0.lightness;
+	var labA = _n0.labA;
+	var labB = _n0.labB;
+	var startY = (lightness + 16) / 116;
+	var x = newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$xn * newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2xyz(startY + (labA / 500));
+	var y = newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$yn * newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2xyz(startY);
+	var z = newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$zn * newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2xyz(startY - (labB / 200));
+	var r = newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$xyz2rgb(((3.2404542 * x) + ((-1.5371385) * y)) + ((-0.4985314) * z));
+	var g = newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$xyz2rgb((((-0.969266) * x) + (1.8760108 * y)) + (4.1556e-2 * z));
+	var b = newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$xyz2rgb(((5.56434e-2 * x) + ((-0.2040259) * y)) + (1.0572252 * z));
+	return A3(
+		avh4$elm_color$Color$rgb,
+		A3(elm$core$Basics$clamp, 0, 1, r),
+		A3(elm$core$Basics$clamp, 0, 1, g),
+		A3(elm$core$Basics$clamp, 0, 1, b));
+};
+var elm$core$Basics$cos = _Basics_cos;
+var elm$core$Basics$pi = _Basics_pi;
+var elm$core$Basics$degrees = function (angleInDegrees) {
+	return (angleInDegrees * elm$core$Basics$pi) / 180;
+};
+var elm$core$Basics$isNaN = _Basics_isNaN;
+var elm$core$Basics$sin = _Basics_sin;
+var newmana$chroma_elm$Chroma$Converter$In$Lch2Lab$lch2lab = function (_n0) {
+	var luminance = _n0.luminance;
+	var chroma = _n0.chroma;
+	var hue = _n0.hue;
+	var hueInDegrees = elm$core$Basics$isNaN(hue) ? 0 : elm$core$Basics$degrees(hue);
+	return {
+		labA: elm$core$Basics$cos(hueInDegrees) * chroma,
+		labB: elm$core$Basics$sin(hueInDegrees) * chroma,
+		lightness: luminance
+	};
+};
+var newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toRgba = function (color) {
+	switch (color.$) {
+		case 'RGBColor':
+			var c = color.a;
+			return avh4$elm_color$Color$toRgba(c);
+		case 'CMYKColor':
+			var cmyk = color.a;
+			return avh4$elm_color$Color$toRgba(
+				newmana$chroma_elm$Chroma$Converter$In$Cmyk2Rgb$cmyk2rgb(cmyk));
+		case 'LABColor':
+			var lab = color.a;
+			return avh4$elm_color$Color$toRgba(
+				newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2rgb(lab));
+		default:
+			var lch = color.a;
+			return avh4$elm_color$Color$toRgba(
+				newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2rgb(
+					newmana$chroma_elm$Chroma$Converter$In$Lch2Lab$lch2lab(lch)));
+	}
+};
+var newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toRgba255 = function (color) {
+	var realColor = newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toRgba(color);
+	return {
+		alpha: realColor.alpha,
+		blue: elm$core$Basics$round(realColor.blue * 255),
+		green: elm$core$Basics$round(realColor.green * 255),
+		red: elm$core$Basics$round(realColor.red * 255)
+	};
+};
+var newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHex = function (color) {
+	var _n0 = newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toRgba255(color);
+	var red = _n0.red;
+	var green = _n0.green;
+	var blue = _n0.blue;
+	var alpha = _n0.alpha;
+	return '#' + (newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(red) + (newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(green) + newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(blue)));
+};
+var elm$core$Basics$atan2 = _Basics_atan2;
+var elm$core$Basics$sqrt = _Basics_sqrt;
+var newmana$chroma_elm$Chroma$Converter$In$Lab2Lch$lab2lch = function (_n0) {
+	var lightness = _n0.lightness;
+	var labA = _n0.labA;
+	var labB = _n0.labB;
+	var floatMod = F2(
+		function (mod, x) {
+			return x - (mod * elm$core$Basics$floor(x / mod));
+		});
+	var h = A2(
+		floatMod,
+		360,
+		((A2(elm$core$Basics$atan2, labB, labA) * 180) / elm$core$Basics$pi) + 360);
+	var c = elm$core$Basics$sqrt(
+		A2(elm$core$Basics$pow, labA, 2) + A2(elm$core$Basics$pow, labB, 2));
+	return {chroma: c, hue: h, luminance: lightness};
+};
+var newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$kn = 18;
+var newmana$chroma_elm$Chroma$Converter$Out$ToCmyk$toCmyk = function (color) {
+	var convert = function (_n1) {
+		var red = _n1.red;
+		var green = _n1.green;
+		var blue = _n1.blue;
+		var alpha = _n1.alpha;
+		var k = 1 - A2(
+			elm$core$Basics$max,
+			red,
+			A2(elm$core$Basics$max, green, blue));
+		var f = function (x) {
+			return (k < 1) ? (((1 - x) - k) / (1 - k)) : 0;
+		};
+		return {
+			black: k,
+			cyan: f(red),
+			magenta: f(green),
+			yellow: f(blue)
+		};
+	};
+	var convertLab = function (lab) {
+		return convert(
+			avh4$elm_color$Color$toRgba(
+				newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2rgb(lab)));
+	};
+	switch (color.$) {
+		case 'RGBColor':
+			var c = color.a;
+			return convert(
+				avh4$elm_color$Color$toRgba(c));
+		case 'CMYKColor':
+			var cmyk = color.a;
+			return cmyk;
+		case 'LABColor':
+			var lab = color.a;
+			return convertLab(lab);
+		default:
+			var lch = color.a;
+			return convertLab(
+				newmana$chroma_elm$Chroma$Converter$In$Lch2Lab$lch2lab(lch));
+	}
+};
+var newmana$chroma_elm$Chroma$Converter$Out$ToLab$rgb2xyz = function (c) {
+	return (c > 4.045e-2) ? A2(elm$core$Basics$pow, (c + 5.5e-2) / 1.055, 2.4) : (c / 12.92);
+};
+var newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t3 = A2(elm$core$Basics$pow, newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t1, 3);
+var newmana$chroma_elm$Chroma$Converter$Out$ToLab$xyz2lab = function (t) {
+	return (_Utils_cmp(t, newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t3) > 0) ? A2(elm$core$Basics$pow, t, 1 / 3) : ((t / newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t2) + newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$t0);
+};
+var newmana$chroma_elm$Chroma$Converter$Out$ToLab$calcLab = function (_n0) {
+	var red = _n0.red;
+	var green = _n0.green;
+	var blue = _n0.blue;
+	var alpha = _n0.alpha;
+	var r = newmana$chroma_elm$Chroma$Converter$Out$ToLab$rgb2xyz(red);
+	var g = newmana$chroma_elm$Chroma$Converter$Out$ToLab$rgb2xyz(green);
+	var b = newmana$chroma_elm$Chroma$Converter$Out$ToLab$rgb2xyz(blue);
+	var x = newmana$chroma_elm$Chroma$Converter$Out$ToLab$xyz2lab((((0.4124564 * r) + (0.3575761 * g)) + (0.1804375 * b)) / newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$xn);
+	var y = newmana$chroma_elm$Chroma$Converter$Out$ToLab$xyz2lab((((0.2126729 * r) + (0.7151522 * g)) + (7.2175e-2 * b)) / newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$yn);
+	var labA = 500 * (x - y);
+	var labL = (116 * y) - 16;
+	var z = newmana$chroma_elm$Chroma$Converter$Out$ToLab$xyz2lab((((1.93339e-2 * r) + (0.119192 * g)) + (0.9503041 * b)) / newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$zn);
+	var labB = 200 * (y - z);
+	return {labA: labA, labB: labB, lightness: labL};
+};
+var newmana$chroma_elm$Chroma$Converter$Out$ToLab$toLab = function (color) {
+	switch (color.$) {
+		case 'RGBColor':
+			var c = color.a;
+			return newmana$chroma_elm$Chroma$Converter$Out$ToLab$calcLab(
+				avh4$elm_color$Color$toRgba(c));
+		case 'CMYKColor':
+			var cmyk = color.a;
+			return newmana$chroma_elm$Chroma$Converter$Out$ToLab$calcLab(
+				avh4$elm_color$Color$toRgba(
+					newmana$chroma_elm$Chroma$Converter$In$Cmyk2Rgb$cmyk2rgb(cmyk)));
+		case 'LABColor':
+			var lab = color.a;
+			return lab;
+		default:
+			var lch = color.a;
+			return newmana$chroma_elm$Chroma$Converter$In$Lch2Lab$lch2lab(lch);
+	}
+};
+var newmana$chroma_elm$Chroma$Types$CMYKColor = function (a) {
+	return {$: 'CMYKColor', a: a};
+};
+var newmana$chroma_elm$Chroma$Types$LABColor = function (a) {
+	return {$: 'LABColor', a: a};
+};
+var newmana$chroma_elm$Chroma$Types$LCHColor = function (a) {
+	return {$: 'LCHColor', a: a};
+};
+var newmana$chroma_elm$Chroma$Ops$Lightness$darken = F2(
+	function (amount, color) {
+		var _n0 = newmana$chroma_elm$Chroma$Converter$Out$ToLab$toLab(color);
+		var lightness = _n0.lightness;
+		var labA = _n0.labA;
+		var labB = _n0.labB;
+		var newL = lightness - (newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$kn * amount);
+		var newLab = newmana$chroma_elm$Chroma$Types$LABColor(
+			{labA: labA, labB: labB, lightness: newL});
+		switch (color.$) {
+			case 'RGBColor':
+				return newmana$chroma_elm$Chroma$Types$RGBColor(
+					newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2rgb(
+						{labA: labA, labB: labB, lightness: newL}));
+			case 'LABColor':
+				return newLab;
+			case 'LCHColor':
+				return newmana$chroma_elm$Chroma$Types$LCHColor(
+					newmana$chroma_elm$Chroma$Converter$In$Lab2Lch$lab2lch(
+						{labA: labA, labB: labB, lightness: newL}));
+			default:
+				return newmana$chroma_elm$Chroma$Types$CMYKColor(
+					newmana$chroma_elm$Chroma$Converter$Out$ToCmyk$toCmyk(newLab));
+		}
+	});
+var newmana$chroma_elm$Chroma$Converter$Out$ToLch$toLch = function (color) {
+	return newmana$chroma_elm$Chroma$Converter$In$Lab2Lch$lab2lch(
+		newmana$chroma_elm$Chroma$Converter$Out$ToLab$toLab(color));
+};
+var newmana$chroma_elm$Chroma$Ops$Saturate$saturate = F2(
+	function (amount, color) {
+		var _n0 = newmana$chroma_elm$Chroma$Converter$Out$ToLch$toLch(color);
+		var luminance = _n0.luminance;
+		var chroma = _n0.chroma;
+		var hue = _n0.hue;
+		var calcNewC = chroma + (newmana$chroma_elm$Chroma$Converter$Misc$LabConstants$kn * amount);
+		var newC = A3(elm$core$Basics$clamp, 0, 230, calcNewC);
+		var newLch = {chroma: newC, hue: hue, luminance: luminance};
+		var newLab = newmana$chroma_elm$Chroma$Converter$In$Lch2Lab$lch2lab(newLch);
+		var newLabColor = newmana$chroma_elm$Chroma$Types$LABColor(newLab);
+		switch (color.$) {
+			case 'RGBColor':
+				return newmana$chroma_elm$Chroma$Types$RGBColor(
+					newmana$chroma_elm$Chroma$Converter$In$Lab2Rgb$lab2rgb(newLab));
+			case 'LABColor':
+				return newLabColor;
+			case 'LCHColor':
+				return newmana$chroma_elm$Chroma$Types$LCHColor(newLch);
+			default:
+				return newmana$chroma_elm$Chroma$Types$CMYKColor(
+					newmana$chroma_elm$Chroma$Converter$Out$ToCmyk$toCmyk(newLabColor));
+		}
+	});
+var author$project$Page$GettingStarted$example1Code = newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHex(
+	A2(
+		newmana$chroma_elm$Chroma$Ops$Saturate$saturate,
+		2,
+		A2(
+			newmana$chroma_elm$Chroma$Ops$Lightness$darken,
+			1,
+			A2(
+				elm$core$Result$withDefault,
+				newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black),
+				newmana$chroma_elm$Chroma$Chroma$chroma('pink')))));
+var author$project$Page$GettingStarted$example1Output = '"#ff6d93" : String ';
+var author$project$Page$GettingStarted$example1SourceCode = 'Chroma.chroma "pink"\n |> Result.withDefault (Types.RGBColor W3CX11.black)\n |> OpsLightness.darken 1 |> OpsSaturate.saturate 2\n |> OutHex.toHex  ';
+var elm$html$Html$pre = _VirtualDom_node('pre');
 var author$project$Page$GettingStarted$content = _List_fromArray(
 	[
 		A2(
@@ -10296,7 +11347,144 @@ var author$project$Page$GettingStarted$content = _List_fromArray(
 					]),
 				_List_fromArray(
 					[
-						elm$html$Html$text('Some content')
+						elm$html$Html$text('Chroma-elm is an Elm native version of the chroma.js library.')
+					])),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('content')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$p,
+						_List_Nil,
+						_List_fromArray(
+							[
+								elm$html$Html$text('The features include:')
+							])),
+						A2(
+						elm$html$Html$ul,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$li,
+								_List_Nil,
+								_List_fromArray(
+									[
+										elm$html$Html$text('Colormaps including: brewer, w3cx11, viridis, plasma, magma and inferno.')
+									])),
+								A2(
+								elm$html$Html$li,
+								_List_Nil,
+								_List_fromArray(
+									[
+										elm$html$Html$text('Color space support including: CMYK, HSL, LAB, LCH and RGB.')
+									])),
+								A2(
+								elm$html$Html$li,
+								_List_Nil,
+								_List_fromArray(
+									[
+										elm$html$Html$text('Color operations: interpolate, get/set alpha, lighten/darken, saturate/desaturate.')
+									]))
+							]))
+					])),
+				A2(
+				elm$html$Html$p,
+				_List_Nil,
+				_List_fromArray(
+					[
+						elm$html$Html$text('For example:')
+					])),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('container')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('columns')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$div,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('column'),
+										elm$html$Html$Attributes$class('is-three-fifths')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$html$Html$div,
+										_List_fromArray(
+											[
+												elm$html$Html$Attributes$class('box')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												elm$html$Html$pre,
+												_List_Nil,
+												_List_fromArray(
+													[
+														A2(
+														elm$html$Html$code,
+														_List_Nil,
+														_List_fromArray(
+															[
+																elm$html$Html$text(author$project$Page$GettingStarted$example1SourceCode)
+															]))
+													]))
+											]))
+									])),
+								A2(
+								elm$html$Html$div,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('column'),
+										elm$html$Html$Attributes$class('is-two-fifths')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$html$Html$div,
+										_List_fromArray(
+											[
+												elm$html$Html$Attributes$class('box'),
+												elm$html$Html$Attributes$class('is-shadowless')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												elm$html$Html$pre,
+												_List_Nil,
+												_List_fromArray(
+													[
+														A2(
+														elm$html$Html$code,
+														_List_fromArray(
+															[
+																elm$html$Html$Attributes$class('has-text-white'),
+																A2(elm$html$Html$Attributes$style, 'background-color', author$project$Page$GettingStarted$example1Code)
+															]),
+														_List_fromArray(
+															[
+																elm$html$Html$text(author$project$Page$GettingStarted$example1Output)
+															]))
+													]))
+											]))
+									]))
+							]))
 					]))
 			]))
 	]);
@@ -10410,7 +11598,8 @@ var author$project$View$view = F2(
 												elm$html$Html$div,
 												_List_fromArray(
 													[
-														elm$html$Html$Attributes$class('column')
+														elm$html$Html$Attributes$class('column'),
+														elm$html$Html$Attributes$class('is-one-fifth')
 													]),
 												_List_fromArray(
 													[
@@ -11092,7 +12281,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53164" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64204" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
