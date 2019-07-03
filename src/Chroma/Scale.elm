@@ -22,11 +22,11 @@ import List.Nonempty as Nonempty
 type alias Data =
     { nanColor : Color.Color
     , spread : Float
-    , domainValues : Nonempty.Nonempty Float
+    , domainValues : ( Float, Float )
     , pos : Nonempty.Nonempty ( Float, Float )
     , paddingValues : ( Float, Float )
     , useClasses : Bool
-    , colors : Nonempty.Nonempty Types.ExtColor
+    , colorsList : Nonempty.Nonempty Types.ExtColor
     , useOut : Bool
     , min : Float
     , max : Float
@@ -41,11 +41,11 @@ defaultData : Data
 defaultData =
     { nanColor = Color.rgb 204 204 204
     , spread = 0
-    , domainValues = Nonempty.Nonempty 0 [ 1 ]
+    , domainValues = ( 0, 1 )
     , pos = Nonempty.fromElement ( 0, 1 )
     , paddingValues = ( 0, 0 )
     , useClasses = False
-    , colors = Nonempty.Nonempty (Types.RGBColor W3CX11.white) [ Types.RGBColor W3CX11.black ]
+    , colorsList = Nonempty.Nonempty (Types.RGBColor W3CX11.white) [ Types.RGBColor W3CX11.black ]
     , useOut = False
     , min = 0
     , max = 1
@@ -86,7 +86,7 @@ createData newColors data =
             else
                 newColors
     in
-    { data | pos = createPos newColors, colors = ensureTwoColors }
+    { data | pos = createPos newColors, colorsList = ensureTwoColors }
 
 
 {-| TODO - Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
@@ -97,7 +97,7 @@ getColor data val =
 
 
 getDirectColor : Data -> Float -> Types.ExtColor
-getDirectColor ({ nanColor, spread, domainValues, pos, paddingValues, useClasses, colors, useOut, min, max, useCorrectLightness, gammaValue } as data) startT =
+getDirectColor ({ nanColor, spread, domainValues, pos, paddingValues, useClasses, colorsList, useOut, min, max, useCorrectLightness, gammaValue } as data) startT =
     let
         lightnessCorrectedT =
             if useCorrectLightness then
@@ -118,11 +118,11 @@ getDirectColor ({ nanColor, spread, domainValues, pos, paddingValues, useClasses
         boundedT =
             clamp 0 1 paddedT
     in
-    findAndInterpolateColor colors pos boundedT
+    findAndInterpolateColor colorsList pos boundedT
 
 
 findAndInterpolateColor : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty ( Float, Float ) -> Float -> Types.ExtColor
-findAndInterpolateColor colors pos t =
+findAndInterpolateColor colorsList pos t =
     let
         posMax =
             Nonempty.length pos - 1
@@ -132,7 +132,7 @@ findAndInterpolateColor colors pos t =
                 (\( p0, p1 ) ( found, result, i ) ->
                     if not found then
                         if (t <= p0) || (t >= p0 && i == posMax) then
-                            ( True, Nonempty.get i colors, i )
+                            ( True, Nonempty.get i colorsList, i )
 
                         else if t > p0 && t < p1 then
                             let
@@ -140,7 +140,7 @@ findAndInterpolateColor colors pos t =
                                     (t - p0) / (p1 - p0)
 
                                 interT =
-                                    Interpolator.interpolate (Nonempty.get i colors) (Nonempty.get (i + 1) colors) newT
+                                    Interpolator.interpolate (Nonempty.get i colorsList) (Nonempty.get (i + 1) colorsList) newT
                             in
                             ( True, interT, i )
 
@@ -156,8 +156,8 @@ findAndInterpolateColor colors pos t =
     interpolatedResult
 
 
-createDomainPos : Nonempty.Nonempty ( Float, Float ) -> Float -> Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty ( Float, Float )
-createDomainPos oldPos min max newDomain =
+createDomainPos : Nonempty.Nonempty ( Float, Float ) -> ( Float, Float ) -> Nonempty.Nonempty Float -> Nonempty.Nonempty ( Float, Float )
+createDomainPos oldPos ( min, max ) newDomain =
     let
         newDenom =
             max - min
@@ -193,13 +193,13 @@ domain newDomain data =
             ( Nonempty.head newDomain, Nonempty.get -1 newDomain )
 
         newPos =
-            if Nonempty.length newDomain == Nonempty.length data.colors && newMin /= newMax then
-                createDomainPos data.pos newMin newMax newDomain
+            if Nonempty.length newDomain == Nonempty.length data.colorsList && newMin /= newMax then
+                createDomainPos data.pos ( newMin, newMax ) newDomain
 
             else
-                createPos data.colors
+                createPos data.colorsList
     in
-    { data | domainValues = Nonempty.Nonempty newMin [ newMax ], pos = newPos, min = newMin, max = newMax }
+    { data | domainValues = ( newMin, newMax ), pos = newPos, min = newMin, max = newMax }
 
 
 type alias Convergence =
@@ -275,14 +275,25 @@ calcResult data pol ideal calcs =
     { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
 
 
-colorsNum : List Color.Color -> Int -> List Color.Color
-colorsNum colors num =
-    colorsFormat colors "hex" num
+colors : Nonempty.Nonempty Types.ExtColor -> Int -> Data -> Nonempty.Nonempty Types.ExtColor
+colors colorsList num data =
+    let
+        newData =
+            createData colorsList data
+    in
+    case num of
+        1 ->
+            Nonempty.Nonempty (getColor newData 0.5) []
 
+        _ ->
+            let
+                ( min, max ) =
+                    data.domainValues
 
-colorsFormat : List Color.Color -> String -> Int -> List Color.Color
-colorsFormat _ _ _ =
-    []
+                dd =
+                    max - min
+            in
+            Nonempty.indexedMap (\i c -> getColor newData (min + (toFloat i / toFloat num - 1) * dd)) colorsList
 
 
 {-| TBD

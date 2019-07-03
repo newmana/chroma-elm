@@ -103,7 +103,7 @@ paddingBoth ( newLeft, newRight ) ( data, _ ) =
         newData =
             { data | paddingValues = ( newLeft, newRight ) }
     in
-    scaleWith newData newData.colors
+    scaleWith newData newData.colorsList
 
 
 {-| Calculate the distance in LAB color space.
