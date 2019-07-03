@@ -1,14 +1,11 @@
-module Chroma.Ops.Alpha exposing
-    ( alpha
-    , setAlpha
-    )
+module Chroma.Ops.Alpha exposing (setAlpha, alpha)
 
 {-| Get or change Alpha value
 
 
 # Definition
 
-@docs alpha
+@docs setAlpha, alpha
 
 -}
 

@@ -1,14 +1,11 @@
-module Chroma.Ops.Saturate exposing
-    ( saturate
-    , desaturate
-    )
+module Chroma.Ops.Saturate exposing (saturate, desaturate)
 
 {-| Increase or decrease color saturation.
 
 
 # Definition
 
-@docs saturate, desatureate
+@docs saturate, desaturate
 
 -}
 

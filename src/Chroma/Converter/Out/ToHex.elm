@@ -1,14 +1,11 @@
-module Chroma.Converter.Out.ToHex exposing
-    ( toHex
-    , toHexAlpha
-    )
+module Chroma.Converter.Out.ToHex exposing (toHex, toHexAlpha)
 
-{-| Convert ExtColors to hex string (#RGB)
+{-| Convert ExtColors to hex string (#RGB) or hex string with alpha channel (#RGBA)
 
 
 # Definition
 
-@docs toHex
+@docs toHex, toHexAlpha
 
 -}
 
@@ -28,6 +25,8 @@ toHex color =
     "#" ++ toPaddedHex red ++ toPaddedHex green ++ toPaddedHex blue
 
 
+{-| Takes a result from getColor and returns Integer (0-255) RGB and alpha values.
+-}
 toHexAlpha : Types.ExtColor -> String
 toHexAlpha color =
     let
