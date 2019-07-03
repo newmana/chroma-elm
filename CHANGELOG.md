@@ -1,10 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [8.0.0] - 2019-07-03
+### Added
+- Added color operations: colors and colorsWith.
+- Add interpolation for LCH.
+
 ## [7.0.0] - 2019-07-03
 ### Added
 - Added color operations: get/set alpha, lighten/darken and saturate/desature.
-- LCH Support (and converters)
+- LCH Support (and converters).
 
 ## [6.0.0] - 2019-06-27
 ### Added

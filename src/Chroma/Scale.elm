@@ -274,6 +274,8 @@ calcResult data pol ideal calcs =
     { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
 
 
+{-| Interpolate a range of colors from the list of colors in the data.
+-}
 colors : Int -> Data -> Nonempty.Nonempty Types.ExtColor
 colors num data =
     case num of

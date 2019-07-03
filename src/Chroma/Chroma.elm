@@ -106,6 +106,8 @@ paddingBoth ( newLeft, newRight ) ( data, _ ) =
     scaleWith newData newData.colorsList
 
 
+{-| Return the data with the given colors and a new list of colors.
+-}
 colors : Int -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
 colors num colorsList =
     let
@@ -115,6 +117,8 @@ colors num colorsList =
     colorsWith num newData
 
 
+{-| Return the data with the given colors and a new list of colors.
+-}
 colorsWith : Int -> Scale.Data -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
 colorsWith num data =
     ( data, Scale.colors num data )
