@@ -3,7 +3,7 @@
     "name": "newmana/chroma-elm",
     "summary": "A clone of the very useful chroma.js in Elm",
     "license": "Apache-2.0",
-    "version": "8.0.0",
+    "version": "8.1.0",
     "exposed-modules": {
         "Main API": [
             "Chroma.Chroma"
@@ -12,20 +12,24 @@
             "Chroma.Converter.In.Cmyk2Rgb",
             "Chroma.Converter.In.Hex2Rgb",
             "Chroma.Converter.In.Hsl2Rgb",
-            "Chroma.Converter.In.Lab2Rgb"
+            "Chroma.Converter.In.Lab2Lch",
+            "Chroma.Converter.In.Lab2Rgb",
+            "Chroma.Converter.In.Lch2Lab"
         ],
         "Output": [
             "Chroma.Converter.Out.ToCmyk",
             "Chroma.Converter.Out.ToHex",
             "Chroma.Converter.Out.ToHsl",
             "Chroma.Converter.Out.ToLab",
+            "Chroma.Converter.Out.ToLch",
             "Chroma.Converter.Out.ToRgb"
         ],
         "Colors": [
             "Chroma.Colors.Brewer",
-            "Chroma.Colors.Viridis",
             "Chroma.Colors.Inferno",
             "Chroma.Colors.Magma",
+            "Chroma.Colors.Plasma",
+            "Chroma.Colors.Viridis",
             "Chroma.Colors.W3CX11"
         ],
         "Operations": [
