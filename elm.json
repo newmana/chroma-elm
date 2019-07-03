@@ -28,6 +28,11 @@
             "Chroma.Colors.Magma",
             "Chroma.Colors.W3CX11"
         ],
+        "Operations": [
+            "Chroma.Ops.Alpha",
+            "Chroma.Ops.Lightness",
+            "Chroma.Ops.Saturate"
+        ],
         "Helpers": [
             "Chroma.Types",
             "Chroma.Interpolator",
