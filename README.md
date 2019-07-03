@@ -3,6 +3,8 @@ Clone of [Chroma.js](https://gka.github.io/chroma.js)
 
 [Example Site](https://newmana.github.io/chroma-elm/)
 
+[Changelog](https://github.com/newmana/chroma-elm/blob/master/CHANGELOG.md)
+
 # Development
 - ```yarn install```
 - ```yarn run elm make```
