@@ -1,4 +1,4 @@
-module Chroma.ChromaTest exposing (c1, c2, c3, testDistance, tests)
+module Chroma.ChromaTest exposing (tests)
 
 import Chroma.Chroma as Chroma
 import Chroma.Colors.Brewer as Brewer
@@ -21,6 +21,7 @@ tests =
         , testScaleAndDomain
         , testDistance
         , testPadding
+        , testColors
         ]
 
 
@@ -131,4 +132,23 @@ testPadding =
         , Test.test "Padded right both" <|
             \_ ->
                 Expect.equal "#86cb67" (ToHex.toHex (bothF 0.9))
+        ]
+
+
+testColors : Test.Test
+testColors =
+    let
+        ( _, whiteToBlack ) =
+            Chroma.colors 12 (Nonempty.Nonempty (Types.RGBColor W3CX11.white) [ Types.RGBColor W3CX11.black ])
+
+        ( _, orangeToRed ) =
+            Chroma.colors 5 (Nonempty.map Types.RGBColor Brewer.orRd)
+    in
+    Test.describe "colors API"
+        [ Test.test "Five orange to red" <|
+            \_ ->
+                Expect.equal (Nonempty.Nonempty "#fff7ec" [ "#fdd49e", "#fc8d59", "#d7301f", "#7f0000" ]) (Nonempty.map ToHex.toHex orangeToRed)
+        , Test.test "Twelve black to white" <|
+            \_ ->
+                Expect.equal (Nonempty.Nonempty "#ffffff" [ "#e8e8e8", "#d1d1d1", "#b9b9b9", "#a2a2a2", "#8b8b8b", "#747474", "#5d5d5d", "#464646", "#2e2e2e", "#171717", "#000000" ]) (Nonempty.map ToHex.toHex whiteToBlack)
         ]
