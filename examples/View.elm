@@ -34,6 +34,7 @@ view model content =
                     ]
                     ([ Html.div
                         [ HtmlAttributes.class "column"
+                        , HtmlAttributes.class "is-one-fifth"
                         ]
                         [ Html.h2
                             [ HtmlAttributes.class "title"

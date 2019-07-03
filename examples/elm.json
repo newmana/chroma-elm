@@ -14,7 +14,7 @@
             "elm/svg": "1.0.1",
             "elm/time": "1.0.0",
             "elm/url": "1.0.0",
-            "newmana/chroma-elm": "5.0.0"
+            "newmana/chroma-elm": "7.0.0"
         },
         "indirect": {
             "avh4/elm-color": "1.0.0",
