@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, domain, distance, distance255, distanceWithLab, padding, paddingBoth
+    ( chroma, scale, domain, distance, distance255, distanceWithLab, padding, paddingBoth, colors, colorsWith
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, scale, domain, distance, distance255, distanceWithLab, padding, paddingBoth
+@docs chroma, scale, domain, distance, distance255, distanceWithLab, padding, paddingBoth, colors, colorsWith
 
 
 # Helpers
@@ -49,17 +49,17 @@ scaleDefault =
 {-| Return a new configuration and a function from a float to color based on default values and the given colors.
 -}
 scale : Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
-scale colors =
-    scaleWith Scale.defaultData colors
+scale colorsList =
+    scaleWith Scale.defaultData colorsList
 
 
 {-| Return a new configuration and a function from a float to color based on the given configuration values and the given colors.
 -}
 scaleWith : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
-scaleWith data colors =
+scaleWith data colorsList =
     let
         newData =
-            Scale.createData colors data
+            Scale.createData colorsList data
     in
     ( newData, Scale.getColor newData )
 
@@ -68,10 +68,10 @@ scaleWith data colors =
 length as the domain) and default configuration.
 -}
 domain : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
-domain newDomain colors =
+domain newDomain colorsList =
     let
         newData =
-            Scale.defaultData |> Scale.createData colors |> Scale.domain newDomain
+            Scale.defaultData |> Scale.createData colorsList |> Scale.domain newDomain
     in
     ( newData, Scale.getColor newData )
 
@@ -80,10 +80,10 @@ domain newDomain colors =
 and colors (must be the same length as the domain).
 -}
 domainWith : Nonempty.Nonempty Float -> Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
-domainWith newDomain data colors =
+domainWith newDomain data colorsList =
     let
         newData =
-            data |> Scale.createData colors |> Scale.domain newDomain
+            data |> Scale.createData colorsList |> Scale.domain newDomain
     in
     ( newData, Scale.getColor newData )
 
@@ -104,6 +104,20 @@ paddingBoth ( newLeft, newRight ) ( data, _ ) =
             { data | paddingValues = ( newLeft, newRight ) }
     in
     scaleWith newData newData.colorsList
+
+
+colors : Int -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
+colors num colorsList =
+    let
+        newData =
+            Scale.defaultData |> Scale.createData colorsList
+    in
+    colorsWith num newData
+
+
+colorsWith : Int -> Scale.Data -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
+colorsWith num data =
+    ( data, Scale.colors num data )
 
 
 {-| Calculate the distance in LAB color space.

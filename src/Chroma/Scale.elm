@@ -1,11 +1,11 @@
-module Chroma.Scale exposing (getColor, domain, correctLightness, Data, classes, createData, defaultData)
+module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, classes, createData, defaultData)
 
 {-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
 
 
 # Definition
 
-@docs getColor, domain, correctLightness, Data, classes, createData, defaultData
+@docs colors, getColor, domain, correctLightness, Data, classes, createData, defaultData
 
 -}
 
@@ -274,25 +274,18 @@ calcResult data pol ideal calcs =
     { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
 
 
-colors : Nonempty.Nonempty Types.ExtColor -> Int -> Data -> Nonempty.Nonempty Types.ExtColor
-colors colorsList num data =
-    let
-        newData =
-            createData colorsList data
-    in
+colors : Int -> Data -> Nonempty.Nonempty Types.ExtColor
+colors num data =
     case num of
         1 ->
-            Nonempty.Nonempty (getColor newData 0.5) []
+            Nonempty.Nonempty (getColor data 0.5) []
 
         _ ->
             let
-                ( min, max ) =
-                    data.domainValues
-
-                dd =
-                    max - min
+                ranged =
+                    Nonempty.Nonempty 1 (List.range 2 num)
             in
-            Nonempty.indexedMap (\i c -> getColor newData (min + (toFloat i / toFloat num - 1) * dd)) colorsList
+            Nonempty.indexedMap (\i c -> getColor data (toFloat i / toFloat (num - 1))) ranged
 
 
 {-| TODO - Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
