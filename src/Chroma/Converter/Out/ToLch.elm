@@ -1,11 +1,11 @@
-module Chroma.Converter.Out.ToLch exposing (toLch)
+module Chroma.Converter.Out.ToLch exposing (toLch, toLchExtColor)
 
 {-| Convert ExtColor to LCH
 
 
 # Definition
 
-@docs toLch
+@docs toLch, toLchExtColor
 
 -}
 
@@ -20,3 +20,10 @@ import Color as Color
 toLch : Types.ExtColor -> Types.LchColor
 toLch color =
     ToLab.toLab color |> Lab2Lch.lab2lch
+
+
+{-| TBD
+-}
+toLchExtColor : Color.Color -> Types.ExtColor
+toLchExtColor color =
+    toLch (Types.RGBColor color) |> Types.LCHColor

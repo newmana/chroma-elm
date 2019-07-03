@@ -30,6 +30,9 @@ interpolate col1 col2 f =
         ( Types.LABColor lab1, Types.LABColor lab2 ) ->
             interpolateLAB lab1 lab2 f |> Types.LABColor
 
+        ( Types.LCHColor lch1, Types.LCHColor lch2 ) ->
+            interpolateLCH lch1 lch2 f |> Types.LCHColor
+
         ( Types.CMYKColor cmyk1, Types.CMYKColor cmyk2 ) ->
             interpolateRGB (cmyk1 |> Cmyk2Rgb.cmyk2rgb) (cmyk2 |> Cmyk2Rgb.cmyk2rgb) f |> Types.RGBColor |> ToCmyk.toCmyk |> Types.CMYKColor
 
@@ -63,4 +66,23 @@ interpolateLAB color1 color2 f =
     { lightness = color1.lightness + f * (color2.lightness - color1.lightness)
     , labA = color1.labA + f * (color2.labA - color1.labA)
     , labB = color1.labB + f * (color2.labB - color1.labB)
+    }
+
+
+interpolateLCH : { luminance : Float, chroma : Float, hue : Float } -> { luminance : Float, chroma : Float, hue : Float } -> Float -> { luminance : Float, chroma : Float, hue : Float }
+interpolateLCH color1 color2 f =
+    let
+        dh =
+            if color2.hue > color1.hue && (color2.hue - color1.hue > 180) then
+                color2.hue - (color1.hue + 360)
+
+            else if color2.hue < color1.hue && (color1.hue - color2.hue > 180) then
+                color2.hue + 360 - color1.hue
+
+            else
+                color2.hue - color1.hue
+    in
+    { luminance = color1.luminance + f * (color2.luminance - color1.luminance)
+    , chroma = color1.chroma + f * (color2.chroma - color1.chroma)
+    , hue = color1.hue + f * dh
     }

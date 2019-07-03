@@ -5,6 +5,7 @@ import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Converter.Out.ToLab as ToLab
+import Chroma.Converter.Out.ToLch as ToLch
 import Chroma.Interpolator as Interpolator
 import Chroma.Scale as Scale
 import Chroma.Types as Types
@@ -34,6 +35,16 @@ whiteLab =
 blackLab : Types.ExtColor
 blackLab =
     ToLab.toLabExtColor W3CX11.black
+
+
+whiteLch : Types.ExtColor
+whiteLch =
+    ToLch.toLchExtColor W3CX11.white
+
+
+blackLch : Types.ExtColor
+blackLch =
+    ToLch.toLchExtColor W3CX11.black
 
 
 whiteRgb : Types.ExtColor
@@ -76,6 +87,11 @@ whiteAndBlackLab =
     Scale.createData (Nonempty.Nonempty whiteLab [ blackLab ])
 
 
+whiteAndBlackLch : Scale.Data -> Scale.Data
+whiteAndBlackLch =
+    Scale.createData (Nonempty.Nonempty whiteLch [ blackLch ])
+
+
 whiteAndBlackRgb : Scale.Data -> Scale.Data
 whiteAndBlackRgb =
     Scale.createData (Nonempty.Nonempty whiteRgb [ blackRgb ])
@@ -112,6 +128,15 @@ expectScaleWithDomainRgb newData val expectedValue =
 expectScaleWithDomainLabHex newData val expectedValue =
     case Scale.getColor newData val of
         (Types.LABColor _) as color ->
+            Expect.equal (ToHex.toHex color) expectedValue
+
+        _ ->
+            Expect.fail "Wrong type returned"
+
+
+expectScaleWithDomainLchHex newData val expectedValue =
+    case Scale.getColor newData val of
+        (Types.LCHColor _) as color ->
             Expect.equal (ToHex.toHex color) expectedValue
 
         _ ->
@@ -162,6 +187,25 @@ testSimpleBlackWhiteLab =
         , Test.test "Test end of two" <|
             \_ ->
                 expectScaleWithDomainLabHex newData 1.0 "#000000"
+        ]
+
+
+testSimpleBlackWhiteLch : Test.Test
+testSimpleBlackWhiteLch =
+    let
+        newData =
+            Scale.defaultData |> whiteAndBlackLch
+    in
+    Test.describe "Simple LCH Scale"
+        [ Test.test "Test start of two" <|
+            \_ ->
+                expectScaleWithDomainLchHex newData 0 "#ffffff"
+        , Test.test "Test between two" <|
+            \_ ->
+                expectScaleWithDomainLchHex newData 0.5 "#777777"
+        , Test.test "Test end of two" <|
+            \_ ->
+                expectScaleWithDomainLchHex newData 1.0 "#000000"
         ]
 
 
