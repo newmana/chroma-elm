@@ -30,6 +30,7 @@ content =
             ++ example example2Code example2SourceCode example2Output "has-text-white"
             ++ example example3Code example3SourceCode example3Output "has-text-black"
             ++ example example4Code example4SourceCode example4Output "has-text-black"
+            ++ example example5Code example5SourceCode example5Output "has-text-white"
         )
     ]
 
@@ -148,3 +149,20 @@ example4SourceCode =
 example4Output : String
 example4Output =
     """"#3399ff33" : String """
+
+
+example5Code : String
+example5Code =
+    Chroma.chroma "hello world" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHexAlpha
+
+
+example5SourceCode : String
+example5SourceCode =
+    """Chroma.chroma "hello world"
+ |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> ToHex.toHexAlpha  """
+
+
+example5Output : String
+example5Output =
+    """"#000000" : String """
