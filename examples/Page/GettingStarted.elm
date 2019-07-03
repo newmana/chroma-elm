@@ -2,12 +2,15 @@ module Page.GettingStarted exposing (content)
 
 import Chroma.Chroma as Chroma
 import Chroma.Colors.W3CX11 as W3CX11
-import Chroma.Converter.Out.ToHex as OutHex
+import Chroma.Converter.Out.ToHex as ToHex
+import Chroma.Converter.Out.ToLch as ToLch
 import Chroma.Ops.Lightness as OpsLightness
 import Chroma.Ops.Saturate as OpsSaturate
 import Chroma.Types as Types
+import Color as Color
 import Html as Html
 import Html.Attributes as HtmlAttributes
+import List.Nonempty as Nonempty
 
 
 content : List (Html.Html msg)
@@ -15,13 +18,13 @@ content =
     [ Html.div
         [ HtmlAttributes.class "column"
         ]
-        [ Html.h1
+        ([ Html.h1
             [ HtmlAttributes.class "title" ]
             [ Html.text "Getting Started" ]
-        , Html.p
+         , Html.p
             [ HtmlAttributes.class "subtitle" ]
             [ Html.text "Chroma-elm is an Elm native version of the chroma.js library." ]
-        , Html.div
+         , Html.div
             [ HtmlAttributes.class "content" ]
             [ Html.p
                 []
@@ -42,47 +45,55 @@ content =
                     ]
                 ]
             ]
-        , Html.p
-            []
-            [ Html.text "For example:" ]
-        , Html.div
-            [ HtmlAttributes.class "container"
+         ]
+            ++ example1
+            ++ example2
+        )
+    ]
+
+
+example1 : List (Html.Html msg)
+example1 =
+    [ Html.p
+        []
+        [ Html.text "For example:" ]
+    , Html.div
+        [ HtmlAttributes.class "container"
+        ]
+        [ Html.div
+            [ HtmlAttributes.class "columns"
             ]
             [ Html.div
-                [ HtmlAttributes.class "columns"
+                [ HtmlAttributes.class "column"
+                , HtmlAttributes.class "is-three-fifths"
                 ]
                 [ Html.div
-                    [ HtmlAttributes.class "column"
-                    , HtmlAttributes.class "is-three-fifths"
+                    [ HtmlAttributes.class "box"
                     ]
-                    [ Html.div
-                        [ HtmlAttributes.class "box"
-                        ]
-                        [ Html.pre
+                    [ Html.pre
+                        []
+                        [ Html.code
                             []
-                            [ Html.code
-                                []
-                                [ Html.text example1SourceCode
-                                ]
+                            [ Html.text example1SourceCode
                             ]
                         ]
                     ]
-                , Html.div
-                    [ HtmlAttributes.class "column"
-                    , HtmlAttributes.class "is-two-fifths"
+                ]
+            , Html.div
+                [ HtmlAttributes.class "column"
+                , HtmlAttributes.class "is-two-fifths"
+                ]
+                [ Html.div
+                    [ HtmlAttributes.class "box"
+                    , HtmlAttributes.class "is-shadowless"
                     ]
-                    [ Html.div
-                        [ HtmlAttributes.class "box"
-                        , HtmlAttributes.class "is-shadowless"
-                        ]
-                        [ Html.pre
-                            []
-                            [ Html.code
-                                [ HtmlAttributes.class "has-text-white"
-                                , HtmlAttributes.style "background-color" example1Code
-                                ]
-                                [ Html.text example1Output
-                                ]
+                    [ Html.pre
+                        []
+                        [ Html.code
+                            [ HtmlAttributes.class "has-text-white"
+                            , HtmlAttributes.style "background-color" example1Code
+                            ]
+                            [ Html.text example1Output
                             ]
                         ]
                     ]
@@ -94,7 +105,7 @@ content =
 
 example1Code : String
 example1Code =
-    Chroma.chroma "pink" |> Result.withDefault (Types.RGBColor W3CX11.black) |> OpsLightness.darken 1 |> OpsSaturate.saturate 2 |> OutHex.toHex
+    Chroma.chroma "pink" |> Result.withDefault (Types.RGBColor W3CX11.black) |> OpsLightness.darken 1 |> OpsSaturate.saturate 2 |> ToHex.toHex
 
 
 example1SourceCode : String
@@ -102,9 +113,91 @@ example1SourceCode =
     """Chroma.chroma "pink"
  |> Result.withDefault (Types.RGBColor W3CX11.black)
  |> OpsLightness.darken 1 |> OpsSaturate.saturate 2
- |> OutHex.toHex  """
+ |> ToHex.toHex  """
 
 
 example1Output : String
 example1Output =
     """"#ff6d93" : String """
+
+
+example2 : List (Html.Html msg)
+example2 =
+    [ Html.p
+        []
+        [ Html.text "It can also be used to generate colormaps." ]
+    , Html.p
+        []
+        [ Html.text "For example:" ]
+    , Html.div
+        [ HtmlAttributes.class "container"
+        ]
+        [ Html.div
+            [ HtmlAttributes.class "columns"
+            ]
+            [ Html.div
+                [ HtmlAttributes.class "column"
+                , HtmlAttributes.class "is-three-fifths"
+                ]
+                [ Html.div
+                    [ HtmlAttributes.class "box"
+                    ]
+                    [ Html.pre
+                        []
+                        [ Html.code
+                            []
+                            [ Html.text example2SourceCode
+                            ]
+                        ]
+                    ]
+                ]
+            , Html.div
+                [ HtmlAttributes.class "column"
+                , HtmlAttributes.class "is-two-fifths"
+                ]
+                [ Html.div
+                    [ HtmlAttributes.class "box"
+                    , HtmlAttributes.class "is-shadowless"
+                    ]
+                    [ Html.pre
+                        []
+                        example2Output
+                    ]
+                ]
+            ]
+        ]
+    ]
+
+
+example2Code : Nonempty.Nonempty Types.ExtColor
+example2Code =
+    Nonempty.Nonempty (Color.rgb255 250 250 110) [ Color.rgb255 42 72 88 ] |> Nonempty.map ToLch.toLchExtColor |> Chroma.colors 6 |> Tuple.second
+
+
+example2SourceCode : String
+example2SourceCode =
+    """Nonempty.Nonempty (rgb255 250 250 110) [ rgb255 42 72 88 ]
+ |> Nonempty.map ToLch.toLchExtColor
+ |> Chroma.colors 6 |> Tuple.second"""
+
+
+example2Output : List (Html.Html msg)
+example2Output =
+    let
+        createHtml extColor =
+            Html.span
+                [ HtmlAttributes.style "background-color" (ToHex.toHex extColor)
+                ]
+                [ Html.text "\u{00A0}\u{00A0}\u{00A0}"
+                ]
+
+        textWith str =
+            Html.span
+                []
+                [ Html.text str
+                ]
+
+        colorsWithCommas =
+            Nonempty.map createHtml example2Code |> Nonempty.toList |> List.intersperse (textWith ",")
+    in
+    [ textWith "[" ] ++ colorsWithCommas ++ [ textWith "]" ]
