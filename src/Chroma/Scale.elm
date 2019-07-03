@@ -89,8 +89,7 @@ createData newColors data =
     { data | pos = createPos newColors, colorsList = ensureTwoColors }
 
 
-{-| TODO - Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
--}
+{-| -}
 getColor : Data -> Float -> Types.ExtColor
 getColor data val =
     getDirectColor data ((val - data.min) / (data.max - data.min))
@@ -296,7 +295,7 @@ colors colorsList num data =
             Nonempty.indexedMap (\i c -> getColor newData (min + (toFloat i / toFloat num - 1) * dd)) colorsList
 
 
-{-| TBD
+{-| TODO - Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
 -}
 classes : List Color.Color -> Int -> List Color.Color
 classes _ _ =
