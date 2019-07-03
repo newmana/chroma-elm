@@ -10171,103 +10171,100 @@ var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
 var author$project$Main$subscriptions = function (model) {
 	return elm$core$Platform$Sub$none;
 };
-var elm$html$Html$h1 = _VirtualDom_node('h1');
-var author$project$Page$Chroma$content = _List_fromArray(
-	[
-		A2(
-		elm$html$Html$div,
-		_List_fromArray(
-			[
-				elm$html$Html$Attributes$class('column')
-			]),
-		_List_fromArray(
+var elm$html$Html$pre = _VirtualDom_node('pre');
+var author$project$Page$Chroma$example = F4(
+	function (code, source, output, textColor) {
+		return _List_fromArray(
 			[
 				A2(
-				elm$html$Html$h1,
+				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$class('title')
+						elm$html$Html$Attributes$class('container')
 					]),
 				_List_fromArray(
 					[
-						elm$html$Html$text('Chroma')
-					])),
-				A2(
-				elm$html$Html$p,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('subtitle')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('Chroma Chroma Chroma')
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('columns')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$div,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('column'),
+										elm$html$Html$Attributes$class('is-three-fifths')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$html$Html$div,
+										_List_fromArray(
+											[
+												elm$html$Html$Attributes$class('box')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												elm$html$Html$pre,
+												_List_Nil,
+												_List_fromArray(
+													[
+														A2(
+														elm$html$Html$code,
+														_List_Nil,
+														_List_fromArray(
+															[
+																elm$html$Html$text(source)
+															]))
+													]))
+											]))
+									])),
+								A2(
+								elm$html$Html$div,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('column'),
+										elm$html$Html$Attributes$class('is-two-fifths')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$html$Html$div,
+										_List_fromArray(
+											[
+												elm$html$Html$Attributes$class('box'),
+												elm$html$Html$Attributes$class('is-shadowless')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												elm$html$Html$pre,
+												_List_Nil,
+												_List_fromArray(
+													[
+														A2(
+														elm$html$Html$code,
+														_List_fromArray(
+															[
+																elm$html$Html$Attributes$class(textColor),
+																A2(elm$html$Html$Attributes$style, 'background-color', code)
+															]),
+														_List_fromArray(
+															[
+																elm$html$Html$text(output)
+															]))
+													]))
+											]))
+									]))
+							]))
 					]))
-			]))
-	]);
-var author$project$Page$Color$content = _List_fromArray(
-	[
-		A2(
-		elm$html$Html$div,
-		_List_fromArray(
-			[
-				elm$html$Html$Attributes$class('column')
-			]),
-		_List_fromArray(
-			[
-				A2(
-				elm$html$Html$h1,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('title')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('Color')
-					])),
-				A2(
-				elm$html$Html$p,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('subtitle')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('Color Color')
-					]))
-			]))
-	]);
-var author$project$Page$Convertor$content = _List_fromArray(
-	[
-		A2(
-		elm$html$Html$div,
-		_List_fromArray(
-			[
-				elm$html$Html$Attributes$class('column')
-			]),
-		_List_fromArray(
-			[
-				A2(
-				elm$html$Html$h1,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('title')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('Convertor')
-					])),
-				A2(
-				elm$html$Html$p,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('subtitle')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('Convertor')
-					]))
-			]))
-	]);
+			]);
+	});
 var elm$core$Result$withDefault = F2(
 	function (def, result) {
 		if (result.$ === 'Ok') {
@@ -11140,6 +11137,164 @@ var newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHex = function (color) {
 	var alpha = _n0.alpha;
 	return '#' + (newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(red) + (newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(green) + newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(blue)));
 };
+var author$project$Page$Chroma$example1Code = newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHex(
+	A2(
+		elm$core$Result$withDefault,
+		newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black),
+		newmana$chroma_elm$Chroma$Chroma$chroma('hotpink')));
+var author$project$Page$Chroma$example1Output = '"#ff69b4" : String ';
+var author$project$Page$Chroma$example1SourceCode = 'Chroma.chroma "hotpink"\n |> Result.withDefault (Types.RGBColor W3CX11.black)\n |> ToHex.toHex  ';
+var author$project$Page$Chroma$example2Code = newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHex(
+	A2(
+		elm$core$Result$withDefault,
+		newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black),
+		newmana$chroma_elm$Chroma$Chroma$chroma('#963')));
+var author$project$Page$Chroma$example2Output = '"#996633" : String ';
+var author$project$Page$Chroma$example2SourceCode = 'Chroma.chroma "#963"\n |> Result.withDefault (Types.RGBColor W3CX11.black)\n |> ToHex.toHex  ';
+var author$project$Page$Chroma$example3Code = newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHex(
+	A2(
+		elm$core$Result$withDefault,
+		newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black),
+		newmana$chroma_elm$Chroma$Chroma$chroma('#3399ff')));
+var author$project$Page$Chroma$example3Output = '"#3399ff" : String ';
+var author$project$Page$Chroma$example3SourceCode = 'Chroma.chroma "#3399ff"\n |> Result.withDefault (Types.RGBColor W3CX11.black)\n |> ToHex.toHex  ';
+var newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHexAlpha = function (color) {
+	var _n0 = newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toRgba255(color);
+	var red = _n0.red;
+	var green = _n0.green;
+	var blue = _n0.blue;
+	var alpha = _n0.alpha;
+	return '#' + (newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(red) + (newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(green) + (newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(blue) + newmana$chroma_elm$Chroma$Converter$Out$ToHex$toPaddedHex(
+		elm$core$Basics$round(255 * alpha)))));
+};
+var author$project$Page$Chroma$example4Code = newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHexAlpha(
+	A2(
+		elm$core$Result$withDefault,
+		newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black),
+		newmana$chroma_elm$Chroma$Chroma$chroma('#3399ff33')));
+var author$project$Page$Chroma$example4Output = '"#3399ff33" : String ';
+var author$project$Page$Chroma$example4SourceCode = 'Chroma.chroma "#3399ff33"\n |> Result.withDefault (Types.RGBColor W3CX11.black)\n |> ToHex.toHexAlpha  ';
+var elm$html$Html$h1 = _VirtualDom_node('h1');
+var author$project$Page$Chroma$content = _List_fromArray(
+	[
+		A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('column')
+			]),
+		_Utils_ap(
+			_List_fromArray(
+				[
+					A2(
+					elm$html$Html$h1,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('title')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text('Chroma')
+						])),
+					A2(
+					elm$html$Html$p,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('subtitle')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text('Chroma.chroma(string)')
+						])),
+					A2(
+					elm$html$Html$div,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('content')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$p,
+							_List_Nil,
+							_List_fromArray(
+								[
+									elm$html$Html$text('Given a string that represents either a W3CX11 color name or a 3, 6 or 8 hex string.')
+								]))
+						]))
+				]),
+			_Utils_ap(
+				A4(author$project$Page$Chroma$example, author$project$Page$Chroma$example1Code, author$project$Page$Chroma$example1SourceCode, author$project$Page$Chroma$example1Output, 'has-text-white'),
+				_Utils_ap(
+					A4(author$project$Page$Chroma$example, author$project$Page$Chroma$example2Code, author$project$Page$Chroma$example2SourceCode, author$project$Page$Chroma$example2Output, 'has-text-white'),
+					_Utils_ap(
+						A4(author$project$Page$Chroma$example, author$project$Page$Chroma$example3Code, author$project$Page$Chroma$example3SourceCode, author$project$Page$Chroma$example3Output, 'has-text-black'),
+						A4(author$project$Page$Chroma$example, author$project$Page$Chroma$example4Code, author$project$Page$Chroma$example4SourceCode, author$project$Page$Chroma$example4Output, 'has-text-black'))))))
+	]);
+var author$project$Page$Color$content = _List_fromArray(
+	[
+		A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('column')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$h1,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('title')
+					]),
+				_List_fromArray(
+					[
+						elm$html$Html$text('Color')
+					])),
+				A2(
+				elm$html$Html$p,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('subtitle')
+					]),
+				_List_fromArray(
+					[
+						elm$html$Html$text('Color Color')
+					]))
+			]))
+	]);
+var author$project$Page$Convertor$content = _List_fromArray(
+	[
+		A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('column')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$h1,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('title')
+					]),
+				_List_fromArray(
+					[
+						elm$html$Html$text('Convertor')
+					])),
+				A2(
+				elm$html$Html$p,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('subtitle')
+					]),
+				_List_fromArray(
+					[
+						elm$html$Html$text('Convertor')
+					]))
+			]))
+	]);
 var elm$core$Basics$atan2 = _Basics_atan2;
 var elm$core$Basics$sqrt = _Basics_sqrt;
 var newmana$chroma_elm$Chroma$Converter$In$Lab2Lch$lab2lch = function (_n0) {
@@ -11317,8 +11472,680 @@ var author$project$Page$GettingStarted$example1Code = newmana$chroma_elm$Chroma$
 				newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black),
 				newmana$chroma_elm$Chroma$Chroma$chroma('pink')))));
 var author$project$Page$GettingStarted$example1Output = '"#ff6d93" : String ';
-var author$project$Page$GettingStarted$example1SourceCode = 'Chroma.chroma "pink"\n |> Result.withDefault (Types.RGBColor W3CX11.black)\n |> OpsLightness.darken 1 |> OpsSaturate.saturate 2\n |> OutHex.toHex  ';
-var elm$html$Html$pre = _VirtualDom_node('pre');
+var author$project$Page$GettingStarted$example1SourceCode = 'Chroma.chroma "pink"\n |> Result.withDefault (Types.RGBColor W3CX11.black)\n |> OpsLightness.darken 1 |> OpsSaturate.saturate 2\n |> ToHex.toHex  ';
+var author$project$Page$GettingStarted$example1 = _List_fromArray(
+	[
+		A2(
+		elm$html$Html$p,
+		_List_Nil,
+		_List_fromArray(
+			[
+				elm$html$Html$text('For example:')
+			])),
+		A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('container')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('columns')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('column'),
+								elm$html$Html$Attributes$class('is-three-fifths')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$div,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('box')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$html$Html$pre,
+										_List_Nil,
+										_List_fromArray(
+											[
+												A2(
+												elm$html$Html$code,
+												_List_Nil,
+												_List_fromArray(
+													[
+														elm$html$Html$text(author$project$Page$GettingStarted$example1SourceCode)
+													]))
+											]))
+									]))
+							])),
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('column'),
+								elm$html$Html$Attributes$class('is-two-fifths')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$div,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('box'),
+										elm$html$Html$Attributes$class('is-shadowless')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$html$Html$pre,
+										_List_Nil,
+										_List_fromArray(
+											[
+												A2(
+												elm$html$Html$code,
+												_List_fromArray(
+													[
+														elm$html$Html$Attributes$class('has-text-white'),
+														A2(elm$html$Html$Attributes$style, 'background-color', author$project$Page$GettingStarted$example1Code)
+													]),
+												_List_fromArray(
+													[
+														elm$html$Html$text(author$project$Page$GettingStarted$example1Output)
+													]))
+											]))
+									]))
+							]))
+					]))
+			]))
+	]);
+var mgold$elm_nonempty_list$List$Nonempty$Nonempty = F2(
+	function (a, b) {
+		return {$: 'Nonempty', a: a, b: b};
+	});
+var mgold$elm_nonempty_list$List$Nonempty$map = F2(
+	function (f, _n0) {
+		var x = _n0.a;
+		var xs = _n0.b;
+		return A2(
+			mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+			f(x),
+			A2(elm$core$List$map, f, xs));
+	});
+var mgold$elm_nonempty_list$List$Nonempty$indexedMap = F2(
+	function (f, _n0) {
+		var x = _n0.a;
+		var xs = _n0.b;
+		var wrapped = F2(
+			function (i, d) {
+				return A2(f, i + 1, d);
+			});
+		return A2(
+			mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+			A2(f, 0, x),
+			A2(elm$core$List$indexedMap, wrapped, xs));
+	});
+var elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
+var mgold$elm_nonempty_list$List$Nonempty$head = function (_n0) {
+	var x = _n0.a;
+	var xs = _n0.b;
+	return x;
+};
+var newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toNonEmptyList = function (color) {
+	switch (color.$) {
+		case 'RGBColor':
+			var c = color.a;
+			var _n1 = avh4$elm_color$Color$toRgba(c);
+			var red = _n1.red;
+			var green = _n1.green;
+			var blue = _n1.blue;
+			var alpha = _n1.alpha;
+			return A2(
+				mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+				red,
+				_List_fromArray(
+					[green, blue, alpha]));
+		case 'CMYKColor':
+			var cyan = color.a.cyan;
+			var magenta = color.a.magenta;
+			var yellow = color.a.yellow;
+			var black = color.a.black;
+			return A2(
+				mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+				cyan,
+				_List_fromArray(
+					[magenta, yellow, black]));
+		case 'LABColor':
+			var lightness = color.a.lightness;
+			var labA = color.a.labA;
+			var labB = color.a.labB;
+			return A2(
+				mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+				lightness,
+				_List_fromArray(
+					[labA, labB]));
+		default:
+			var luminance = color.a.luminance;
+			var chroma = color.a.chroma;
+			var hue = color.a.hue;
+			return A2(
+				mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+				luminance,
+				_List_fromArray(
+					[chroma, hue]));
+	}
+};
+var mgold$elm_nonempty_list$List$Nonempty$foldl = F3(
+	function (f, b, _n0) {
+		var x = _n0.a;
+		var xs = _n0.b;
+		return A3(
+			elm$core$List$foldl,
+			f,
+			b,
+			A2(elm$core$List$cons, x, xs));
+	});
+var mgold$elm_nonempty_list$List$Nonempty$length = function (_n0) {
+	var x = _n0.a;
+	var xs = _n0.b;
+	return elm$core$List$length(xs) + 1;
+};
+var mgold$elm_nonempty_list$List$Nonempty$get = F2(
+	function (i, ne) {
+		var x = ne.a;
+		var xs = ne.b;
+		var j = A2(
+			elm$core$Basics$modBy,
+			mgold$elm_nonempty_list$List$Nonempty$length(ne),
+			i);
+		var find = F2(
+			function (k, ys) {
+				find:
+				while (true) {
+					if (!ys.b) {
+						return x;
+					} else {
+						var z = ys.a;
+						var zs = ys.b;
+						if (!k) {
+							return z;
+						} else {
+							var $temp$k = k - 1,
+								$temp$ys = zs;
+							k = $temp$k;
+							ys = $temp$ys;
+							continue find;
+						}
+					}
+				}
+			});
+		return (!j) ? x : A2(find, j - 1, xs);
+	});
+var newmana$chroma_elm$Chroma$Interpolator$interpolateLAB = F3(
+	function (color1, color2, f) {
+		return {labA: color1.labA + (f * (color2.labA - color1.labA)), labB: color1.labB + (f * (color2.labB - color1.labB)), lightness: color1.lightness + (f * (color2.lightness - color1.lightness))};
+	});
+var newmana$chroma_elm$Chroma$Interpolator$interpolateLCH = F3(
+	function (color1, color2, f) {
+		var dh = ((_Utils_cmp(color2.hue, color1.hue) > 0) && ((color2.hue - color1.hue) > 180)) ? (color2.hue - (color1.hue + 360)) : (((_Utils_cmp(color2.hue, color1.hue) < 0) && ((color1.hue - color2.hue) > 180)) ? ((color2.hue + 360) - color1.hue) : (color2.hue - color1.hue));
+		return {chroma: color1.chroma + (f * (color2.chroma - color1.chroma)), hue: color1.hue + (f * dh), luminance: color1.luminance + (f * (color2.luminance - color1.luminance))};
+	});
+var newmana$chroma_elm$Chroma$Interpolator$interpolateRGB = F3(
+	function (color1, color2, f) {
+		var rgba2 = avh4$elm_color$Color$toRgba(color2);
+		var rgba1 = avh4$elm_color$Color$toRgba(color1);
+		var r = rgba1.red + (f * (rgba2.red - rgba1.red));
+		var g = rgba1.green + (f * (rgba2.green - rgba1.green));
+		var b = rgba1.blue + (f * (rgba2.blue - rgba1.blue));
+		return A3(avh4$elm_color$Color$rgb, r, g, b);
+	});
+var newmana$chroma_elm$Chroma$Interpolator$interpolate = F3(
+	function (col1, col2, f) {
+		var _n0 = _Utils_Tuple2(col1, col2);
+		_n0$4:
+		while (true) {
+			switch (_n0.a.$) {
+				case 'RGBColor':
+					if (_n0.b.$ === 'RGBColor') {
+						var color1 = _n0.a.a;
+						var color2 = _n0.b.a;
+						return newmana$chroma_elm$Chroma$Types$RGBColor(
+							A3(newmana$chroma_elm$Chroma$Interpolator$interpolateRGB, color1, color2, f));
+					} else {
+						break _n0$4;
+					}
+				case 'LABColor':
+					if (_n0.b.$ === 'LABColor') {
+						var lab1 = _n0.a.a;
+						var lab2 = _n0.b.a;
+						return newmana$chroma_elm$Chroma$Types$LABColor(
+							A3(newmana$chroma_elm$Chroma$Interpolator$interpolateLAB, lab1, lab2, f));
+					} else {
+						break _n0$4;
+					}
+				case 'LCHColor':
+					if (_n0.b.$ === 'LCHColor') {
+						var lch1 = _n0.a.a;
+						var lch2 = _n0.b.a;
+						return newmana$chroma_elm$Chroma$Types$LCHColor(
+							A3(newmana$chroma_elm$Chroma$Interpolator$interpolateLCH, lch1, lch2, f));
+					} else {
+						break _n0$4;
+					}
+				default:
+					if (_n0.b.$ === 'CMYKColor') {
+						var cmyk1 = _n0.a.a;
+						var cmyk2 = _n0.b.a;
+						return newmana$chroma_elm$Chroma$Types$CMYKColor(
+							newmana$chroma_elm$Chroma$Converter$Out$ToCmyk$toCmyk(
+								newmana$chroma_elm$Chroma$Types$RGBColor(
+									A3(
+										newmana$chroma_elm$Chroma$Interpolator$interpolateRGB,
+										newmana$chroma_elm$Chroma$Converter$In$Cmyk2Rgb$cmyk2rgb(cmyk1),
+										newmana$chroma_elm$Chroma$Converter$In$Cmyk2Rgb$cmyk2rgb(cmyk2),
+										f))));
+					} else {
+						break _n0$4;
+					}
+			}
+		}
+		return newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black);
+	});
+var newmana$chroma_elm$Chroma$Scale$findAndInterpolateColor = F3(
+	function (colorsList, pos, t) {
+		var posMax = mgold$elm_nonempty_list$List$Nonempty$length(pos) - 1;
+		var _n0 = A3(
+			mgold$elm_nonempty_list$List$Nonempty$foldl,
+			F2(
+				function (_n1, _n2) {
+					var p0 = _n1.a;
+					var p1 = _n1.b;
+					var found = _n2.a;
+					var result = _n2.b;
+					var i = _n2.c;
+					if (!found) {
+						if ((_Utils_cmp(t, p0) < 1) || ((_Utils_cmp(t, p0) > -1) && _Utils_eq(i, posMax))) {
+							return _Utils_Tuple3(
+								true,
+								A2(mgold$elm_nonempty_list$List$Nonempty$get, i, colorsList),
+								i);
+						} else {
+							if ((_Utils_cmp(t, p0) > 0) && (_Utils_cmp(t, p1) < 0)) {
+								var newT = (t - p0) / (p1 - p0);
+								var interT = A3(
+									newmana$chroma_elm$Chroma$Interpolator$interpolate,
+									A2(mgold$elm_nonempty_list$List$Nonempty$get, i, colorsList),
+									A2(mgold$elm_nonempty_list$List$Nonempty$get, i + 1, colorsList),
+									newT);
+								return _Utils_Tuple3(true, interT, i);
+							} else {
+								return _Utils_Tuple3(found, result, i + 1);
+							}
+						}
+					} else {
+						return _Utils_Tuple3(found, result, i + 1);
+					}
+				}),
+			_Utils_Tuple3(
+				false,
+				newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black),
+				0),
+			pos);
+		var interpolatedResult = _n0.b;
+		return interpolatedResult;
+	});
+var newmana$chroma_elm$Chroma$Scale$calcResult = F4(
+	function (data, pol, ideal, calcs) {
+		var newCalcs = pol ? _Utils_update(
+			calcs,
+			{diff: calcs.diff * (-1)}) : calcs;
+		var _n1 = (newCalcs.diff < 0) ? _Utils_Tuple3(newCalcs.t + ((newCalcs.t1 - newCalcs.t) * 0.5), newCalcs.t, newCalcs.t1) : _Utils_Tuple3(newCalcs.t + ((newCalcs.t0 - newCalcs.t) * 0.5), newCalcs.t0, newCalcs.t);
+		var newT = _n1.a;
+		var newT0 = _n1.b;
+		var newT1 = _n1.c;
+		var actual = mgold$elm_nonempty_list$List$Nonempty$head(
+			newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toNonEmptyList(
+				A2(newmana$chroma_elm$Chroma$Scale$getDirectColor, data, newT)));
+		return {diff: actual - ideal, t: newT, t0: newT0, t1: newT1};
+	});
+var newmana$chroma_elm$Chroma$Scale$convergeResult = F5(
+	function (data, maxIter, pol, ideal, calcs) {
+		convergeResult:
+		while (true) {
+			if ((elm$core$Basics$abs(calcs.diff) <= 1.0e-2) || (maxIter <= 0)) {
+				return calcs;
+			} else {
+				var result = A4(newmana$chroma_elm$Chroma$Scale$calcResult, data, pol, ideal, calcs);
+				var $temp$data = data,
+					$temp$maxIter = maxIter - 1,
+					$temp$pol = pol,
+					$temp$ideal = ideal,
+					$temp$calcs = result;
+				data = $temp$data;
+				maxIter = $temp$maxIter;
+				pol = $temp$pol;
+				ideal = $temp$ideal;
+				calcs = $temp$calcs;
+				continue convergeResult;
+			}
+		}
+	});
+var newmana$chroma_elm$Chroma$Scale$correctLightness = F2(
+	function (data, val) {
+		var l1 = mgold$elm_nonempty_list$List$Nonempty$head(
+			newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toNonEmptyList(
+				A2(newmana$chroma_elm$Chroma$Scale$getDirectColor, data, 1)));
+		var l0 = mgold$elm_nonempty_list$List$Nonempty$head(
+			newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toNonEmptyList(
+				A2(newmana$chroma_elm$Chroma$Scale$getDirectColor, data, 0)));
+		var pol = _Utils_cmp(l0, l1) > 0;
+		var ideal = l0 + ((l1 - l0) * val);
+		var actual = mgold$elm_nonempty_list$List$Nonempty$head(
+			newmana$chroma_elm$Chroma$Converter$Out$ToRgb$toNonEmptyList(
+				A2(newmana$chroma_elm$Chroma$Scale$getDirectColor, data, val)));
+		var diff = actual - ideal;
+		var allResults = A5(
+			newmana$chroma_elm$Chroma$Scale$convergeResult,
+			data,
+			20,
+			pol,
+			ideal,
+			{diff: diff, t: val, t0: 0, t1: 1});
+		return allResults.t;
+	});
+var newmana$chroma_elm$Chroma$Scale$getDirectColor = F2(
+	function (data, startT) {
+		var nanColor = data.nanColor;
+		var spread = data.spread;
+		var domainValues = data.domainValues;
+		var pos = data.pos;
+		var paddingValues = data.paddingValues;
+		var useClasses = data.useClasses;
+		var colorsList = data.colorsList;
+		var useOut = data.useOut;
+		var min = data.min;
+		var max = data.max;
+		var useCorrectLightness = data.useCorrectLightness;
+		var gammaValue = data.gammaValue;
+		var lightnessCorrectedT = useCorrectLightness ? A2(
+			newmana$chroma_elm$Chroma$Scale$correctLightness,
+			_Utils_update(
+				data,
+				{useCorrectLightness: false}),
+			startT) : startT;
+		var gammaT = A2(elm$core$Basics$pow, lightnessCorrectedT, gammaValue);
+		var _n0 = paddingValues;
+		var padLeft = _n0.a;
+		var padRight = _n0.b;
+		var paddedT = padLeft + (gammaT * ((1 - padLeft) - padRight));
+		var boundedT = A3(elm$core$Basics$clamp, 0, 1, paddedT);
+		return A3(newmana$chroma_elm$Chroma$Scale$findAndInterpolateColor, colorsList, pos, boundedT);
+	});
+var newmana$chroma_elm$Chroma$Scale$getColor = F2(
+	function (data, val) {
+		return A2(newmana$chroma_elm$Chroma$Scale$getDirectColor, data, (val - data.min) / (data.max - data.min));
+	});
+var newmana$chroma_elm$Chroma$Scale$colors = F2(
+	function (num, data) {
+		if (num === 1) {
+			return A2(
+				mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+				A2(newmana$chroma_elm$Chroma$Scale$getColor, data, 0.5),
+				_List_Nil);
+		} else {
+			var ranged = A2(
+				mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+				1,
+				A2(elm$core$List$range, 2, num));
+			return A2(
+				mgold$elm_nonempty_list$List$Nonempty$indexedMap,
+				F2(
+					function (i, c) {
+						return A2(newmana$chroma_elm$Chroma$Scale$getColor, data, i / (num - 1));
+					}),
+				ranged);
+		}
+	});
+var newmana$chroma_elm$Chroma$Chroma$colorsWith = F2(
+	function (num, data) {
+		return _Utils_Tuple2(
+			data,
+			A2(newmana$chroma_elm$Chroma$Scale$colors, num, data));
+	});
+var mgold$elm_nonempty_list$List$Nonempty$cons = F2(
+	function (y, _n0) {
+		var x = _n0.a;
+		var xs = _n0.b;
+		return A2(
+			mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+			y,
+			A2(elm$core$List$cons, x, xs));
+	});
+var mgold$elm_nonempty_list$List$Nonempty$isSingleton = function (_n0) {
+	var x = _n0.a;
+	var xs = _n0.b;
+	return elm$core$List$isEmpty(xs);
+};
+var newmana$chroma_elm$Chroma$Scale$createPos = function (newColors) {
+	var colLength = mgold$elm_nonempty_list$List$Nonempty$length(newColors) - 1;
+	var newPos = A2(
+		mgold$elm_nonempty_list$List$Nonempty$indexedMap,
+		F2(
+			function (i, _n0) {
+				return _Utils_Tuple2(i / colLength, (i + 1) / colLength);
+			}),
+		newColors);
+	return newPos;
+};
+var newmana$chroma_elm$Chroma$Scale$createData = F2(
+	function (newColors, data) {
+		var ensureTwoColors = mgold$elm_nonempty_list$List$Nonempty$isSingleton(newColors) ? A2(
+			mgold$elm_nonempty_list$List$Nonempty$cons,
+			mgold$elm_nonempty_list$List$Nonempty$head(newColors),
+			newColors) : newColors;
+		return _Utils_update(
+			data,
+			{
+				colorsList: ensureTwoColors,
+				pos: newmana$chroma_elm$Chroma$Scale$createPos(newColors)
+			});
+	});
+var mgold$elm_nonempty_list$List$Nonempty$fromElement = function (x) {
+	return A2(mgold$elm_nonempty_list$List$Nonempty$Nonempty, x, _List_Nil);
+};
+var newmana$chroma_elm$Chroma$Scale$defaultData = {
+	colorsList: A2(
+		mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+		newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$white),
+		_List_fromArray(
+			[
+				newmana$chroma_elm$Chroma$Types$RGBColor(newmana$chroma_elm$Chroma$Colors$W3CX11$black)
+			])),
+	domainValues: _Utils_Tuple2(0, 1),
+	gammaValue: 1,
+	max: 1,
+	min: 0,
+	nanColor: A3(avh4$elm_color$Color$rgb, 204, 204, 204),
+	paddingValues: _Utils_Tuple2(0, 0),
+	pos: mgold$elm_nonempty_list$List$Nonempty$fromElement(
+		_Utils_Tuple2(0, 1)),
+	spread: 0,
+	useClasses: false,
+	useCorrectLightness: false,
+	useOut: false
+};
+var newmana$chroma_elm$Chroma$Chroma$colors = F2(
+	function (num, colorsList) {
+		var newData = A2(newmana$chroma_elm$Chroma$Scale$createData, colorsList, newmana$chroma_elm$Chroma$Scale$defaultData);
+		return A2(newmana$chroma_elm$Chroma$Chroma$colorsWith, num, newData);
+	});
+var newmana$chroma_elm$Chroma$Converter$Out$ToLch$toLchExtColor = function (color) {
+	return newmana$chroma_elm$Chroma$Types$LCHColor(
+		newmana$chroma_elm$Chroma$Converter$Out$ToLch$toLch(
+			newmana$chroma_elm$Chroma$Types$RGBColor(color)));
+};
+var author$project$Page$GettingStarted$example2Code = A2(
+	newmana$chroma_elm$Chroma$Chroma$colors,
+	6,
+	A2(
+		mgold$elm_nonempty_list$List$Nonempty$map,
+		newmana$chroma_elm$Chroma$Converter$Out$ToLch$toLchExtColor,
+		A2(
+			mgold$elm_nonempty_list$List$Nonempty$Nonempty,
+			A3(avh4$elm_color$Color$rgb255, 250, 250, 110),
+			_List_fromArray(
+				[
+					A3(avh4$elm_color$Color$rgb255, 42, 72, 88)
+				])))).b;
+var mgold$elm_nonempty_list$List$Nonempty$toList = function (_n0) {
+	var x = _n0.a;
+	var xs = _n0.b;
+	return A2(elm$core$List$cons, x, xs);
+};
+var author$project$Page$GettingStarted$example2Output = function () {
+	var textWith = function (str) {
+		return A2(
+			elm$html$Html$span,
+			_List_Nil,
+			_List_fromArray(
+				[
+					elm$html$Html$text(str)
+				]));
+	};
+	var createHtml = function (extColor) {
+		return A2(
+			elm$html$Html$span,
+			_List_fromArray(
+				[
+					A2(
+					elm$html$Html$Attributes$style,
+					'background-color',
+					newmana$chroma_elm$Chroma$Converter$Out$ToHex$toHex(extColor))
+				]),
+			_List_fromArray(
+				[
+					elm$html$Html$text('\u00a0\u00a0\u00a0')
+				]));
+	};
+	var colorsWithCommas = A2(
+		elm$core$List$intersperse,
+		textWith(','),
+		mgold$elm_nonempty_list$List$Nonempty$toList(
+			A2(mgold$elm_nonempty_list$List$Nonempty$map, createHtml, author$project$Page$GettingStarted$example2Code)));
+	return _Utils_ap(
+		_List_fromArray(
+			[
+				textWith('[')
+			]),
+		_Utils_ap(
+			colorsWithCommas,
+			_List_fromArray(
+				[
+					textWith(']')
+				])));
+}();
+var author$project$Page$GettingStarted$example2SourceCode = 'Nonempty.Nonempty (rgb255 250 250 110) [ rgb255 42 72 88 ]\n |> Nonempty.map ToLch.toLchExtColor\n |> Chroma.colors 6 |> Tuple.second';
+var author$project$Page$GettingStarted$example2 = _List_fromArray(
+	[
+		A2(
+		elm$html$Html$p,
+		_List_Nil,
+		_List_fromArray(
+			[
+				elm$html$Html$text('It can also be used to generate colormaps.')
+			])),
+		A2(
+		elm$html$Html$p,
+		_List_Nil,
+		_List_fromArray(
+			[
+				elm$html$Html$text('For example:')
+			])),
+		A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('container')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('columns')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('column'),
+								elm$html$Html$Attributes$class('is-three-fifths')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$div,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('box')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$html$Html$pre,
+										_List_Nil,
+										_List_fromArray(
+											[
+												A2(
+												elm$html$Html$code,
+												_List_Nil,
+												_List_fromArray(
+													[
+														elm$html$Html$text(author$project$Page$GettingStarted$example2SourceCode)
+													]))
+											]))
+									]))
+							])),
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('column'),
+								elm$html$Html$Attributes$class('is-two-fifths')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$div,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('box'),
+										elm$html$Html$Attributes$class('is-shadowless')
+									]),
+								_List_fromArray(
+									[
+										A2(elm$html$Html$pre, _List_Nil, author$project$Page$GettingStarted$example2Output)
+									]))
+							]))
+					]))
+			]))
+	]);
 var author$project$Page$GettingStarted$content = _List_fromArray(
 	[
 		A2(
@@ -11327,166 +12154,74 @@ var author$project$Page$GettingStarted$content = _List_fromArray(
 			[
 				elm$html$Html$Attributes$class('column')
 			]),
-		_List_fromArray(
-			[
-				A2(
-				elm$html$Html$h1,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('title')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('Getting Started')
-					])),
-				A2(
-				elm$html$Html$p,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('subtitle')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('Chroma-elm is an Elm native version of the chroma.js library.')
-					])),
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('content')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$p,
-						_List_Nil,
-						_List_fromArray(
-							[
-								elm$html$Html$text('The features include:')
-							])),
-						A2(
-						elm$html$Html$ul,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								elm$html$Html$li,
-								_List_Nil,
-								_List_fromArray(
-									[
-										elm$html$Html$text('Colormaps including: brewer, w3cx11, viridis, plasma, magma and inferno.')
-									])),
-								A2(
-								elm$html$Html$li,
-								_List_Nil,
-								_List_fromArray(
-									[
-										elm$html$Html$text('Color space support including: CMYK, HSL, LAB, LCH and RGB.')
-									])),
-								A2(
-								elm$html$Html$li,
-								_List_Nil,
-								_List_fromArray(
-									[
-										elm$html$Html$text('Color operations: interpolate, get/set alpha, lighten/darken, saturate/desaturate.')
-									]))
-							]))
-					])),
-				A2(
-				elm$html$Html$p,
-				_List_Nil,
-				_List_fromArray(
-					[
-						elm$html$Html$text('For example:')
-					])),
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('container')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$div,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('columns')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								elm$html$Html$div,
-								_List_fromArray(
-									[
-										elm$html$Html$Attributes$class('column'),
-										elm$html$Html$Attributes$class('is-three-fifths')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										elm$html$Html$div,
-										_List_fromArray(
-											[
-												elm$html$Html$Attributes$class('box')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												elm$html$Html$pre,
-												_List_Nil,
-												_List_fromArray(
-													[
-														A2(
-														elm$html$Html$code,
-														_List_Nil,
-														_List_fromArray(
-															[
-																elm$html$Html$text(author$project$Page$GettingStarted$example1SourceCode)
-															]))
-													]))
-											]))
-									])),
-								A2(
-								elm$html$Html$div,
-								_List_fromArray(
-									[
-										elm$html$Html$Attributes$class('column'),
-										elm$html$Html$Attributes$class('is-two-fifths')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										elm$html$Html$div,
-										_List_fromArray(
-											[
-												elm$html$Html$Attributes$class('box'),
-												elm$html$Html$Attributes$class('is-shadowless')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												elm$html$Html$pre,
-												_List_Nil,
-												_List_fromArray(
-													[
-														A2(
-														elm$html$Html$code,
-														_List_fromArray(
-															[
-																elm$html$Html$Attributes$class('has-text-white'),
-																A2(elm$html$Html$Attributes$style, 'background-color', author$project$Page$GettingStarted$example1Code)
-															]),
-														_List_fromArray(
-															[
-																elm$html$Html$text(author$project$Page$GettingStarted$example1Output)
-															]))
-													]))
-											]))
-									]))
-							]))
-					]))
-			]))
+		_Utils_ap(
+			_List_fromArray(
+				[
+					A2(
+					elm$html$Html$h1,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('title')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text('Getting Started')
+						])),
+					A2(
+					elm$html$Html$p,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('subtitle')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text('Chroma-elm is an Elm native version of the chroma.js library.')
+						])),
+					A2(
+					elm$html$Html$div,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('content')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$p,
+							_List_Nil,
+							_List_fromArray(
+								[
+									elm$html$Html$text('The features include:')
+								])),
+							A2(
+							elm$html$Html$ul,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									elm$html$Html$li,
+									_List_Nil,
+									_List_fromArray(
+										[
+											elm$html$Html$text('Colormaps including: brewer, w3cx11, viridis, plasma, magma and inferno.')
+										])),
+									A2(
+									elm$html$Html$li,
+									_List_Nil,
+									_List_fromArray(
+										[
+											elm$html$Html$text('Color space support including: CMYK, HSL, LAB, LCH and RGB.')
+										])),
+									A2(
+									elm$html$Html$li,
+									_List_Nil,
+									_List_fromArray(
+										[
+											elm$html$Html$text('Color operations: interpolate, get/set alpha, lighten/darken, saturate/desaturate.')
+										]))
+								]))
+						]))
+				]),
+			_Utils_ap(author$project$Page$GettingStarted$example1, author$project$Page$GettingStarted$example2)))
 	]);
 var author$project$Page$Interpolator$content = _List_fromArray(
 	[
@@ -12281,7 +13016,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64204" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59870" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
