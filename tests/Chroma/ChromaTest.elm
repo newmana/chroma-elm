@@ -52,6 +52,9 @@ testStringToColor =
         , Test.test "A pink hex" <|
             \_ ->
                 "#ff3399" |> Chroma.chroma |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#ff3399")
+        , Test.test "A pink hex capitals" <|
+            \_ ->
+                "#FF3399" |> Chroma.chroma |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#ff3399")
         , Test.test "A pink hex with alpha of 1" <|
             \_ ->
                 "#ff3399ff" |> Chroma.chroma |> Result.map ToHex.toHexAlpha |> Expect.equal (Result.Ok "#ff3399ff")
