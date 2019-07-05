@@ -6,6 +6,7 @@ import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Types as Types
 import Html as Html
 import Html.Attributes as HtmlAttributes
+import Page.Page as Page
 
 
 content : List (Html.Html msg)
@@ -24,62 +25,31 @@ content =
             [ Html.p
                 []
                 [ Html.text "Given a string that represents either a W3CX11 color name or a 3, 6 or 8 hex string." ]
+            , Html.p
+                []
+                [ Html.text "The \"chroma\" function returns a Result either indicating an error or success." ]
             ]
          ]
-            ++ example example1Code example1SourceCode example1Output "has-text-white"
-            ++ example example2Code example2SourceCode example2Output "has-text-white"
-            ++ example example3Code example3SourceCode example3Output "has-text-black"
-            ++ example example4Code example4SourceCode example4Output "has-text-black"
-            ++ example example5Code example5SourceCode example5Output "has-text-white"
+            ++ Page.example example1Code example1SourceCode example1Output "has-text-white"
+            ++ [ Html.div
+                    [ HtmlAttributes.class "content" ]
+                    [ Html.p
+                        []
+                        [ Html.text "If the \"#\" is missing an it's not a valid color string it tries to parse it as a hex string." ]
+                    ]
+               ]
+            ++ Page.example example2Code example2SourceCode example2Output "has-text-black"
+            ++ Page.example example3Code example3SourceCode example3Output "has-text-white"
+            ++ Page.example example4Code example4SourceCode example4Output "has-text-black"
+            ++ [ Html.div
+                    [ HtmlAttributes.class "content" ]
+                    [ Html.p
+                        []
+                        [ Html.text "This shows having a default color if it fails to parse either as a valid color or hex string." ]
+                    ]
+               ]
+            ++ Page.example example5Code example5SourceCode example5Output "has-text-white"
         )
-    ]
-
-
-example : String -> String -> String -> String -> List (Html.Html msg)
-example code source output textColor =
-    [ Html.div
-        [ HtmlAttributes.class "container"
-        ]
-        [ Html.div
-            [ HtmlAttributes.class "columns"
-            ]
-            [ Html.div
-                [ HtmlAttributes.class "column"
-                , HtmlAttributes.class "is-three-fifths"
-                ]
-                [ Html.div
-                    [ HtmlAttributes.class "box"
-                    ]
-                    [ Html.pre
-                        []
-                        [ Html.code
-                            []
-                            [ Html.text source
-                            ]
-                        ]
-                    ]
-                ]
-            , Html.div
-                [ HtmlAttributes.class "column"
-                , HtmlAttributes.class "is-two-fifths"
-                ]
-                [ Html.div
-                    [ HtmlAttributes.class "box"
-                    , HtmlAttributes.class "is-shadowless"
-                    ]
-                    [ Html.pre
-                        []
-                        [ Html.code
-                            [ HtmlAttributes.class textColor
-                            , HtmlAttributes.style "background-color" code
-                            ]
-                            [ Html.text output
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]
     ]
 
 
@@ -95,43 +65,49 @@ example1SourceCode =
  |> ToHex.toHex  """
 
 
-example1Output : String
+example1Output : List (Html.Html msg)
 example1Output =
-    """"#ff69b4" : String """
+    [ Html.text
+        """"#ff69b4" : String """
+    ]
 
 
 example2Code : String
 example2Code =
-    Chroma.chroma "#963" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHex
+    Chroma.chroma "3399ff" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHex
 
 
 example2SourceCode : String
 example2SourceCode =
+    """Chroma.chroma "3399ff"
+ |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> ToHex.toHex  """
+
+
+example2Output : List (Html.Html msg)
+example2Output =
+    [ Html.text
+        """"#3399ff" : String """
+    ]
+
+
+example3Code : String
+example3Code =
+    Chroma.chroma "#963" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHex
+
+
+example3SourceCode : String
+example3SourceCode =
     """Chroma.chroma "#963"
  |> Result.withDefault (Types.RGBColor W3CX11.black)
  |> ToHex.toHex  """
 
 
-example2Output : String
-example2Output =
-    """"#996633" : String """
-
-
-example3Code : String
-example3Code =
-    Chroma.chroma "#3399ff" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHex
-
-
-example3SourceCode : String
-example3SourceCode =
-    """Chroma.chroma "#3399ff"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
- |> ToHex.toHex  """
-
-
-example3Output : String
+example3Output : List (Html.Html msg)
 example3Output =
-    """"#3399ff" : String """
+    [ Html.text
+        """"#996633" : String """
+    ]
 
 
 example4Code : String
@@ -146,9 +122,11 @@ example4SourceCode =
  |> ToHex.toHexAlpha  """
 
 
-example4Output : String
+example4Output : List (Html.Html msg)
 example4Output =
-    """"#3399ff33" : String """
+    [ Html.text
+        """"#3399ff33" : String """
+    ]
 
 
 example5Code : String
@@ -163,6 +141,8 @@ example5SourceCode =
  |> ToHex.toHexAlpha  """
 
 
-example5Output : String
+example5Output : List (Html.Html msg)
 example5Output =
-    """"#000000" : String """
+    [ Html.text
+        """"#000000" : String """
+    ]

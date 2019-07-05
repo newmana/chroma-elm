@@ -11,6 +11,7 @@ import Color as Color
 import Html as Html
 import Html.Attributes as HtmlAttributes
 import List.Nonempty as Nonempty
+import Page.Page as Page
 
 
 content : List (Html.Html msg)
@@ -57,50 +58,8 @@ example1 =
     [ Html.p
         []
         [ Html.text "For example:" ]
-    , Html.div
-        [ HtmlAttributes.class "container"
-        ]
-        [ Html.div
-            [ HtmlAttributes.class "columns"
-            ]
-            [ Html.div
-                [ HtmlAttributes.class "column"
-                , HtmlAttributes.class "is-three-fifths"
-                ]
-                [ Html.div
-                    [ HtmlAttributes.class "box"
-                    ]
-                    [ Html.pre
-                        []
-                        [ Html.code
-                            []
-                            [ Html.text example1SourceCode
-                            ]
-                        ]
-                    ]
-                ]
-            , Html.div
-                [ HtmlAttributes.class "column"
-                , HtmlAttributes.class "is-two-fifths"
-                ]
-                [ Html.div
-                    [ HtmlAttributes.class "box"
-                    , HtmlAttributes.class "is-shadowless"
-                    ]
-                    [ Html.pre
-                        []
-                        [ Html.code
-                            [ HtmlAttributes.class "has-text-white"
-                            , HtmlAttributes.style "background-color" example1Code
-                            ]
-                            [ Html.text example1Output
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]
     ]
+        ++ Page.example example1Code example1SourceCode example1Output "has-text-white"
 
 
 example1Code : String
@@ -116,9 +75,9 @@ example1SourceCode =
  |> ToHex.toHex  """
 
 
-example1Output : String
+example1Output : List (Html.Html msg)
 example1Output =
-    """"#ff6d93" : String """
+    [ Html.text """"#ff6d93" : String """ ]
 
 
 example2 : List (Html.Html msg)
@@ -129,44 +88,8 @@ example2 =
     , Html.p
         []
         [ Html.text "For example:" ]
-    , Html.div
-        [ HtmlAttributes.class "container"
-        ]
-        [ Html.div
-            [ HtmlAttributes.class "columns"
-            ]
-            [ Html.div
-                [ HtmlAttributes.class "column"
-                , HtmlAttributes.class "is-three-fifths"
-                ]
-                [ Html.div
-                    [ HtmlAttributes.class "box"
-                    ]
-                    [ Html.pre
-                        []
-                        [ Html.code
-                            []
-                            [ Html.text example2SourceCode
-                            ]
-                        ]
-                    ]
-                ]
-            , Html.div
-                [ HtmlAttributes.class "column"
-                , HtmlAttributes.class "is-two-fifths"
-                ]
-                [ Html.div
-                    [ HtmlAttributes.class "box"
-                    , HtmlAttributes.class "is-shadowless"
-                    ]
-                    [ Html.pre
-                        []
-                        example2Output
-                    ]
-                ]
-            ]
-        ]
     ]
+        ++ Page.example "#f5f5f5" example2SourceCode example2Output "has-text-black"
 
 
 example2Code : Nonempty.Nonempty Types.ExtColor
