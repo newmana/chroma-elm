@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [9.0.0] - 2019-07-06
+### Added
+- Added full HSLA support.. 
+
 ## [8.0.0] - 2019-07-03
 ### Added
 - Added color operations: colors and colorsWith.
