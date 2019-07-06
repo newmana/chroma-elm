@@ -33,7 +33,11 @@ content =
             ++ Page.example example4Code example4SourceCode example4Output "has-text-black"
             ++ Page.p "If it fails to parse either as a valid color or hex string you must have a default color."
             ++ Page.example example5Code example5SourceCode example5Output "has-text-white"
-            ++ Page.p "Other color spaces can be used to as well."
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Creating Different Color Spaces" ]
+               ]
             ++ Page.example example6Code example6SourceCode example6Output "has-text-black"
             ++ Page.example example7Code example7SourceCode example7Output "has-text-black"
             ++ Page.example example8Code example8SourceCode example8Output "has-text-white"
