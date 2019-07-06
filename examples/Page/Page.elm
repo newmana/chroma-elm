@@ -1,7 +1,18 @@
-module Page.Page exposing (example)
+module Page.Page exposing (example, p)
 
 import Html as Html
 import Html.Attributes as HtmlAttributes
+
+
+p : String -> List (Html.Html msg)
+p text =
+    [ Html.div
+        [ HtmlAttributes.class "content" ]
+        [ Html.p
+            []
+            [ Html.text text ]
+        ]
+    ]
 
 
 example : String -> String -> List (Html.Html msg) -> String -> List (Html.Html msg)
