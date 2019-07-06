@@ -1,7 +1,7 @@
 module Chroma.Converter.ToHexTest exposing (tests)
 
 import Chroma.Converter.In.Cmyk2Rgb as InCmyk
-import Chroma.Converter.In.Hsl2Rgb as InHsl
+import Chroma.Converter.In.Hsla2Rgb as InHsl
 import Chroma.Converter.Out.ToHex as OutHex
 import Chroma.Types as Types
 import Expect
@@ -21,7 +21,7 @@ testRecordToHex =
         [ Test.test "HSL" <|
             \_ ->
                 { hue = 0.333333333333, saturation = 1, lightness = 0.75, alpha = 1.0 }
-                    |> InHsl.hsl2rgb
+                    |> InHsl.hsla2rgb
                     |> Types.RGBColor
                     |> OutHex.toHex
                     |> Expect.equal "#80ff80"

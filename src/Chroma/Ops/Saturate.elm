@@ -12,9 +12,10 @@ module Chroma.Ops.Saturate exposing (saturate, desaturate)
 import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Converter.Misc.LabConstants as LabConstants
-import Chroma.Converter.Out.ToCmyk as OutCymk
-import Chroma.Converter.Out.ToLab as OutLab
-import Chroma.Converter.Out.ToLch as OutLch
+import Chroma.Converter.Out.ToCmyk as ToCymk
+import Chroma.Converter.Out.ToHsla as ToHsla
+import Chroma.Converter.Out.ToLab as ToLab
+import Chroma.Converter.Out.ToLch as ToLch
 import Chroma.Types as Types
 
 
@@ -24,7 +25,7 @@ saturate : Float -> Types.ExtColor -> Types.ExtColor
 saturate amount color =
     let
         { luminance, chroma, hue } =
-            OutLch.toLch color
+            ToLch.toLch color
 
         calcNewC =
             chroma + LabConstants.kn * amount
@@ -52,7 +53,13 @@ saturate amount color =
             newLch |> Types.LCHColor
 
         Types.CMYKColor _ ->
-            newLabColor |> OutCymk.toCmyk |> Types.CMYKColor
+            newLabColor |> ToCymk.toCmyk |> Types.CMYKColor
+
+        Types.HSLAColor _ ->
+            newLab |> Types.LABColor |> ToHsla.toHsla |> Types.HSLAColor
+
+        Types.HSLADegreesColor _ ->
+            newLab |> Types.LABColor |> ToHsla.toHslaDegrees |> Types.HSLADegreesColor
 
 
 {-| Desaturate

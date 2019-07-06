@@ -9,6 +9,7 @@ module Chroma.Converter.Out.ToCmyk exposing (toCmyk)
 
 -}
 
+import Chroma.Converter.In.Hsla2Rgb as Hsla2Rgb
 import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Types as Types
@@ -49,3 +50,9 @@ toCmyk color =
 
         Types.LCHColor lch ->
             Lch2Lab.lch2lab lch |> convertLab
+
+        Types.HSLAColor hsla ->
+            Hsla2Rgb.hsla2rgb hsla |> Color.toRgba |> convert
+
+        Types.HSLADegreesColor hslaDegrees ->
+            Hsla2Rgb.hslaDegrees2rgb hslaDegrees |> Color.toRgba |> convert

@@ -1,11 +1,11 @@
-module Chroma.Types exposing (CymkColor, ExtColor(..), Hsla, HslaDegrees, LabColor, Rgba255Color, RgbaColor, LchColor)
+module Chroma.Types exposing (CymkColor, ExtColor(..), HslaColor, HslaDegreesColor, LabColor, Rgba255Color, RgbaColor, LchColor)
 
 {-| Types
 
 
 # Definition
 
-@docs CymkColor, ExtColor, Hsla, HslaDegrees, LabColor, Rgba255Color, RgbaColor, LchColor
+@docs CymkColor, ExtColor, HslaColor, HslaDegreesColor, LabColor, Rgba255Color, RgbaColor, LchColor
 
 -}
 
@@ -19,6 +19,8 @@ type ExtColor
     | CMYKColor CymkColor
     | LABColor LabColor
     | LCHColor LchColor
+    | HSLAColor HslaColor
+    | HSLADegreesColor HslaDegreesColor
 
 
 {-| TBD
@@ -62,7 +64,7 @@ type alias Rgba255Color =
 
 {-| HSLA where the Hue, Saturation, Lightness and Alpha 0..1.
 -}
-type alias Hsla =
+type alias HslaColor =
     { hue : Float
     , saturation : Float
     , lightness : Float
@@ -70,10 +72,10 @@ type alias Hsla =
     }
 
 
-{-| HSLA where the Hue is 0..360, Saturation, Lightness and Alpha 0..1.
+{-| HSLA where the Hue is 0..360, ann Saturation, Lightness and Alpha 0..1.
 -}
-type alias HslaDegrees =
-    { hue : Float
+type alias HslaDegreesColor =
+    { hueDegrees : Float
     , saturation : Float
     , lightness : Float
     , alpha : Float

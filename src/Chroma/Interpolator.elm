@@ -36,6 +36,32 @@ interpolate col1 col2 f =
         ( Types.CMYKColor cmyk1, Types.CMYKColor cmyk2 ) ->
             interpolateRGB (cmyk1 |> Cmyk2Rgb.cmyk2rgb) (cmyk2 |> Cmyk2Rgb.cmyk2rgb) f |> Types.RGBColor |> ToCmyk.toCmyk |> Types.CMYKColor
 
+        ( Types.HSLAColor hsla1, Types.HSLAColor hsla2 ) ->
+            let
+                { luminance, chroma, hue } =
+                    interpolateLCH
+                        { luminance = hsla1.lightness, chroma = hsla1.saturation, hue = hsla1.hue * 360 }
+                        { luminance = hsla2.lightness, chroma = hsla2.saturation, hue = hsla2.hue * 360 }
+                        f
+
+                newAlpha =
+                    hsla1.alpha + f * (hsla2.alpha - hsla1.alpha)
+            in
+            { lightness = luminance, saturation = chroma, hue = hue / 360, alpha = newAlpha } |> Types.HSLAColor
+
+        ( Types.HSLADegreesColor hsla1, Types.HSLADegreesColor hsla2 ) ->
+            let
+                { luminance, chroma, hue } =
+                    interpolateLCH
+                        { luminance = hsla1.lightness, chroma = hsla1.saturation, hue = hsla1.hueDegrees }
+                        { luminance = hsla2.lightness, chroma = hsla2.saturation, hue = hsla2.hueDegrees }
+                        f
+
+                newAlpha =
+                    hsla1.alpha + f * (hsla2.alpha - hsla1.alpha)
+            in
+            { lightness = luminance, saturation = chroma, hueDegrees = hue, alpha = newAlpha } |> Types.HSLADegreesColor
+
         _ ->
             Types.RGBColor W3CX11.black
 

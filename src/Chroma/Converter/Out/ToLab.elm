@@ -18,6 +18,7 @@ module Chroma.Converter.Out.ToLab exposing
 -}
 
 import Chroma.Converter.In.Cmyk2Rgb as Cmyk2Rgb
+import Chroma.Converter.In.Hsla2Rgb as Hsla2Rgb
 import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Converter.Misc.LabConstants as Constants
 import Chroma.Types as Types
@@ -47,6 +48,12 @@ toLab color =
 
         Types.LCHColor lch ->
             Lch2Lab.lch2lab lch
+
+        Types.HSLAColor hsla ->
+            Hsla2Rgb.hsla2rgb hsla |> Color.toRgba |> calcLab
+
+        Types.HSLADegreesColor hslaDegrees ->
+            Hsla2Rgb.hslaDegrees2rgb hslaDegrees |> Color.toRgba |> calcLab
 
 
 calcLab : Types.RgbaColor -> Types.LabColor

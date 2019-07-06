@@ -11,9 +11,10 @@ module Chroma.Ops.Alpha exposing (setAlpha, alpha)
 
 import Chroma.Converter.In.Lab2Lch as Lab2Lch
 import Chroma.Converter.Misc.LabConstants as LabConstants
-import Chroma.Converter.Out.ToCmyk as OutCymk
-import Chroma.Converter.Out.ToLab as OutLab
-import Chroma.Converter.Out.ToRgb as OutRgb
+import Chroma.Converter.Out.ToCmyk as ToCymk
+import Chroma.Converter.Out.ToHsla as ToHsla
+import Chroma.Converter.Out.ToLab as ToLab
+import Chroma.Converter.Out.ToRgb as ToRgb
 import Chroma.Types as Types
 import Color as Color
 
@@ -24,14 +25,17 @@ setAlpha : Float -> Types.ExtColor -> Types.ExtColor
 setAlpha amount color =
     let
         rgbA =
-            OutRgb.toRgba color
+            ToRgb.toRgba color
+
+        newRgbColor =
+            { rgbA | alpha = amount } |> Color.fromRgba |> Types.RGBColor
 
         newLab =
-            { rgbA | alpha = amount } |> Color.fromRgba |> Types.RGBColor |> OutLab.toLab
+            newRgbColor |> ToLab.toLab
     in
     case color of
         Types.RGBColor _ ->
-            { rgbA | alpha = amount } |> Color.fromRgba |> Types.RGBColor
+            newRgbColor
 
         Types.LABColor _ ->
             newLab |> Types.LABColor
@@ -40,11 +44,17 @@ setAlpha amount color =
             newLab |> Lab2Lch.lab2lch |> Types.LCHColor
 
         Types.CMYKColor _ ->
-            { rgbA | alpha = amount } |> Color.fromRgba |> Types.RGBColor |> OutCymk.toCmyk |> Types.CMYKColor
+            newRgbColor |> ToCymk.toCmyk |> Types.CMYKColor
+
+        Types.HSLAColor _ ->
+            newLab |> Types.LABColor |> ToHsla.toHsla |> Types.HSLAColor
+
+        Types.HSLADegreesColor _ ->
+            newLab |> Types.LABColor |> ToHsla.toHslaDegrees |> Types.HSLADegreesColor
 
 
 {-| Return the alpha value
 -}
 alpha : Types.ExtColor -> Float
 alpha color =
-    OutRgb.toRgba color |> .alpha
+    ToRgb.toRgba color |> .alpha
