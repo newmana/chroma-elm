@@ -7,10 +7,24 @@ import Html.Attributes as HtmlAttributes
 p : String -> List (Html.Html msg)
 p text =
     [ Html.div
-        [ HtmlAttributes.class "content" ]
-        [ Html.p
-            []
-            [ Html.text text ]
+        [ HtmlAttributes.class "container"
+        ]
+        [ Html.div
+            [ HtmlAttributes.class "columns"
+            ]
+            [ Html.div
+                [ HtmlAttributes.class "column"
+                , HtmlAttributes.class "is-three-fifths"
+                ]
+                [ Html.div
+                    [ HtmlAttributes.class "content"
+                    ]
+                    [ Html.p
+                        []
+                        [ Html.text text ]
+                    ]
+                ]
+            ]
         ]
     ]
 

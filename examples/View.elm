@@ -51,10 +51,7 @@ view model content =
                             , HtmlAttributes.class "is-hoverable"
                             , HtmlAttributes.class "is-4"
                             ]
-                            [ Html.a
-                                [ HtmlAttributes.href "#/api"
-                                ]
-                                [ Html.text "API" ]
+                            [ Html.text "API"
                             ]
                         , Html.div
                             [ HtmlAttributes.class "list"

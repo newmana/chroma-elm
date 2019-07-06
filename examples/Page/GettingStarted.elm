@@ -55,11 +55,7 @@ content =
 
 example1 : List (Html.Html msg)
 example1 =
-    [ Html.p
-        []
-        [ Html.text "For example:" ]
-    ]
-        ++ Page.example example1Code example1SourceCode example1Output "has-text-white"
+    Page.example example1Code example1SourceCode example1Output "has-text-white"
 
 
 example1Code : String
@@ -82,13 +78,8 @@ example1Output =
 
 example2 : List (Html.Html msg)
 example2 =
-    [ Html.p
-        []
-        [ Html.text "It can also be used to generate colormaps." ]
-    , Html.p
-        []
-        [ Html.text "For example:" ]
-    ]
+    Page.p
+        "It can also be used to generate colormaps. "
         ++ Page.example "#f5f5f5" example2SourceCode example2Output "has-text-black"
 
 
