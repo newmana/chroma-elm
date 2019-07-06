@@ -38,7 +38,7 @@ content =
                     ]
                 , Html.li
                     []
-                    [ Html.text "Color space support including: CMYK, HSL, LAB, LCH and RGB."
+                    [ Html.text "Color space support including: CMYK, HSLA, LAB, LCH and RGB."
                     ]
                 , Html.li
                     []
