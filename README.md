@@ -14,7 +14,7 @@ Clone of [Chroma.js](https://gka.github.io/chroma.js)
 - ```yarn run parcel examples/index.html```
 
 ## Publish to GitHub
-- ```yarn run parcel examples/index.html --out-dir docs  --public-url ./```
+- ```yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-el```
 
 # Links
 
