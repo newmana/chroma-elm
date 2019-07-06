@@ -19,6 +19,14 @@ Clone of [Chroma.js](https://gka.github.io/chroma.js)
 # Links
 
 How to release Elm package:
+```
+elm bump
+git add elm.json
+git commit -m "2.0.0 - description of changes"
+git tag 2.0.0
+git push origin master 2.0.0
+ elm publish
+``` 
 - https://medium.com/@Max_Goldstein/how-to-publish-an-elm-package-3053b771e545
 
 Beautiful Colormaps:
