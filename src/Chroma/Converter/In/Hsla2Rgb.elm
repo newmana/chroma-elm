@@ -5,7 +5,7 @@ module Chroma.Converter.In.Hsla2Rgb exposing (hsla2rgb, hslaDegrees2rgb)
 
 # Definition
 
-@docs hsl2rgb, hslDegrees2rgb
+@docs hsla2rgb, hslaDegrees2rgb
 
 -}
 

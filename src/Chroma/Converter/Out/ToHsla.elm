@@ -1,11 +1,11 @@
 module Chroma.Converter.Out.ToHsla exposing (toHsla, toHslaDegrees)
 
-{-| Convert ExtColor to HSL
+{-| Convert ExtColor to HSLA
 
 
 # Definition
 
-@docs toHsl, toHslDegrees
+@docs toHsla, toHslaDegrees
 
 -}
 
@@ -40,6 +40,8 @@ toHsla color =
             { hue = hueDegrees / 360, saturation = saturation, lightness = lightness, alpha = alpha }
 
 
+{-| TBD
+-}
 toHslaDegrees : Types.ExtColor -> Types.HslaDegreesColor
 toHslaDegrees color =
     let
