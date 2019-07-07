@@ -22,6 +22,7 @@ tests =
         , testDistance
         , testPadding
         , testColors
+        , testMix
         ]
 
 
@@ -154,4 +155,16 @@ testColors =
         , Test.test "Twelve black to white" <|
             \_ ->
                 Expect.equal (Nonempty.Nonempty "#ffffff" [ "#e8e8e8", "#d1d1d1", "#b9b9b9", "#a2a2a2", "#8b8b8b", "#747474", "#5d5d5d", "#464646", "#2e2e2e", "#171717", "#000000" ]) (Nonempty.map ToHex.toHex whiteToBlack)
+        ]
+
+
+testMix : Test.Test
+testMix =
+    Test.describe "mix API"
+        [ Test.test "Red to blue 0.25 RGBA" <|
+            \_ ->
+                Expect.equal (Result.Ok "#bf0040") (Chroma.mix "red" "blue" 0.25 Types.RGBA |> Result.map ToHex.toHex)
+        , Test.test "Red to blue 0.5 LCH" <|
+            \_ ->
+                Expect.equal (Result.Ok "#fa0080") (Chroma.mix "red" "blue" 0.5 Types.LCH |> Result.map ToHex.toHex)
         ]
