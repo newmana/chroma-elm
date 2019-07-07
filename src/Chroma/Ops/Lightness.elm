@@ -33,8 +33,8 @@ darken amount color =
             { lightness = newL, labA = labA, labB = labB } |> Types.LABColor
     in
     case color of
-        Types.RGBColor _ ->
-            Lab2Rgb.lab2rgb { lightness = newL, labA = labA, labB = labB } |> Types.RGBColor
+        Types.RGBAColor _ ->
+            Lab2Rgb.lab2rgb { lightness = newL, labA = labA, labB = labB } |> Types.RGBAColor
 
         Types.LABColor _ ->
             newLab

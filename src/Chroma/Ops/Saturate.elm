@@ -43,8 +43,8 @@ saturate amount color =
             newLab |> Types.LABColor
     in
     case color of
-        Types.RGBColor _ ->
-            newLab |> Lab2Rgb.lab2rgb |> Types.RGBColor
+        Types.RGBAColor _ ->
+            newLab |> Lab2Rgb.lab2rgb |> Types.RGBAColor
 
         Types.LABColor _ ->
             newLabColor

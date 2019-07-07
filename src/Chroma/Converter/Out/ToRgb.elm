@@ -34,7 +34,7 @@ toRgba255 color =
 toRgba : Types.ExtColor -> Types.RgbaColor
 toRgba color =
     case color of
-        Types.RGBColor c ->
+        Types.RGBAColor c ->
             Color.toRgba c
 
         Types.CMYKColor cmyk ->
@@ -58,7 +58,7 @@ toRgba color =
 toNonEmptyList : Types.ExtColor -> Nonempty.Nonempty Float
 toNonEmptyList color =
     case color of
-        Types.RGBColor c ->
+        Types.RGBAColor c ->
             let
                 { red, green, blue, alpha } =
                     Color.toRgba c

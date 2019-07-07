@@ -21,7 +21,7 @@ import Color as Color
 toHsla : Types.ExtColor -> Types.HslaColor
 toHsla color =
     case color of
-        Types.RGBColor c ->
+        Types.RGBAColor c ->
             Color.toHsla c
 
         Types.CMYKColor cmyk ->
@@ -49,7 +49,7 @@ toHslaDegrees color =
             { hueDegrees = hue * 360, saturation = saturation, lightness = lightness, alpha = alpha }
     in
     case color of
-        Types.RGBColor c ->
+        Types.RGBAColor c ->
             Color.toHsla c |> toDegrees
 
         Types.CMYKColor cmyk ->

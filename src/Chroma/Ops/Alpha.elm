@@ -28,13 +28,13 @@ setAlpha amount color =
             ToRgb.toRgba color
 
         newRgbColor =
-            { rgbA | alpha = amount } |> Color.fromRgba |> Types.RGBColor
+            { rgbA | alpha = amount } |> Color.fromRgba |> Types.RGBAColor
 
         newLab =
             newRgbColor |> ToLab.toLab
     in
     case color of
-        Types.RGBColor _ ->
+        Types.RGBAColor _ ->
             newRgbColor
 
         Types.LABColor _ ->

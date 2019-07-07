@@ -24,8 +24,8 @@ CMYK may not work correctly. Will return black if the types are not the same.
 interpolate : Types.ExtColor -> Types.ExtColor -> Float -> Types.ExtColor
 interpolate col1 col2 f =
     case ( col1, col2 ) of
-        ( Types.RGBColor color1, Types.RGBColor color2 ) ->
-            interpolateRGB color1 color2 f |> Types.RGBColor
+        ( Types.RGBAColor color1, Types.RGBAColor color2 ) ->
+            interpolateRGBA color1 color2 f |> Types.RGBAColor
 
         ( Types.LABColor lab1, Types.LABColor lab2 ) ->
             interpolateLAB lab1 lab2 f |> Types.LABColor
@@ -34,7 +34,7 @@ interpolate col1 col2 f =
             interpolateLCH lch1 lch2 f |> Types.LCHColor
 
         ( Types.CMYKColor cmyk1, Types.CMYKColor cmyk2 ) ->
-            interpolateRGB (cmyk1 |> Cmyk2Rgb.cmyk2rgb) (cmyk2 |> Cmyk2Rgb.cmyk2rgb) f |> Types.RGBColor |> ToCmyk.toCmyk |> Types.CMYKColor
+            interpolateRGBA (cmyk1 |> Cmyk2Rgb.cmyk2rgb) (cmyk2 |> Cmyk2Rgb.cmyk2rgb) f |> Types.RGBAColor |> ToCmyk.toCmyk |> Types.CMYKColor
 
         ( Types.HSLAColor hsla1, Types.HSLAColor hsla2 ) ->
             let
@@ -63,11 +63,11 @@ interpolate col1 col2 f =
             { lightness = luminance, saturation = chroma, hueDegrees = hue, alpha = newAlpha } |> Types.HSLADegreesColor
 
         _ ->
-            Types.RGBColor W3CX11.black
+            Types.RGBAColor W3CX11.black
 
 
-interpolateRGB : Color.Color -> Color.Color -> Float -> Color.Color
-interpolateRGB color1 color2 f =
+interpolateRGBA : Color.Color -> Color.Color -> Float -> Color.Color
+interpolateRGBA color1 color2 f =
     let
         rgba1 =
             Color.toRgba color1
@@ -83,8 +83,11 @@ interpolateRGB color1 color2 f =
 
         b =
             rgba1.blue + f * (rgba2.blue - rgba1.blue)
+
+        a =
+            rgba1.alpha + f * (rgba2.alpha - rgba1.alpha)
     in
-    Color.rgb r g b
+    Color.rgba r g b a
 
 
 interpolateLAB : { lightness : Float, labA : Float, labB : Float } -> { lightness : Float, labA : Float, labB : Float } -> Float -> { lightness : Float, labA : Float, labB : Float }

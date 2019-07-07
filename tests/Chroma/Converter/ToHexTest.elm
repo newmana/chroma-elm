@@ -22,14 +22,14 @@ testRecordToHex =
             \_ ->
                 { hue = 0.333333333333, saturation = 1, lightness = 0.75, alpha = 1.0 }
                     |> InHsl.hsla2rgb
-                    |> Types.RGBColor
+                    |> Types.RGBAColor
                     |> OutHex.toHex
                     |> Expect.equal "#80ff80"
         , Test.test "CLMK" <|
             \_ ->
                 { cyan = 1, magenta = 0.5, yellow = 0, black = 0.2 }
                     |> InCmyk.cmyk2rgb
-                    |> Types.RGBColor
+                    |> Types.RGBAColor
                     |> OutHex.toHex
                     |> Expect.equal "#0066cc"
         ]

@@ -15,7 +15,7 @@ import Color as Color
 {-| TBD
 -}
 type ExtColor
-    = RGBColor Color.Color
+    = RGBAColor Color.Color
     | CMYKColor CymkColor
     | LABColor LabColor
     | LCHColor LchColor

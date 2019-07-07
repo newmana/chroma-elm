@@ -23,7 +23,7 @@ testLab =
     Test.describe "lab"
         [ Test.fuzz Util.validRgb "should round trip between RGB and LAB" <|
             \testRgb ->
-                Types.RGBColor testRgb
+                Types.RGBAColor testRgb
                     |> OutLab.toLab
                     |> InLab.lab2rgb
                     |> Util.expectColorResultWithin 0.0001 testRgb
@@ -35,13 +35,13 @@ testLimits =
     Test.describe "lab limits"
         [ Test.test "too low" <|
             \_ ->
-                Types.RGBColor (Color.rgb255 -10 0 0)
+                Types.RGBAColor (Color.rgb255 -10 0 0)
                     |> OutLab.toLab
                     |> InLab.lab2rgb
                     |> Util.expectColorResultWithin 0.0001 (Color.rgb 0 0 0)
         , Test.test "too high" <|
             \_ ->
-                Types.RGBColor (Color.rgb255 300 0 0)
+                Types.RGBAColor (Color.rgb255 300 0 0)
                     |> OutLab.toLab
                     |> InLab.lab2rgb
                     |> Util.expectColorResultWithin 0.0001 (Color.rgb 1 0 0)

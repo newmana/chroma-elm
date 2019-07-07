@@ -49,12 +49,12 @@ blackLch =
 
 whiteRgb : Types.ExtColor
 whiteRgb =
-    Types.RGBColor W3CX11.white
+    Types.RGBAColor W3CX11.white
 
 
 blackRgb : Types.ExtColor
 blackRgb =
-    Types.RGBColor W3CX11.black
+    Types.RGBAColor W3CX11.black
 
 
 yellowLab : Types.ExtColor
@@ -64,17 +64,17 @@ yellowLab =
 
 yellowRgb : Types.ExtColor
 yellowRgb =
-    Types.RGBColor W3CX11.yellow
+    Types.RGBAColor W3CX11.yellow
 
 
 lightGreen : Types.ExtColor
 lightGreen =
-    Types.RGBColor W3CX11.lightgreen
+    Types.RGBAColor W3CX11.lightgreen
 
 
 bluishRgb : Types.ExtColor
 bluishRgb =
-    Types.RGBColor (Color.rgb255 0 138 229)
+    Types.RGBAColor (Color.rgb255 0 138 229)
 
 
 redLab : Types.ExtColor
@@ -118,7 +118,7 @@ expectScaleWithDomainLab newData val expectedValue =
 
 expectScaleWithDomainRgb newData val expectedValue =
     case Scale.getColor newData val of
-        Types.RGBColor c ->
+        Types.RGBAColor c ->
             Color.toRgba c |> (\rgba -> Expect.within (Expect.Absolute 0.0001) rgba.red 0.75)
 
         _ ->
@@ -145,7 +145,7 @@ expectScaleWithDomainLchHex newData val expectedValue =
 
 expectScaleWithDomainRgbHex newData val expectedValue =
     case Scale.getColor newData val of
-        (Types.RGBColor _) as color ->
+        (Types.RGBAColor _) as color ->
             Expect.equal (ToHex.toHex color) expectedValue
 
         _ ->
@@ -213,7 +213,7 @@ testBrewerRgb : Test.Test
 testBrewerRgb =
     let
         newData =
-            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBColor Brewer.rdYlGn)
+            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBAColor Brewer.rdYlGn)
     in
     Test.describe "Brewer Red Yellow Green Scale"
         [ Test.test "Test start of two" <|
@@ -232,13 +232,13 @@ testBrewerRgbWithDomain : Test.Test
 testBrewerRgbWithDomain =
     let
         newData =
-            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBColor Brewer.rdYlGn) |> Scale.domain (Nonempty.Nonempty 0 [ 100 ])
+            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBAColor Brewer.rdYlGn) |> Scale.domain (Nonempty.Nonempty 0 [ 100 ])
 
         newDataMultiDomain =
             Scale.defaultData |> Scale.createData (Nonempty.Nonempty yellowRgb [ lightGreen, bluishRgb ]) |> Scale.domain (Nonempty.Nonempty 0 [ 0.25, 1 ])
 
         newArbitrary =
-            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBColor (Nonempty.Nonempty (Color.rgb255 216 179 101) [ Color.rgb255 245 245 245, Color.rgb255 90 180 172 ])) |> Scale.domain (Nonempty.Nonempty -1192 [ 0, 66 ])
+            Scale.defaultData |> Scale.createData (Nonempty.map Types.RGBAColor (Nonempty.Nonempty (Color.rgb255 216 179 101) [ Color.rgb255 245 245 245, Color.rgb255 90 180 172 ])) |> Scale.domain (Nonempty.Nonempty -1192 [ 0, 66 ])
     in
     Test.describe "Brewer Red Yellow Green Scale with 0,100 domain "
         [ Test.test "Test start of two" <|

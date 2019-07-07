@@ -27,17 +27,17 @@ tests =
 
 c1 : Result String Types.ExtColor
 c1 =
-    Hex2Rgb.hex2rgb "#fff" |> Result.map Types.RGBColor
+    Hex2Rgb.hex2rgb "#fff" |> Result.map Types.RGBAColor
 
 
 c2 : Result String Types.ExtColor
 c2 =
-    Hex2Rgb.hex2rgb "#ff0" |> Result.map Types.RGBColor
+    Hex2Rgb.hex2rgb "#ff0" |> Result.map Types.RGBAColor
 
 
 c3 : Result String Types.ExtColor
 c3 =
-    Hex2Rgb.hex2rgb "#f0f" |> Result.map Types.RGBColor
+    Hex2Rgb.hex2rgb "#f0f" |> Result.map Types.RGBAColor
 
 
 testStringToColor : Test.Test
@@ -45,7 +45,7 @@ testStringToColor =
     Test.describe "color"
         [ Test.test "Hotpink string" <|
             \_ ->
-                "hotpink" |> Chroma.chroma |> Expect.equal (Result.Ok (Types.RGBColor W3CX11.hotpink))
+                "hotpink" |> Chroma.chroma |> Expect.equal (Result.Ok (Types.RGBAColor W3CX11.hotpink))
         , Test.test "Hotpink to hex string" <|
             \_ ->
                 "hotpink" |> Chroma.chroma |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#ff69b4")
@@ -68,10 +68,10 @@ testScaleAndDomain : Test.Test
 testScaleAndDomain =
     let
         ( _, f ) =
-            Chroma.domain (Nonempty.Nonempty 0.0 [ 100.0 ]) (Nonempty.map Types.RGBColor Brewer.rdYlGn)
+            Chroma.domain (Nonempty.Nonempty 0.0 [ 100.0 ]) (Nonempty.map Types.RGBAColor Brewer.rdYlGn)
 
         ( _, g ) =
-            Chroma.domain (Nonempty.Nonempty -1192 [ 0, 66 ]) (Nonempty.map Types.RGBColor (Nonempty.Nonempty (rgb255 216 179 101) [ rgb255 245 245 245, rgb255 90 180 172 ]))
+            Chroma.domain (Nonempty.Nonempty -1192 [ 0, 66 ]) (Nonempty.map Types.RGBAColor (Nonempty.Nonempty (rgb255 216 179 101) [ rgb255 245 245 245, rgb255 90 180 172 ]))
     in
     Test.describe "scale and domain API"
         [ Test.test "Simple test" <|
@@ -117,10 +117,10 @@ testPadding : Test.Test
 testPadding =
     let
         ( _, f ) =
-            Chroma.scale (Nonempty.map Types.RGBColor Brewer.rdYlGn) |> Chroma.padding 0.15
+            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.rdYlGn) |> Chroma.padding 0.15
 
         ( _, bothF ) =
-            Chroma.scale (Nonempty.map Types.RGBColor Brewer.rdYlGn) |> Chroma.paddingBoth ( -0.15, 0.15 )
+            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.rdYlGn) |> Chroma.paddingBoth ( -0.15, 0.15 )
     in
     Test.describe "scale and padding API"
         [ Test.test "Padded left" <|
@@ -142,10 +142,10 @@ testColors : Test.Test
 testColors =
     let
         ( _, whiteToBlack ) =
-            Chroma.colors 12 (Nonempty.Nonempty (Types.RGBColor W3CX11.white) [ Types.RGBColor W3CX11.black ])
+            Chroma.colors 12 (Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ])
 
         ( _, orangeToRed ) =
-            Chroma.colors 5 (Nonempty.map Types.RGBColor Brewer.orRd)
+            Chroma.colors 5 (Nonempty.map Types.RGBAColor Brewer.orRd)
     in
     Test.describe "colors API"
         [ Test.test "Five orange to red" <|

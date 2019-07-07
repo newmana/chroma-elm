@@ -33,10 +33,10 @@ chroma : String -> Result String Types.ExtColor
 chroma str =
     case W3CX11.named str of
         Ok value ->
-            Ok (Types.RGBColor value)
+            Ok (Types.RGBAColor value)
 
         Err _ ->
-            Hex2Rgb.hex2rgb str |> Result.map Types.RGBColor
+            Hex2Rgb.hex2rgb str |> Result.map Types.RGBAColor
 
 
 {-| Return a new configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.

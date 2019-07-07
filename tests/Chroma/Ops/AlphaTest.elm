@@ -23,7 +23,7 @@ testGettingAlpha =
     Test.describe "Get Alpha on a Color"
         [ Test.test "of rgba color" <|
             \_ ->
-                Types.RGBColor (Color.rgba 255 0 0 0.35)
+                Types.RGBAColor (Color.rgba 255 0 0 0.35)
                     |> OpsAlpha.alpha
                     |> Expect.within (Expect.Absolute 0.0001) 0.35
         , Test.test "of red as a string, alpha 1" <|

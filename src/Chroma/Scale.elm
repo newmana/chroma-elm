@@ -45,7 +45,7 @@ defaultData =
     , pos = Nonempty.fromElement ( 0, 1 )
     , paddingValues = ( 0, 0 )
     , useClasses = False
-    , colorsList = Nonempty.Nonempty (Types.RGBColor W3CX11.white) [ Types.RGBColor W3CX11.black ]
+    , colorsList = Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ]
     , useOut = False
     , min = 0
     , max = 1
@@ -149,7 +149,7 @@ findAndInterpolateColor colorsList pos t =
                     else
                         ( found, result, i + 1 )
                 )
-                ( False, Types.RGBColor W3CX11.black, 0 )
+                ( False, Types.RGBAColor W3CX11.black, 0 )
                 pos
     in
     interpolatedResult

@@ -26,4 +26,4 @@ toLch color =
 -}
 toLchExtColor : Color.Color -> Types.ExtColor
 toLchExtColor color =
-    toLch (Types.RGBColor color) |> Types.LCHColor
+    toLch (Types.RGBAColor color) |> Types.LCHColor

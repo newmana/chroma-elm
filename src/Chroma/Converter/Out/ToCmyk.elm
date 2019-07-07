@@ -39,7 +39,7 @@ toCmyk color =
             Lab2Rgb.lab2rgb lab |> Color.toRgba |> convert
     in
     case color of
-        Types.RGBColor c ->
+        Types.RGBAColor c ->
             Color.toRgba c |> convert
 
         Types.CMYKColor cmyk ->

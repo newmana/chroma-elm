@@ -29,7 +29,7 @@ import Color as Color
 -}
 toLabExtColor : Color.Color -> Types.ExtColor
 toLabExtColor color =
-    toLab (Types.RGBColor color) |> Types.LABColor
+    toLab (Types.RGBAColor color) |> Types.LABColor
 
 
 {-| TBD
@@ -37,7 +37,7 @@ toLabExtColor color =
 toLab : Types.ExtColor -> Types.LabColor
 toLab color =
     case color of
-        Types.RGBColor c ->
+        Types.RGBAColor c ->
             Color.toRgba c |> calcLab
 
         Types.CMYKColor cmyk ->
