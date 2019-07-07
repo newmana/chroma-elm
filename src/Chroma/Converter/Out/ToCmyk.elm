@@ -1,11 +1,11 @@
-module Chroma.Converter.Out.ToCmyk exposing (toCmyk)
+module Chroma.Converter.Out.ToCmyk exposing (toCmyk, toCmykExt)
 
 {-| Convert ExtColor to CMYK
 
 
 # Definition
 
-@docs toCmyk
+@docs toCmyk, toCmykExt
 
 -}
 
@@ -56,3 +56,10 @@ toCmyk color =
 
         Types.HSLADegreesColor hslaDegrees ->
             Hsla2Rgb.hslaDegrees2rgb hslaDegrees |> Color.toRgba |> convert
+
+
+{-| TBD
+-}
+toCmykExt : Types.ExtColor -> Types.ExtColor
+toCmykExt color =
+    toCmyk color |> Types.CMYKColor

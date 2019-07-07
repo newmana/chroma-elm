@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, domain, distance, distance255, distanceWithLab, padding, paddingBoth, colors, colorsWith
+    ( chroma, scale, domain, distance, distance255, distanceWithLab, mix, padding, paddingBoth, colors, colorsWith
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, scale, domain, distance, distance255, distanceWithLab, padding, paddingBoth, colors, colorsWith
+@docs chroma, scale, domain, distance, distance255, distanceWithLab, mix, padding, paddingBoth, colors, colorsWith
 
 
 # Helpers
@@ -19,8 +19,12 @@ module Chroma.Chroma exposing
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
+import Chroma.Converter.Out.ToCmyk as ToCmyk
+import Chroma.Converter.Out.ToHsla as ToHsla
 import Chroma.Converter.Out.ToLab as ToLab
-import Chroma.Converter.Out.ToRgb as ToRgb
+import Chroma.Converter.Out.ToLch as ToLch
+import Chroma.Converter.Out.ToRgba as ToRgba
+import Chroma.Interpolator as Interpolator
 import Chroma.Scale as Scale
 import Chroma.Types as Types
 import List.Nonempty as Nonempty
@@ -141,10 +145,10 @@ distance255 : Types.ExtColor -> Types.ExtColor -> Float
 distance255 color1 color2 =
     let
         fstColor255 =
-            ToRgb.toNonEmptyList color1 |> Nonempty.map (\x -> x * 255)
+            ToRgba.toNonEmptyList color1 |> Nonempty.map (\x -> x * 255)
 
         sndColor255 =
-            ToRgb.toNonEmptyList color2 |> Nonempty.map (\x -> x * 255)
+            ToRgba.toNonEmptyList color2 |> Nonempty.map (\x -> x * 255)
     in
     calcDistance fstColor255 sndColor255
 
@@ -155,10 +159,10 @@ distance : Types.ExtColor -> Types.ExtColor -> Float
 distance color1 color2 =
     let
         aColor1 =
-            ToRgb.toNonEmptyList color1
+            ToRgba.toNonEmptyList color1
 
         aColor2 =
-            ToRgb.toNonEmptyList color2
+            ToRgba.toNonEmptyList color2
     in
     calcDistance aColor1 aColor2
 
@@ -168,9 +172,36 @@ calcDistance list1 list2 =
     Nonempty.map2 (\c1 c2 -> (c1 - c2) ^ 2) list1 list2 |> Nonempty.foldl (+) 0 |> sqrt
 
 
+mix : String -> String -> Float -> Types.Mode -> Result String Types.ExtColor
+mix color1 color2 f mode =
+    let
+        colorConvert str =
+            chroma str |> Result.map convert
 
---mix color1 color2 ratio mode =
---    Debug.crash "unimplemented"
+        convert =
+            case mode of
+                Types.RGBA ->
+                    ToRgba.toRgbaExt
+
+                Types.CMYK ->
+                    ToCmyk.toCmykExt
+
+                Types.LAB ->
+                    ToLab.toLabExt
+
+                Types.LCH ->
+                    ToLch.toLchExt
+
+                Types.HSLA ->
+                    ToHsla.toHslaExt
+
+                Types.HSLADegrees ->
+                    ToHsla.toHslaDegreesExt
+    in
+    Result.map2 (\ec1 ec2 -> Interpolator.interpolate ec1 ec2 f) (colorConvert color1) (colorConvert color2)
+
+
+
 --average colors mode =
 --    Debug.crash "unimplemented"
 --blend color1 color2 mode =

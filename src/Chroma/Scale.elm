@@ -10,7 +10,7 @@ module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, 
 -}
 
 import Chroma.Colors.W3CX11 as W3CX11
-import Chroma.Converter.Out.ToRgb as ToRgb
+import Chroma.Converter.Out.ToRgba as ToRgb
 import Chroma.Interpolator as Interpolator
 import Chroma.Types as Types
 import Color as Color

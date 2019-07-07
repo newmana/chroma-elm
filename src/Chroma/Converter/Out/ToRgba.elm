@@ -1,11 +1,11 @@
-module Chroma.Converter.Out.ToRgb exposing (toRgba, toRgba255, toNonEmptyList)
+module Chroma.Converter.Out.ToRgba exposing (toRgba, toRgba255, toNonEmptyList, toRgbaExt)
 
 {-| Convert ExtColors to RGB record types or array
 
 
 # Definition
 
-@docs toRgba, toRgba255, toNonEmptyList
+@docs toRgba, toRgba255, toNonEmptyList, toRgbaExt
 
 -}
 
@@ -51,6 +51,17 @@ toRgba color =
 
         Types.HSLADegreesColor hslaDegrees ->
             Hsla2Rgb.hslaDegrees2rgb hslaDegrees |> Color.toRgba
+
+
+{-| TBD
+-}
+toRgbaExt : Types.ExtColor -> Types.ExtColor
+toRgbaExt color =
+    let
+        { red, green, blue, alpha } =
+            toRgba color
+    in
+    Color.rgba red green blue alpha |> Types.RGBAColor
 
 
 {-| TBD

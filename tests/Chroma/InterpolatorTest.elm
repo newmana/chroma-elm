@@ -29,22 +29,22 @@ tests =
 
 whiteLab : Types.ExtColor
 whiteLab =
-    ToLab.toLabExtColor W3CX11.white
+    Types.RGBAColor W3CX11.white |> ToLab.toLabExt
 
 
 blackLab : Types.ExtColor
 blackLab =
-    ToLab.toLabExtColor W3CX11.black
+    Types.RGBAColor W3CX11.black |> ToLab.toLabExt
 
 
 whiteLch : Types.ExtColor
 whiteLch =
-    ToLch.toLchExtColor W3CX11.white
+    Types.RGBAColor W3CX11.white |> ToLch.toLchExt
 
 
 blackLch : Types.ExtColor
 blackLch =
-    ToLch.toLchExtColor W3CX11.black
+    Types.RGBAColor W3CX11.black |> ToLch.toLchExt
 
 
 whiteRgb : Types.ExtColor
@@ -59,7 +59,7 @@ blackRgb =
 
 yellowLab : Types.ExtColor
 yellowLab =
-    ToLab.toLabExtColor W3CX11.yellow
+    Types.RGBAColor W3CX11.yellow |> ToLab.toLabExt
 
 
 yellowRgb : Types.ExtColor
@@ -79,7 +79,7 @@ bluishRgb =
 
 redLab : Types.ExtColor
 redLab =
-    ToLab.toLabExtColor W3CX11.red
+    Types.RGBAColor W3CX11.red |> ToLab.toLabExt
 
 
 whiteAndBlackLab : Scale.Data -> Scale.Data

@@ -9,7 +9,7 @@ module Chroma.Converter.Out.ToHex exposing (toHex, toHexAlpha)
 
 -}
 
-import Chroma.Converter.Out.ToRgb as ToRgb
+import Chroma.Converter.Out.ToRgba as ToRgb
 import Chroma.Types as Types
 import Hex as Hex
 

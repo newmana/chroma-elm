@@ -1,11 +1,11 @@
-module Chroma.Converter.Out.ToHsla exposing (toHsla, toHslaDegrees)
+module Chroma.Converter.Out.ToHsla exposing (toHsla, toHslaDegrees, toHslaExt, toHslaDegreesExt)
 
 {-| Convert ExtColor to HSLA
 
 
 # Definition
 
-@docs toHsla, toHslaDegrees
+@docs toHsla, toHslaDegrees, toHslaExt, toHslaDegreesExt
 
 -}
 
@@ -66,3 +66,17 @@ toHslaDegrees color =
 
         Types.HSLADegreesColor hslaDegrees ->
             hslaDegrees
+
+
+{-| TBD
+-}
+toHslaExt : Types.ExtColor -> Types.ExtColor
+toHslaExt color =
+    toHsla color |> Types.HSLAColor
+
+
+{-| TBD
+-}
+toHslaDegreesExt : Types.ExtColor -> Types.ExtColor
+toHslaDegreesExt color =
+    toHslaDegrees color |> Types.HSLADegreesColor

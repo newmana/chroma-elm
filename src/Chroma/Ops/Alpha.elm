@@ -14,7 +14,7 @@ import Chroma.Converter.Misc.LabConstants as LabConstants
 import Chroma.Converter.Out.ToCmyk as ToCymk
 import Chroma.Converter.Out.ToHsla as ToHsla
 import Chroma.Converter.Out.ToLab as ToLab
-import Chroma.Converter.Out.ToRgb as ToRgb
+import Chroma.Converter.Out.ToRgba as ToRgb
 import Chroma.Types as Types
 import Color as Color
 

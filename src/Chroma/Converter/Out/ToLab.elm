@@ -1,6 +1,6 @@
 module Chroma.Converter.Out.ToLab exposing
     ( toLab
-    , toLabExtColor
+    , toLabExt
     )
 
 {-| Convert RgbColor to LAB
@@ -13,7 +13,7 @@ module Chroma.Converter.Out.ToLab exposing
 
 # Helper
 
-@docs toLabExtColor
+@docs toLabExt
 
 -}
 
@@ -27,9 +27,9 @@ import Color as Color
 
 {-| TBD
 -}
-toLabExtColor : Color.Color -> Types.ExtColor
-toLabExtColor color =
-    toLab (Types.RGBAColor color) |> Types.LABColor
+toLabExt : Types.ExtColor -> Types.ExtColor
+toLabExt color =
+    toLab color |> Types.LABColor
 
 
 {-| TBD
