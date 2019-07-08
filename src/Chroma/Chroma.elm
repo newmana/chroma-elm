@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, domain, distance, distance255, distanceWithLab, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma
+    ( chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, scale, domain, distance, distance255, distanceWithLab, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma
+@docs chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma
 
 
 # Helpers
@@ -126,41 +126,30 @@ colorsWith num data =
     ( data, Scale.colors num data )
 
 
-{-| Calculate the distance in LAB color space.
--}
-distanceWithLab : Types.ExtColor -> Types.ExtColor -> Float
-distanceWithLab color1 color2 =
-    let
-        labColor a =
-            ToLab.toLab a |> Types.LABColor
-    in
-    distance (labColor color1) (labColor color2)
-
-
 {-| Calculate the distance in RGB 255 color space.
 -}
 distance255 : Types.ExtColor -> Types.ExtColor -> Float
 distance255 color1 color2 =
     let
         fstColor255 =
-            ColorSpace.toNonEmptyList color1 |> Nonempty.map (\x -> x * 255)
+            ColorSpace.colorConvert Types.RGBA color1 |> ColorSpace.toNonEmptyList |> Nonempty.map (\x -> x * 255)
 
         sndColor255 =
-            ColorSpace.toNonEmptyList color2 |> Nonempty.map (\x -> x * 255)
+            ColorSpace.colorConvert Types.RGBA color2 |> ColorSpace.toNonEmptyList |> Nonempty.map (\x -> x * 255)
     in
     calcDistance fstColor255 sndColor255
 
 
-{-| Calculate the distance in RGB color space.
+{-| Calculate the distance for a given color space.
 -}
-distance : Types.ExtColor -> Types.ExtColor -> Float
-distance color1 color2 =
+distance : Types.Mode -> Types.ExtColor -> Types.ExtColor -> Float
+distance mode color1 color2 =
     let
         aColor1 =
-            ColorSpace.toNonEmptyList color1
+            ColorSpace.colorConvert mode color1 |> ColorSpace.toNonEmptyList
 
         aColor2 =
-            ColorSpace.toNonEmptyList color2
+            ColorSpace.colorConvert mode color2 |> ColorSpace.toNonEmptyList
     in
     calcDistance aColor1 aColor2
 
@@ -224,12 +213,3 @@ Only supports RGBA, CYMK and LAB.
 averageChroma : Types.Mode -> Nonempty.Nonempty String -> Result String Types.ExtColor
 averageChroma mode strList =
     Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
-
-
-
---blend color1 color2 mode =
---    Debug.crash "unimplemented"
---random =
---    Debug.crash "unimplemented"
---limits data mode n =
---    Debug.crash "unimplemented"
