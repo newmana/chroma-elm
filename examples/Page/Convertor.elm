@@ -14,6 +14,6 @@ content =
             [ Html.text "Convertor" ]
         , Html.p
             [ HtmlAttributes.class "subtitle" ]
-            [ Html.text "Convertor" ]
+            [ Html.text "Going to or from Color Spaces" ]
         ]
     ]

@@ -23,7 +23,7 @@ parser =
     UrlParser.oneOf
         [ UrlParser.map Home UrlParser.top
         , UrlParser.map Chroma (UrlParser.s "chroma")
-        , UrlParser.map Interpolator (UrlParser.s "interpolator")
+        , UrlParser.map Interpolator (UrlParser.s "ops")
         , UrlParser.map Convertor (UrlParser.s "convertor")
         , UrlParser.map Colors (UrlParser.s "colors")
         ]

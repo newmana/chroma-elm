@@ -9,10 +9,10 @@ import Html as Html
 import Json.Decode as JsonDecode
 import Model as Model
 import Page.Chroma as PageChroma
-import Page.Color as PageColor
+import Page.ColorOperations as PageInterpolator
+import Page.Colors as PageColor
 import Page.Convertor as Convertor
 import Page.GettingStarted as PageGettingStarted
-import Page.Interpolator as PageInterpolator
 import Route as Route
 import Url as Url
 import View as View

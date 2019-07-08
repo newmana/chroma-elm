@@ -1,4 +1,4 @@
-module Page.Color exposing (content)
+module Page.ColorOperations exposing (content)
 
 import Html as Html
 import Html.Attributes as HtmlAttributes
@@ -11,9 +11,9 @@ content =
         ]
         [ Html.h1
             [ HtmlAttributes.class "title" ]
-            [ Html.text "Color" ]
+            [ Html.text "Color Operations" ]
         , Html.p
             [ HtmlAttributes.class "subtitle" ]
-            [ Html.text "Color Color" ]
+            [ Html.text "Functions to modify an existing color value" ]
         ]
     ]

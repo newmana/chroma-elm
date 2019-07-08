@@ -64,9 +64,9 @@ view model content =
                                 [ Html.text "Chroma" ]
                             , Html.a
                                 [ HtmlAttributes.class "list-item"
-                                , HtmlAttributes.href "#/interpolator"
+                                , HtmlAttributes.href "#/ops"
                                 ]
-                                [ Html.text "Interpolator" ]
+                                [ Html.text "Color Operations" ]
                             , Html.a
                                 [ HtmlAttributes.class "list-item"
                                 , HtmlAttributes.href "#/convertor"
