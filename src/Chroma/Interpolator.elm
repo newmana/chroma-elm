@@ -34,7 +34,7 @@ interpolate col1 col2 f =
             interpolateLCH lch1 lch2 f |> Types.LCHColor
 
         ( Types.CMYKColor cmyk1, Types.CMYKColor cmyk2 ) ->
-            interpolateRGBA (cmyk1 |> Cmyk2Rgb.cmyk2rgb) (cmyk2 |> Cmyk2Rgb.cmyk2rgb) f |> Types.RGBAColor |> ToCmyk.toCmyk |> Types.CMYKColor
+            interpolateCMYK cmyk1 cmyk2 f |> Types.CMYKColor
 
         ( Types.HSLAColor hsla1, Types.HSLAColor hsla2 ) ->
             let
@@ -88,6 +88,24 @@ interpolateRGBA color1 color2 f =
             rgba1.alpha + f * (rgba2.alpha - rgba1.alpha)
     in
     Color.rgba r g b a
+
+
+interpolateCMYK : { cyan : Float, magenta : Float, yellow : Float, black : Float } -> { cyan : Float, magenta : Float, yellow : Float, black : Float } -> Float -> { cyan : Float, magenta : Float, yellow : Float, black : Float }
+interpolateCMYK cmyk1 cmyk2 f =
+    let
+        c =
+            cmyk1.cyan + f * (cmyk2.cyan - cmyk1.cyan)
+
+        m =
+            cmyk1.magenta + f * (cmyk2.magenta - cmyk1.magenta)
+
+        y =
+            cmyk1.yellow + f * (cmyk2.yellow - cmyk1.yellow)
+
+        k =
+            cmyk1.black + f * (cmyk2.black - cmyk1.black)
+    in
+    { cyan = c, magenta = m, yellow = y, black = k }
 
 
 interpolateLAB : { lightness : Float, labA : Float, labB : Float } -> { lightness : Float, labA : Float, labB : Float } -> Float -> { lightness : Float, labA : Float, labB : Float }
