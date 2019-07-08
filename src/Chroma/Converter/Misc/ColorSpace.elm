@@ -1,11 +1,11 @@
-module Chroma.Converter.Misc.ColorSpace exposing (colorConvert, toNonEmptyList, avgNonEmptyLists, combine, nonEmptyListToExtColor)
+module Chroma.Converter.Misc.ColorSpace exposing (colorConvert, toNonEmptyList, avgNonEmptyLists, combine, nonEmptyListToExtColor, rollingAverage)
 
 {-| For dealing with color space calculations.
 
 
 # Definition
 
-@docs colorConvert, toNonEmptyList, avgNonEmptyLists, combine, nonEmptyListToExtColor
+@docs colorConvert, toNonEmptyList, avgNonEmptyLists, combine, nonEmptyListToExtColor, rollingAverage
 
 -}
 
@@ -14,6 +14,7 @@ import Chroma.Converter.Out.ToHsla as ToHsla
 import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Converter.Out.ToLch as ToLch
 import Chroma.Converter.Out.ToRgba as ToRgba
+import Chroma.Interpolator as Interpolator
 import Chroma.Types as Types
 import Color as Color
 import List.Nonempty as Nonempty
@@ -43,6 +44,21 @@ colorConvert mode initColor =
                     ToHsla.toHslaDegreesExt
     in
     convert initColor
+
+
+rollingAverage : Nonempty.Nonempty Types.ExtColor -> Types.ExtColor
+rollingAverage extCols =
+    let
+        start =
+            ( 2, Nonempty.head extCols )
+
+        rest =
+            Nonempty.tail extCols
+
+        ( _, result ) =
+            List.foldl (\newCol ( index, currentCol ) -> ( index + 1, Interpolator.interpolate currentCol newCol (1 / index) )) start rest
+    in
+    result
 
 
 toNonEmptyList : Types.ExtColor -> Nonempty.Nonempty Float

@@ -193,24 +193,24 @@ mixChroma mode f color1 color2 =
 average : Types.Mode -> Nonempty.Nonempty Types.ExtColor -> Result String Types.ExtColor
 average mode extList =
     let
-        avgFloatsInList =
-            Nonempty.map (ColorSpace.colorConvert mode >> ColorSpace.toNonEmptyList) extList |> ColorSpace.avgNonEmptyLists
-
         calcAverage =
             case mode of
                 Types.RGBA ->
-                    Ok avgFloatsInList
+                    Ok result
 
                 Types.CMYK ->
-                    Ok avgFloatsInList
+                    Ok result
 
                 Types.LAB ->
-                    Ok avgFloatsInList
+                    Ok result
 
                 _ ->
                     Err "Mode not supported"
+
+        result =
+            Nonempty.map (ColorSpace.colorConvert mode) extList |> ColorSpace.rollingAverage
     in
-    calcAverage |> Result.map (ColorSpace.nonEmptyListToExtColor mode)
+    calcAverage
 
 
 {-| Find the average of a non-empty list of colors defined as strongs, first converting them to the same color space mode.
