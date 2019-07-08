@@ -1,11 +1,11 @@
-module Chroma.Converter.Out.ToRgba exposing (toRgba, toRgba255, toNonEmptyList, toRgbaExt)
+module Chroma.Converter.Out.ToRgba exposing (toRgba, toRgba255, toRgbaExt)
 
 {-| Convert ExtColors to RGB record types or array
 
 
 # Definition
 
-@docs toRgba, toRgba255, toNonEmptyList, toRgbaExt
+@docs toRgba, toRgba255, toRgbaExt
 
 -}
 
@@ -62,31 +62,3 @@ toRgbaExt color =
             toRgba color
     in
     Color.rgba red green blue alpha |> Types.RGBAColor
-
-
-{-| TBD
--}
-toNonEmptyList : Types.ExtColor -> Nonempty.Nonempty Float
-toNonEmptyList color =
-    case color of
-        Types.RGBAColor c ->
-            let
-                { red, green, blue, alpha } =
-                    Color.toRgba c
-            in
-            Nonempty.Nonempty red [ green, blue, alpha ]
-
-        Types.CMYKColor { cyan, magenta, yellow, black } ->
-            Nonempty.Nonempty cyan [ magenta, yellow, black ]
-
-        Types.LABColor { lightness, labA, labB } ->
-            Nonempty.Nonempty lightness [ labA, labB ]
-
-        Types.LCHColor { luminance, chroma, hue } ->
-            Nonempty.Nonempty luminance [ chroma, hue ]
-
-        Types.HSLAColor { hue, saturation, lightness, alpha } ->
-            Nonempty.Nonempty hue [ saturation, lightness, alpha ]
-
-        Types.HSLADegreesColor { hueDegrees, saturation, lightness, alpha } ->
-            Nonempty.Nonempty hueDegrees [ saturation, lightness, alpha ]

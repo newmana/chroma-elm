@@ -23,6 +23,7 @@ tests =
         , testPadding
         , testColors
         , testMix
+        , testAverage
         ]
 
 
@@ -163,8 +164,30 @@ testMix =
     Test.describe "mix API"
         [ Test.test "Red to blue 0.25 RGBA" <|
             \_ ->
-                Expect.equal (Result.Ok "#bf0040") (Chroma.mix "red" "blue" 0.25 Types.RGBA |> Result.map ToHex.toHex)
+                Expect.equal (Result.Ok "#bf0040") (Chroma.mixChroma Types.RGBA 0.25 "red" "blue" |> Result.map ToHex.toHex)
         , Test.test "Red to blue 0.5 LCH" <|
             \_ ->
-                Expect.equal (Result.Ok "#fa0080") (Chroma.mix "red" "blue" 0.5 Types.LCH |> Result.map ToHex.toHex)
+                Expect.equal "#fa0080" (Chroma.mix Types.LCH 0.5 (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.blue) |> ToHex.toHex)
+        ]
+
+
+testAverage : Test.Test
+testAverage =
+    let
+        grey =
+            Types.RGBAColor (Color.rgb255 221 221 221)
+
+        colors =
+            Nonempty.Nonempty grey [ Types.RGBAColor W3CX11.yellow, Types.RGBAColor W3CX11.red, Types.RGBAColor W3CX11.teal ]
+
+        strColors =
+            Nonempty.Nonempty "#ddd" [ "yellow", "red", "teal" ]
+    in
+    Test.describe "average API"
+        [ Test.test "Average RGBA" <|
+            \_ ->
+                Expect.equal (Result.Ok "#b79757") (Chroma.averageChroma Types.RGBA strColors |> Result.map ToHex.toHex)
+        , Test.test "Average LAB" <|
+            \_ ->
+                Expect.equal (Result.Ok "#d3a96a") (Chroma.average Types.LAB colors |> Result.map ToHex.toHex)
         ]

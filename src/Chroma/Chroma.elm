@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, domain, distance, distance255, distanceWithLab, mix, padding, paddingBoth, colors, colorsWith
+    ( chroma, scale, domain, distance, distance255, distanceWithLab, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, scale, domain, distance, distance255, distanceWithLab, mix, padding, paddingBoth, colors, colorsWith
+@docs chroma, scale, domain, distance, distance255, distanceWithLab, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma
 
 
 # Helpers
@@ -19,14 +19,12 @@ module Chroma.Chroma exposing
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
-import Chroma.Converter.Out.ToCmyk as ToCmyk
-import Chroma.Converter.Out.ToHsla as ToHsla
+import Chroma.Converter.Misc.ColorSpace as ColorSpace
 import Chroma.Converter.Out.ToLab as ToLab
-import Chroma.Converter.Out.ToLch as ToLch
-import Chroma.Converter.Out.ToRgba as ToRgba
 import Chroma.Interpolator as Interpolator
 import Chroma.Scale as Scale
 import Chroma.Types as Types
+import Color as Color
 import List.Nonempty as Nonempty
 import Result as Result
 
@@ -145,10 +143,10 @@ distance255 : Types.ExtColor -> Types.ExtColor -> Float
 distance255 color1 color2 =
     let
         fstColor255 =
-            ToRgba.toNonEmptyList color1 |> Nonempty.map (\x -> x * 255)
+            ColorSpace.toNonEmptyList color1 |> Nonempty.map (\x -> x * 255)
 
         sndColor255 =
-            ToRgba.toNonEmptyList color2 |> Nonempty.map (\x -> x * 255)
+            ColorSpace.toNonEmptyList color2 |> Nonempty.map (\x -> x * 255)
     in
     calcDistance fstColor255 sndColor255
 
@@ -159,10 +157,10 @@ distance : Types.ExtColor -> Types.ExtColor -> Float
 distance color1 color2 =
     let
         aColor1 =
-            ToRgba.toNonEmptyList color1
+            ColorSpace.toNonEmptyList color1
 
         aColor2 =
-            ToRgba.toNonEmptyList color2
+            ColorSpace.toNonEmptyList color2
     in
     calcDistance aColor1 aColor2
 
@@ -172,43 +170,60 @@ calcDistance list1 list2 =
     Nonempty.map2 (\c1 c2 -> (c1 - c2) ^ 2) list1 list2 |> Nonempty.foldl (+) 0 |> sqrt
 
 
-mix : String -> String -> Float -> Types.Mode -> Result String Types.ExtColor
-mix color1 color2 f mode =
+{-| Mix two colors, first converting them to the same color space mode and then with a ratio.
+-}
+mix : Types.Mode -> Float -> Types.ExtColor -> Types.ExtColor -> Types.ExtColor
+mix mode f color1 color2 =
     let
-        colorConvert str =
-            chroma str |> Result.map convert
-
         convert =
+            ColorSpace.colorConvert mode
+    in
+    Interpolator.interpolate (convert color1) (convert color2) f
+
+
+{-| Mix two colors defined as a string, first converting them to the same color space mode and then with a ratio.
+-}
+mixChroma : Types.Mode -> Float -> String -> String -> Result String Types.ExtColor
+mixChroma mode f color1 color2 =
+    Result.map2 (mix mode f) (chroma color1) (chroma color2)
+
+
+{-| Find the average of a non-empty list of colors, first converting them to the same color space mode.
+-}
+average : Types.Mode -> Nonempty.Nonempty Types.ExtColor -> Result String Types.ExtColor
+average mode extList =
+    let
+        avgFloatsInList =
+            Nonempty.map (ColorSpace.colorConvert mode >> ColorSpace.toNonEmptyList) extList |> ColorSpace.avgNonEmptyLists
+
+        calcAverage =
             case mode of
                 Types.RGBA ->
-                    ToRgba.toRgbaExt
+                    Ok avgFloatsInList
 
                 Types.CMYK ->
-                    ToCmyk.toCmykExt
+                    Ok avgFloatsInList
 
                 Types.LAB ->
-                    ToLab.toLabExt
+                    Ok avgFloatsInList
 
-                Types.LCH ->
-                    ToLch.toLchExt
-
-                Types.HSLA ->
-                    ToHsla.toHslaExt
-
-                Types.HSLADegrees ->
-                    ToHsla.toHslaDegreesExt
+                _ ->
+                    Err "Mode not supported"
     in
-    Result.map2 (\ec1 ec2 -> Interpolator.interpolate ec1 ec2 f) (colorConvert color1) (colorConvert color2)
+    calcAverage |> Result.map (ColorSpace.nonEmptyListToExtColor mode)
+
+
+{-| Find the average of a non-empty list of colors defined as strongs, first converting them to the same color space mode.
+-}
+averageChroma : Types.Mode -> Nonempty.Nonempty String -> Result String Types.ExtColor
+averageChroma mode strList =
+    Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
 
 
 
---average colors mode =
---    Debug.crash "unimplemented"
 --blend color1 color2 mode =
 --    Debug.crash "unimplemented"
 --random =
---    Debug.crash "unimplemented"
---brewer brewerName =
 --    Debug.crash "unimplemented"
 --limits data mode n =
 --    Debug.crash "unimplemented"

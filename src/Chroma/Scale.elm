@@ -10,7 +10,7 @@ module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, 
 -}
 
 import Chroma.Colors.W3CX11 as W3CX11
-import Chroma.Converter.Out.ToRgba as ToRgb
+import Chroma.Converter.Misc.ColorSpace as ColorSpace
 import Chroma.Interpolator as Interpolator
 import Chroma.Types as Types
 import Color as Color
@@ -215,16 +215,16 @@ correctLightness : Data -> Float -> Float
 correctLightness data val =
     let
         l0 =
-            getDirectColor data 0 |> ToRgb.toNonEmptyList |> Nonempty.head
+            getDirectColor data 0 |> ColorSpace.toNonEmptyList |> Nonempty.head
 
         l1 =
-            getDirectColor data 1 |> ToRgb.toNonEmptyList |> Nonempty.head
+            getDirectColor data 1 |> ColorSpace.toNonEmptyList |> Nonempty.head
 
         pol =
             l0 > l1
 
         actual =
-            getDirectColor data val |> ToRgb.toNonEmptyList |> Nonempty.head
+            getDirectColor data val |> ColorSpace.toNonEmptyList |> Nonempty.head
 
         ideal =
             l0 + ((l1 - l0) * val)
@@ -269,7 +269,7 @@ calcResult data pol ideal calcs =
                 ( newCalcs.t + ((newCalcs.t0 - newCalcs.t) * 0.5), newCalcs.t0, newCalcs.t )
 
         actual =
-            getDirectColor data newT |> ToRgb.toNonEmptyList |> Nonempty.head
+            getDirectColor data newT |> ColorSpace.toNonEmptyList |> Nonempty.head
     in
     { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
 
