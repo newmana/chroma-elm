@@ -189,6 +189,9 @@ mixChroma mode f color1 color2 =
 
 
 {-| Find the average of a non-empty list of colors, first converting them to the same color space mode.
+
+Only supports RGBA, CYMK and LAB.
+
 -}
 average : Types.Mode -> Nonempty.Nonempty Types.ExtColor -> Result String Types.ExtColor
 average mode extList =
@@ -214,6 +217,9 @@ average mode extList =
 
 
 {-| Find the average of a non-empty list of colors defined as strongs, first converting them to the same color space mode.
+
+Only supports RGBA, CYMK and LAB.
+
 -}
 averageChroma : Types.Mode -> Nonempty.Nonempty String -> Result String Types.ExtColor
 averageChroma mode strList =
