@@ -24,7 +24,10 @@ content =
             [ Html.text "Getting Started" ]
          , Html.p
             [ HtmlAttributes.class "subtitle" ]
-            [ Html.text "Chroma-elm is an Elm native version of the chroma.js library." ]
+            [ Html.text "A native Elm version of the "
+            , Html.a [ HtmlAttributes.href "https://vis4.net/chromajs" ] [ Html.text "chroma.js" ]
+            , Html.text " library."
+            ]
          , Html.div
             [ HtmlAttributes.class "content" ]
             [ Html.p
