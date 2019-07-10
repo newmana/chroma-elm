@@ -293,7 +293,7 @@ darkgray =
 -}
 darkslateblue : Color
 darkslateblue =
-    rgb255 47 79 79
+    rgb255 72 61 139
 
 
 {-| TBD
