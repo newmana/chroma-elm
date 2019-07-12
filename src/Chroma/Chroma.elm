@@ -213,3 +213,12 @@ Only supports RGBA, CYMK and LAB.
 averageChroma : Types.Mode -> Nonempty.Nonempty String -> Result String Types.ExtColor
 averageChroma mode strList =
     Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
+
+
+
+--classes : Nonempty.Nonempty Types.ExtColor -> Int -> Data -> Nonempty.Nonempty Types.ExtColor
+--classes _ _ _ =
+--    []
+--classesArray : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty Float -> Data -> Nonempty.Nonempty Types.ExtColor
+--classesArray _ _ _ =
+--    []
