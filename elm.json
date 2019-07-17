@@ -47,7 +47,6 @@
     "dependencies": {
         "avh4/elm-color": "1.0.0 <= v < 2.0.0",
         "elm/core": "1.0.0 <= v < 2.0.0",
-        "elm-community/list-extra": "8.2.0 <= v < 9.0.0",
         "mgold/elm-nonempty-list": "4.0.0 <= v < 5.0.0",
         "rtfeldman/elm-hex": "1.0.0 <= v < 2.0.0"
     },
