@@ -10,7 +10,7 @@ import Model as Model
 import Page.Chroma as PageChroma
 import Page.ColorOperations as PageInterpolator
 import Page.Colors as PageColor
-import Page.Convertor as Convertor
+import Page.Converter as Convertor
 import Page.GettingStarted as PageGettingStarted
 import Route as Route
 import Url as Url

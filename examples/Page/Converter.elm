@@ -1,4 +1,4 @@
-module Page.Convertor exposing (content)
+module Page.Converter exposing (content)
 
 import Html as Html
 import Html.Attributes as HtmlAttributes
@@ -11,7 +11,7 @@ content =
         ]
         [ Html.h1
             [ HtmlAttributes.class "title" ]
-            [ Html.text "Convertor" ]
+            [ Html.text "Converter" ]
         , Html.p
             [ HtmlAttributes.class "subtitle" ]
             [ Html.text "Going to or from Color Spaces" ]
