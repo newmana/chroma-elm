@@ -4,6 +4,33 @@ import Chroma.Limits.Analyze as Analyze
 import List.Nonempty as Nonempty
 
 
+type alias CkElement =
+    { sum : Float
+    , sumOfSquare : Float
+    , element : Float
+    , backtrackElement : Float
+    }
+
+
+type alias CkFirstRow =
+    { sums : List Float
+    , previousSum : Float
+    , sumsOfSquares : List Float
+    , previousSumsOfSquares : Float
+    , firstMatrixRow : List Float
+    , firstBackmatrixRow : List Float
+    , count : Int
+    }
+
+
+type alias CkResult =
+    { sums : Nonempty.Nonempty Float
+    , sumsOfSquares : Nonempty.Nonempty Float
+    , matrix : Nonempty.Nonempty (Nonempty.Nonempty Float)
+    , backmatrix : Nonempty.Nonempty (Nonempty.Nonempty Float)
+    }
+
+
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
     let
@@ -81,7 +108,78 @@ fillMatrix i min max cluster matrix sums sumsOfSquares =
     Debug.todo ""
 
 
-fillLineInMatrix : Int -> Int -> Int -> Nonempty Float -> Nonempty Float -> Nonempty Float -> a
+firstLine : Analyze.Scale -> CkResult
+firstLine scale =
+    let
+        is =
+            Nonempty.Nonempty 1 (List.range 2 (nValues - 1))
+
+        nValues =
+            scale.count
+
+        shift =
+            Nonempty.get (nValues // 2) scale.values
+
+        firstCkElement =
+            firstLineSumSumSquareAndSsq shift 0 (Nonempty.head scale.values) 0 0
+
+        defaultCkFirstRow =
+            { sums = []
+            , previousSum = firstCkElement.sum
+            , sumsOfSquares = []
+            , previousSumsOfSquares = firstCkElement.sumOfSquare
+            , firstMatrixRow = []
+            , firstBackmatrixRow = []
+            , count = 1
+            }
+
+        calc data acc =
+            let
+                result =
+                    firstLineSumSumSquareAndSsq shift acc.count data acc.previousSum acc.previousSumsOfSquares
+            in
+            { acc
+                | sums = result.sum :: acc.sums
+                , previousSum = result.sum
+                , sumsOfSquares = result.sumOfSquare :: acc.sumsOfSquares
+                , previousSumsOfSquares = result.sumOfSquare
+                , firstMatrixRow = result.element :: acc.firstMatrixRow
+                , firstBackmatrixRow = result.backtrackElement :: acc.firstBackmatrixRow
+                , count = acc.count + 1
+            }
+
+        firstRow =
+            List.foldr calc defaultCkFirstRow (Nonempty.tail scale.values)
+    in
+    { sums = Nonempty.Nonempty firstCkElement.sum firstRow.sums
+    , sumsOfSquares = Nonempty.Nonempty firstCkElement.sumOfSquare firstRow.sumsOfSquares
+    , matrix = Nonempty.Nonempty (Nonempty.Nonempty firstCkElement.element firstRow.firstMatrixRow) []
+    , backmatrix = Nonempty.Nonempty (Nonempty.Nonempty firstCkElement.backtrackElement firstRow.firstBackmatrixRow) []
+    }
+
+
+firstLineSumSumSquareAndSsq : Float -> Int -> Float -> Float -> Float -> CkElement
+firstLineSumSumSquareAndSsq shift i data previousSum previousSumSquare =
+    let
+        shiftedValue =
+            data - shift
+
+        sum =
+            previousSum + shiftedValue
+
+        sumSquare =
+            previousSumSquare + (shiftedValue * shiftedValue)
+
+        newSsq =
+            sumSquare - (sum * sum) / (toFloat i + 1)
+
+        backtrack =
+            0
+    in
+    { sum = sum, sumOfSquare = sumSquare, element = newSsq, backtrackElement = backtrack }
+
+
+fillLineInMatrix : Int -> Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> a
 fillLineInMatrix i jHigh jLow previousLine sums sumsOfSquares =
     let
         sji j =
