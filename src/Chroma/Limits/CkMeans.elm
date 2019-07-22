@@ -81,6 +81,7 @@ fillMatrix i min max cluster matrix sums sumsOfSquares =
     Debug.todo ""
 
 
+fillLineInMatrix : Int -> Int -> Int -> Nonempty Float -> Nonempty Float -> Nonempty Float -> a
 fillLineInMatrix i jHigh jLow previousLine sums sumsOfSquares =
     let
         sji j =

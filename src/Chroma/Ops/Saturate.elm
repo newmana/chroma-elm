@@ -14,7 +14,6 @@ import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Converter.Misc.LabConstants as LabConstants
 import Chroma.Converter.Out.ToCmyk as ToCymk
 import Chroma.Converter.Out.ToHsla as ToHsla
-import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Converter.Out.ToLch as ToLch
 import Chroma.Types as Types
 

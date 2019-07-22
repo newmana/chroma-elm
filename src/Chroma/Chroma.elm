@@ -20,11 +20,9 @@ module Chroma.Chroma exposing
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Misc.ColorSpace as ColorSpace
-import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Interpolator as Interpolator
 import Chroma.Scale as Scale
 import Chroma.Types as Types
-import Color as Color
 import List.Nonempty as Nonempty
 import Result as Result
 

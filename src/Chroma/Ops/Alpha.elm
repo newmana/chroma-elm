@@ -10,7 +10,6 @@ module Chroma.Ops.Alpha exposing (setAlpha, alpha)
 -}
 
 import Chroma.Converter.In.Lab2Lch as Lab2Lch
-import Chroma.Converter.Misc.LabConstants as LabConstants
 import Chroma.Converter.Out.ToCmyk as ToCymk
 import Chroma.Converter.Out.ToHsla as ToHsla
 import Chroma.Converter.Out.ToLab as ToLab

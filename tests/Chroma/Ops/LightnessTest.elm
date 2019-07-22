@@ -3,7 +3,6 @@ module Chroma.Ops.LightnessTest exposing (tests)
 import Chroma.Chroma as Chroma
 import Chroma.Converter.Out.ToHex as OutHex
 import Chroma.Ops.Lightness as OpsLightness
-import Color as Color
 import Expect
 import Test as Test
 

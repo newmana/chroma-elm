@@ -1,6 +1,5 @@
 module View exposing (view)
 
-import Browser
 import Html as Html
 import Html.Attributes as HtmlAttributes
 import Model as Model

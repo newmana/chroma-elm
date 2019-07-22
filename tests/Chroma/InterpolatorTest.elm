@@ -2,17 +2,14 @@ module Chroma.InterpolatorTest exposing (blackLab, redLab, testInterpolate, test
 
 import Chroma.Colors.Brewer as Brewer
 import Chroma.Colors.W3CX11 as W3CX11
-import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Converter.Out.ToLch as ToLch
-import Chroma.Interpolator as Interpolator
 import Chroma.Scale as Scale
 import Chroma.Types as Types
 import Color as Color
 import Expect as Expect
 import List.Nonempty as Nonempty
-import Result as Result
 import Test as Test
 
 

@@ -5,7 +5,6 @@ module Main exposing (main)
 
 import Browser as Browser
 import Browser.Navigation as BrowserNavigation
-import Html as Html
 import Json.Decode as JsonDecode
 import Model as Model
 import Page.Chroma as PageChroma
