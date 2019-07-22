@@ -1,4 +1,4 @@
-module Chroma.Limits.CkMeans exposing (converge, getValues, limit)
+module Chroma.Limits.CkMeans exposing (converge, firstLine, getValues, limit)
 
 import Chroma.Limits.Analyze as Analyze
 import List.Nonempty as Nonempty
@@ -149,12 +149,12 @@ firstLine scale =
             }
 
         firstRow =
-            List.foldr calc defaultCkFirstRow (Nonempty.tail scale.values)
+            List.foldl calc defaultCkFirstRow (Nonempty.tail scale.values)
     in
-    { sums = Nonempty.Nonempty firstCkElement.sum firstRow.sums
-    , sumsOfSquares = Nonempty.Nonempty firstCkElement.sumOfSquare firstRow.sumsOfSquares
-    , matrix = Nonempty.Nonempty (Nonempty.Nonempty firstCkElement.element firstRow.firstMatrixRow) []
-    , backmatrix = Nonempty.Nonempty (Nonempty.Nonempty firstCkElement.backtrackElement firstRow.firstBackmatrixRow) []
+    { sums = Nonempty.Nonempty firstCkElement.sum (List.reverse firstRow.sums)
+    , sumsOfSquares = Nonempty.Nonempty firstCkElement.sumOfSquare (List.reverse firstRow.sumsOfSquares)
+    , matrix = Nonempty.Nonempty (Nonempty.Nonempty firstCkElement.element (List.reverse firstRow.firstMatrixRow)) []
+    , backmatrix = Nonempty.Nonempty (Nonempty.Nonempty firstCkElement.backtrackElement (List.reverse firstRow.firstBackmatrixRow)) []
     }
 
 
