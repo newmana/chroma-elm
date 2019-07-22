@@ -9,9 +9,7 @@ module Chroma.Converter.In.Lch2Lab exposing (lch2lab)
 
 -}
 
-import Chroma.Converter.Misc.LabConstants as Constants
 import Chroma.Types as Types
-import Color as Color
 
 
 {-| TBD
