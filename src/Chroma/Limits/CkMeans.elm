@@ -44,35 +44,6 @@ limit bins scale =
         Debug.todo ""
 
 
-fillMatrices : Analyze.Scale -> List (List Float)
-fillMatrices scale =
-    let
-        nValues =
-            scale.count
-
-        shift =
-            Nonempty.get (nValues // 2) scale.values
-
-        init el =
-            let
-                shiftedValue =
-                    Nonempty.get el scale.values - shift
-            in
-            if el == 0 then
-                shiftedValue
-
-            else
-                Nonempty.get (el - 1) scale.values + shiftedValue
-
-        sums =
-            Nonempty.map (\el -> init el) (Nonempty.Nonempty 0 (List.range 1 (nValues - 1)))
-
-        sumsOfSquares =
-            Nonempty.map (\el -> el * el) sums
-    in
-    Debug.todo ""
-
-
 ssq : Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Float
 ssq j i sums sumsOfSquares =
     let
@@ -94,26 +65,14 @@ ssq j i sums sumsOfSquares =
         sji
 
 
-fillMatrixColumn : Int -> Int -> Int -> Nonempty.Nonempty (Nonempty.Nonempty Float) -> Nonempty.Nonempty (Nonempty.Nonempty Float) -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> ( Nonempty.Nonempty (Nonempty.Nonempty Float), Nonempty.Nonempty (Nonempty.Nonempty Float) )
-fillMatrixColumn min max cluster matrix backtractMatrix sums sumsOfSquares =
-    let
-        i =
-            floor ((min + max |> toFloat) / 2)
-    in
-    ( Nonempty.Nonempty (Nonempty.Nonempty 1 []) [], Nonempty.Nonempty (Nonempty.Nonempty 1 []) [] )
-
-
-fillMatrix : Float -> Int -> Int -> Int -> Nonempty.Nonempty (Nonempty.Nonempty Float) -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty (Nonempty.Nonempty Float)
-fillMatrix i min max cluster matrix sums sumsOfSquares =
+fillMatrices : Analyze.Scale -> CkResult
+fillMatrices =
     Debug.todo ""
 
 
 firstLine : Analyze.Scale -> CkResult
 firstLine scale =
     let
-        is =
-            Nonempty.Nonempty 1 (List.range 2 (nValues - 1))
-
         nValues =
             scale.count
 
@@ -177,6 +136,34 @@ firstLineSumSumSquareAndSsq shift i data previousSum previousSumSquare =
             0
     in
     { sum = sum, sumOfSquare = sumSquare, element = newSsq, backtrackElement = backtrack }
+
+
+fillMatrix : Analyze.Scale -> CkResult -> CkResult
+fillMatrix scale result =
+    let
+        cluster =
+            Nonempty.Nonempty 1 (List.range 2 (nValues - 1))
+
+        nValues =
+            scale.count
+
+        iMin i =
+            if i < (nValues - 1) then
+                i
+
+            else
+                nValues - 1
+    in
+    Nonempty.foldl (\index acc -> fillMatrixColumn (iMin index) (nValues - 1) index acc) result cluster
+
+
+fillMatrixColumn : Int -> Int -> Int -> CkResult -> CkResult
+fillMatrixColumn min max cluster result =
+    let
+        i =
+            floor ((min + max |> toFloat) / 2)
+    in
+    result
 
 
 fillLineInMatrix : Int -> Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> a
