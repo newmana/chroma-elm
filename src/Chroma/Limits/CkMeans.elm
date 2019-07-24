@@ -8,7 +8,7 @@ type alias CkElement =
     { sum : Float
     , sumOfSquare : Float
     , element : Float
-    , backtrackElement : Float
+    , backtrackElement : Int
     }
 
 
@@ -17,8 +17,8 @@ type alias CkFirstRow =
     , previousSum : Float
     , sumsOfSquares : List Float
     , previousSumsOfSquares : Float
-    , firstMatrixRow : List Float
-    , firstBackmatrixRow : List Float
+    , firstMatrixRow : MatrixLine
+    , firstBackmatrixRow : BacktrackMatrixLine
     , count : Int
     }
 
@@ -26,9 +26,17 @@ type alias CkFirstRow =
 type alias CkResult =
     { sums : Nonempty.Nonempty Float
     , sumsOfSquares : Nonempty.Nonempty Float
-    , matrix : Nonempty.Nonempty (Nonempty.Nonempty Float)
-    , backmatrix : Nonempty.Nonempty (Nonempty.Nonempty Float)
+    , matrix : Nonempty.Nonempty MatrixLine
+    , backmatrix : Nonempty.Nonempty BacktrackMatrixLine
     }
+
+
+type alias BacktrackMatrixLine =
+    Nonempty.Nonempty Int
+
+
+type alias MatrixLine =
+    Nonempty.Nonempty Float
 
 
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
@@ -153,46 +161,40 @@ fillMatrix scale result =
 
             else
                 nValues - 1
-    in
-    Nonempty.foldl (\index acc -> fillMatrixColumn (iMin index) (nValues - 1) index acc) result cluster
 
-
-fillMatrixColumn : Int -> Int -> Int -> CkResult -> CkResult
-fillMatrixColumn min max cluster result =
-    let
-        i =
-            floor ((min + max |> toFloat) / 2)
+        callFill index acc =
+            fillMatrixColumn (iMin index) (nValues - 1) index acc.sums acc.sumsOfSquares (Nonempty.head acc.matrix) (Nonempty.head acc.backmatrix)
     in
     result
 
 
-fillLineInMatrix : Int -> Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> a
-fillLineInMatrix i jHigh jLow previousLine sums sumsOfSquares =
+fillMatrixColumn : Int -> Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> MatrixLine -> BacktrackMatrixLine -> ( Float, Int )
+fillMatrixColumn iMin iMax cluster sums sumsOfSquares previousMatrixLine previousBacktrackMatrixLine =
     let
-        sji j =
-            ssq j i sums sumsOfSquares
+        i =
+            floor ((iMin + iMax |> toFloat) / 2)
 
-        sjLowi =
-            ssq jLow i sums sumsOfSquares
+        initOutM =
+            Nonempty.get (i - 1) previousMatrixLine
 
-        ssqj j =
-            sji j + Nonempty.get (j - 1) previousLine
+        initOutBM =
+            i
 
-        doStuff acc j newValue =
-            if sji j + Nonempty.get (jLow - 1) previousLine >= newValue then
-                acc
+        low =
+            max cluster (Nonempty.get i previousBacktrackMatrixLine)
 
-            else
-                acc
-
-        newLine =
-            List.foldr identity (List.range jHigh jLow)
+        high =
+            i - 1
     in
-    Debug.todo ""
+    if iMin > iMax then
+        ( initOutM, initOutBM )
+
+    else
+        converge i low high sums sumsOfSquares previousMatrixLine
 
 
-converge : Int -> Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> ( Float, Int )
-converge i low high sums sumsOfSquares previousLine =
+converge : Int -> Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> MatrixLine -> ( Float, Int )
+converge i low high sums sumsOfSquares previousMatrixLine =
     let
         sji j =
             ssq j i sums sumsOfSquares
@@ -201,13 +203,13 @@ converge i low high sums sumsOfSquares previousLine =
             ssq lowIndex i sums sumsOfSquares
 
         ssqjLow j lowIndex =
-            sjLowi lowIndex + Nonempty.get (lowIndex - 1) previousLine
+            sjLowi lowIndex + Nonempty.get (lowIndex - 1) previousMatrixLine
 
         ssqj j =
-            sji j + Nonempty.get (j - 1) previousLine
+            sji j + Nonempty.get (j - 1) previousMatrixLine
 
         calcMatrixAndBacktrackMatrix ( j, lowIndex ) ( done, m, bm ) =
-            if (sji j + Nonempty.get (lowIndex - 1) previousLine) >= m then
+            if (sji j + Nonempty.get (lowIndex - 1) previousMatrixLine) >= m then
                 ( True, m, bm )
 
             else if ssqjLow j lowIndex < m then
@@ -220,7 +222,7 @@ converge i low high sums sumsOfSquares previousLine =
                 ( done, m, bm )
 
         startM =
-            Nonempty.get (i - 1) previousLine
+            Nonempty.get (i - 1) previousMatrixLine
 
         startBm =
             i
