@@ -24,6 +24,16 @@ type alias CkFirstRow =
     }
 
 
+type alias CkRest =
+    { sums : Array.Array Float
+    , sumsOfSquares : Array.Array Float
+    , matrix : Array.Array MatrixLine
+    , previousMatrix : MatrixLine
+    , backmatrix : Array.Array BacktrackMatrixLine
+    , previousBackmatrix : BacktrackMatrixLine
+    }
+
+
 type alias CkResult =
     { sums : Array.Array Float
     , sumsOfSquares : Array.Array Float
@@ -97,8 +107,8 @@ fillMatrices scale result =
     Debug.todo ""
 
 
-firstLine : Analyze.Scale -> CkResult -> CkResult
-firstLine scale result =
+firstLine : Int -> Analyze.Scale -> CkRest
+firstLine bins scale =
     let
         nValues =
             scale.count
@@ -136,12 +146,19 @@ firstLine scale result =
 
         firstRow =
             List.foldl calc defaultCkFirstRow (Nonempty.tail scale.values)
+
+        defaultMatrix =
+            makeMatrix bins nValues (always 0.0)
+
+        defaultBackmatrix =
+            makeMatrix bins nValues (always 0)
     in
-    { result
-        | sums = firstRow.sums
-        , sumsOfSquares = firstRow.sumsOfSquares
-        , matrix = Array.set 0 firstRow.firstMatrixRow result.matrix
-        , backmatrix = Array.set 0 firstRow.firstBackmatrixRow result.backmatrix
+    { sums = firstRow.sums
+    , sumsOfSquares = firstRow.sumsOfSquares
+    , matrix = Array.set 0 firstRow.firstMatrixRow defaultMatrix
+    , previousMatrix = firstRow.firstMatrixRow
+    , backmatrix = Array.set 0 firstRow.firstBackmatrixRow defaultBackmatrix
+    , previousBackmatrix = firstRow.firstBackmatrixRow
     }
 
 
