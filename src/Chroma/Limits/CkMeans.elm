@@ -1,4 +1,4 @@
-module Chroma.Limits.CkMeans exposing (converge, defaultResult, firstLine, getValues, limit)
+module Chroma.Limits.CkMeans exposing (converge, defaultResult, fillRestOfMatrix, firstLine, getValues, limit)
 
 import Array as Array
 import Chroma.Limits.Analyze as Analyze
@@ -72,19 +72,19 @@ limit bins scale =
         Debug.todo ""
 
 
-ssq : Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Float
+ssq : Int -> Int -> Array.Array Float -> Array.Array Float -> Float
 ssq j i sums sumsOfSquares =
     let
         sji =
             if j > 0 then
                 let
                     muji =
-                        Nonempty.get i sums + Nonempty.get (j - 1) sums / (i - j + 1 |> toFloat)
+                        (Array.get i sums |> Maybe.withDefault 0) + (Array.get (j - 1) sums |> Maybe.withDefault 0) / (i - j + 1 |> toFloat)
                 in
-                Nonempty.get i sumsOfSquares - Nonempty.get (j - 1) sumsOfSquares - (i - j + 1 |> toFloat) * muji * muji
+                (Array.get i sumsOfSquares |> Maybe.withDefault 0) - ((Array.get (j - 1) sumsOfSquares |> Maybe.withDefault 0) - (i - j + 1 |> toFloat)) * muji * muji
 
             else
-                Nonempty.get i sumsOfSquares - (Nonempty.get i sums * Nonempty.get i sums) / (i + 1 |> toFloat)
+                (Array.get i sumsOfSquares |> Maybe.withDefault 0) - ((Array.get i sums |> Maybe.withDefault 0) * (Array.get i sums |> Maybe.withDefault 0)) / (i + 1 |> toFloat)
     in
     if sji < 0 then
         0
@@ -183,8 +183,8 @@ firstLineSumSumSquareAndSsq shift i data previousSum previousSumSquare =
     { sum = sum, sumOfSquare = sumSquare, element = newSsq, backtrackElement = backtrack }
 
 
-fillRestOfMatrix : Analyze.Scale -> CkResult -> CkResult
-fillRestOfMatrix scale result =
+fillRestOfMatrix : Analyze.Scale -> CkRest -> CkResult
+fillRestOfMatrix scale rest =
     let
         cluster =
             Nonempty.Nonempty 1 (List.range 2 (nValues - 1))
@@ -200,57 +200,77 @@ fillRestOfMatrix scale result =
                 nValues - 1
 
         callFill index acc =
-            fillMatrixColumn (iMin index) (nValues - 1) index acc.sums acc.sumsOfSquares (Nonempty.head acc.matrix) (Nonempty.head acc.backmatrix)
+            fillMatrixColumn (iMin index) (nValues - 1) index acc
+
+        calcResult =
+            Nonempty.foldl callFill rest cluster
     in
-    result
+    { sums = rest.sums, sumsOfSquares = rest.sumsOfSquares, matrix = calcResult.matrix, backmatrix = calcResult.backmatrix }
 
 
-fillMatrixColumn : Int -> Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> MatrixLine -> BacktrackMatrixLine -> ( Float, Int )
-fillMatrixColumn iMin iMax cluster sums sumsOfSquares previousMatrixLine previousBacktrackMatrixLine =
+fillMatrixColumn : Int -> Int -> Int -> CkRest -> CkRest
+fillMatrixColumn iMin iMax cluster rest =
     let
         i =
             floor ((iMin + iMax |> toFloat) / 2)
 
-        initOutM =
-            Array.get (i - 1) previousMatrixLine |> Maybe.withDefault 0
-
-        initOutBM =
-            i
-
         low =
-            max cluster (Array.get i previousBacktrackMatrixLine |> Maybe.withDefault 0)
+            max cluster (Array.get i rest.previousBackmatrix |> Maybe.withDefault 0)
 
         high =
             i - 1
     in
     if iMin > iMax then
-        ( initOutM, initOutBM )
+        rest
 
     else
-        converge i low high sums sumsOfSquares previousMatrixLine
+        let
+            ( outM, outBm ) =
+                converge i low high rest
+
+            newMatrixLine index value arr =
+                Array.get index arr |> Maybe.andThen (\x -> Array.set i value x |> (\y -> Array.set cluster y arr) |> Just)
+
+            newMatrix index value arr =
+                Maybe.withDefault arr (newMatrixLine index value arr)
+
+            firstRest =
+                { rest | matrix = newMatrix cluster outM rest.matrix, backmatrix = newMatrix cluster outBm rest.backmatrix }
+
+            lessMax =
+                fillMatrixColumn iMin (iMax - 1) cluster firstRest
+
+            moreMin =
+                fillMatrixColumn (iMin + 1) iMax cluster firstRest
+        in
+        moreMin
 
 
-converge : Int -> Int -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> MatrixLine -> ( Float, Int )
-converge i low high sums sumsOfSquares previousMatrixLine =
+converge : Int -> Int -> Int -> CkRest -> ( Float, Int )
+converge i low high rest =
     let
         sji j =
-            ssq j i sums sumsOfSquares
+            ssq j i rest.sums rest.sumsOfSquares
 
         sjLowi lowIndex =
-            ssq lowIndex i sums sumsOfSquares
-
-        ssqjLow j lowIndex =
-            sjLowi lowIndex + (Array.get (lowIndex - 1) previousMatrixLine |> Maybe.withDefault 0)
+            ssq lowIndex i rest.sums rest.sumsOfSquares
 
         ssqj j =
-            sji j + (Array.get (j - 1) previousMatrixLine |> Maybe.withDefault 0)
+            sji j + (Array.get (j - 1) rest.previousMatrix |> Maybe.withDefault 0)
 
         calcMatrixAndBacktrackMatrix ( j, lowIndex ) ( done, m, bm ) =
-            if (sji j + (Array.get (lowIndex - 1) previousMatrixLine |> Maybe.withDefault 0)) >= m then
+            let
+                previousMatrixValue =
+                    Array.get (lowIndex - 1) rest.previousMatrix |> Maybe.withDefault 0
+
+                ssqjLow =
+                    sjLowi lowIndex + previousMatrixValue
+            in
+            if (sji j + previousMatrixValue) >= m then
                 ( True, m, bm )
 
-            else if ssqjLow j lowIndex < m then
-                ( False, ssqjLow j lowIndex, lowIndex )
+            else if ssqjLow < m then
+                ( False, ssqjLow, lowIndex )
 
             else if ssqj j < m then
                 ( False, ssqj j, j )
@@ -259,7 +279,7 @@ converge i low high sums sumsOfSquares previousMatrixLine =
                 ( done, m, bm )
 
         startM =
-            Array.get (i - 1) previousMatrixLine |> Maybe.withDefault 0
+            Array.get (i - 1) rest.previousMatrix |> Maybe.withDefault 0
 
         startBm =
             i
