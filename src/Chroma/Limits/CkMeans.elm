@@ -1,5 +1,6 @@
-module Chroma.Limits.CkMeans exposing (converge, firstLine, getValues, limit)
+module Chroma.Limits.CkMeans exposing (converge, defaultResult, firstLine, getValues, limit)
 
+import Array as Array
 import Chroma.Limits.Analyze as Analyze
 import List.Nonempty as Nonempty
 
@@ -13,9 +14,9 @@ type alias CkElement =
 
 
 type alias CkFirstRow =
-    { sums : List Float
+    { sums : Array.Array Float
     , previousSum : Float
-    , sumsOfSquares : List Float
+    , sumsOfSquares : Array.Array Float
     , previousSumsOfSquares : Float
     , firstMatrixRow : MatrixLine
     , firstBackmatrixRow : BacktrackMatrixLine
@@ -24,19 +25,28 @@ type alias CkFirstRow =
 
 
 type alias CkResult =
-    { sums : Nonempty.Nonempty Float
-    , sumsOfSquares : Nonempty.Nonempty Float
-    , matrix : Nonempty.Nonempty MatrixLine
-    , backmatrix : Nonempty.Nonempty BacktrackMatrixLine
+    { sums : Array.Array Float
+    , sumsOfSquares : Array.Array Float
+    , matrix : Array.Array MatrixLine
+    , backmatrix : Array.Array BacktrackMatrixLine
+    }
+
+
+defaultResult : Int -> Int -> CkResult
+defaultResult bins nValues =
+    { sums = Array.empty
+    , sumsOfSquares = Array.empty
+    , matrix = makeMatrix bins nValues (always 0.0)
+    , backmatrix = makeMatrix bins nValues (always 0)
     }
 
 
 type alias BacktrackMatrixLine =
-    Nonempty.Nonempty Int
+    Array.Array Int
 
 
 type alias MatrixLine =
-    Nonempty.Nonempty Float
+    Array.Array Float
 
 
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
@@ -73,13 +83,22 @@ ssq j i sums sumsOfSquares =
         sji
 
 
-fillMatrices : Analyze.Scale -> CkResult
-fillMatrices =
+makeMatrix : Int -> Int -> (Int -> a) -> Array.Array (Array.Array a)
+makeMatrix cols rows f =
+    let
+        newRow =
+            Array.initialize rows f
+    in
+    Array.initialize cols (always newRow)
+
+
+fillMatrices : Analyze.Scale -> CkResult -> CkResult
+fillMatrices scale result =
     Debug.todo ""
 
 
-firstLine : Analyze.Scale -> CkResult
-firstLine scale =
+firstLine : Analyze.Scale -> CkResult -> CkResult
+firstLine scale result =
     let
         nValues =
             scale.count
@@ -91,37 +110,38 @@ firstLine scale =
             firstLineSumSumSquareAndSsq shift 0 (Nonempty.head scale.values) 0 0
 
         defaultCkFirstRow =
-            { sums = []
+            { sums = Array.initialize nValues (always firstCkElement.sum)
             , previousSum = firstCkElement.sum
-            , sumsOfSquares = []
+            , sumsOfSquares = Array.initialize nValues (always firstCkElement.sumOfSquare)
             , previousSumsOfSquares = firstCkElement.sumOfSquare
-            , firstMatrixRow = []
-            , firstBackmatrixRow = []
+            , firstMatrixRow = Array.initialize nValues (always 0)
+            , firstBackmatrixRow = Array.initialize nValues (always 0)
             , count = 1
             }
 
         calc data acc =
             let
-                result =
+                tmpResult =
                     firstLineSumSumSquareAndSsq shift acc.count data acc.previousSum acc.previousSumsOfSquares
             in
             { acc
-                | sums = result.sum :: acc.sums
-                , previousSum = result.sum
-                , sumsOfSquares = result.sumOfSquare :: acc.sumsOfSquares
-                , previousSumsOfSquares = result.sumOfSquare
-                , firstMatrixRow = result.element :: acc.firstMatrixRow
-                , firstBackmatrixRow = result.backtrackElement :: acc.firstBackmatrixRow
+                | sums = Array.set acc.count tmpResult.sum acc.sums
+                , previousSum = tmpResult.sum
+                , sumsOfSquares = Array.set acc.count tmpResult.sumOfSquare acc.sumsOfSquares
+                , previousSumsOfSquares = tmpResult.sumOfSquare
+                , firstMatrixRow = Array.set acc.count tmpResult.element acc.firstMatrixRow
+                , firstBackmatrixRow = Array.set acc.count tmpResult.backtrackElement acc.firstBackmatrixRow
                 , count = acc.count + 1
             }
 
         firstRow =
             List.foldl calc defaultCkFirstRow (Nonempty.tail scale.values)
     in
-    { sums = Nonempty.Nonempty firstCkElement.sum (List.reverse firstRow.sums)
-    , sumsOfSquares = Nonempty.Nonempty firstCkElement.sumOfSquare (List.reverse firstRow.sumsOfSquares)
-    , matrix = Nonempty.Nonempty (Nonempty.Nonempty firstCkElement.element (List.reverse firstRow.firstMatrixRow)) []
-    , backmatrix = Nonempty.Nonempty (Nonempty.Nonempty firstCkElement.backtrackElement (List.reverse firstRow.firstBackmatrixRow)) []
+    { result
+        | sums = firstRow.sums
+        , sumsOfSquares = firstRow.sumsOfSquares
+        , matrix = Array.set 0 firstRow.firstMatrixRow result.matrix
+        , backmatrix = Array.set 0 firstRow.firstBackmatrixRow result.backmatrix
     }
 
 
@@ -146,8 +166,8 @@ firstLineSumSumSquareAndSsq shift i data previousSum previousSumSquare =
     { sum = sum, sumOfSquare = sumSquare, element = newSsq, backtrackElement = backtrack }
 
 
-fillMatrix : Analyze.Scale -> CkResult -> CkResult
-fillMatrix scale result =
+fillRestOfMatrix : Analyze.Scale -> CkResult -> CkResult
+fillRestOfMatrix scale result =
     let
         cluster =
             Nonempty.Nonempty 1 (List.range 2 (nValues - 1))
@@ -175,13 +195,13 @@ fillMatrixColumn iMin iMax cluster sums sumsOfSquares previousMatrixLine previou
             floor ((iMin + iMax |> toFloat) / 2)
 
         initOutM =
-            Nonempty.get (i - 1) previousMatrixLine
+            Array.get (i - 1) previousMatrixLine |> Maybe.withDefault 0
 
         initOutBM =
             i
 
         low =
-            max cluster (Nonempty.get i previousBacktrackMatrixLine)
+            max cluster (Array.get i previousBacktrackMatrixLine |> Maybe.withDefault 0)
 
         high =
             i - 1
@@ -203,13 +223,13 @@ converge i low high sums sumsOfSquares previousMatrixLine =
             ssq lowIndex i sums sumsOfSquares
 
         ssqjLow j lowIndex =
-            sjLowi lowIndex + Nonempty.get (lowIndex - 1) previousMatrixLine
+            sjLowi lowIndex + (Array.get (lowIndex - 1) previousMatrixLine |> Maybe.withDefault 0)
 
         ssqj j =
-            sji j + Nonempty.get (j - 1) previousMatrixLine
+            sji j + (Array.get (j - 1) previousMatrixLine |> Maybe.withDefault 0)
 
         calcMatrixAndBacktrackMatrix ( j, lowIndex ) ( done, m, bm ) =
-            if (sji j + Nonempty.get (lowIndex - 1) previousMatrixLine) >= m then
+            if (sji j + (Array.get (lowIndex - 1) previousMatrixLine |> Maybe.withDefault 0)) >= m then
                 ( True, m, bm )
 
             else if ssqjLow j lowIndex < m then
@@ -222,7 +242,7 @@ converge i low high sums sumsOfSquares previousMatrixLine =
                 ( done, m, bm )
 
         startM =
-            Nonempty.get (i - 1) previousMatrixLine
+            Array.get (i - 1) previousMatrixLine |> Maybe.withDefault 0
 
         startBm =
             i
