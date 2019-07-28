@@ -303,36 +303,37 @@ converge i low high startValue rest =
                 sjij =
                     sji j
 
-                ssqj =
-                    sjij + (Array.get (j - 1) rest.previousMatrix |> Maybe.withDefault 0)
-
                 previousMatrixValue =
                     Array.get (lowIndex - 1) rest.previousMatrix |> Maybe.withDefault 0
-
-                sjLowi =
-                    ssq lowIndex i rest.sums rest.sumsOfSquares
-
-                ssqjLow =
-                    sjLowi + previousMatrixValue
-
-                ( tmpM, tmpBm ) =
-                    if ssqjLow < m then
-                        ( ssqjLow, lowIndex )
-
-                    else
-                        ( m, bm )
-
-                ( newM, newBm ) =
-                    if ssqj < tmpM then
-                        ( ssqj, j )
-
-                    else
-                        ( tmpM, tmpBm )
             in
-            if (sjij + previousMatrixValue) >= m then
+            if done || (sjij + previousMatrixValue >= m) then
                 ( True, m, bm )
 
             else
+                let
+                    ssqj =
+                        sjij + (Array.get (j - 1) rest.previousMatrix |> Maybe.withDefault 0)
+
+                    sjLowi =
+                        ssq lowIndex i rest.sums rest.sumsOfSquares
+
+                    ssqjLow =
+                        sjLowi + previousMatrixValue
+
+                    ( tmpM, tmpBm ) =
+                        if ssqjLow < m then
+                            ( ssqjLow, lowIndex )
+
+                        else
+                            ( m, bm )
+
+                    ( newM, newBm ) =
+                        if ssqj < tmpM then
+                            ( ssqj, j )
+
+                        else
+                            ( tmpM, tmpBm )
+                in
                 ( False, newM, newBm )
 
         values =
@@ -354,6 +355,6 @@ getValues low high =
             List.range low (floor mid)
 
         highMid =
-            List.range (ceiling mid) high |> List.reverse
+            List.range (ceiling mid) high
     in
     List.map2 Tuple.pair lowMid highMid
