@@ -79,7 +79,7 @@ ssq j i sums sumsOfSquares =
             if j > 0 then
                 let
                     muji =
-                        (Array.get i sums |> Maybe.withDefault 0) + (Array.get (j - 1) sums |> Maybe.withDefault 0) / (i - j + 1 |> toFloat)
+                        ((Array.get i sums |> Maybe.withDefault 0) - (Array.get (j - 1) sums |> Maybe.withDefault 0)) / (i - j + 1 |> toFloat)
                 in
                 (Array.get i sumsOfSquares |> Maybe.withDefault 0) - (Array.get (j - 1) sumsOfSquares |> Maybe.withDefault 0) - (i - j + 1 |> toFloat) * muji * muji
 
@@ -183,27 +183,28 @@ firstLineSumSumSquareAndSsq shift i data previousSum previousSumSquare =
     { sum = sum, sumOfSquare = sumSquare, element = newSsq, backtrackElement = backtrack }
 
 
-fillRestOfMatrix : Analyze.Scale -> CkRest -> CkResult
-fillRestOfMatrix scale rest =
+fillRestOfMatrix : Int -> Analyze.Scale -> CkRest -> CkResult
+fillRestOfMatrix bins scale rest =
     let
-        nValues =
-            scale.count
-
         cluster =
-            Nonempty.Nonempty 1 (List.range 2 (nValues - 1))
+            List.range 1 (bins - 1)
 
         iMin i =
-            if i < (nValues - 1) then
+            if i < (bins - 1) then
                 i
 
             else
-                nValues - 1
+                scale.count - 1
 
         callFill index acc =
-            fillMatrixColumn (iMin index) (nValues - 1) index acc
+            let
+                next =
+                    fillMatrixColumn (iMin index) (scale.count - 1) index acc
+            in
+            next
 
         calcResult =
-            Nonempty.foldl callFill rest cluster
+            List.foldl callFill rest cluster
     in
     { sums = rest.sums, sumsOfSquares = rest.sumsOfSquares, matrix = calcResult.matrix, backmatrix = calcResult.backmatrix }
 
@@ -270,19 +271,19 @@ fillMatrixColumn iMin iMax cluster rest =
             ( outM, outBm ) =
                 converge i low high startMatrixValue initRest
 
-            firstRest =
+            resultRest =
                 { initRest
                     | matrix = newMatrix cluster outM initRest.matrix
                     , backmatrix = newMatrix cluster outBm initRest.backmatrix
                 }
 
-            lessMax =
-                fillMatrixColumn iMin (i - 1) cluster firstRest
+            maxOne =
+                fillMatrixColumn iMin (i - 1) cluster resultRest
 
-            moreMin =
-                fillMatrixColumn (i + 1) iMax cluster lessMax
+            minOne =
+                fillMatrixColumn (i + 1) iMax cluster maxOne
         in
-        moreMin
+        minOne
 
 
 converge : Int -> Int -> Int -> Float -> CkRest -> ( Float, Int )
@@ -332,7 +333,7 @@ converge i low high startValue rest =
             getValues low high
 
         ( _, outM, outBm ) =
-            List.foldr calcMatrixAndBacktrackMatrix ( False, startValue, i ) values
+            List.foldl calcMatrixAndBacktrackMatrix ( False, startValue, i ) values
     in
     ( outM, outBm )
 
