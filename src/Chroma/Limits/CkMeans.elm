@@ -81,7 +81,7 @@ ssq j i sums sumsOfSquares =
                     muji =
                         (Array.get i sums |> Maybe.withDefault 0) + (Array.get (j - 1) sums |> Maybe.withDefault 0) / (i - j + 1 |> toFloat)
                 in
-                (Array.get i sumsOfSquares |> Maybe.withDefault 0) - ((Array.get (j - 1) sumsOfSquares |> Maybe.withDefault 0) - (i - j + 1 |> toFloat)) * muji * muji
+                (Array.get i sumsOfSquares |> Maybe.withDefault 0) - (Array.get (j - 1) sumsOfSquares |> Maybe.withDefault 0) - (i - j + 1 |> toFloat) * muji * muji
 
             else
                 (Array.get i sumsOfSquares |> Maybe.withDefault 0) - ((Array.get i sums |> Maybe.withDefault 0) * (Array.get i sums |> Maybe.withDefault 0)) / (i + 1 |> toFloat)
@@ -186,11 +186,11 @@ firstLineSumSumSquareAndSsq shift i data previousSum previousSumSquare =
 fillRestOfMatrix : Analyze.Scale -> CkRest -> CkResult
 fillRestOfMatrix scale rest =
     let
-        cluster =
-            Nonempty.Nonempty 1 (List.range 2 (nValues - 1))
-
         nValues =
             scale.count
+
+        cluster =
+            Nonempty.Nonempty 1 (List.range 2 (nValues - 1))
 
         iMin i =
             if i < (nValues - 1) then
@@ -210,23 +210,21 @@ fillRestOfMatrix scale rest =
 
 fillMatrixColumn : Int -> Int -> Int -> CkRest -> CkRest
 fillMatrixColumn iMin iMax cluster rest =
-    let
-        i =
-            floor ((iMin + iMax |> toFloat) / 2)
-
-        low =
-            max cluster (Array.get i rest.previousBackmatrix |> Maybe.withDefault 0)
-
-        high =
-            i - 1
-    in
     if iMin > iMax then
         rest
 
     else
         let
-            ( outM, outBm ) =
-                converge i low high rest
+            i =
+                floor ((iMin + iMax |> toFloat) / 2)
+
+            getOrZero firstIndex secondIndex arrayOfArray =
+                case Array.get firstIndex arrayOfArray of
+                    Nothing ->
+                        0
+
+                    Just line ->
+                        Array.get secondIndex line |> Maybe.withDefault 0
 
             newMatrixLine index value arr =
                 Array.get index arr |> Maybe.andThen (\x -> Array.set i value x |> (\y -> Array.set cluster y arr) |> Just)
@@ -234,61 +232,107 @@ fillMatrixColumn iMin iMax cluster rest =
             newMatrix index value arr =
                 Maybe.withDefault arr (newMatrixLine index value arr)
 
+            startMatrixValue =
+                Array.get (i - 1) rest.previousMatrix |> Maybe.withDefault 0
+
+            startMatrix =
+                newMatrix cluster startMatrixValue rest.matrix
+
+            startBackMatrix =
+                newMatrix cluster i rest.backmatrix
+
+            initRest =
+                { rest
+                    | matrix = startMatrix
+                    , backmatrix = startBackMatrix
+                }
+
+            prevLow =
+                if iMin > cluster then
+                    max cluster (getOrZero cluster (iMin - 1) initRest.backmatrix)
+
+                else
+                    cluster
+
+            low =
+                max prevLow (Array.get i initRest.previousBackmatrix |> Maybe.withDefault 0)
+
+            prevHigh =
+                i - 1
+
+            high =
+                if iMax < Array.length rest.matrix - 1 then
+                    min prevHigh (getOrZero cluster (iMax + 1) initRest.backmatrix)
+
+                else
+                    prevHigh
+
+            ( outM, outBm ) =
+                converge i low high startMatrixValue initRest
+
             firstRest =
-                { rest | matrix = newMatrix cluster outM rest.matrix, backmatrix = newMatrix cluster outBm rest.backmatrix }
+                { initRest
+                    | matrix = newMatrix cluster outM initRest.matrix
+                    , backmatrix = newMatrix cluster outBm initRest.backmatrix
+                }
 
             lessMax =
-                fillMatrixColumn iMin (iMax - 1) cluster firstRest
+                fillMatrixColumn iMin (i - 1) cluster firstRest
 
             moreMin =
-                fillMatrixColumn (iMin + 1) iMax cluster firstRest
+                fillMatrixColumn (i + 1) iMax cluster lessMax
         in
         moreMin
 
 
-converge : Int -> Int -> Int -> CkRest -> ( Float, Int )
-converge i low high rest =
+converge : Int -> Int -> Int -> Float -> CkRest -> ( Float, Int )
+converge i low high startValue rest =
     let
         sji j =
             ssq j i rest.sums rest.sumsOfSquares
 
-        sjLowi lowIndex =
-            ssq lowIndex i rest.sums rest.sumsOfSquares
-
-        ssqj j =
-            sji j + (Array.get (j - 1) rest.previousMatrix |> Maybe.withDefault 0)
-
         calcMatrixAndBacktrackMatrix ( j, lowIndex ) ( done, m, bm ) =
             let
+                sjij =
+                    sji j
+
+                ssqj =
+                    sjij + (Array.get (j - 1) rest.previousMatrix |> Maybe.withDefault 0)
+
                 previousMatrixValue =
                     Array.get (lowIndex - 1) rest.previousMatrix |> Maybe.withDefault 0
 
+                sjLowi =
+                    ssq lowIndex i rest.sums rest.sumsOfSquares
+
                 ssqjLow =
-                    sjLowi lowIndex + previousMatrixValue
+                    sjLowi + previousMatrixValue
+
+                ( tmpM, tmpBm ) =
+                    if ssqjLow < m then
+                        ( ssqjLow, lowIndex )
+
+                    else
+                        ( m, bm )
+
+                ( newM, newBm ) =
+                    if ssqj < tmpM then
+                        ( ssqj, j )
+
+                    else
+                        ( tmpM, tmpBm )
             in
-            if (sji j + previousMatrixValue) >= m then
+            if (sjij + previousMatrixValue) >= m then
                 ( True, m, bm )
 
-            else if ssqjLow < m then
-                ( False, ssqjLow, lowIndex )
-
-            else if ssqj j < m then
-                ( False, ssqj j, j )
-
             else
-                ( done, m, bm )
-
-        startM =
-            Array.get (i - 1) rest.previousMatrix |> Maybe.withDefault 0
-
-        startBm =
-            i
+                ( False, newM, newBm )
 
         values =
             getValues low high
 
         ( _, outM, outBm ) =
-            List.foldr calcMatrixAndBacktrackMatrix ( False, startM, startBm ) values
+            List.foldr calcMatrixAndBacktrackMatrix ( False, startValue, i ) values
     in
     ( outM, outBm )
 
