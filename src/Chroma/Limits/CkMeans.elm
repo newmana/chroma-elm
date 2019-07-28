@@ -200,8 +200,14 @@ fillRestOfMatrix bins scale rest =
             let
                 next =
                     fillMatrixColumn (iMin index) (scale.count - 1) index acc
+
+                setPrevious =
+                    { next
+                        | previousMatrix = Array.get index next.matrix |> Maybe.withDefault next.previousMatrix
+                        , previousBackmatrix = Array.get index next.backmatrix |> Maybe.withDefault next.previousBackmatrix
+                    }
             in
-            next
+            setPrevious
 
         calcResult =
             List.foldl callFill rest cluster
