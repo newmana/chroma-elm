@@ -392,4 +392,4 @@ getValues low high =
         highMid =
             List.range (ceiling mid) high
     in
-    List.map2 Tuple.pair lowMid highMid
+    List.map2 Tuple.pair highMid lowMid
