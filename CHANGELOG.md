@@ -1,9 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [10.0.0] - 2019-07-
+### Added
+- Limits - CkMean, Equal and Quantile.
+- Luminance.
+- Average and Mix.
+### Fixed
+- CMKY interpolation.
+### Changed
+- Alpha now part of the name of colour spaces that support it.  
+
 ## [9.0.0] - 2019-07-06
 ### Added
-- Added full HSLA support.. 
+- Added full HSLA support. 
 
 ## [8.0.0] - 2019-07-03
 ### Added

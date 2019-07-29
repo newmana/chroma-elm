@@ -1,5 +1,6 @@
 module Chroma.Limits.CkMeans exposing
-    ( converge
+    ( binned
+    , converge
     , defaultResult
     , fillRestOfMatrix
     , firstLine
@@ -67,8 +68,68 @@ type alias MatrixLine =
     Array.Array Float
 
 
-limit : Int -> Analyze.Scale -> Array.Array (Array.Array Float)
+limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
+    let
+        numberUnique =
+            Nonempty.uniq scale.values |> Nonempty.length
+
+        firstNonEmpty =
+            Nonempty.Nonempty (Nonempty.get 0 scale.values) []
+    in
+    if numberUnique == 1 then
+        firstNonEmpty
+
+    else
+        let
+            result =
+                firstLine bins scale |> fillRestOfMatrix bins scale
+
+            newRight c left =
+                if c > 0 then
+                    left - 1
+
+                else
+                    scale.count - 1
+
+            firstRight =
+                newRight 0 0
+
+            sliceSorted acc cluster right backmatrix =
+                let
+                    left =
+                        Array.get cluster backmatrix |> Maybe.andThen (\x -> Array.get right x) |> Maybe.withDefault 0
+
+                    slicedResult =
+                        Nonempty.get left scale.values
+
+                    addOrContinue =
+                        case acc of
+                            [] ->
+                                slicedResult :: acc
+
+                            head :: _ ->
+                                if head == slicedResult then
+                                    acc
+
+                                else
+                                    slicedResult :: acc
+                in
+                ( addOrContinue, newRight cluster left )
+
+            ( clusters, _ ) =
+                List.foldr (\cluster ( acc, right ) -> sliceSorted acc cluster right result.backmatrix) ( [], firstRight ) (getMatrixIndexes bins)
+        in
+        case clusters of
+            [] ->
+                firstNonEmpty
+
+            head :: tail ->
+                Nonempty.Nonempty head tail
+
+
+binned : Int -> Analyze.Scale -> Array.Array (Array.Array Float)
+binned bins scale =
     let
         numberUnique =
             Nonempty.uniq scale.values |> Nonempty.length
