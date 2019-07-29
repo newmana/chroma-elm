@@ -1,4 +1,12 @@
-module Chroma.Limits.CkMeans exposing (converge, defaultResult, fillRestOfMatrix, firstLine, getValues, limit)
+module Chroma.Limits.CkMeans exposing
+    ( converge
+    , defaultResult
+    , fillRestOfMatrix
+    , firstLine
+    , getMatrixIndexes
+    , getValues
+    , limit
+    )
 
 import Array as Array
 import Chroma.Limits.Analyze as Analyze
@@ -59,17 +67,49 @@ type alias MatrixLine =
     Array.Array Float
 
 
-limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
+limit : Int -> Analyze.Scale -> Array.Array (Array.Array Float)
 limit bins scale =
     let
         numberUnique =
             Nonempty.uniq scale.values |> Nonempty.length
     in
     if numberUnique == 1 then
-        scale.values
+        scale.values |> Nonempty.toList |> Array.fromList |> (\x -> Array.push x Array.empty)
 
     else
-        Debug.todo ""
+        let
+            result =
+                firstLine bins scale |> fillRestOfMatrix bins scale
+
+            newRight c left =
+                if c > 0 then
+                    left - 1
+
+                else
+                    scale.count - 1
+
+            firstRight =
+                newRight 0 0
+
+            sliceSorted acc cluster right backmatrix =
+                let
+                    left =
+                        Array.get cluster backmatrix |> Maybe.andThen (\x -> Array.get right x) |> Maybe.withDefault 0
+
+                    slicedResult =
+                        Array.map (\i -> Nonempty.get i scale.values) (List.range left right |> Array.fromList)
+                in
+                ( Array.set cluster slicedResult acc, newRight cluster left )
+
+            ( clusters, _ ) =
+                List.foldr (\cluster ( acc, right ) -> sliceSorted acc cluster right result.backmatrix) ( Array.initialize bins (always Array.empty), firstRight ) (getMatrixIndexes bins)
+        in
+        clusters
+
+
+getMatrixIndexes : Int -> List Int
+getMatrixIndexes bins =
+    List.range 0 (bins - 1)
 
 
 ssq : Int -> Int -> Array.Array Float -> Array.Array Float -> Float
@@ -100,11 +140,6 @@ makeMatrix cols rows f =
             Array.initialize rows f
     in
     Array.initialize cols (always newRow)
-
-
-fillMatrices : Analyze.Scale -> CkResult -> CkResult
-fillMatrices scale result =
-    Debug.todo ""
 
 
 firstLine : Int -> Analyze.Scale -> CkRest
