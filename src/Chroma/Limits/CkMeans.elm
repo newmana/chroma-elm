@@ -76,51 +76,31 @@ limit bins scale =
 
         firstNonEmpty =
             Nonempty.Nonempty (Nonempty.get 0 scale.values) []
+
+        addOrContinue acc v =
+            case acc of
+                [] ->
+                    v :: acc
+
+                head :: _ ->
+                    if head == v then
+                        acc
+
+                    else
+                        v :: acc
+
+        slicedResult left _ =
+            Nonempty.get left scale.values
     in
     if numberUnique == 1 then
         firstNonEmpty
 
     else
         let
-            result =
-                firstLine bins scale |> fillRestOfMatrix bins scale
-
-            newRight c left =
-                if c > 0 then
-                    left - 1
-
-                else
-                    scale.count - 1
-
-            firstRight =
-                newRight 0 0
-
-            sliceSorted acc cluster right backmatrix =
-                let
-                    left =
-                        Array.get cluster backmatrix |> Maybe.andThen (\x -> Array.get right x) |> Maybe.withDefault 0
-
-                    slicedResult =
-                        Nonempty.get left scale.values
-
-                    addOrContinue =
-                        case acc of
-                            [] ->
-                                slicedResult :: acc
-
-                            head :: _ ->
-                                if head == slicedResult then
-                                    acc
-
-                                else
-                                    slicedResult :: acc
-                in
-                ( addOrContinue, newRight cluster left )
-
-            ( clusters, _ ) =
-                List.foldr (\cluster ( acc, right ) -> sliceSorted acc cluster right result.backmatrix) ( [], firstRight ) (getMatrixIndexes bins)
+            ( result, _ ) =
+                genericResult [] slicedResult addOrContinue bins scale
         in
-        case clusters of
+        case result of
             [] ->
                 firstNonEmpty
 
@@ -128,44 +108,64 @@ limit bins scale =
                 Nonempty.Nonempty head tail
 
 
-binned : Int -> Analyze.Scale -> Array.Array (Array.Array Float)
+binned : Int -> Analyze.Scale -> Nonempty.Nonempty (Array.Array Float)
 binned bins scale =
     let
         numberUnique =
             Nonempty.uniq scale.values |> Nonempty.length
+
+        firstNonEmpty =
+            scale.values |> Nonempty.toList |> Array.fromList |> (\x -> Nonempty.Nonempty x [])
+
+        addOrContinue acc v =
+            v :: acc
+
+        slicedResult left right =
+            Array.map (\i -> Nonempty.get i scale.values) (List.range left right |> Array.fromList)
     in
     if numberUnique == 1 then
-        scale.values |> Nonempty.toList |> Array.fromList |> (\x -> Array.push x Array.empty)
+        firstNonEmpty
 
     else
         let
-            result =
-                firstLine bins scale |> fillRestOfMatrix bins scale
-
-            newRight c left =
-                if c > 0 then
-                    left - 1
-
-                else
-                    scale.count - 1
-
-            firstRight =
-                newRight 0 0
-
-            sliceSorted acc cluster right backmatrix =
-                let
-                    left =
-                        Array.get cluster backmatrix |> Maybe.andThen (\x -> Array.get right x) |> Maybe.withDefault 0
-
-                    slicedResult =
-                        Array.map (\i -> Nonempty.get i scale.values) (List.range left right |> Array.fromList)
-                in
-                ( Array.set cluster slicedResult acc, newRight cluster left )
-
-            ( clusters, _ ) =
-                List.foldr (\cluster ( acc, right ) -> sliceSorted acc cluster right result.backmatrix) ( Array.initialize bins (always Array.empty), firstRight ) (getMatrixIndexes bins)
+            ( result, _ ) =
+                genericResult [] slicedResult addOrContinue bins scale
         in
-        clusters
+        case result of
+            [] ->
+                firstNonEmpty
+
+            head :: tail ->
+                Nonempty.Nonempty head tail
+
+
+genericResult : List a -> (Int -> Int -> a) -> (List a -> a -> List a) -> Int -> Analyze.Scale -> ( List a, Int )
+genericResult init slicedResult addOrContinue bins scale =
+    let
+        result =
+            firstLine bins scale |> fillRestOfMatrix bins scale
+
+        newRight c left =
+            if c > 0 then
+                left - 1
+
+            else
+                scale.count - 1
+
+        firstRight =
+            newRight 0 0
+
+        sliceSorted acc cluster right backmatrix =
+            let
+                left =
+                    Array.get cluster backmatrix |> Maybe.andThen (\x -> Array.get right x) |> Maybe.withDefault 0
+            in
+            ( addOrContinue acc (slicedResult left right), newRight cluster left )
+
+        all =
+            List.foldr (\cluster ( acc, right ) -> sliceSorted acc cluster right result.backmatrix) ( init, firstRight ) (getMatrixIndexes bins)
+    in
+    all
 
 
 getMatrixIndexes : Int -> List Int
