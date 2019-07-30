@@ -28,6 +28,7 @@ type alias Data =
     , useClasses : Bool
     , colorsList : Nonempty.Nonempty Types.ExtColor
     , useOut : Bool
+    , classes : Maybe (Nonempty.Nonempty Float)
     , min : Float
     , max : Float
     , useCorrectLightness : Bool
@@ -47,6 +48,7 @@ defaultData =
     , useClasses = False
     , colorsList = Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ]
     , useOut = False
+    , classes = Nothing
     , min = 0
     , max = 1
     , useCorrectLightness = False
@@ -92,7 +94,23 @@ createData newColors data =
 {-| -}
 getColor : Data -> Float -> Types.ExtColor
 getColor data val =
-    getDirectColor data ((val - data.min) / (data.max - data.min))
+    case data.classes of
+        Nothing ->
+            getDirectColor data ((val - data.min) / (data.max - data.min))
+
+        Just c ->
+            let
+                getResult i ( done, index ) =
+                    if val >= Nonempty.get i c then
+                        ( False, index )
+
+                    else
+                        ( True, i - 1 )
+
+                ( _, loc ) =
+                    List.foldr getResult ( False, 0 ) (List.range 0 (Nonempty.length c))
+            in
+            getDirectColor data (toFloat loc / (Nonempty.length c - 2 |> toFloat))
 
 
 getDirectColor : Data -> Float -> Types.ExtColor
