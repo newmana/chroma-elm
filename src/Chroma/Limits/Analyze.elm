@@ -1,4 +1,4 @@
-module Chroma.Limits.Analyze exposing (Scale, analyze, defaultScale)
+module Chroma.Limits.Analyze exposing (Scale, analyze, defaultScale, genericLimit)
 
 import List.Nonempty as Nonempty
 
@@ -42,3 +42,16 @@ analyze data =
             Nonempty.foldl (+) 0 data
     in
     { min = Nonempty.head sorted, max = Nonempty.get -1 sorted, sum = sum, values = sorted, count = Nonempty.length data }
+
+
+genericLimit : Int -> Scale -> (Int -> Float) -> Nonempty.Nonempty Float
+genericLimit bins scale calcBin =
+    let
+        rest =
+            if bins == 1 then
+                []
+
+            else
+                List.map calcBin (1 :: List.range 2 (bins - 1))
+    in
+    Nonempty.Nonempty scale.min (rest ++ [ scale.max ])

@@ -15,12 +15,5 @@ limit bins scale =
 
         calcBin el =
             10 ^ (minLog + ((toFloat el / toFloat bins) * (maxLog - minLog)))
-
-        rest =
-            if bins == 1 then
-                []
-
-            else
-                List.map calcBin (1 :: List.range 2 (bins - 1))
     in
-    Nonempty.Nonempty scale.min (rest ++ [ scale.max ])
+    Analyze.genericLimit bins scale calcBin

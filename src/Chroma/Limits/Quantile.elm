@@ -7,10 +7,10 @@ import List.Nonempty as Nonempty
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
     let
-        getQuantile index =
+        calcBin el =
             let
                 p =
-                    ((scale.count - 1) * index |> toFloat) / toFloat bins
+                    ((scale.count - 1) * el |> toFloat) / toFloat bins
 
                 pb =
                     floor p
@@ -23,12 +23,5 @@ limit bins scale =
 
             else
                 (Nonempty.get pb scale.values * (1 - pr)) + (Nonempty.get (pb + 1) scale.values * pr)
-
-        rest =
-            if bins == 1 then
-                []
-
-            else
-                List.map (\el -> getQuantile el) (1 :: List.range 2 (bins - 1))
     in
-    Nonempty.Nonempty scale.min (rest ++ [ scale.max ])
+    Analyze.genericLimit bins scale calcBin

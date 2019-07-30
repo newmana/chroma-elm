@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [10.0.0] - 2019-07-
 ### Added
-- Limits - CkMean, Equal and Quantile.
+- Limits - CkMean, Equal, Logarithmic and Quantile.
 - Luminance.
 - Average and Mix.
 ### Fixed
