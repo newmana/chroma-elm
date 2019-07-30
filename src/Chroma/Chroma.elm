@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma
+    ( chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma
+@docs chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits
 
 
 # Helpers
@@ -21,6 +21,7 @@ import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Misc.ColorSpace as ColorSpace
 import Chroma.Interpolator as Interpolator
+import Chroma.Limits.Limits as Limits
 import Chroma.Scale as Scale
 import Chroma.Types as Types
 import List.Nonempty as Nonempty
@@ -211,6 +212,11 @@ Only supports RGBA, CYMK and LAB.
 averageChroma : Types.Mode -> Nonempty.Nonempty String -> Result String Types.ExtColor
 averageChroma mode strList =
     Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
+
+
+limits : Nonempty.Nonempty Float -> Limits.LimitMode -> Int -> Nonempty.Nonempty Float
+limits data mode bins =
+    Limits.limits data mode bins
 
 
 

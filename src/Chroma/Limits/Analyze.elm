@@ -12,12 +12,6 @@ type alias Scale =
     }
 
 
-type LimitMode
-    = CkMeans
-    | Quantile
-    | Equal
-
-
 defaultScale : Scale
 defaultScale =
     { min = 0
@@ -26,10 +20,6 @@ defaultScale =
     , values = Nonempty.Nonempty 0 [ 1 ]
     , count = 2
     }
-
-
-
---limits : Nonempty.Nonempty Float ->
 
 
 analyze : Nonempty.Nonempty Float -> Scale
