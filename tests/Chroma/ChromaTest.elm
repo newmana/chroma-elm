@@ -95,12 +95,19 @@ testScaleAndDomain =
 testScaleAndClasses : Test.Test
 testScaleAndClasses =
     let
-        ( orangeRedScale, f ) =
-            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classes 5
+        s bins =
+            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classes bins
+
+        fixed =
+            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classesWithArray (Nonempty.Nonempty 0 [ 0.3, 0.55, 0.85, 1 ])
     in
     Test.describe "scale and classes API"
-        [ Test.test "Five classes 0.1" <|
-            \_ -> Expect.equal [ "#fff7ec", "#fdd49e", "#fc8d59", "#d7301f", "#7f0000" ] (List.map (f >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
+        [ Test.test "Five classes" <|
+            \_ -> Expect.equal [ "#fff7ec", "#fdd49e", "#fc8d59", "#d7301f", "#7f0000" ] (List.map (Tuple.second (s 5) >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
+        , Test.test "Eight classes" <|
+            \_ -> Expect.equal [ "#fff7ec", "#fdcd97", "#f5764f", "#de3f2b", "#7f0000" ] (List.map (Tuple.second (s 8) >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
+        , Test.test "Fixed classes" <|
+            \_ -> Expect.equal [ "#fff7ec", "#fff7ec", "#fdc38d", "#e7533a", "#7f0000" ] (List.map (Tuple.second fixed >> ToHex.toHex) [ 0, 0.29, 0.3, 0.55, 0.85 ])
         ]
 
 
