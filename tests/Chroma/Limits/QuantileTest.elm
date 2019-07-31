@@ -11,12 +11,12 @@ import UtilTest as UtilTest
 tests : Test.Test
 tests =
     Test.describe "Quantile testing"
-        [ testEqual
+        [ testLimit
         ]
 
 
-testEqual : Test.Test
-testEqual =
+testLimit : Test.Test
+testLimit =
     Test.describe "Get quantile breaks"
         [ Test.test "2 breaks - 1,2,3,4,5,10,20,100" <|
             \_ ->

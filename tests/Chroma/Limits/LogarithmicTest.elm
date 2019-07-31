@@ -11,12 +11,12 @@ import UtilTest as UtilTest
 tests : Test.Test
 tests =
     Test.describe "Logarithmic testing"
-        [ testLogarithmic
+        [ testLimit
         ]
 
 
-testLogarithmic : Test.Test
-testLogarithmic =
+testLimit : Test.Test
+testLimit =
     Test.describe "Get logarithimic breaks"
         [ Test.test "4 breaks - 1 to 10,000" <|
             \_ ->

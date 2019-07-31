@@ -11,12 +11,12 @@ import UtilTest as UtilTest
 tests : Test.Test
 tests =
     Test.describe "Equal testing"
-        [ testEqual
+        [ testLimit
         ]
 
 
-testEqual : Test.Test
-testEqual =
+testLimit : Test.Test
+testLimit =
     Test.describe "Get equal breaks"
         [ Test.test "5 breaks - 0 to 10" <|
             \_ ->

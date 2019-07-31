@@ -7,6 +7,7 @@ import Chroma.Converter.Lab2RgbTest
 import Chroma.Converter.Lch2LabTest
 import Chroma.Converter.ToHexTest
 import Chroma.InterpolatorTest
+import Chroma.Limits.CkMeansTest
 import Chroma.Limits.EqualTest
 import Chroma.Limits.LogarithmicTest
 import Chroma.Limits.QuantileTest
@@ -31,6 +32,7 @@ all =
         , Chroma.Ops.LightnessTest.tests
         , Chroma.Ops.LuminanceTest.tests
         , Chroma.Ops.SaturateTest.tests
+        , Chroma.Limits.CkMeansTest.tests
         , Chroma.Limits.EqualTest.tests
         , Chroma.Limits.LogarithmicTest.tests
         , Chroma.Limits.QuantileTest.tests
