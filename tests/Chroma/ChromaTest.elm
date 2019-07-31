@@ -19,6 +19,7 @@ tests =
     Test.describe "Chroma API"
         [ testStringToColor
         , testScaleAndDomain
+        , testScaleAndClasses
         , testDistance
         , testPadding
         , testColors
@@ -88,6 +89,18 @@ testScaleAndDomain =
         , Test.test "Multi Domain Test Positive" <|
             \_ ->
                 Expect.equal "#afd7d4" (ToHex.toHex (g 30))
+        ]
+
+
+testScaleAndClasses : Test.Test
+testScaleAndClasses =
+    let
+        ( orangeRedScale, f ) =
+            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classes 5
+    in
+    Test.describe "scale and classes API"
+        [ Test.test "Five classes 0.1" <|
+            \_ -> Expect.equal [ "#fff7ec", "#fdd49e", "#fc8d59", "#d7301f", "#7f0000" ] (List.map (f >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
         ]
 
 

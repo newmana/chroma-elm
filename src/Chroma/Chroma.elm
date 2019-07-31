@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits
+    ( chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits
+@docs chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
 
 
 # Helpers
@@ -68,11 +68,11 @@ scaleWith data colorsList =
 {-| Return a new configuration and a function from a float to color based on the given configuration values, the given
 colors and the total number of colors (bins) to return.
 -}
-classes : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> Int -> ( Scale.Data, Float -> Types.ExtColor )
-classes data colorsList bins =
+classes : Int -> Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
+classes bins data =
     let
         newData =
-            Scale.createData colorsList data
+            Scale.createData data.colorsList data
 
         newDataWithClasses =
             let
@@ -91,14 +91,14 @@ classes data colorsList bins =
 {-| Return a new configuration and a function from a float to color based on the given configuration values, the given
 colors and a predefined set of breaks/classes.
 -}
-classesWithArray : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty Float -> ( Scale.Data, Float -> Types.ExtColor )
-classesWithArray data colorsList newClasses =
+classesWithArray : Nonempty.Nonempty Float -> Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
+classesWithArray newClasses data =
     let
         updateData =
             { data | classes = Just newClasses } |> Scale.domain newClasses
 
         newData =
-            Scale.createData colorsList updateData
+            Scale.createData data.colorsList updateData
     in
     ( newData, Scale.getColor newData )
 
