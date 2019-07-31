@@ -471,6 +471,6 @@ getValues low high =
             List.range low (floor mid)
 
         highMid =
-            List.range (ceiling mid) high
+            List.range (ceiling mid) high |> List.reverse
     in
     List.map2 Tuple.pair highMid lowMid
