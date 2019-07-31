@@ -4,6 +4,18 @@ import Chroma.Limits.Analyze as Analyze
 import List.Nonempty as Nonempty
 
 
+{-| Create equally spaced values.
+
+
+# Definition
+
+@docs limit
+
+-}
+
+
+{-| Create bins number of results using the given scale.
+-}
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
     let

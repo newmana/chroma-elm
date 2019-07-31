@@ -32,6 +32,14 @@
             "Chroma.Colors.Viridis",
             "Chroma.Colors.W3CX11"
         ],
+        "Limits": [
+            "Chroma.Limits.Limits",
+            "Chroma.Limits.Analyze",
+            "Chroma.Limits.CkMeans",
+            "Chroma.Limits.Equal",
+            "Chroma.Limits.Logarithmic",
+            "Chroma.Limits.Quantile",
+        ],
         "Operations": [
             "Chroma.Ops.Alpha",
             "Chroma.Ops.Lightness",

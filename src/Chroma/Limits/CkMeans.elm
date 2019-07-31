@@ -1,13 +1,29 @@
 module Chroma.Limits.CkMeans exposing
-    ( binned
-    , converge
-    , defaultResult
-    , fillRestOfMatrix
-    , firstLine
-    , getMatrixIndexes
-    , getValues
-    , limit
+    ( binned, limit
+    , converge, defaultResult, fillRestOfMatrix, firstLine, getMatrixIndexes, getValues
     )
+
+{-| A log linear implementation of [CkMeans](https://cran.r-project.org/web/packages/Ckmeans.1d.dp/index.html).
+It uses a divide-and-conquer algorithm to compute a row in the dynamic programming matrix in O(n lg n) time. The
+[Simple Statistic's implementation](https://simplestatistics.org/docs/#ckmeans) was used to validate this
+implementation.
+
+There is a better one (not implemented) using the [SMAWK](https://en.wikipedia.org/wiki/SMAWK_algorithm) optimisation.
+
+The limit function produces class breaks like the other implementations and binned puts all data values into their
+bins.
+
+
+# Definition
+
+@docs binned, limit
+
+
+# Helpers
+
+@docs converge, defaultResult, fillRestOfMatrix, firstLine, getMatrixIndexes, getValues
+
+-}
 
 import Array as Array
 import Chroma.Limits.Analyze as Analyze
@@ -68,6 +84,8 @@ type alias MatrixLine =
     Array.Array Float
 
 
+{-| Create up to bins number of results using the given scale.
+-}
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
     let
@@ -108,6 +126,8 @@ limit bins scale =
                 Nonempty.Nonempty head tail
 
 
+{-| Return the values in Scale into the given number of bins. For example, 1 [3,3,3,4] -> 3 bins -> [[1], [3,3,3], [4]]
+-}
 binned : Int -> Analyze.Scale -> Nonempty.Nonempty (Array.Array Float)
 binned bins scale =
     let

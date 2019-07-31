@@ -1,9 +1,20 @@
 module Chroma.Limits.Quantile exposing (limit)
 
+{-| Create groups that contain an equal number of values.
+
+
+# Definition
+
+@docs limit
+
+-}
+
 import Chroma.Limits.Analyze as Analyze
 import List.Nonempty as Nonempty
 
 
+{-| Create bins number of results using the given scale.
+-}
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
     let

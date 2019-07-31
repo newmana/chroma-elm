@@ -1,4 +1,21 @@
-module Chroma.Limits.Analyze exposing (Scale, analyze, defaultScale, genericLimit)
+module Chroma.Limits.Analyze exposing
+    ( analyze
+    , Scale, defaultScale, genericLimit
+    )
+
+{-| Preprocessing of data values and helper data structures and functions.
+
+
+# Definition
+
+@docs analyze
+
+
+# Helpers
+
+@docs Scale, defaultScale, genericLimit
+
+-}
 
 import List.Nonempty as Nonempty
 
@@ -22,6 +39,8 @@ defaultScale =
     }
 
 
+{-| Given data, create a Scale data structure (min, max, sum, sorted values and number of values).
+-}
 analyze : Nonempty.Nonempty Float -> Scale
 analyze data =
     let

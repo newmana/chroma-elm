@@ -65,6 +65,44 @@ scaleWith data colorsList =
     ( newData, Scale.getColor newData )
 
 
+{-| Return a new configuration and a function from a float to color based on the given configuration values, the given
+colors and the total number of colors (bins) to return.
+-}
+classes : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> Int -> ( Scale.Data, Float -> Types.ExtColor )
+classes data colorsList bins =
+    let
+        newData =
+            Scale.createData colorsList data
+
+        newDataWithClasses =
+            let
+                d =
+                    Nonempty.Nonempty (Tuple.first newData.domainValues) [ Tuple.second newData.domainValues ]
+            in
+            if bins == 0 then
+                { newData | classes = Just d }
+
+            else
+                { newData | classes = Just (limits d Limits.Equal bins) }
+    in
+    ( newDataWithClasses, Scale.getColor newDataWithClasses )
+
+
+{-| Return a new configuration and a function from a float to color based on the given configuration values, the given
+colors and a predefined set of breaks/classes.
+-}
+classesWithArray : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty Float -> ( Scale.Data, Float -> Types.ExtColor )
+classesWithArray data colorsList newClasses =
+    let
+        updateData =
+            { data | classes = Just newClasses } |> Scale.domain newClasses
+
+        newData =
+            Scale.createData colorsList updateData
+    in
+    ( newData, Scale.getColor newData )
+
+
 {-| Return a new configuration and a function from a float to color based on a new domain, colors (must be the same
 length as the domain) and default configuration.
 -}
@@ -214,15 +252,11 @@ averageChroma mode strList =
     Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
 
 
+{-| Create breaks/classes based on the data given.
+
+Supports: CkMean (a variant of kMeans), Equal, Logarithmic, and Quantile.
+
+-}
 limits : Nonempty.Nonempty Float -> Limits.LimitMode -> Int -> Nonempty.Nonempty Float
 limits data mode bins =
     Limits.limits data mode bins
-
-
-
---classes : Nonempty.Nonempty Types.ExtColor -> Int -> Data -> Nonempty.Nonempty Types.ExtColor
---classes _ _ _ =
---    []
---classesArray : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty Float -> Data -> Nonempty.Nonempty Types.ExtColor
---classesArray _ _ _ =
---    []

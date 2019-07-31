@@ -1,4 +1,16 @@
-module Chroma.Limits.Limits exposing (LimitMode(..), limits)
+module Chroma.Limits.Limits exposing
+    ( LimitMode(..)
+    , limits
+    )
+
+{-| Main interface to Limits.
+
+
+# Definition
+
+@docs LimitMode, limit
+
+-}
 
 import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.CkMeans as CkMeans
@@ -15,6 +27,8 @@ type LimitMode
     | Quantile
 
 
+{-| Create bins number of results using the given scale, except for CkMeans which can produce fewer bins.
+-}
 limits : Nonempty.Nonempty Float -> LimitMode -> Int -> Nonempty.Nonempty Float
 limits data mode bins =
     let
