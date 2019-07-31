@@ -38,7 +38,7 @@
             "Chroma.Limits.CkMeans",
             "Chroma.Limits.Equal",
             "Chroma.Limits.Logarithmic",
-            "Chroma.Limits.Quantile",
+            "Chroma.Limits.Quantile"
         ],
         "Operations": [
             "Chroma.Ops.Alpha",

@@ -1,9 +1,5 @@
 module Chroma.Limits.Equal exposing (limit)
 
-import Chroma.Limits.Analyze as Analyze
-import List.Nonempty as Nonempty
-
-
 {-| Create equally spaced values.
 
 
@@ -12,6 +8,9 @@ import List.Nonempty as Nonempty
 @docs limit
 
 -}
+
+import Chroma.Limits.Analyze as Analyze
+import List.Nonempty as Nonempty
 
 
 {-| Create bins number of results using the given scale.
