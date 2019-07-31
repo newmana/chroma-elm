@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - CMKY interpolation.
 ### Changed
-- Alpha now part of the name of colour spaces that support it.  
+- Alpha now part of the name of color spaces that support it.  
 
 ## [9.0.0] - 2019-07-06
 ### Added
