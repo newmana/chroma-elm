@@ -22,7 +22,7 @@
             "Chroma.Converter.Out.ToHsla",
             "Chroma.Converter.Out.ToLab",
             "Chroma.Converter.Out.ToLch",
-            "Chroma.Converter.Out.ToRgb"
+            "Chroma.Converter.Out.ToRgba"
         ],
         "Colors": [
             "Chroma.Colors.Brewer",
@@ -43,6 +43,7 @@
         "Operations": [
             "Chroma.Ops.Alpha",
             "Chroma.Ops.Lightness",
+            "Chroma.Ops.Luminance"
             "Chroma.Ops.Saturate"
         ],
         "Helpers": [
