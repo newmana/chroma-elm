@@ -20,6 +20,8 @@ module Chroma.Limits.Analyze exposing
 import List.Nonempty as Nonempty
 
 
+{-| TBD
+-}
 type alias Scale =
     { min : Float
     , max : Float
@@ -29,6 +31,8 @@ type alias Scale =
     }
 
 
+{-| TBD
+-}
 defaultScale : Scale
 defaultScale =
     { min = 0
@@ -53,6 +57,8 @@ analyze data =
     { min = Nonempty.head sorted, max = Nonempty.get -1 sorted, sum = sum, values = sorted, count = Nonempty.length data }
 
 
+{-| TBD
+-}
 genericLimit : Int -> Scale -> (Int -> Float) -> Nonempty.Nonempty Float
 genericLimit bins scale calcBin =
     let

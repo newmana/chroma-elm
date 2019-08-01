@@ -1,14 +1,11 @@
-module Chroma.Ops.Luminance exposing
-    ( luminance
-    , setLuminance
-    )
+module Chroma.Ops.Luminance exposing (luminance, setLuminance)
 
 {-| Get/Set the luminance a color value.
 
 
 # Definition
 
-@docs luminance
+@docs luminance, setLuminance
 
 -}
 

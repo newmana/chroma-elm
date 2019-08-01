@@ -1,20 +1,19 @@
-module Chroma.Types exposing
-    ( CymkColor, ExtColor(..), HslaColor, HslaDegreesColor, LabColor, Rgba255Color, RgbaColor, LchColor
-    , Mode(..)
-    )
+module Chroma.Types exposing (CymkColor, ExtColor(..), HslaColor, HslaDegreesColor, LabColor, Mode(..), Rgba255Color, RgbaColor, LchColor)
 
 {-| Types
 
 
 # Definition
 
-@docs CymkColor, ExtColor, HslaColor, HslaDegreesColor, LabColor, Rgba255Color, RgbaColor, LchColor
+@docs CymkColor, ExtColor, HslaColor, HslaDegreesColor, LabColor, Mode, Rgba255Color, RgbaColor, LchColor
 
 -}
 
 import Color as Color
 
 
+{-| TBD
+-}
 type Mode
     = RGBA
     | CMYK

@@ -67,6 +67,8 @@ type alias CkResult =
     }
 
 
+{-| TBD
+-}
 defaultResult : Int -> Int -> CkResult
 defaultResult bins nValues =
     { sums = Array.empty
@@ -188,6 +190,8 @@ genericResult init slicedResult addOrContinue bins scale =
     all
 
 
+{-| TBD
+-}
 getMatrixIndexes : Int -> List Int
 getMatrixIndexes bins =
     List.range 0 (bins - 1)
@@ -223,6 +227,8 @@ makeMatrix cols rows f =
     Array.initialize cols (always newRow)
 
 
+{-| TBD
+-}
 firstLine : Int -> Analyze.Scale -> CkRest
 firstLine bins scale =
     let
@@ -299,6 +305,8 @@ firstLineSumSumSquareAndSsq shift i data previousSum previousSumSquare =
     { sum = sum, sumOfSquare = sumSquare, element = newSsq, backtrackElement = backtrack }
 
 
+{-| TBD
+-}
 fillRestOfMatrix : Int -> Analyze.Scale -> CkRest -> CkResult
 fillRestOfMatrix bins scale rest =
     let
@@ -408,6 +416,8 @@ fillMatrixColumn iMin iMax cluster rest =
         minOne
 
 
+{-| TBD
+-}
 converge : Int -> Int -> Int -> Float -> CkRest -> ( Float, Int )
 converge i low high startValue rest =
     let
@@ -461,6 +471,8 @@ converge i low high startValue rest =
     ( outM, outBm )
 
 
+{-| TBD
+-}
 getValues : Int -> Int -> List ( Int, Int )
 getValues low high =
     let

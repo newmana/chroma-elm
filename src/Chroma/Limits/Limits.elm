@@ -1,14 +1,11 @@
-module Chroma.Limits.Limits exposing
-    ( LimitMode(..)
-    , limits
-    )
+module Chroma.Limits.Limits exposing (LimitMode(..), limits)
 
 {-| Main interface to Limits.
 
 
 # Definition
 
-@docs LimitMode, limit
+@docs LimitMode, limits
 
 -}
 
@@ -20,6 +17,8 @@ import Chroma.Limits.Quantile as Quantile
 import List.Nonempty as Nonempty
 
 
+{-| TBD
+-}
 type LimitMode
     = CkMeans
     | Equal
