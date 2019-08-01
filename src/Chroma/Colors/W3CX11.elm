@@ -4,20 +4,22 @@ module Chroma.Colors.W3CX11 exposing
     , beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
     , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
     , darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
-    , firebrick
+    , firebrick, floralwhite, forestgreen, fuchsia
     , gainsboro, ghostwhite, gold, goldenrod, green, greenyellow, gray, grey
     , hotpink
     , indianred, indigo
-    , lavender, lavenderblush, lemonchiffon, lightblue, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, limegreen, linen
-    , maroon, mediumaquamarine, mediumblue, mediumpurple, mediumslateblue, mediumorchid, mediumspringgreen, mediumseagreen, mediumturquoise, mediumvioletred, midnightblue, mintcream, mistyrose, moccasin
-    , oldlace, orchid
-    , palevioletred, purple
+    , lavender, lavenderblush, lemonchiffon, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightseagreen, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, lime, limegreen, linen
+    , magenta, maroon, mediumaquamarine, mediumblue, mediumpurple, mediumslateblue, mediumorchid, mediumspringgreen, mediumseagreen, mediumturquoise, mediumvioletred, midnightblue, mintcream, mistyrose, moccasin
+    , navajowhite, navy
+    , oldlace, orange, orangered, orchid
+    , palegoldenrod, palegreen, paleturquoise, papayawhip, peachpuff, palevioletred, peru, pink, plum, purple
     , red, rebeccapurple
     , sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
     , tan, teal, thistle, tomato, turquoise
+    , violet
     , wheat, white, whitesmoke
     , yellow, yellowgreen
-    , honeydew, olive, powderblue, snow
+    , honeydew, ivory, lawngreen, lightsalmon, olive, powderblue, snow
     )
 
 {-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
@@ -34,18 +36,20 @@ module Chroma.Colors.W3CX11 exposing
 @docs beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
 @docs chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
 @docs darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
-@docs firebrick
+@docs firebrick, floralwhite, forestgreen, fuchsia
 @docs gainsboro, ghostwhite, gold, goldenrod, green, greenyellow, gray, grey
 @docs hotpink
 @docs indianred, indigo
 @docs khaki
-@docs lavender, lavenderblush, lemonchiffon, lightblue, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, limegreen, linen
-@docs maroon, mediumaquamarine, mediumblue, mediumpurple, mediumslateblue, mediumorchid, mediumspringgreen, mediumseagreen, mediumturquoise, mediumvioletred, midnightblue, mintcream, mistyrose, moccasin
-@docs oldlace, olivedrab, orchid
-@docs paleturquoise, palevioletred, purple
+@docs lavender, lavenderblush, lemonchiffon, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightseagreen, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, lime, limegreen, linen
+@docs magenta, maroon, mediumaquamarine, mediumblue, mediumpurple, mediumslateblue, mediumorchid, mediumspringgreen, mediumseagreen, mediumturquoise, mediumvioletred, midnightblue, mintcream, mistyrose, moccasin
+@docs navajowhite, navy
+@docs oldlace, olivedrab, orange, orangered, orchid
+@docs palegoldenrod, palegreen, paleturquoise, papayawhip, peachpuff, palevioletred, peru, pink, plum, purple
 @docs red, rebeccapurple, royalblue
 @docs sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
 @docs tan, teal, thistle, tomato, turquoise
+@docs violet
 @docs wheat, white, whitesmoke
 @docs yellow, yellowgreen
 
@@ -384,9 +388,30 @@ darksalmon =
 
 {-| TBD
 -}
+forestgreen : Color
+forestgreen =
+    rgb255 34 139 34
+
+
+{-| TBD
+-}
 firebrick : Color
 firebrick =
     rgb255 178 34 34
+
+
+{-| TBD
+-}
+floralwhite : Color
+floralwhite =
+    rgb255 255 250 240
+
+
+{-| TBD
+-}
+fuchsia : Color
+fuchsia =
+    rgb255 255 0 255
 
 
 {-| TBD
@@ -475,9 +500,23 @@ indianred =
 
 {-| TBD
 -}
+ivory : Color
+ivory =
+    rgb255 255 255 240
+
+
+{-| TBD
+-}
 khaki : Color
 khaki =
     rgb255 240 230 140
+
+
+{-| TBD
+-}
+lawngreen : Color
+lawngreen =
+    rgb255 124 252 0
 
 
 {-| TBD
@@ -506,6 +545,13 @@ lemonchiffon =
 lightblue : Color
 lightblue =
     rgb255 173 216 230
+
+
+{-| TBD
+-}
+lightcoral : Color
+lightcoral =
+    rgb255 240 128 128
 
 
 {-| TBD
@@ -552,6 +598,20 @@ lightpink =
 
 {-| TBD
 -}
+lightsalmon : Color
+lightsalmon =
+    rgb255 255 160 122
+
+
+{-| TBD
+-}
+lightseagreen : Color
+lightseagreen =
+    rgb255 32 178 170
+
+
+{-| TBD
+-}
 lightskyblue : Color
 lightskyblue =
     rgb255 135 206 250
@@ -587,6 +647,13 @@ lightyellow =
 
 {-| TBD
 -}
+lime : Color
+lime =
+    rgb255 0 255 0
+
+
+{-| TBD
+-}
 limegreen : Color
 limegreen =
     rgb255 50 205 50
@@ -597,6 +664,27 @@ limegreen =
 linen : Color
 linen =
     rgb255 250 240 230
+
+
+{-| TBD
+-}
+navajowhite : Color
+navajowhite =
+    rgb255 255 222 173
+
+
+{-| TBD
+-}
+navy : Color
+navy =
+    rgb255 0 0 128
+
+
+{-| TBD
+-}
+magenta : Color
+magenta =
+    rgb255 255 0 255
 
 
 {-| TBD
@@ -720,6 +808,20 @@ olivedrab =
 
 {-| TBD
 -}
+orange : Color
+orange =
+    rgb255 255 165 0
+
+
+{-| TBD
+-}
+orangered : Color
+orangered =
+    rgb255 255 69 0
+
+
+{-| TBD
+-}
 orchid : Color
 orchid =
     rgb255 218 112 214
@@ -727,9 +829,16 @@ orchid =
 
 {-| TBD
 -}
-purple : Color
-purple =
-    rgb255 128 0 128
+palegoldenrod : Color
+palegoldenrod =
+    rgb255 238 232 170
+
+
+{-| TBD
+-}
+palegreen : Color
+palegreen =
+    rgb255 152 251 152
 
 
 {-| TBD
@@ -748,9 +857,51 @@ palevioletred =
 
 {-| TBD
 -}
+papayawhip : Color
+papayawhip =
+    rgb255 255 239 213
+
+
+{-| TBD
+-}
+peachpuff : Color
+peachpuff =
+    rgb255 255 218 185
+
+
+{-| TBD
+-}
+peru : Color
+peru =
+    rgb255 205 133 63
+
+
+{-| TBD
+-}
+pink : Color
+pink =
+    rgb255 255 192 203
+
+
+{-| TBD
+-}
+plum : Color
+plum =
+    rgb255 221 160 221
+
+
+{-| TBD
+-}
 powderblue : Color
 powderblue =
     rgb255 176 224 230
+
+
+{-| TBD
+-}
+purple : Color
+purple =
+    rgb255 128 0 128
 
 
 {-| TBD
@@ -783,16 +934,16 @@ saddlebrown =
 
 {-| TBD
 -}
-sandybrown : Color
-sandybrown =
-    rgb255 244 164 96
+salmon : Color
+salmon =
+    rgb255 250 128 114
 
 
 {-| TBD
 -}
-salmon : Color
-salmon =
-    rgb255 250 128 114
+sandybrown : Color
+sandybrown =
+    rgb255 244 164 96
 
 
 {-| TBD
@@ -825,6 +976,13 @@ silver =
 
 {-| TBD
 -}
+skyblue : Color
+skyblue =
+    rgb255 135 206 235
+
+
+{-| TBD
+-}
 slateblue : Color
 slateblue =
     rgb255 106 90 205
@@ -853,23 +1011,16 @@ snow =
 
 {-| TBD
 -}
-steelblue : Color
-steelblue =
-    rgb255 70 130 180
-
-
-{-| TBD
--}
-skyblue : Color
-skyblue =
-    rgb255 135 206 235
-
-
-{-| TBD
--}
 springgreen : Color
 springgreen =
     rgb255 0 255 127
+
+
+{-| TBD
+-}
+steelblue : Color
+steelblue =
+    rgb255 70 130 180
 
 
 {-| TBD
@@ -909,9 +1060,9 @@ turquoise =
 
 {-| TBD
 -}
-white : Color
-white =
-    Color.white
+violet : Color
+violet =
+    rgb255 238 130 238
 
 
 {-| TBD
@@ -919,6 +1070,13 @@ white =
 wheat : Color
 wheat =
     rgb255 245 222 179
+
+
+{-| TBD
+-}
+white : Color
+white =
+    Color.white
 
 
 {-| TBD
@@ -957,41 +1115,41 @@ w3cx11 =
         , ( "darkolivegreen", darkolivegreen )
         , ( "olive", olive )
         , ( "darkseagreen", darkseagreen )
-        , ( "pink", rgb255 255 192 203 )
+        , ( "pink", pink )
         , ( "tomato", tomato )
-        , ( "lightcoral", rgb255 240 128 128 )
-        , ( "orangered", rgb255 255 69 0 )
-        , ( "navajowhite", rgb255 255 222 173 )
-        , ( "lime", rgb255 0 255 0 )
-        , ( "palegreen", rgb255 152 251 152 )
+        , ( "lightcoral", lightcoral )
+        , ( "orangered", orangered )
+        , ( "navajowhite", navajowhite )
+        , ( "lime", lime )
+        , ( "palegreen", palegreen )
         , ( "darkslategrey", darkslategrey )
         , ( "greenyellow", greenyellow )
         , ( "burlywood", burlywood )
         , ( "seashell", seashell )
         , ( "mediumspringgreen", mediumspringgreen )
-        , ( "fuchsia", rgb255 255 0 255 )
-        , ( "papayawhip", rgb255 255 239 213 )
+        , ( "fuchsia", fuchsia )
+        , ( "papayawhip", papayawhip )
         , ( "blanchedalmond", blanchedalmond )
         , ( "chartreuse", chartreuse )
         , ( "dimgray", dimgray )
         , ( "black", black )
-        , ( "peachpuff", rgb255 255 218 185 )
+        , ( "peachpuff", peachpuff )
         , ( "springgreen", springgreen )
         , ( "aquamarine", aquamarine )
         , ( "white", white )
-        , ( "orange", rgb255 255 165 0 )
-        , ( "lightsalmon", rgb255 255 160 122 )
+        , ( "orange", orange )
+        , ( "lightsalmon", lightsalmon )
         , ( "darkslategray", darkslategray )
         , ( "brown", brown )
-        , ( "ivory", rgb255 255 255 240 )
+        , ( "ivory", ivory )
         , ( "dodgerblue", dodgerblue )
-        , ( "peru", rgb255 205 133 63 )
-        , ( "lawngreen", rgb255 124 252 0 )
+        , ( "peru", peru )
+        , ( "lawngreen", lawngreen )
         , ( "chocolate", chocolate )
         , ( "crimson", crimson )
-        , ( "forestgreen", rgb255 34 139 34 )
+        , ( "forestgreen", forestgreen )
         , ( "darkgrey", darkgrey )
-        , ( "lightseagreen", rgb255 32 178 170 )
+        , ( "lightseagreen", lightseagreen )
         , ( "cyan", cyan )
         , ( "mintcream", mintcream )
         , ( "silver", silver )
@@ -1002,7 +1160,7 @@ w3cx11 =
         , ( "darkturquoise", darkturquoise )
         , ( "goldenrod", goldenrod )
         , ( "darkgreen", darkgreen )
-        , ( "floralwhite", rgb255 255 250 240 )
+        , ( "floralwhite", floralwhite )
         , ( "darkviolet", darkviolet )
         , ( "darkgray", darkgray )
         , ( "moccasin", moccasin )
@@ -1017,8 +1175,8 @@ w3cx11 =
         , ( "deeppink", deeppink )
         , ( "limegreen", limegreen )
         , ( "darkmagenta", darkmagenta )
-        , ( "palegoldenrod", rgb255 238 232 170 )
-        , ( "plum", rgb255 221 160 221 )
+        , ( "palegoldenrod", palegoldenrod )
+        , ( "plum", plum )
         , ( "turquoise", turquoise )
         , ( "lightgrey", lightgrey )
         , ( "lightgoldenrodyellow", lightgoldenrodyellow )
@@ -1028,9 +1186,9 @@ w3cx11 =
         , ( "yellowgreen", yellowgreen )
         , ( "sandybrown", sandybrown )
         , ( "thistle", thistle )
-        , ( "violet", rgb255 238 130 238 )
-        , ( "navy", rgb255 0 0 128 )
-        , ( "magenta", rgb255 255 0 255 )
+        , ( "violet", violet )
+        , ( "navy", navy )
+        , ( "magenta", magenta )
         , ( "dimgrey", dimgrey )
         , ( "tan", tan )
         , ( "rosybrown", rgb255 188 143 143 )
