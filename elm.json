@@ -43,7 +43,7 @@
         "Operations": [
             "Chroma.Ops.Alpha",
             "Chroma.Ops.Lightness",
-            "Chroma.Ops.Luminance"
+            "Chroma.Ops.Luminance",
             "Chroma.Ops.Saturate"
         ],
         "Helpers": [
