@@ -45,7 +45,7 @@ example1Code =
 example1SourceCode : String
 example1SourceCode =
     """Chroma.chroma "red"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> OpsLightness.alpha 0.5
  |> ToHex.toHexAlpha  """
 
@@ -67,7 +67,7 @@ example2Code =
 
 example2SourceCode : String
 example2SourceCode =
-    """Types.RGBColor (Color.rgba 1 0 0 0.35)
+    """Types.RGBAColor (Color.rgba 1 0 0 0.35)
  |> OpsAlpha.alpha """
 
 
@@ -89,7 +89,7 @@ example3Code =
 example3SourceCode : String
 example3SourceCode =
     """Chroma.chroma "hotpink"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> OpsLightness.darken 1.0
  |> ToHex.toHex """
 
@@ -112,7 +112,7 @@ example4Code =
 example4SourceCode : String
 example4SourceCode =
     """Chroma.chroma "hotpink"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> OpsLightness.darken 2.0
  |> ToHex.toHex """
 

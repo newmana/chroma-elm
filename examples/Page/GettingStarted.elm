@@ -69,7 +69,7 @@ example1Code =
 example1SourceCode : String
 example1SourceCode =
     """Chroma.chroma "pink"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> OpsLightness.darken 1 |> OpsSaturate.saturate 2
  |> ToHex.toHex  """
 

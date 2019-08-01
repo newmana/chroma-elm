@@ -46,7 +46,7 @@ example1Code =
 example1SourceCode : String
 example1SourceCode =
     """Chroma.chroma "hotpink"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHex  """
 
 
@@ -65,7 +65,7 @@ example2Code =
 example2SourceCode : String
 example2SourceCode =
     """Chroma.chroma "3399ff"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHex  """
 
 
@@ -84,7 +84,7 @@ example3Code =
 example3SourceCode : String
 example3SourceCode =
     """Chroma.chroma "#963"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHex  """
 
 
@@ -103,7 +103,7 @@ example4Code =
 example4SourceCode : String
 example4SourceCode =
     """Chroma.chroma "#3399ff33"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHexAlpha  """
 
 
@@ -122,7 +122,7 @@ example5Code =
 example5SourceCode : String
 example5SourceCode =
     """Chroma.chroma "hello world"
- |> Result.withDefault (Types.RGBColor W3CX11.black)
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHexAlpha  """
 
 
