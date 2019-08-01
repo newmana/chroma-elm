@@ -40,7 +40,7 @@ content =
 
 example1Code : String
 example1Code =
-    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHex
+    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHex
 
 
 example1SourceCode : String
@@ -59,7 +59,7 @@ example1Output =
 
 example2Code : String
 example2Code =
-    Chroma.chroma "3399ff" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHex
+    Chroma.chroma "3399ff" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHex
 
 
 example2SourceCode : String
@@ -78,7 +78,7 @@ example2Output =
 
 example3Code : String
 example3Code =
-    Chroma.chroma "#963" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHex
+    Chroma.chroma "#963" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHex
 
 
 example3SourceCode : String
@@ -97,7 +97,7 @@ example3Output =
 
 example4Code : String
 example4Code =
-    Chroma.chroma "#3399ff33" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHexAlpha
+    Chroma.chroma "#3399ff33" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHexAlpha
 
 
 example4SourceCode : String
@@ -116,7 +116,7 @@ example4Output =
 
 example5Code : String
 example5Code =
-    Chroma.chroma "hello world" |> Result.withDefault (Types.RGBColor W3CX11.black) |> ToHex.toHexAlpha
+    Chroma.chroma "hello world" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHexAlpha
 
 
 example5SourceCode : String

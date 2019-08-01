@@ -39,7 +39,7 @@ example1 =
 
 example1Code : String
 example1Code =
-    Chroma.chroma "red" |> Result.withDefault (Types.RGBColor W3CX11.black) |> OpsAlpha.setAlpha 0.5 |> ToHex.toHexAlpha
+    Chroma.chroma "red" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsAlpha.setAlpha 0.5 |> ToHex.toHexAlpha
 
 
 example1SourceCode : String
@@ -62,7 +62,7 @@ example2 =
 
 example2Code : String
 example2Code =
-    Types.RGBColor (Color.rgba 1 0 0 0.35) |> OpsAlpha.alpha |> String.fromFloat
+    Types.RGBAColor (Color.rgba 1 0 0 0.35) |> OpsAlpha.alpha |> String.fromFloat
 
 
 example2SourceCode : String
@@ -83,7 +83,7 @@ example3 =
 
 example3Code : String
 example3Code =
-    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBColor W3CX11.black) |> OpsLightness.darken 1.0 |> ToHex.toHex
+    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsLightness.darken 1.0 |> ToHex.toHex
 
 
 example3SourceCode : String
@@ -106,7 +106,7 @@ example4 =
 
 example4Code : String
 example4Code =
-    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBColor W3CX11.black) |> OpsLightness.darken 2.0 |> ToHex.toHex
+    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsLightness.darken 2.0 |> ToHex.toHex
 
 
 example4SourceCode : String

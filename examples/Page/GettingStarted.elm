@@ -63,7 +63,7 @@ example1 =
 
 example1Code : String
 example1Code =
-    Chroma.chroma "pink" |> Result.withDefault (Types.RGBColor W3CX11.black) |> OpsLightness.darken 1 |> OpsSaturate.saturate 2 |> ToHex.toHex
+    Chroma.chroma "pink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsLightness.darken 1 |> OpsSaturate.saturate 2 |> ToHex.toHex
 
 
 example1SourceCode : String
@@ -88,13 +88,13 @@ example2 =
 
 example2Code : Nonempty.Nonempty Types.ExtColor
 example2Code =
-    Nonempty.Nonempty (Color.rgb255 250 250 110) [ Color.rgb255 42 72 88 ] |> Nonempty.map ToLch.toLchExtColor |> Chroma.colors 6 |> Tuple.second
+    Nonempty.Nonempty (Color.rgb255 250 250 110) [ Color.rgb255 42 72 88 ] |> Nonempty.map (Types.RGBAColor >> ToLch.toLchExt) |> Chroma.colors 6 |> Tuple.second
 
 
 example2SourceCode : String
 example2SourceCode =
     """Nonempty.Nonempty (rgb255 250 250 110) [ rgb255 42 72 88 ]
- |> Nonempty.map ToLch.toLchExtColor
+ |> Nonempty.map (Types.RGBAColor >> ToLch.toLchExt)
  |> Chroma.colors 6 |> Tuple.second"""
 
 
