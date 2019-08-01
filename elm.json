@@ -3,7 +3,7 @@
     "name": "newmana/chroma-elm",
     "summary": "A clone of the very useful chroma.js in Elm",
     "license": "Apache-2.0",
-    "version": "10.0.0",
+    "version": "10.0.1",
     "exposed-modules": {
         "Main API": [
             "Chroma.Chroma"
@@ -56,7 +56,6 @@
     "dependencies": {
         "avh4/elm-color": "1.0.0 <= v < 2.0.0",
         "elm/core": "1.0.0 <= v < 2.0.0",
-        "elm-community/array-extra": "2.1.0 <= v < 3.0.0",
         "mgold/elm-nonempty-list": "4.0.0 <= v < 5.0.0",
         "rtfeldman/elm-hex": "1.0.0 <= v < 2.0.0"
     },
