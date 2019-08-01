@@ -6,20 +6,20 @@ module Chroma.Colors.W3CX11 exposing
     , darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
     , firebrick, floralwhite, forestgreen, fuchsia
     , gainsboro, ghostwhite, gold, goldenrod, green, greenyellow, gray, grey
-    , hotpink
-    , indianred, indigo
-    , lavender, lavenderblush, lemonchiffon, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightseagreen, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, lime, limegreen, linen
+    , honeydew, hotpink
+    , indianred, indigo, ivory
+    , khaki
+    , lavender, lavenderblush, lawngreen, lemonchiffon, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightseagreen, lightsalmon, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, lime, limegreen, linen
     , magenta, maroon, mediumaquamarine, mediumblue, mediumpurple, mediumslateblue, mediumorchid, mediumspringgreen, mediumseagreen, mediumturquoise, mediumvioletred, midnightblue, mintcream, mistyrose, moccasin
     , navajowhite, navy
-    , oldlace, orange, orangered, orchid
-    , palegoldenrod, palegreen, paleturquoise, papayawhip, peachpuff, palevioletred, peru, pink, plum, purple
-    , red, rebeccapurple
-    , sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
+    , oldlace, olive, olivedrab, orange, orangered, orchid
+    , palegoldenrod, palegreen, paleturquoise, papayawhip, peachpuff, palevioletred, peru, powderblue, pink, plum, purple
+    , red, rebeccapurple, royalblue
+    , sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, snow, springgreen, steelblue
     , tan, teal, thistle, tomato, turquoise
     , violet
     , wheat, white, whitesmoke
     , yellow, yellowgreen
-    , honeydew, ivory, lawngreen, lightsalmon, olive, powderblue, snow
     )
 
 {-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
@@ -38,16 +38,16 @@ module Chroma.Colors.W3CX11 exposing
 @docs darkolivegreen, darkseagreen, darkslategrey, dimgray, darkslategray, dodgerblue, darkgrey, darkturquoise, darkgreen, darkviolet, darkgray, darkslateblue, deeppink, darkmagenta, darkgoldenrod, dimgrey, darkblue, darkkhaki, darkcyan, darkorchid, deepskyblue, darkred, darkorange, darksalmon
 @docs firebrick, floralwhite, forestgreen, fuchsia
 @docs gainsboro, ghostwhite, gold, goldenrod, green, greenyellow, gray, grey
-@docs hotpink
-@docs indianred, indigo
+@docs honeydew, hotpink
+@docs indianred, indigo, ivory
 @docs khaki
-@docs lavender, lavenderblush, lemonchiffon, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightseagreen, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, lime, limegreen, linen
+@docs lavender, lavenderblush, lawngreen, lemonchiffon, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightgray, lightgrey, lightpink, lightseagreen, lightsalmon, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, lime, limegreen, linen
 @docs magenta, maroon, mediumaquamarine, mediumblue, mediumpurple, mediumslateblue, mediumorchid, mediumspringgreen, mediumseagreen, mediumturquoise, mediumvioletred, midnightblue, mintcream, mistyrose, moccasin
 @docs navajowhite, navy
-@docs oldlace, olivedrab, orange, orangered, orchid
-@docs palegoldenrod, palegreen, paleturquoise, papayawhip, peachpuff, palevioletred, peru, pink, plum, purple
+@docs oldlace, olive, olivedrab, orange, orangered, orchid
+@docs palegoldenrod, palegreen, paleturquoise, papayawhip, peachpuff, palevioletred, peru, powderblue, pink, plum, purple
 @docs red, rebeccapurple, royalblue
-@docs sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, springgreen, steelblue
+@docs sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, snow, springgreen, steelblue
 @docs tan, teal, thistle, tomato, turquoise
 @docs violet
 @docs wheat, white, whitesmoke
