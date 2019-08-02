@@ -1,5 +1,5 @@
 module Chroma.Colors.W3CX11 exposing
-    ( named, w3cx11
+    ( named, w3cx11StrToColor
     , aliceBlue, antiqueWhite, aqua, azure, aquamarine
     , beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
     , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
@@ -14,13 +14,12 @@ module Chroma.Colors.W3CX11 exposing
     , navajowhite, navy
     , oldlace, olive, olivedrab, orange, orangered, orchid
     , palegoldenrod, palegreen, paleturquoise, papayawhip, peachpuff, palevioletred, peru, powderblue, pink, plum, purple
-    , red, rebeccapurple, royalblue
+    , red, rebeccapurple, rosybrown, royalblue
     , sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, snow, springgreen, steelblue
     , tan, teal, thistle, tomato, turquoise
     , violet
     , wheat, white, whitesmoke
     , yellow, yellowgreen
-    , rosybrown
     )
 
 {-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
@@ -47,7 +46,7 @@ module Chroma.Colors.W3CX11 exposing
 @docs navajowhite, navy
 @docs oldlace, olive, olivedrab, orange, orangered, orchid
 @docs palegoldenrod, palegreen, paleturquoise, papayawhip, peachpuff, palevioletred, peru, powderblue, pink, plum, purple
-@docs red, rebeccapurple, royalblue
+@docs red, rebeccapurple, rosybrown, royalblue
 @docs sandybrown, salmon, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, snow, springgreen, steelblue
 @docs tan, teal, thistle, tomato, turquoise
 @docs violet
@@ -71,6 +70,9 @@ named : String -> Result String Color.Color
 named str =
     Result.fromMaybe ("Cannot find " ++ str) (Dict.get str w3cx11)
 
+
+color : Color.Color -> Result String String
+color
 
 {-| TBD
 -}
@@ -1110,8 +1112,8 @@ yellowgreen =
 
 {-| TBD
 -}
-w3cx11 : Dict.Dict String Color
-w3cx11 =
+w3cx11StrToColor : Dict.Dict String Color
+w3cx11StrToColor =
     Dict.fromList
         [ ( "indigo", indigo )
         , ( "gold", gold )
