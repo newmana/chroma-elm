@@ -20,6 +20,7 @@ module Chroma.Colors.W3CX11 exposing
     , violet
     , wheat, white, whitesmoke
     , yellow, yellowgreen
+    , rosybrown
     )
 
 {-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
@@ -920,6 +921,13 @@ red =
 
 {-| TBD
 -}
+rosybrown : Color
+rosybrown =
+    rgb255 188 143 143
+
+
+{-| TBD
+-}
 royalblue : Color
 royalblue =
     rgb255 65 105 225
@@ -1191,7 +1199,7 @@ w3cx11 =
         , ( "magenta", magenta )
         , ( "dimgrey", dimgrey )
         , ( "tan", tan )
-        , ( "rosybrown", rgb255 188 143 143 )
+        , ( "rosybrown", rosybrown )
         , ( "olivedrab", olivedrab )
         , ( "blue", blue )
         , ( "lightblue", lightblue )
