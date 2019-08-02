@@ -1,5 +1,5 @@
 module Chroma.Colors.W3CX11 exposing
-    ( color, named, w3cx11
+    ( color, named, w3cx11, colorToInt, intToColor
     , aliceBlue, antiqueWhite, aqua, azure, aquamarine
     , beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
     , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
@@ -20,7 +20,6 @@ module Chroma.Colors.W3CX11 exposing
     , violet
     , wheat, white, whitesmoke
     , yellow, yellowgreen
-    , colorToInt, intToColor
     )
 
 {-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
@@ -28,7 +27,7 @@ module Chroma.Colors.W3CX11 exposing
 
 # Definition
 
-@docs color, named, w3cx11
+@docs color, named, w3cx11, colorToInt, intToColor
 
 
 # Colors

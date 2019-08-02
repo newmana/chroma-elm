@@ -65,6 +65,8 @@ name ext =
             Ok (ToHex.toHex ext)
 
 
+{-| Numeric representation of RGB.
+-}
 num : Types.ExtColor -> Int
 num ext =
     let
