@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
+    ( chroma, name, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
+@docs chroma, name, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
 
 
 # Helpers
@@ -20,10 +20,13 @@ module Chroma.Chroma exposing
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Misc.ColorSpace as ColorSpace
+import Chroma.Converter.Out.ToHex as ToHex
+import Chroma.Converter.Out.ToRgba as ToRgba
 import Chroma.Interpolator as Interpolator
 import Chroma.Limits.Limits as Limits
 import Chroma.Scale as Scale
 import Chroma.Types as Types
+import Color as Color
 import List.Nonempty as Nonempty
 import Result as Result
 
@@ -38,6 +41,28 @@ chroma str =
 
         Err _ ->
             Hex2Rgb.hex2rgb str |> Result.map Types.RGBAColor
+
+
+{-| Given a color turn it into a W3CX11 name or fall back to RGB string.
+
+Types.RGBAColor (Color.rgb255 255 0 255) |> Chroma.name
+
+-}
+name : Types.ExtColor -> Result String String
+name ext =
+    let
+        { red, green, blue, alpha } =
+            ToRgba.toRgba255 ext
+
+        rgb255 =
+            Color.rgb255 red green blue
+    in
+    case W3CX11.color rgb255 of
+        Ok value ->
+            Ok value
+
+        Err _ ->
+            Ok (ToHex.toHex ext)
 
 
 {-| Return a new configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.

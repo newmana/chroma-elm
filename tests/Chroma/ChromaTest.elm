@@ -18,6 +18,7 @@ tests : Test.Test
 tests =
     Test.describe "Chroma API"
         [ testStringToColor
+        , testColorToString
         , testScaleAndDomain
         , testScaleAndClasses
         , testDistance
@@ -64,6 +65,18 @@ testStringToColor =
         , Test.test "A pink three letter hex" <|
             \_ ->
                 "f39" |> Chroma.chroma |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#ff3399")
+        ]
+
+
+testColorToString : Test.Test
+testColorToString =
+    Test.describe "string"
+        [ Test.test "Magenta color to string" <|
+            \_ ->
+                Types.RGBAColor (Color.rgb255 255 0 255) |> Chroma.name |> Expect.equal (Result.Ok "magenta")
+        , Test.test "Non-mapped color to string" <|
+            \_ ->
+                Types.RGBAColor (Color.rgb255 255 0 254) |> Chroma.name |> Expect.equal (Result.Ok "#ff00fe")
         ]
 
 
