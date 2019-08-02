@@ -5,6 +5,7 @@ import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Ops.Alpha as OpsAlpha
 import Chroma.Ops.Lightness as OpsLightness
+import Chroma.Ops.Saturate as OpsSaturate
 import Chroma.Types as Types
 import Color as Color
 import Html as Html
@@ -28,6 +29,10 @@ content =
             ++ example2
             ++ example3
             ++ example4
+            ++ example5
+            ++ example6
+            ++ example7
+            ++ example8
         )
     ]
 
@@ -120,3 +125,95 @@ example4SourceCode =
 example4Output : List (Html.Html msg)
 example4Output =
     [ Html.text """"#c930058" : String  """ ]
+
+
+example5 : List (Html.Html msg)
+example5 =
+    Page.example example5Code example5SourceCode example5Output "has-text-black"
+
+
+example5Code : String
+example5Code =
+    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsLightness.brighten 2.0 |> ToHex.toHex
+
+
+example5SourceCode : String
+example5SourceCode =
+    """Chroma.chroma "hotpink"
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
+ |> OpsLightness.brighten 2.0
+ |> ToHex.toHex """
+
+
+example5Output : List (Html.Html msg)
+example5Output =
+    [ Html.text """"#ffd1ff" : String  """ ]
+
+
+example6 : List (Html.Html msg)
+example6 =
+    Page.example example6Code example6SourceCode example6Output "has-text-black"
+
+
+example6Code : String
+example6Code =
+    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsLightness.brighten 3.0 |> ToHex.toHex
+
+
+example6SourceCode : String
+example6SourceCode =
+    """Chroma.chroma "hotpink"
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
+ |> OpsLightness.brighten 3.0
+ |> ToHex.toHex """
+
+
+example6Output : List (Html.Html msg)
+example6Output =
+    [ Html.text """"#ffffff" : String  """ ]
+
+
+example7 : List (Html.Html msg)
+example7 =
+    Page.example example7Code example7SourceCode example7Output "has-text-white"
+
+
+example7Code : String
+example7Code =
+    Chroma.chroma "slategray" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsSaturate.saturate 2.0 |> ToHex.toHex
+
+
+example7SourceCode : String
+example7SourceCode =
+    """Chroma.chroma "slategray"
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
+ |> OpsSaturate.saturate 2.0
+ |> ToHex.toHex """
+
+
+example7Output : List (Html.Html msg)
+example7Output =
+    [ Html.text """"##0087cd" : String  """ ]
+
+
+example8 : List (Html.Html msg)
+example8 =
+    Page.example example8Code example8SourceCode example8Output "has-text-white"
+
+
+example8Code : String
+example8Code =
+    Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsSaturate.desaturate 3.0 |> ToHex.toHex
+
+
+example8SourceCode : String
+example8SourceCode =
+    """Chroma.chroma "hotpink"
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
+ |> OpsSaturate.desaturate 3.0
+ |> ToHex.toHex """
+
+
+example8Output : List (Html.Html msg)
+example8Output =
+    [ Html.text """"##b199a3" : String  """ ]
