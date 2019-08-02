@@ -1141,7 +1141,7 @@ colorToInt c =
         rgba255 =
             { red = realColor.red * 255 |> round, green = realColor.green * 255 |> round, blue = realColor.blue * 255 |> round }
     in
-    rgba255.red + shiftLeftBy 8 rgba255.green + shiftLeftBy 16 rgba255.blue
+    shiftLeftBy 16 rgba255.red + shiftLeftBy 8 rgba255.green + rgba255.blue
 
 
 {-| TBD

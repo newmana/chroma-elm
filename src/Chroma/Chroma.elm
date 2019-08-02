@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, name, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
+    ( chroma, name, num, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
     , scaleDefault, scaleWith, domainWith
     )
 
@@ -8,7 +8,7 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, name, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
+@docs chroma, name, num, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
 
 
 # Helpers
@@ -63,6 +63,18 @@ name ext =
 
         Err _ ->
             Ok (ToHex.toHex ext)
+
+
+num : Types.ExtColor -> Int
+num ext =
+    let
+        { red, green, blue, alpha } =
+            ToRgba.toRgba255 ext
+
+        rgb255 =
+            Color.rgb255 red green blue
+    in
+    W3CX11.colorToInt rgb255
 
 
 {-| Return a new configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.
@@ -173,19 +185,19 @@ paddingBoth ( newLeft, newRight ) ( data, _ ) =
 {-| Return the data with the given colors and a new list of colors.
 -}
 colors : Int -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
-colors num colorsList =
+colors i colorsList =
     let
         newData =
             Scale.defaultData |> Scale.createData colorsList
     in
-    colorsWith num newData
+    colorsWith i newData
 
 
 {-| Return the data with the given colors and a new list of colors.
 -}
 colorsWith : Int -> Scale.Data -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
-colorsWith num data =
-    ( data, Scale.colors num data )
+colorsWith i data =
+    ( data, Scale.colors i data )
 
 
 {-| Calculate the distance in RGB 255 color space.
