@@ -1,5 +1,5 @@
 module Chroma.Colors.W3CX11 exposing
-    ( named, w3cx11StrToColor
+    ( named, w3cx11
     , aliceBlue, antiqueWhite, aqua, azure, aquamarine
     , beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
     , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
@@ -20,6 +20,7 @@ module Chroma.Colors.W3CX11 exposing
     , violet
     , wheat, white, whitesmoke
     , yellow, yellowgreen
+    , colorToInt, intToColor
     )
 
 {-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
@@ -27,7 +28,7 @@ module Chroma.Colors.W3CX11 exposing
 
 # Definition
 
-@docs named, w3cx11
+@docs color, named, w3cx11
 
 
 # Colors
@@ -55,7 +56,8 @@ module Chroma.Colors.W3CX11 exposing
 
 -}
 
-import Color exposing (Color, rgb255)
+import Bitwise exposing (and, or, shiftLeftBy, shiftRightBy)
+import Color exposing (Color, rgb255, toCssString, toRgba)
 import Dict
 import Result
 
@@ -71,8 +73,11 @@ named str =
     Result.fromMaybe ("Cannot find " ++ str) (Dict.get str w3cx11)
 
 
-color : Color.Color -> Result String String
-color
+
+--color : Color.Color -> Result String String
+--color c =
+--    Result.fromMaybe ("Cannot find " ++ toString c) (Dict.get c coloredW3cx11)
+
 
 {-| TBD
 -}
@@ -1110,157 +1115,188 @@ yellowgreen =
     rgb255 154 205 50
 
 
+colorToInt : Color -> Int
+colorToInt color =
+    let
+        realColor =
+            toRgba color
+
+        rgba255 =
+            { red = realColor.red * 255 |> round, green = realColor.green * 255 |> round, blue = realColor.blue * 255 |> round }
+    in
+    rgba255.red + shiftLeftBy 8 rgba255.green + shiftLeftBy 16 rgba255.blue
+
+
+intToColor : Int -> ( Int, Int, Int )
+intToColor num =
+    let
+        b =
+            shiftRightBy 16 (and 0x00FF0000 num)
+
+        g =
+            shiftRightBy 8 (and 0xFF00 num)
+
+        r =
+            and num 0xFF
+    in
+    ( r, g, b )
+
+
 {-| TBD
 -}
-w3cx11StrToColor : Dict.Dict String Color
-w3cx11StrToColor =
-    Dict.fromList
-        [ ( "indigo", indigo )
-        , ( "gold", gold )
-        , ( "hotpink", hotpink )
-        , ( "firebrick", firebrick )
-        , ( "indianred", indianred )
-        , ( "yellow", yellow )
-        , ( "mistyrose", mistyrose )
-        , ( "darkolivegreen", darkolivegreen )
-        , ( "olive", olive )
-        , ( "darkseagreen", darkseagreen )
-        , ( "pink", pink )
-        , ( "tomato", tomato )
-        , ( "lightcoral", lightcoral )
-        , ( "orangered", orangered )
-        , ( "navajowhite", navajowhite )
-        , ( "lime", lime )
-        , ( "palegreen", palegreen )
-        , ( "darkslategrey", darkslategrey )
-        , ( "greenyellow", greenyellow )
-        , ( "burlywood", burlywood )
-        , ( "seashell", seashell )
-        , ( "mediumspringgreen", mediumspringgreen )
-        , ( "fuchsia", fuchsia )
-        , ( "papayawhip", papayawhip )
-        , ( "blanchedalmond", blanchedalmond )
-        , ( "chartreuse", chartreuse )
-        , ( "dimgray", dimgray )
-        , ( "black", black )
-        , ( "peachpuff", peachpuff )
-        , ( "springgreen", springgreen )
-        , ( "aquamarine", aquamarine )
-        , ( "white", white )
-        , ( "orange", orange )
-        , ( "lightsalmon", lightsalmon )
-        , ( "darkslategray", darkslategray )
-        , ( "brown", brown )
-        , ( "ivory", ivory )
-        , ( "dodgerblue", dodgerblue )
-        , ( "peru", peru )
-        , ( "lawngreen", lawngreen )
-        , ( "chocolate", chocolate )
-        , ( "crimson", crimson )
-        , ( "forestgreen", forestgreen )
-        , ( "darkgrey", darkgrey )
-        , ( "lightseagreen", lightseagreen )
-        , ( "cyan", cyan )
-        , ( "mintcream", mintcream )
-        , ( "silver", silver )
-        , ( "antiquewhite", antiqueWhite )
-        , ( "mediumorchid", mediumorchid )
-        , ( "skyblue", skyblue )
-        , ( "gray", gray )
-        , ( "darkturquoise", darkturquoise )
-        , ( "goldenrod", goldenrod )
-        , ( "darkgreen", darkgreen )
-        , ( "floralwhite", floralwhite )
-        , ( "darkviolet", darkviolet )
-        , ( "darkgray", darkgray )
-        , ( "moccasin", moccasin )
-        , ( "saddlebrown", saddlebrown )
-        , ( "grey", grey )
-        , ( "darkslateblue", darkslateblue )
-        , ( "lightskyblue", lightskyblue )
-        , ( "lightpink", lightpink )
-        , ( "mediumvioletred", mediumvioletred )
-        , ( "slategrey", slategrey )
-        , ( "red", red )
-        , ( "deeppink", deeppink )
-        , ( "limegreen", limegreen )
-        , ( "darkmagenta", darkmagenta )
-        , ( "palegoldenrod", palegoldenrod )
-        , ( "plum", plum )
-        , ( "turquoise", turquoise )
-        , ( "lightgrey", lightgrey )
-        , ( "lightgoldenrodyellow", lightgoldenrodyellow )
-        , ( "darkgoldenrod", darkgoldenrod )
-        , ( "lavender", lavender )
-        , ( "maroon", maroon )
-        , ( "yellowgreen", yellowgreen )
-        , ( "sandybrown", sandybrown )
-        , ( "thistle", thistle )
-        , ( "violet", violet )
-        , ( "navy", navy )
-        , ( "magenta", magenta )
-        , ( "dimgrey", dimgrey )
-        , ( "tan", tan )
-        , ( "rosybrown", rosybrown )
-        , ( "olivedrab", olivedrab )
-        , ( "blue", blue )
-        , ( "lightblue", lightblue )
-        , ( "ghostwhite", ghostwhite )
-        , ( "honeydew", honeydew )
-        , ( "cornflowerblue", cornflowerblue )
-        , ( "slateblue", slateblue )
-        , ( "linen", linen )
-        , ( "darkblue", darkblue )
-        , ( "powderblue", powderblue )
-        , ( "seagreen", seagreen )
-        , ( "darkkhaki", darkkhaki )
-        , ( "snow", snow )
-        , ( "sienna", sienna )
-        , ( "mediumblue", mediumblue )
-        , ( "royalblue", royalblue )
-        , ( "lightcyan", lightcyan )
-        , ( "green", green )
-        , ( "mediumpurple", mediumpurple )
-        , ( "midnightblue", midnightblue )
-        , ( "cornsilk", cornsilk )
-        , ( "paleturquoise", paleturquoise )
-        , ( "bisque", bisque )
-        , ( "slategray", slategray )
-        , ( "darkcyan", darkcyan )
-        , ( "khaki", khaki )
-        , ( "wheat", wheat )
-        , ( "teal", teal )
-        , ( "darkorchid", darkorchid )
-        , ( "deepskyblue", deepskyblue )
-        , ( "salmon", salmon )
-        , ( "darkred", darkred )
-        , ( "steelblue", steelblue )
-        , ( "palevioletred", palevioletred )
-        , ( "lightslategray", lightslategray )
-        , ( "aliceblue", aliceBlue )
-        , ( "lightslategrey", lightslategrey )
-        , ( "lightgreen", lightgreen )
-        , ( "orchid", orchid )
-        , ( "gainsboro", gainsboro )
-        , ( "mediumseagreen", mediumseagreen )
-        , ( "lightgray", lightgray )
-        , ( "mediumturquoise", mediumturquoise )
-        , ( "lemonchiffon", lemonchiffon )
-        , ( "cadetblue", cadetblue )
-        , ( "lightyellow", lightyellow )
-        , ( "lavenderblush", lavenderblush )
-        , ( "coral", coral )
-        , ( "purple", purple )
-        , ( "aqua", aqua )
-        , ( "whitesmoke", whitesmoke )
-        , ( "mediumslateblue", mediumslateblue )
-        , ( "darkorange", darkorange )
-        , ( "mediumaquamarine", mediumaquamarine )
-        , ( "darksalmon", darksalmon )
-        , ( "beige", beige )
-        , ( "blueviolet", blueviolet )
-        , ( "azure", azure )
-        , ( "lightsteelblue", lightsteelblue )
-        , ( "oldlace", oldlace )
-        , ( "rebeccapurple", rebeccapurple )
-        ]
+w3cx11 : Dict.Dict String Color
+w3cx11 =
+    Dict.fromList w3cx11List
+
+
+w3cx11List : List ( String, Color )
+w3cx11List =
+    [ ( "indigo", indigo )
+    , ( "gold", gold )
+    , ( "hotpink", hotpink )
+    , ( "firebrick", firebrick )
+    , ( "indianred", indianred )
+    , ( "yellow", yellow )
+    , ( "mistyrose", mistyrose )
+    , ( "darkolivegreen", darkolivegreen )
+    , ( "olive", olive )
+    , ( "darkseagreen", darkseagreen )
+    , ( "pink", pink )
+    , ( "tomato", tomato )
+    , ( "lightcoral", lightcoral )
+    , ( "orangered", orangered )
+    , ( "navajowhite", navajowhite )
+    , ( "lime", lime )
+    , ( "palegreen", palegreen )
+    , ( "darkslategrey", darkslategrey )
+    , ( "greenyellow", greenyellow )
+    , ( "burlywood", burlywood )
+    , ( "seashell", seashell )
+    , ( "mediumspringgreen", mediumspringgreen )
+    , ( "fuchsia", fuchsia )
+    , ( "papayawhip", papayawhip )
+    , ( "blanchedalmond", blanchedalmond )
+    , ( "chartreuse", chartreuse )
+    , ( "dimgray", dimgray )
+    , ( "black", black )
+    , ( "peachpuff", peachpuff )
+    , ( "springgreen", springgreen )
+    , ( "aquamarine", aquamarine )
+    , ( "white", white )
+    , ( "orange", orange )
+    , ( "lightsalmon", lightsalmon )
+    , ( "darkslategray", darkslategray )
+    , ( "brown", brown )
+    , ( "ivory", ivory )
+    , ( "dodgerblue", dodgerblue )
+    , ( "peru", peru )
+    , ( "lawngreen", lawngreen )
+    , ( "chocolate", chocolate )
+    , ( "crimson", crimson )
+    , ( "forestgreen", forestgreen )
+    , ( "darkgrey", darkgrey )
+    , ( "lightseagreen", lightseagreen )
+    , ( "cyan", cyan )
+    , ( "mintcream", mintcream )
+    , ( "silver", silver )
+    , ( "antiquewhite", antiqueWhite )
+    , ( "mediumorchid", mediumorchid )
+    , ( "skyblue", skyblue )
+    , ( "gray", gray )
+    , ( "darkturquoise", darkturquoise )
+    , ( "goldenrod", goldenrod )
+    , ( "darkgreen", darkgreen )
+    , ( "floralwhite", floralwhite )
+    , ( "darkviolet", darkviolet )
+    , ( "darkgray", darkgray )
+    , ( "moccasin", moccasin )
+    , ( "saddlebrown", saddlebrown )
+    , ( "grey", grey )
+    , ( "darkslateblue", darkslateblue )
+    , ( "lightskyblue", lightskyblue )
+    , ( "lightpink", lightpink )
+    , ( "mediumvioletred", mediumvioletred )
+    , ( "slategrey", slategrey )
+    , ( "red", red )
+    , ( "deeppink", deeppink )
+    , ( "limegreen", limegreen )
+    , ( "darkmagenta", darkmagenta )
+    , ( "palegoldenrod", palegoldenrod )
+    , ( "plum", plum )
+    , ( "turquoise", turquoise )
+    , ( "lightgrey", lightgrey )
+    , ( "lightgoldenrodyellow", lightgoldenrodyellow )
+    , ( "darkgoldenrod", darkgoldenrod )
+    , ( "lavender", lavender )
+    , ( "maroon", maroon )
+    , ( "yellowgreen", yellowgreen )
+    , ( "sandybrown", sandybrown )
+    , ( "thistle", thistle )
+    , ( "violet", violet )
+    , ( "navy", navy )
+    , ( "magenta", magenta )
+    , ( "dimgrey", dimgrey )
+    , ( "tan", tan )
+    , ( "rosybrown", rosybrown )
+    , ( "olivedrab", olivedrab )
+    , ( "blue", blue )
+    , ( "lightblue", lightblue )
+    , ( "ghostwhite", ghostwhite )
+    , ( "honeydew", honeydew )
+    , ( "cornflowerblue", cornflowerblue )
+    , ( "slateblue", slateblue )
+    , ( "linen", linen )
+    , ( "darkblue", darkblue )
+    , ( "powderblue", powderblue )
+    , ( "seagreen", seagreen )
+    , ( "darkkhaki", darkkhaki )
+    , ( "snow", snow )
+    , ( "sienna", sienna )
+    , ( "mediumblue", mediumblue )
+    , ( "royalblue", royalblue )
+    , ( "lightcyan", lightcyan )
+    , ( "green", green )
+    , ( "mediumpurple", mediumpurple )
+    , ( "midnightblue", midnightblue )
+    , ( "cornsilk", cornsilk )
+    , ( "paleturquoise", paleturquoise )
+    , ( "bisque", bisque )
+    , ( "slategray", slategray )
+    , ( "darkcyan", darkcyan )
+    , ( "khaki", khaki )
+    , ( "wheat", wheat )
+    , ( "teal", teal )
+    , ( "darkorchid", darkorchid )
+    , ( "deepskyblue", deepskyblue )
+    , ( "salmon", salmon )
+    , ( "darkred", darkred )
+    , ( "steelblue", steelblue )
+    , ( "palevioletred", palevioletred )
+    , ( "lightslategray", lightslategray )
+    , ( "aliceblue", aliceBlue )
+    , ( "lightslategrey", lightslategrey )
+    , ( "lightgreen", lightgreen )
+    , ( "orchid", orchid )
+    , ( "gainsboro", gainsboro )
+    , ( "mediumseagreen", mediumseagreen )
+    , ( "lightgray", lightgray )
+    , ( "mediumturquoise", mediumturquoise )
+    , ( "lemonchiffon", lemonchiffon )
+    , ( "cadetblue", cadetblue )
+    , ( "lightyellow", lightyellow )
+    , ( "lavenderblush", lavenderblush )
+    , ( "coral", coral )
+    , ( "purple", purple )
+    , ( "aqua", aqua )
+    , ( "whitesmoke", whitesmoke )
+    , ( "mediumslateblue", mediumslateblue )
+    , ( "darkorange", darkorange )
+    , ( "mediumaquamarine", mediumaquamarine )
+    , ( "darksalmon", darksalmon )
+    , ( "beige", beige )
+    , ( "blueviolet", blueviolet )
+    , ( "azure", azure )
+    , ( "lightsteelblue", lightsteelblue )
+    , ( "oldlace", oldlace )
+    , ( "rebeccapurple", rebeccapurple )
+    ]
