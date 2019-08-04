@@ -364,7 +364,7 @@ fillMatrixColumn iMin iMax cluster rest =
                 Maybe.withDefault arr (newMatrixLine index value arr)
 
             startMatrixValue =
-                Array.get (i - 1) rest.previousMatrix |> Maybe.withDefault 0
+                Maybe.withDefault 0 (Array.get (i - 1) rest.previousMatrix)
 
             startMatrix =
                 newMatrix cluster startMatrixValue rest.matrix
@@ -386,7 +386,7 @@ fillMatrixColumn iMin iMax cluster rest =
                     cluster
 
             low =
-                max prevLow (Array.get i initRest.previousBackmatrix |> Maybe.withDefault 0)
+                max prevLow (Maybe.withDefault 0 (Array.get i initRest.previousBackmatrix))
 
             prevHigh =
                 i - 1
@@ -477,12 +477,12 @@ getValues : Int -> Int -> List ( Int, Int )
 getValues low high =
     let
         mid =
-            (low + high |> toFloat) / 2
+            toFloat (low + high) / 2
 
         lowMid =
             List.range low (floor mid)
 
         highMid =
-            List.range (ceiling mid) high |> List.reverse
+            List.reverse (List.range (ceiling mid) high)
     in
     List.map2 Tuple.pair highMid lowMid
