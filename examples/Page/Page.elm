@@ -29,8 +29,8 @@ p text =
     ]
 
 
-example : String -> String -> List (Html.Html msg) -> String -> List (Html.Html msg)
-example code source output textColor =
+example : String -> String -> String -> List (Html.Html msg) -> List (Html.Html msg)
+example textColor backgroundColor source output =
     [ Html.div
         [ HtmlAttributes.class "container"
         ]
@@ -65,7 +65,7 @@ example code source output textColor =
                         []
                         [ Html.code
                             [ HtmlAttributes.class textColor
-                            , HtmlAttributes.style "background-color" code
+                            , HtmlAttributes.style "background-color" backgroundColor
                             ]
                             output
                         ]

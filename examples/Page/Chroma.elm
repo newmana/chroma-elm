@@ -25,14 +25,14 @@ content =
                 ("Given a string that represents either a W3CX11 color name or a 3, 6 or 8 hex string. "
                     ++ "The \"chroma\" function returns a Result either indicating an error or success. "
                 )
-            ++ Page.example example1Code example1SourceCode example1Output "has-text-white"
+            ++ Page.example "has-text-white" example1Code example1SourceCode example1Output
             ++ Page.p "If the \"#\" is missing and it's not a valid color string it tries to parse it as a hex string."
-            ++ Page.example example2Code example2SourceCode example2Output "has-text-black"
-            ++ Page.example example3Code example3SourceCode example3Output "has-text-white"
+            ++ Page.example "has-text-black" example2Code example2SourceCode example2Output
+            ++ Page.example "has-text-white" example3Code example3SourceCode example3Output
             ++ Page.p "An 8 digit hex string defines that alpha channel (0-255 maps to 0-1)."
-            ++ Page.example example4Code example4SourceCode example4Output "has-text-black"
+            ++ Page.example "has-text-black" example4Code example4SourceCode example4Output
             ++ Page.p "If it fails to parse either as a valid color or hex string you must have a default color."
-            ++ Page.example example5Code example5SourceCode example5Output "has-text-white"
+            ++ Page.example "has-text-white" example5Code example5SourceCode example5Output
             ++ Page.p "\u{00A0}"
         )
     ]

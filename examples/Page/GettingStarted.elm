@@ -58,7 +58,7 @@ content =
 
 example1 : List (Html.Html msg)
 example1 =
-    Page.example example1Code example1SourceCode example1Output "has-text-white"
+    Page.example "has-text-white" example1Code example1SourceCode example1Output
 
 
 example1Code : String
@@ -83,7 +83,7 @@ example2 : List (Html.Html msg)
 example2 =
     Page.p
         "It can also be used to generate colormaps. "
-        ++ Page.example "#f5f5f5" example2SourceCode example2Output "has-text-black"
+        ++ Page.example "has-text-black" "#f5f5f5" example2SourceCode example2Output
 
 
 example2Code : Nonempty.Nonempty Types.ExtColor

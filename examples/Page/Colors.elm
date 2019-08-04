@@ -19,65 +19,65 @@ content =
             [ HtmlAttributes.class "subtitle" ]
             [ Html.text "Creating Different Color Spaces" ]
          ]
-            ++ Page.example example6Code example6SourceCode example6Output "has-text-black"
-            ++ Page.example example7Code example7SourceCode example7Output "has-text-black"
-            ++ Page.example example8Code example8SourceCode example8Output "has-text-white"
+            ++ Page.example "has-text-black" example1Code example1SourceCode example1Output
+            ++ Page.example "has-text-black" example2Code example2SourceCode example2Output
+            ++ Page.example "has-text-white" example3Code example3SourceCode example3Output
         )
     ]
 
 
-example6Code : String
-example6Code =
+example1Code : String
+example1Code =
     { hueDegrees = 120.0, saturation = 1.0, lightness = 0.75, alpha = 1.0 } |> Types.HSLADegreesColor |> ToHex.toHex
 
 
-example6SourceCode : String
-example6SourceCode =
+example1SourceCode : String
+example1SourceCode =
     """{ hueDegrees = 120.0, saturation = 1.0, lightness = 0.75, alpha = 1.0 }
  |> Types.HSLADegreesColor
  |> ToHex.toHex  """
 
 
-example6Output : List (Html.Html msg)
-example6Output =
+example1Output : List (Html.Html msg)
+example1Output =
     [ Html.text
         """"#80ff80" : String """
     ]
 
 
-example7Code : String
-example7Code =
+example2Code : String
+example2Code =
     { luminance = 80.0, chroma = 25.0, hue = 200.0 } |> Types.LCHColor |> ToHex.toHex
 
 
-example7SourceCode : String
-example7SourceCode =
+example2SourceCode : String
+example2SourceCode =
     """{ luminance = 80.0, chroma = 25.0, hue = 200.0 }
  |> Types.LCHColor
  |> ToHex.toHex  """
 
 
-example7Output : List (Html.Html msg)
-example7Output =
+example2Output : List (Html.Html msg)
+example2Output =
     [ Html.text
         """"#85d5d4" : String """
     ]
 
 
-example8Code : String
-example8Code =
+example3Code : String
+example3Code =
     { cyan = 1.0, magenta = 0.5, yellow = 0.0, black = 0.2 } |> Types.CMYKColor |> ToHex.toHex
 
 
-example8SourceCode : String
-example8SourceCode =
+example3SourceCode : String
+example3SourceCode =
     """{ cyan = 1.0, magenta = 0.5, yellow = 0.0, black = 0.2 }
  |> Types.CMYKColor
  |> ToHex.toHex  """
 
 
-example8Output : List (Html.Html msg)
-example8Output =
+example3Output : List (Html.Html msg)
+example3Output =
     [ Html.text
         """"#85d5d4" : String """
     ]

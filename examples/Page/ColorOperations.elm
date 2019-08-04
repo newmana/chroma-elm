@@ -39,7 +39,7 @@ content =
 
 example1 : List (Html.Html msg)
 example1 =
-    Page.example example1Code example1SourceCode example1Output "has-text-white"
+    Page.example "has-text-white" example1Code example1SourceCode example1Output
 
 
 example1Code : String
@@ -57,12 +57,12 @@ example1SourceCode =
 
 example1Output : List (Html.Html msg)
 example1Output =
-    [ Html.text """"#ff000080" : String """ ]
+    [ Html.text ("\"" ++ example1Code ++ "\" : String ") ]
 
 
 example2 : List (Html.Html msg)
 example2 =
-    Page.example example2Code example2SourceCode example2Output "has-text-black"
+    Page.example "has-text-black" "" example2SourceCode example2Output
 
 
 example2Code : String
@@ -78,12 +78,12 @@ example2SourceCode =
 
 example2Output : List (Html.Html msg)
 example2Output =
-    [ Html.text """0.35 : Float """ ]
+    [ Html.text ("\"" ++ example2Code ++ "\" : Float ") ]
 
 
 example3 : List (Html.Html msg)
 example3 =
-    Page.example example3Code example3SourceCode example3Output "has-text-white"
+    Page.example "has-text-white" example3Code example3SourceCode example3Output
 
 
 example3Code : String
@@ -106,7 +106,7 @@ example3Output =
 
 example4 : List (Html.Html msg)
 example4 =
-    Page.example example4Code example4SourceCode example4Output "has-text-white"
+    Page.example "has-text-white" example4Code example4SourceCode example4Output
 
 
 example4Code : String
@@ -129,7 +129,7 @@ example4Output =
 
 example5 : List (Html.Html msg)
 example5 =
-    Page.example example5Code example5SourceCode example5Output "has-text-black"
+    Page.example "has-text-black" example5Code example5SourceCode example5Output
 
 
 example5Code : String
@@ -152,7 +152,7 @@ example5Output =
 
 example6 : List (Html.Html msg)
 example6 =
-    Page.example example6Code example6SourceCode example6Output "has-text-black"
+    Page.example "has-text-black" example6Code example6SourceCode example6Output
 
 
 example6Code : String
@@ -175,7 +175,7 @@ example6Output =
 
 example7 : List (Html.Html msg)
 example7 =
-    Page.example example7Code example7SourceCode example7Output "has-text-white"
+    Page.example "has-text-white" example7Code example7SourceCode example7Output
 
 
 example7Code : String
@@ -198,7 +198,7 @@ example7Output =
 
 example8 : List (Html.Html msg)
 example8 =
-    Page.example example8Code example8SourceCode example8Output "has-text-white"
+    Page.example "has-text-white" example8Code example8SourceCode example8Output
 
 
 example8Code : String
