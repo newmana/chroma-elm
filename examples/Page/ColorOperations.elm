@@ -193,7 +193,7 @@ example7SourceCode =
 
 example7Output : List (Html.Html msg)
 example7Output =
-    [ Html.text """"##0087cd" : String  """ ]
+    [ Html.text """"#0087cd" : String  """ ]
 
 
 example8 : List (Html.Html msg)
@@ -216,4 +216,4 @@ example8SourceCode =
 
 example8Output : List (Html.Html msg)
 example8Output =
-    [ Html.text """"##b199a3" : String  """ ]
+    [ Html.text """"#b199a3" : String  """ ]
