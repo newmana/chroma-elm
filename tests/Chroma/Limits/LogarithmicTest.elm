@@ -28,4 +28,9 @@ testLimit =
                             (List.range 0 4)
                             [ 1, 10, 100, 1000, 10000 ]
                         )
+        , Test.test "4 breaks - 1,1,1,1,1,2,2,2,4,5,6" <|
+            \_ ->
+                Analyze.analyze (Nonempty.Nonempty 1 [ 1, 2, 1, 2, 4, 5, 6, 1, 2, 1 ])
+                    |> Logarithmic.limit 4
+                    |> Expect.equal (Nonempty.Nonempty 1 [ 1.5650845800732873, 2.449489742783178, 3.8336586254776344, 6 ])
         ]

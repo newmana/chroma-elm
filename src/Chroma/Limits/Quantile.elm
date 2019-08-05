@@ -26,13 +26,17 @@ limit bins scale =
                 pb =
                     floor p
 
-                pr =
-                    p - (pb |> toFloat)
+                pbFloat =
+                    toFloat pb
             in
-            if (pb |> toFloat) == p then
+            if pbFloat == p then
                 Nonempty.get pb scale.values
 
             else
+                let
+                    pr =
+                        p - pbFloat
+                in
                 (Nonempty.get pb scale.values * (1 - pr)) + (Nonempty.get (pb + 1) scale.values * pr)
     in
     Analyze.genericLimit bins scale calcBin
