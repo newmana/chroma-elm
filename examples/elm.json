@@ -16,7 +16,7 @@
             "elm/url": "1.0.0",
             "newmana/chroma-elm": "10.1.0",
             "avh4/elm-color": "1.0.0",
-            "mgold/elm-nonempty-list": "4.0.1"
+            "mgold/elm-nonempty-list": "4.0.2"
         },
         "indirect": {
             "elm/virtual-dom": "1.0.2",
