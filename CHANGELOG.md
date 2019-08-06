@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [10.0.0] - 2019-07-
+## [10.0.0] - 2019-08-01
 ### Added
 - Limits - CkMean, Equal, Logarithmic and Quantile.
 - Luminance.
