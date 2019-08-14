@@ -1,15 +1,18 @@
 module Page.GettingStarted exposing (content)
 
 import Chroma.Chroma as Chroma
+import Chroma.Colors.Plasma as Plasma
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Converter.Out.ToLch as ToLch
+import Chroma.Limits.Limits as Limits
 import Chroma.Ops.Lightness as OpsLightness
 import Chroma.Ops.Saturate as OpsSaturate
 import Chroma.Types as Types
 import Color as Color
 import Html as Html
 import Html.Attributes as HtmlAttributes
+import Legend as Legend
 import List.Nonempty as Nonempty
 import Page.Page as Page
 
@@ -52,6 +55,7 @@ content =
          ]
             ++ example1
             ++ example2
+            ++ example3
         )
     ]
 
@@ -82,7 +86,7 @@ example1Output =
 example2 : List (Html.Html msg)
 example2 =
     Page.p
-        "It can also be used to generate colormaps. "
+        "It can be used to generate colormaps. "
         ++ Page.example "has-text-black" "#f5f5f5" example2SourceCode example2Output
 
 
@@ -118,3 +122,34 @@ example2Output =
             Nonempty.map createHtml example2Code |> Nonempty.toList |> List.intersperse (textWith ",")
     in
     [ textWith "[" ] ++ colorsWithCommas ++ [ textWith "]" ]
+
+
+example3 : List (Html.Html msg)
+example3 =
+    let
+        data =
+            "Nonempty.Nonempty "
+                ++ String.fromFloat (Nonempty.head julyMaximums)
+                ++ " ["
+                ++ (List.map String.fromFloat (Nonempty.tail julyMaximums) |> List.intersperse ", " |> List.foldl (++) "")
+                ++ " ]"
+
+        code =
+            data ++ """
+ |> (\\x -> Chroma.limits x Limits.CkMeans 4)"""
+    in
+    Page.p
+        "Or to generate evenly distributed buckets across a continuous color map."
+        ++ Page.example "has-text-black" "#f5f5f5" code [ Legend.view config ]
+
+
+config : Legend.ContinuousLegendConfig
+config =
+    { ticks = julyMaximums |> (\x -> Chroma.limits x Limits.CkMeans 4)
+    , colours = Nonempty.map Types.RGBAColor Plasma.plasma |> Nonempty.reverse
+    }
+
+
+julyMaximums : Nonempty.Nonempty Float
+julyMaximums =
+    Nonempty.Nonempty 24.7 [ 25.2, 25.0, 24.3, 21.9, 22.0, 22.8, 19.7, 24.1, 23.8, 25.2, 26.2, 24.1, 20.3, 19.9, 23.3, 23.2, 24.6, 22.9, 22.6, 23.3, 24.7, 27.3, 27.1, 24.9, 23.5, 27.2, 25.3, 25.0, 26.1, 23.0 ]

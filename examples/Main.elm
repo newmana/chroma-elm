@@ -7,6 +7,7 @@ import Browser as Browser
 import Browser.Navigation as BrowserNavigation
 import Json.Decode as JsonDecode
 import Model as Model
+import Msg as Msg
 import Page.Chroma as PageChroma
 import Page.ColorOperations as PageInterpolator
 import Page.Colors as PageColor
@@ -17,21 +18,10 @@ import Url as Url
 import View as View
 
 
-type Msg
-    = ChangedRoute (Maybe Route.Route)
-    | ChangedUrl Url.Url
-    | ClickedLink Browser.UrlRequest
-    | GetStartedMsg
-    | ChromaMsg
-    | InterpolatorMsg
-    | ConvertorMsg
-    | ColorsMsg
-
-
-update : Msg -> Model.Model -> ( Model.Model, Cmd Msg )
+update : Msg.Msg -> Model.Model -> ( Model.Model, Cmd Msg.Msg )
 update msg model =
     case msg of
-        ClickedLink urlRequest ->
+        Msg.ClickedLink urlRequest ->
             case urlRequest of
                 Browser.Internal url ->
                     case url.fragment of
@@ -48,34 +38,34 @@ update msg model =
                     , BrowserNavigation.load href
                     )
 
-        ChangedUrl url ->
+        Msg.ChangedUrl url ->
             changeUrl url model.key
 
-        GetStartedMsg ->
+        Msg.GetStartedMsg ->
             ( { model | page = Model.GetStarted }, Cmd.none )
 
-        ChromaMsg ->
+        Msg.ChromaMsg ->
             ( { model | page = Model.Chroma }, Cmd.none )
 
-        InterpolatorMsg ->
+        Msg.InterpolatorMsg ->
             ( { model | page = Model.Interpolator }, Cmd.none )
 
-        ConvertorMsg ->
+        Msg.ConvertorMsg ->
             ( { model | page = Model.Convertor }, Cmd.none )
 
-        ColorsMsg ->
+        Msg.ColorsMsg ->
             ( { model | page = Model.Colors }, Cmd.none )
 
         _ ->
             ( model, Cmd.none )
 
 
-init : flags -> Url.Url -> BrowserNavigation.Key -> ( Model.Model, Cmd Msg )
+init : flags -> Url.Url -> BrowserNavigation.Key -> ( Model.Model, Cmd Msg.Msg )
 init flags url nav =
     changeUrl url nav
 
 
-changeUrl : Url.Url -> BrowserNavigation.Key -> ( Model.Model, Cmd Msg )
+changeUrl : Url.Url -> BrowserNavigation.Key -> ( Model.Model, Cmd Msg.Msg )
 changeUrl url nav =
     let
         maybeRoute =
@@ -88,19 +78,19 @@ changeUrl url nav =
         Just r ->
             case r of
                 Route.Home ->
-                    update GetStartedMsg (Model.defaultModel nav)
+                    update Msg.GetStartedMsg (Model.defaultModel nav)
 
                 Route.Chroma ->
-                    update ChromaMsg (Model.defaultModel nav)
+                    update Msg.ChromaMsg (Model.defaultModel nav)
 
                 Route.Interpolator ->
-                    update InterpolatorMsg (Model.defaultModel nav)
+                    update Msg.InterpolatorMsg (Model.defaultModel nav)
 
                 Route.Convertor ->
-                    update ConvertorMsg (Model.defaultModel nav)
+                    update Msg.ConvertorMsg (Model.defaultModel nav)
 
                 Route.Colors ->
-                    update ColorsMsg (Model.defaultModel nav)
+                    update Msg.ColorsMsg (Model.defaultModel nav)
 
 
 subscriptions model =
@@ -132,12 +122,12 @@ view model =
     }
 
 
-main : Program JsonDecode.Value Model.Model Msg
+main : Program JsonDecode.Value Model.Model Msg.Msg
 main =
     Browser.application
         { init = init
-        , onUrlChange = ChangedUrl
-        , onUrlRequest = ClickedLink
+        , onUrlChange = Msg.ChangedUrl
+        , onUrlRequest = Msg.ClickedLink
         , subscriptions = subscriptions
         , update = update
         , view = view
