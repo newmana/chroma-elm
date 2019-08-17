@@ -122,7 +122,7 @@ classes bins data =
                 { newData | classes = Just d }
 
             else
-                { newData | classes = Just (limits d Limits.Equal bins) }
+                { newData | classes = Just (limits Limits.Equal bins d) }
     in
     ( newDataWithClasses, Scale.getColor newDataWithClasses )
 
@@ -297,5 +297,5 @@ Supports: CkMean (a variant of kMeans), Equal, Logarithmic, and Quantile.
 
 -}
 limits : Limits.LimitMode -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float
-limits data mode bins =
-    Limits.limits data mode bins
+limits mode bins data =
+    Limits.limits mode bins data

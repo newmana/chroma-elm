@@ -28,8 +28,8 @@ type LimitMode
 
 {-| Create bins number of results using the given scale, except for CkMeans which can produce fewer bins.
 -}
-limits : Nonempty.Nonempty Float -> LimitMode -> Int -> Nonempty.Nonempty Float
-limits data mode bins =
+limits : LimitMode -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float
+limits mode bins data =
     let
         scale =
             Analyze.analyze data
