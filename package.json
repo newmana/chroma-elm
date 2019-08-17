@@ -1,7 +1,7 @@
 {
   "name": "chroma-elm",
   "version": "1.0.0",
-  "description": "An Elm native version of chroma.js to generate color maps, use different color spaces and operations.",
+  "description": "An Elm native version of chroma.js for color maps, color spaces and operations.",
   "repository": "https://github.com/newmana/chroma-elm.git",
   "author": "Andrew Newman <andrewfnewman@gmail.com>",
   "license": "Apache-2.0",
