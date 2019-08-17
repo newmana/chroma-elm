@@ -87,6 +87,11 @@ type alias MatrixLine =
 
 
 {-| Create up to bins number of results using the given scale.
+
+    Analyze.analyze (Nonempty.Nonempty 3 [1,3,4,3])
+    |> limit 3
+    -->  Nonempty.Nonempty 1 [3,4]
+
 -}
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
@@ -128,7 +133,12 @@ limit bins scale =
                 Nonempty.Nonempty head tail
 
 
-{-| Return the values in Scale into the given number of bins. For example, 1 [3,3,3,4] -> 3 bins -> [[1], [3,3,3], [4]]
+{-| Return the values in Scale into the given number of bins.
+
+    Analyze.analyze (Nonempty.Nonempty 3 [1,3,4,3])
+    |> binned 3
+    -->  Nonempty.Nonempty [1] [[3,3,3], [4]]
+
 -}
 binned : Int -> Analyze.Scale -> Nonempty.Nonempty (Array.Array Float)
 binned bins scale =
