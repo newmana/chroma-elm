@@ -4,7 +4,7 @@ module Chroma.Limits.CkMeans exposing
     )
 
 {-| A log linear implementation of [CkMeans](https://cran.r-project.org/web/packages/Ckmeans.1d.dp/index.html).
-It uses a divide-and-conquer algorithm to compute a row in the dynamic programming matrix in O(n lg n) time. The
+It uses a divide-and-conquer algorithm to compute a row in the dynamic programming matrix in O(n log n) time. The
 [Simple Statistic's implementation](https://simplestatistics.org/docs/#ckmeans) was used to validate this
 implementation.
 
