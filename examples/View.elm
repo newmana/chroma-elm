@@ -24,6 +24,7 @@ view model content =
                     ]
                     [ Html.h1
                         [ HtmlAttributes.class "title"
+                        , HtmlAttributes.style "padding" "0.75rem"
                         ]
                         [ Html.text "chroma-elm" ]
                     ]
