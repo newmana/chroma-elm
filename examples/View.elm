@@ -94,11 +94,12 @@ view model content =
                             , HtmlAttributes.href "#/convertor"
                             ]
                             [ Html.text "Convertor" ]
-                        , Html.a
-                            [ HtmlAttributes.class "list-item"
-                            , HtmlAttributes.href "#/colors"
-                            ]
-                            [ Html.text "Colors" ]
+
+                        --                        , Html.a
+                        --                            [ HtmlAttributes.class "list-item"
+                        --                            , HtmlAttributes.href "#/colors"
+                        --                            ]
+                        --                            [ Html.text "Colors" ]
                         ]
                     ]
                  ]
