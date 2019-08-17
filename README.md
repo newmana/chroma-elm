@@ -1,7 +1,12 @@
 # chroma-elm
-Clone of [Chroma.js](https://gka.github.io/chroma.js)
+A native version of [Chroma.js](https://gka.github.io/chroma.js) that allows you to:
+ * create color scales, 
+ * use different color spaces such as CMYK, HSLA, LAB, LCH and RGB, 
+ * modify colors using interpolate, set/get alpha, lighten/darken, saturate/desaturate, 
+ * use existing colormaps such as Brewer, Virdis, Plasma, Magma and Inferno, and
+ * use W3C X11 color names.   
 
-[Example Site](https://newmana.github.io/chroma-elm/)
+There is also [an Example Site](https://newmana.github.io/chroma-elm/) showing how to use the library.
 
 [Changelog](https://github.com/newmana/chroma-elm/blob/master/CHANGELOG.md)
 
