@@ -118,7 +118,7 @@ view model =
                     PageColor.content
     in
     { title = "chroma-elm"
-    , body = [ View.view model page ]
+    , body = View.view model page
     }
 
 

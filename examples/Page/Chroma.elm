@@ -6,6 +6,7 @@ import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Types as Types
 import Html as Html
 import Html.Attributes as HtmlAttributes
+import List.Nonempty as Nonempty
 import Page.Page as Page
 
 
@@ -34,6 +35,11 @@ content =
             ++ Page.p "If it fails to parse either as a valid color or hex string you must have a default color."
             ++ Page.example "has-text-white" example5Code example5SourceCode example5Output
             ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Chroma.average(mode, colors)" ]
+               ]
+            ++ Page.example "has-text-white" example6Code example6SourceCode example6Output
         )
     ]
 
@@ -130,4 +136,27 @@ example5Output : List (Html.Html msg)
 example5Output =
     [ Html.text
         """"#000000" : String """
+    ]
+
+
+example6Code : String
+example6Code =
+    Nonempty.Nonempty (Types.RGBAColor W3CX11.grey) [ Types.RGBAColor W3CX11.yellow, Types.RGBAColor W3CX11.red, Types.RGBAColor W3CX11.teal ]
+        |> Chroma.average Types.LAB
+        |> Result.withDefault (Types.RGBAColor W3CX11.black)
+        |> ToHex.toHexAlpha
+
+
+example6SourceCode : String
+example6SourceCode =
+    """Nonempty.Nonempty (Types.RGBAColor W3CX11.grey) [ Types.RGBAColor W3CX11.yellow, Types.RGBAColor W3CX11.red, Types.RGBAColor W3CX11.teal ]
+ |> Chroma.average Types.LAB
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
+ |> ToHex.toHexAlpha  """
+
+
+example6Output : List (Html.Html msg)
+example6Output =
+    [ Html.text
+        """"#ba9254" : String """
     ]
