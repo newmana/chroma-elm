@@ -3,7 +3,7 @@ A native version of [Chroma.js](https://gka.github.io/chroma.js) that allows you
  * create color scales, 
  * use different color spaces such as CMYK, HSLA, LAB, LCH and RGB, 
  * modify colors using interpolate, set/get alpha, lighten/darken, saturate/desaturate, 
- * use existing colormaps such as Brewer, Virdis, Plasma, Magma and Inferno, and
+ * use existing color maps such as Brewer, Virdis, Plasma, Magma and Inferno, and
  * use W3C X11 color names.   
 
 There is also [an Example Site](https://newmana.github.io/chroma-elm/) showing how to use the library.
