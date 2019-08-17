@@ -3,7 +3,7 @@
     "name": "newmana/chroma-elm",
     "summary": "A clone of the very useful chroma.js in Elm",
     "license": "Apache-2.0",
-    "version": "10.1.1",
+    "version": "10.1.2",
     "exposed-modules": {
         "Main API": [
             "Chroma.Chroma"
