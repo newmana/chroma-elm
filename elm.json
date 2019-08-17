@@ -1,7 +1,7 @@
 {
     "type": "package",
     "name": "newmana/chroma-elm",
-    "summary": "A clone of the very useful chroma.js in Elm",
+    "summary": "A clone of the very useful chroma.js in Elm to generate color maps, use different color spaces and operations.",
     "license": "Apache-2.0",
     "version": "11.0.1",
     "exposed-modules": {
