@@ -6,7 +6,7 @@ A native version of [Chroma.js](https://gka.github.io/chroma.js) that allows you
  * use existing color maps such as Brewer, Virdis, Plasma, Magma and Inferno, and
  * use W3C X11 color names.   
 
-There is also [an Example Site](https://newmana.github.io/chroma-elm/) showing how to use the library.
+There is [an example site](https://newmana.github.io/chroma-elm/) showing how to use the library.
 
 [Changelog](https://github.com/newmana/chroma-elm/blob/master/CHANGELOG.md)
 
