@@ -1812,7 +1812,7 @@ elm-test@0.19.0-rev6:
   optionalDependencies:
     fsevents "1.2.4"
 
-elm@^0.19.0-bugfix6:
+elm@0.19.0-no-deps:
   version "0.19.0-no-deps"
   resolved "https://registry.yarnpkg.com/elm/-/elm-0.19.0-no-deps.tgz#4754b658c424771823ee91bd5bf6387647954add"
 

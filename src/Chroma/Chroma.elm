@@ -296,6 +296,6 @@ averageChroma mode strList =
 Supports: CkMean (a variant of kMeans), Equal, Logarithmic, and Quantile.
 
 -}
-limits : Nonempty.Nonempty Float -> Limits.LimitMode -> Int -> Nonempty.Nonempty Float
+limits : Limits.LimitMode -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float
 limits data mode bins =
     Limits.limits data mode bins
