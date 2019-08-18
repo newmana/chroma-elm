@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [12.0.0] - 2019-08-19
+### Added
+- Parula color map.
+
+## [11.0.0] - 2019-08-17
+### Fixed
+- Description of package.
+
 ## [10.0.0] - 2019-08-01
 ### Added
 - Limits - CkMean, Equal, Logarithmic and Quantile.
