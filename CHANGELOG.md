@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 
 ## [11.0.0] - 2019-08-17
 ### Fixed
+- Order of limits function in Chroma.
 - Description of package.
 
 ## [10.0.0] - 2019-08-01
