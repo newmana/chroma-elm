@@ -12,5 +12,5 @@ type Msg
     | GetStartedMsg
     | ChromaMsg
     | InterpolatorMsg
-    | ConvertorMsg
+    | ConverterMsg
     | ColorsMsg

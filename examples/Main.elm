@@ -50,8 +50,8 @@ update msg model =
         Msg.InterpolatorMsg ->
             ( { model | page = Model.Interpolator }, Cmd.none )
 
-        Msg.ConvertorMsg ->
-            ( { model | page = Model.Convertor }, Cmd.none )
+        Msg.ConverterMsg ->
+            ( { model | page = Model.Converter }, Cmd.none )
 
         Msg.ColorsMsg ->
             ( { model | page = Model.Colors }, Cmd.none )
@@ -86,8 +86,8 @@ changeUrl url nav =
                 Route.Interpolator ->
                     update Msg.InterpolatorMsg (Model.defaultModel nav)
 
-                Route.Convertor ->
-                    update Msg.ConvertorMsg (Model.defaultModel nav)
+                Route.Converter ->
+                    update Msg.ConverterMsg (Model.defaultModel nav)
 
                 Route.Colors ->
                     update Msg.ColorsMsg (Model.defaultModel nav)
@@ -111,7 +111,7 @@ view model =
                 Model.Interpolator ->
                     PageInterpolator.content
 
-                Model.Convertor ->
+                Model.Converter ->
                     Convertor.content
 
                 Model.Colors ->

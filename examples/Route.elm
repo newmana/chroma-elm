@@ -14,7 +14,7 @@ type Route
     = Home
     | Chroma
     | Interpolator
-    | Convertor
+    | Converter
     | Colors
 
 
@@ -24,7 +24,7 @@ parser =
         [ UrlParser.map Home UrlParser.top
         , UrlParser.map Chroma (UrlParser.s "chroma")
         , UrlParser.map Interpolator (UrlParser.s "ops")
-        , UrlParser.map Convertor (UrlParser.s "convertor")
+        , UrlParser.map Converter (UrlParser.s "converter")
         , UrlParser.map Colors (UrlParser.s "colors")
         ]
 

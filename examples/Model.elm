@@ -11,7 +11,7 @@ type Content
     = GetStarted
     | Chroma
     | Interpolator
-    | Convertor
+    | Converter
     | Colors
 
 

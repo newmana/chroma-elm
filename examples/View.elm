@@ -86,20 +86,19 @@ view model content =
                             [ Html.text "Chroma" ]
                         , Html.a
                             [ HtmlAttributes.class "list-item"
+                            , HtmlAttributes.href "#/colors"
+                            ]
+                            [ Html.text "Colors" ]
+                        , Html.a
+                            [ HtmlAttributes.class "list-item"
+                            , HtmlAttributes.href "#/converter"
+                            ]
+                            [ Html.text "Converter" ]
+                        , Html.a
+                            [ HtmlAttributes.class "list-item"
                             , HtmlAttributes.href "#/ops"
                             ]
                             [ Html.text "Color Operations" ]
-                        , Html.a
-                            [ HtmlAttributes.class "list-item"
-                            , HtmlAttributes.href "#/convertor"
-                            ]
-                            [ Html.text "Convertor" ]
-
-                        --                        , Html.a
-                        --                            [ HtmlAttributes.class "list-item"
-                        --                            , HtmlAttributes.href "#/colors"
-                        --                            ]
-                        --                            [ Html.text "Colors" ]
                         ]
                     ]
                  ]
