@@ -145,7 +145,7 @@ example3 =
 
 config : Legend.ContinuousLegendConfig
 config =
-    { ticks = julyMaximums |> (\x -> Chroma.limits x Limits.CkMeans 4)
+    { ticks = Chroma.limits Limits.CkMeans 4 julyMaximums
     , colours = Nonempty.map Types.RGBAColor Plasma.plasma |> Nonempty.reverse
     }
 
