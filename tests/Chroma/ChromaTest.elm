@@ -109,6 +109,9 @@ testScaleAndDomain =
 
         ( _, g ) =
             Chroma.domain (Nonempty.Nonempty -1192 [ 0, 66 ]) (Nonempty.map Types.RGBAColor (Nonempty.Nonempty (rgb255 216 179 101) [ rgb255 245 245 245, rgb255 90 180 172 ]))
+
+        ( _, h ) =
+            Chroma.domainF (Nonempty.Nonempty 0.0 [ 100.0 ]) (Turbo.getColor >> Types.RGBAColor)
     in
     Test.describe "scale and domain API"
         [ Test.test "Simple test" <|
@@ -123,6 +126,9 @@ testScaleAndDomain =
         , Test.test "Multi Domain Test Positive" <|
             \_ ->
                 Expect.equal "#afd7d4" (ToHex.toHex (g 30))
+        , Test.test "Simple function test" <|
+            \_ ->
+                Expect.equal "#95fb51" (ToHex.toHex (h 50))
         ]
 
 
