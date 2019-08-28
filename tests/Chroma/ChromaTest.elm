@@ -2,6 +2,7 @@ module Chroma.ChromaTest exposing (tests)
 
 import Chroma.Chroma as Chroma
 import Chroma.Colors.Brewer as Brewer
+import Chroma.Colors.Turbo as Turbo
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
@@ -205,6 +206,9 @@ testColors =
         ( _, orangeToRed ) =
             Chroma.colors 5 (Nonempty.map Types.RGBAColor Brewer.orRd)
 
+        ( _, turbo ) =
+            Chroma.colorsF 5 (Turbo.getColor >> Types.RGBAColor)
+
         ( _, whiteToBlack ) =
             Chroma.colors 12 (Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ])
     in
@@ -212,6 +216,9 @@ testColors =
         [ Test.test "Five orange to red" <|
             \_ ->
                 Expect.equal (Nonempty.Nonempty "#fff7ec" [ "#fdd49e", "#fc8d59", "#d7301f", "#7f0000" ]) (Nonempty.map ToHex.toHex orangeToRed)
+        , Test.test "Five from turbo" <|
+            \_ ->
+                Expect.equal (Nonempty.Nonempty "#23171b" [ "#26bce1", "#95fb51", "#ff821d", "#900c00" ]) (Nonempty.map ToHex.toHex turbo)
         , Test.test "Twelve black to white" <|
             \_ ->
                 Expect.equal (Nonempty.Nonempty "#ffffff" [ "#e8e8e8", "#d1d1d1", "#b9b9b9", "#a2a2a2", "#8b8b8b", "#747474", "#5d5d5d", "#464646", "#2e2e2e", "#171717", "#000000" ]) (Nonempty.map ToHex.toHex whiteToBlack)
