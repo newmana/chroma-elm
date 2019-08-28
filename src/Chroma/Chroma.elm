@@ -101,7 +101,7 @@ scaleWith data colorsList =
         newData =
             Scale.createDiscreteColorData colorsList data.shared
     in
-    ( newData, Scale.getColor newData.c newData.shared )
+    ( newData, Scale.getColor newData )
 
 
 {-| Return a new configuration and a function from a float to color using the default configuration, the given
@@ -133,7 +133,7 @@ classes bins data =
         updatedData =
             { data | shared = newSharedDataWithClasses }
     in
-    ( updatedData, Scale.getColor updatedData.c updatedData.shared )
+    ( updatedData, Scale.getColor updatedData )
 
 
 {-| Return a new configuration and a function from a float to color based on the given configuration values, the given
@@ -154,7 +154,7 @@ classesWithArray newClasses data =
         newData =
             Scale.initSharedData setDomainInData
     in
-    ( newData, Scale.getColor newData.c newData.shared )
+    ( newData, Scale.getColor newData )
 
 
 {-| Return a new configuration and a function from a float to color based on a new domain, colors (must either be the
@@ -166,7 +166,7 @@ domain newDomain colorsList =
         newData =
             Scale.createDiscreteColorData colorsList Scale.defaultSharedData |> Scale.domain newDomain
     in
-    ( newData, Scale.getColor newData.c newData.shared )
+    ( newData, Scale.getColor newData )
 
 
 {-| Return a new configuration and a function from a float to color based on an existing configuration, a new domain,
@@ -178,7 +178,7 @@ domainWith data newDomain colorsList =
         newData =
             Scale.createDiscreteColorData colorsList Scale.defaultSharedData |> Scale.domain newDomain
     in
-    ( newData, Scale.getColor newData.c newData.shared )
+    ( newData, Scale.getColor newData )
 
 
 {-| Remove a fraction of the color gradient (0 -> 1). Applies both sides the same.

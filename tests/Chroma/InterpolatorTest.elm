@@ -79,8 +79,8 @@ redLab =
     Types.RGBAColor W3CX11.red |> ToLab.toLabExt
 
 
-expectScaleWithDomainLab colorsList newData val expectedValue =
-    case Scale.getColor (Scale.DiscreteColor colorsList) newData val of
+expectScaleWithDomainLab data val expectedValue =
+    case Scale.getColor data val of
         Types.LABColor lab ->
             Expect.within (Expect.Absolute 1.0) lab.lightness expectedValue
 
@@ -88,8 +88,8 @@ expectScaleWithDomainLab colorsList newData val expectedValue =
             Expect.fail "Wrong type returned"
 
 
-expectScaleWithDomainRgb colorsList newData val expectedValue =
-    case Scale.getColor colorsList newData val of
+expectScaleWithDomainRgb data val expectedValue =
+    case Scale.getColor data val of
         Types.RGBAColor c ->
             Color.toRgba c |> (\rgba -> Expect.within (Expect.Absolute 0.0001) rgba.red expectedValue)
 
@@ -97,8 +97,8 @@ expectScaleWithDomainRgb colorsList newData val expectedValue =
             Expect.fail "Wrong type returned"
 
 
-expectScaleWithDomainLabHex colorsList newData val expectedValue =
-    case Scale.getColor (Scale.DiscreteColor colorsList) newData val of
+expectScaleWithDomainLabHex data val expectedValue =
+    case Scale.getColor data val of
         (Types.LABColor _) as color ->
             Expect.equal (ToHex.toHex color) expectedValue
 
@@ -106,8 +106,8 @@ expectScaleWithDomainLabHex colorsList newData val expectedValue =
             Expect.fail "Wrong type returned"
 
 
-expectScaleWithDomainLchHex colorsList newData val expectedValue =
-    case Scale.getColor (Scale.DiscreteColor colorsList) newData val of
+expectScaleWithDomainLchHex data val expectedValue =
+    case Scale.getColor data val of
         (Types.LCHColor _) as color ->
             Expect.equal (ToHex.toHex color) expectedValue
 
@@ -115,8 +115,8 @@ expectScaleWithDomainLchHex colorsList newData val expectedValue =
             Expect.fail "Wrong type returned"
 
 
-expectScaleWithDomainRgbHex colorsList newData val expectedValue =
-    case Scale.getColor (Scale.DiscreteColor colorsList) newData val of
+expectScaleWithDomainRgbHex data val expectedValue =
+    case Scale.getColor data val of
         (Types.RGBAColor _) as color ->
             Expect.equal (ToHex.toHex color) expectedValue
 
@@ -136,13 +136,13 @@ testSimpleBlackWhiteRgb =
     Test.describe "Simple RGB Scale"
         [ Test.test "Test start of two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorsList newData.shared 0 "#ffffff"
+                expectScaleWithDomainRgbHex newData 0 "#ffffff"
         , Test.test "Test between two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorsList newData.shared 0.5 "#808080"
+                expectScaleWithDomainRgbHex newData 0.5 "#808080"
         , Test.test "Test end of two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorsList newData.shared 1.0 "#000000"
+                expectScaleWithDomainRgbHex newData 1.0 "#000000"
         ]
 
 
@@ -158,13 +158,13 @@ testSimpleBlackWhiteLab =
     Test.describe "Simple LAB Scale"
         [ Test.test "Test start of two" <|
             \_ ->
-                expectScaleWithDomainLabHex colorsList newData.shared 0 "#ffffff"
+                expectScaleWithDomainLabHex newData 0 "#ffffff"
         , Test.test "Test between two" <|
             \_ ->
-                expectScaleWithDomainLabHex colorsList newData.shared 0.5 "#777777"
+                expectScaleWithDomainLabHex newData 0.5 "#777777"
         , Test.test "Test end of two" <|
             \_ ->
-                expectScaleWithDomainLabHex colorsList newData.shared 1.0 "#000000"
+                expectScaleWithDomainLabHex newData 1.0 "#000000"
         ]
 
 
@@ -180,13 +180,13 @@ testSimpleBlackWhiteLch =
     Test.describe "Simple LCH Scale"
         [ Test.test "Test start of two" <|
             \_ ->
-                expectScaleWithDomainLchHex colorsList newData.shared 0 "#ffffff"
+                expectScaleWithDomainLchHex newData 0 "#ffffff"
         , Test.test "Test between two" <|
             \_ ->
-                expectScaleWithDomainLchHex colorsList newData.shared 0.5 "#777777"
+                expectScaleWithDomainLchHex newData 0.5 "#777777"
         , Test.test "Test end of two" <|
             \_ ->
-                expectScaleWithDomainLchHex colorsList newData.shared 1.0 "#000000"
+                expectScaleWithDomainLchHex newData 1.0 "#000000"
         ]
 
 
@@ -196,19 +196,19 @@ testBrewerRgb =
         colorsList =
             Nonempty.map Types.RGBAColor Brewer.rdYlGn
 
-        newSharedData =
-            Scale.defaultSharedData
+        newData =
+            Scale.createDiscreteColorData colorsList Scale.defaultSharedData
     in
     Test.describe "Brewer Red Yellow Green Scale"
         [ Test.test "Test start of two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorsList newSharedData 0 "#a50026"
+                expectScaleWithDomainRgbHex newData 0 "#a50026"
         , Test.test "Test between two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorsList newSharedData 0.5 "#ffffbf"
+                expectScaleWithDomainRgbHex newData 0.5 "#ffffbf"
         , Test.test "Test end of two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorsList newSharedData 1.0 "#006837"
+                expectScaleWithDomainRgbHex newData 1.0 "#006837"
         ]
 
 
@@ -236,31 +236,31 @@ testBrewerRgbWithDomain =
     Test.describe "Brewer Red Yellow Green Scale with 0,100 domain "
         [ Test.test "Test start of two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorList newData.shared 0 "#a50026"
+                expectScaleWithDomainRgbHex newData 0 "#a50026"
         , Test.test "Test at 10%" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorList newData.shared 10 "#d73027"
+                expectScaleWithDomainRgbHex newData 10 "#d73027"
         , Test.test "Test between two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorList newData.shared 50 "#ffffbf"
+                expectScaleWithDomainRgbHex newData 50 "#ffffbf"
         , Test.test "Test end of two" <|
             \_ ->
-                expectScaleWithDomainRgbHex colorList newData.shared 100 "#006837"
+                expectScaleWithDomainRgbHex newData 100 "#006837"
         , Test.test "Three color RGB start" <|
             \_ ->
-                expectScaleWithDomainRgbHex multiDomainColorList newDataMultiDomain.shared 0.0 (ToHex.toHex yellowRgb)
+                expectScaleWithDomainRgbHex newDataMultiDomain 0.0 (ToHex.toHex yellowRgb)
         , Test.test "Three color RGB on second" <|
             \_ ->
-                expectScaleWithDomainRgbHex multiDomainColorList newDataMultiDomain.shared 0.25 (ToHex.toHex lightGreen)
+                expectScaleWithDomainRgbHex newDataMultiDomain 0.25 (ToHex.toHex lightGreen)
         , Test.test "Three color RGB midpoint" <|
             \_ ->
-                expectScaleWithDomainRgbHex multiDomainColorList newDataMultiDomain.shared 0.5 "#60cdac"
+                expectScaleWithDomainRgbHex newDataMultiDomain 0.5 "#60cdac"
         , Test.test "Three color RGB end" <|
             \_ ->
-                expectScaleWithDomainRgbHex multiDomainColorList newDataMultiDomain.shared 1.0 (ToHex.toHex bluishRgb)
+                expectScaleWithDomainRgbHex newDataMultiDomain 1.0 (ToHex.toHex bluishRgb)
         , Test.test "Multi Domain Test Arbitrary" <|
             \_ ->
-                expectScaleWithDomainRgbHex arbitraryColorList newArbitrary.shared -860 "#e0c58d"
+                expectScaleWithDomainRgbHex newArbitrary -860 "#e0c58d"
         ]
 
 
@@ -276,7 +276,7 @@ testInterpolate =
                     newData =
                         Scale.createDiscreteColorData colorsList Scale.defaultSharedData
                 in
-                expectScaleWithDomainLab colorsList newData.shared 0.5 50
+                expectScaleWithDomainLab newData 0.5 50
         , Test.test "Hot with no correction lab" <|
             \_ ->
                 let
@@ -286,7 +286,7 @@ testInterpolate =
                     newData =
                         Scale.createDiscreteColorData colorsList Scale.defaultSharedData
                 in
-                expectScaleWithDomainLab colorsList newData.shared 0.5 75
+                expectScaleWithDomainLab newData 0.5 75
         , Test.test "Hot with correction lab" <|
             \_ ->
                 let
@@ -300,7 +300,7 @@ testInterpolate =
                     newData =
                         Scale.createDiscreteColorData colorsList newSharedData
                 in
-                expectScaleWithDomainLab colorsList newData.shared 0.5 50
+                expectScaleWithDomainLab newData 0.5 50
         , Test.test "Hot with no correction and domain [0,100] lab" <|
             \_ ->
                 let
@@ -314,7 +314,7 @@ testInterpolate =
                         Scale.createDiscreteColorData colorsList newSharedData
                             |> Scale.domain (Nonempty.Nonempty 0 [ 100 ])
                 in
-                expectScaleWithDomainLab colorsList newData.shared 50 75
+                expectScaleWithDomainLab newData 50 75
         , Test.test "Hot with correction and domain [0,100] lab" <|
             \_ ->
                 let
@@ -329,7 +329,7 @@ testInterpolate =
                         Scale.createDiscreteColorData colorsList newSharedData
                             |> Scale.domain (Nonempty.Nonempty 0 [ 100 ])
                 in
-                expectScaleWithDomainLab colorsList newData.shared 50 50
+                expectScaleWithDomainLab newData 50 50
         , Test.test "Hot with no correction and domain [0,20,40,60,80,100] lab" <|
             \_ ->
                 let
@@ -343,7 +343,7 @@ testInterpolate =
                         Scale.createDiscreteColorData colorsList newSharedData
                             |> Scale.domain (Nonempty.Nonempty 0 [ 20, 40, 60, 80, 100 ])
                 in
-                expectScaleWithDomainLab colorsList newData.shared 50 75
+                expectScaleWithDomainLab newData 50 75
         , Test.test "Hot with correction and domain [0,20,40,60,80,100] lab" <|
             \_ ->
                 let
@@ -358,15 +358,15 @@ testInterpolate =
                         Scale.createDiscreteColorData colorsList newSharedData
                             |> Scale.domain (Nonempty.Nonempty 0 [ 20, 40, 60, 80, 100 ])
                 in
-                expectScaleWithDomainLab colorsList newData.shared 50 50
+                expectScaleWithDomainLab newData 50 50
         , Test.test "Simple two color RGB" <|
             \_ ->
                 let
                     colorsList =
                         Nonempty.Nonempty whiteRgb [ blackRgb ]
 
-                    data =
+                    newData =
                         Scale.createDiscreteColorData colorsList Scale.defaultSharedData
                 in
-                expectScaleWithDomainRgb data.c data.shared 0.25 0.75
+                expectScaleWithDomainRgb newData 0.25 0.75
         ]

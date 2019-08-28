@@ -119,15 +119,15 @@ initSharedData data =
 
 
 {-| -}
-getColor : CalculateColor -> SharedData -> Float -> Types.ExtColor
-getColor colorsList data val =
+getColor : Data -> Float -> Types.ExtColor
+getColor data val =
     let
         ( min, max ) =
-            data.domainValues
+            data.shared.domainValues
     in
-    case data.classes of
+    case data.shared.classes of
         Nothing ->
-            getDirectColor colorsList data ((val - min) / (max - min))
+            getDirectColor data ((val - min) / (max - min))
 
         Just c ->
             let
@@ -141,24 +141,34 @@ getColor colorsList data val =
                 ( _, loc ) =
                     List.foldr getResult ( False, 0 ) (List.range 0 (Nonempty.length c))
             in
-            getDirectColor colorsList data (toFloat loc / (Nonempty.length c - 2 |> toFloat))
+            getDirectColor data (toFloat loc / (Nonempty.length c - 2 |> toFloat))
 
 
-getDirectColor : CalculateColor -> SharedData -> Float -> Types.ExtColor
-getDirectColor colorsList data startT =
+getDirectColor : Data -> Float -> Types.ExtColor
+getDirectColor data startT =
     let
         lightnessCorrectedT =
-            if data.useCorrectLightness then
-                correctLightness colorsList { data | useCorrectLightness = False } startT
+            if data.shared.useCorrectLightness then
+                let
+                    shareData =
+                        data.shared
+
+                    newShared =
+                        { shareData | useCorrectLightness = False }
+
+                    newData =
+                        { data | shared = newShared }
+                in
+                correctLightness newData startT
 
             else
                 startT
 
         gammaT =
-            lightnessCorrectedT ^ data.gammaValue
+            lightnessCorrectedT ^ data.shared.gammaValue
 
         ( padLeft, padRight ) =
-            data.paddingValues
+            data.shared.paddingValues
 
         paddedT =
             padLeft + (gammaT * (1 - padLeft - padRight))
@@ -166,12 +176,12 @@ getDirectColor colorsList data startT =
         boundedT =
             clamp 0 1 paddedT
     in
-    case colorsList of
+    case data.c of
         ContinuousColor f ->
-            fromContinuousColor f data boundedT
+            fromContinuousColor f data.shared boundedT
 
         DiscreteColor cl ->
-            fromDiscreteColor cl data boundedT
+            fromDiscreteColor cl data.shared boundedT
 
 
 fromContinuousColor : (Float -> Types.ExtColor) -> SharedData -> Float -> Types.ExtColor
@@ -313,20 +323,20 @@ type alias Convergence =
 
 {-| Given a data change the lightness value (need to be LAB).
 -}
-correctLightness : CalculateColor -> SharedData -> Float -> Float
-correctLightness colorsList data val =
+correctLightness : Data -> Float -> Float
+correctLightness data val =
     let
         l0 =
-            getDirectColor colorsList data 0 |> ColorSpace.toNonEmptyList |> Nonempty.head
+            getDirectColor data 0 |> ColorSpace.toNonEmptyList |> Nonempty.head
 
         l1 =
-            getDirectColor colorsList data 1 |> ColorSpace.toNonEmptyList |> Nonempty.head
+            getDirectColor data 1 |> ColorSpace.toNonEmptyList |> Nonempty.head
 
         pol =
             l0 > l1
 
         actual =
-            getDirectColor colorsList data val |> ColorSpace.toNonEmptyList |> Nonempty.head
+            getDirectColor data val |> ColorSpace.toNonEmptyList |> Nonempty.head
 
         ideal =
             l0 + ((l1 - l0) * val)
@@ -335,26 +345,26 @@ correctLightness colorsList data val =
             actual - ideal
 
         allResults =
-            convergeResult colorsList data 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
+            convergeResult data 20 pol ideal { diff = diff, t = val, t0 = 0, t1 = 1 }
     in
     allResults.t
 
 
-convergeResult : CalculateColor -> SharedData -> Int -> Bool -> Float -> Convergence -> Convergence
-convergeResult colorsList data maxIter pol ideal calcs =
+convergeResult : Data -> Int -> Bool -> Float -> Convergence -> Convergence
+convergeResult data maxIter pol ideal calcs =
     if (abs calcs.diff <= 0.01) || maxIter <= 0 then
         calcs
 
     else
         let
             result =
-                calcResult colorsList data pol ideal calcs
+                calcResult data pol ideal calcs
         in
-        convergeResult colorsList data (maxIter - 1) pol ideal result
+        convergeResult data (maxIter - 1) pol ideal result
 
 
-calcResult : CalculateColor -> SharedData -> Bool -> Float -> Convergence -> Convergence
-calcResult colorsList data pol ideal calcs =
+calcResult : Data -> Bool -> Float -> Convergence -> Convergence
+calcResult data pol ideal calcs =
     let
         newCalcs =
             if pol then
@@ -371,7 +381,7 @@ calcResult colorsList data pol ideal calcs =
                 ( newCalcs.t + ((newCalcs.t0 - newCalcs.t) * 0.5), newCalcs.t0, newCalcs.t )
 
         actual =
-            getDirectColor colorsList data newT |> ColorSpace.toNonEmptyList |> Nonempty.head
+            getDirectColor data newT |> ColorSpace.toNonEmptyList |> Nonempty.head
     in
     { diff = actual - ideal, t = newT, t0 = newT0, t1 = newT1 }
 
@@ -382,11 +392,11 @@ colors : Int -> Data -> Nonempty.Nonempty Types.ExtColor
 colors num data =
     case num of
         1 ->
-            Nonempty.Nonempty (getColor data.c data.shared 0.5) []
+            Nonempty.Nonempty (getColor data 0.5) []
 
         _ ->
             let
                 ranged =
                     Nonempty.Nonempty 1 (List.range 2 num)
             in
-            Nonempty.indexedMap (\i c -> getColor data.c data.shared (toFloat i / toFloat (num - 1))) ranged
+            Nonempty.indexedMap (\i c -> getColor data (toFloat i / toFloat (num - 1))) ranged
