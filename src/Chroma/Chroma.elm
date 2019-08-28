@@ -229,7 +229,7 @@ colors : Int -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Nonempty.Nonem
 colors i colorsList =
     let
         newData =
-            Scale.initSharedData Scale.defaultData
+            Scale.createDiscreteColorData colorsList Scale.defaultSharedData
     in
     colorsWith newData i colorsList
 

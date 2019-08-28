@@ -202,11 +202,11 @@ testPadding =
 testColors : Test.Test
 testColors =
     let
-        ( _, whiteToBlack ) =
-            Chroma.colors 12 (Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ])
-
         ( _, orangeToRed ) =
             Chroma.colors 5 (Nonempty.map Types.RGBAColor Brewer.orRd)
+
+        ( _, whiteToBlack ) =
+            Chroma.colors 12 (Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ])
     in
     Test.describe "colors API"
         [ Test.test "Five orange to red" <|
