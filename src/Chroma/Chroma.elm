@@ -99,10 +99,7 @@ scaleWith : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Floa
 scaleWith data colorsList =
     let
         newData =
-            { c = Scale.DiscreteColor colorsList
-            , shared = data.shared
-            }
-                |> Scale.createSharedData
+            Scale.createDiscreteColorData colorsList data.shared
     in
     ( newData, Scale.getColor newData.c newData.shared )
 
@@ -114,7 +111,7 @@ classes : Int -> Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
 classes bins data =
     let
         newData =
-            Scale.createSharedData data
+            Scale.initSharedData data
 
         newSharedData =
             newData.shared
@@ -148,14 +145,14 @@ classesWithArray newClasses data =
         oldShared =
             data.shared
 
-        newShared =
+        matchNewClassesInShared =
             { oldShared | classes = Just newClasses }
 
-        updatedData =
-            { data | shared = newShared } |> Scale.domain newClasses
+        setDomainInData =
+            { data | shared = matchNewClassesInShared } |> Scale.domain newClasses
 
         newData =
-            Scale.createSharedData updatedData
+            Scale.initSharedData setDomainInData
     in
     ( newData, Scale.getColor newData.c newData.shared )
 
@@ -167,7 +164,7 @@ domain : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.
 domain newDomain colorsList =
     let
         newData =
-            Scale.defaultData |> (\d -> { d | c = Scale.DiscreteColor colorsList }) |> Scale.createSharedData |> Scale.domain newDomain
+            Scale.createDiscreteColorData colorsList Scale.defaultSharedData |> Scale.domain newDomain
     in
     ( newData, Scale.getColor newData.c newData.shared )
 
@@ -179,7 +176,7 @@ domainWith : Scale.Data -> Nonempty.Nonempty Float -> Nonempty.Nonempty Types.Ex
 domainWith data newDomain colorsList =
     let
         newData =
-            { data | c = Scale.DiscreteColor colorsList } |> Scale.createSharedData |> Scale.domain newDomain
+            Scale.createDiscreteColorData colorsList Scale.defaultSharedData |> Scale.domain newDomain
     in
     ( newData, Scale.getColor newData.c newData.shared )
 
@@ -197,7 +194,7 @@ paddingBoth : ( Float, Float ) -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Da
 paddingBoth ( newLeft, newRight ) colorsList =
     let
         newData =
-            Scale.createSharedData Scale.defaultData
+            Scale.initSharedData Scale.defaultData
     in
     paddingBothWith newData ( newLeft, newRight ) colorsList
 
@@ -232,7 +229,7 @@ colors : Int -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Nonempty.Nonem
 colors i colorsList =
     let
         newData =
-            Scale.createSharedData Scale.defaultData
+            Scale.initSharedData Scale.defaultData
     in
     colorsWith newData i colorsList
 

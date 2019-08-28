@@ -1,11 +1,11 @@
-module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, createSharedData, defaultData, defaultColorList, defaultSharedData, CalculateColor(..))
+module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor(..))
 
 {-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
 
 
 # Definition
 
-@docs colors, getColor, domain, correctLightness, Data, createSharedData, defaultData, defaultColorList, defaultSharedData, CalculateColor
+@docs colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor
 
 -}
 
@@ -81,10 +81,18 @@ createPos numberOfColors =
     newPos
 
 
+createDiscreteColorData : Nonempty.Nonempty Types.ExtColor -> SharedData -> Data
+createDiscreteColorData colorsList sharedData =
+    { c = DiscreteColor colorsList
+    , shared = sharedData
+    }
+        |> initSharedData
+
+
 {-| Setup new configuration with the given colors.
 -}
-createSharedData : Data -> Data
-createSharedData data =
+initSharedData : Data -> Data
+initSharedData data =
     let
         ensureTwoColors newColors =
             if Nonempty.isSingleton newColors then
