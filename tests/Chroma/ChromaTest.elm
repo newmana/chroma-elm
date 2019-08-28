@@ -5,6 +5,7 @@ import Chroma.Colors.Brewer as Brewer
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
+import Chroma.Scale as Scale
 import Chroma.Types as Types
 import Color exposing (Color, rgb255)
 import Expect as Expect
@@ -127,8 +128,14 @@ testScaleAndDomain =
 testScaleAndClasses : Test.Test
 testScaleAndClasses =
     let
+        brewer =
+            Nonempty.map Types.RGBAColor Brewer.orRd
+
+        defaultData =
+            Scale.defaultData |> (\d -> { d | c = Scale.DiscreteColor brewer })
+
         s bins =
-            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classes bins
+            Chroma.classes bins defaultData
 
         fixed =
             Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classesWithArray (Nonempty.Nonempty 0 [ 0.3, 0.55, 0.85, 1 ])
@@ -171,10 +178,10 @@ testPadding : Test.Test
 testPadding =
     let
         ( _, f ) =
-            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.rdYlGn) |> Chroma.padding 0.15
+            Chroma.padding 0.15 (Nonempty.map Types.RGBAColor Brewer.rdYlGn)
 
         ( _, bothF ) =
-            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.rdYlGn) |> Chroma.paddingBoth ( -0.15, 0.15 )
+            Chroma.paddingBoth ( -0.15, 0.15 ) (Nonempty.map Types.RGBAColor Brewer.rdYlGn)
     in
     Test.describe "scale and padding API"
         [ Test.test "Padded left" <|

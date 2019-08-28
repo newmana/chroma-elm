@@ -1,6 +1,6 @@
 module Chroma.Chroma exposing
-    ( chroma, name, num, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
-    , scaleDefault, scaleWith, domainWith
+    ( chroma, name, num, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes
+    , scaleDefault, scaleWith, domainWith, classesWithArray
     )
 
 {-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
@@ -8,12 +8,12 @@ module Chroma.Chroma exposing
 
 # Definition
 
-@docs chroma, name, num, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesWithArray
+@docs chroma, name, num, scale, domain, distance, distance255, mix, mixChroma, padding, paddingBoth, colors, colorsWith, average, averageChroma, limits, classes, classesArray
 
 
 # Helpers
 
-@docs scaleDefault, scaleWith, domainWith
+@docs scaleDefault, scaleWith, domainWith, classesWith, classesWithArray
 
 -}
 
@@ -79,14 +79,14 @@ num ext =
     W3CX11.colorToInt rgb255
 
 
-{-| Return a new configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.
+{-| Return a configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.
 -}
 scaleDefault : ( Scale.Data, Float -> Types.ExtColor )
 scaleDefault =
-    ( Scale.defaultData, Scale.getColor Scale.defaultData )
+    scale Scale.defaultColorList
 
 
-{-| Return a new configuration and a function from a float to color based on default values and the given colors.
+{-| Return a configuration and a function from a float to color based on default values and the given colors.
 -}
 scale : Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 scale colorsList =
@@ -99,32 +99,44 @@ scaleWith : Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Floa
 scaleWith data colorsList =
     let
         newData =
-            Scale.createData colorsList data
+            { c = Scale.DiscreteColor colorsList
+            , shared = data.shared
+            }
+                |> Scale.createSharedData
     in
-    ( newData, Scale.getColor newData )
+    ( newData, Scale.getColor newData.c newData.shared )
 
 
-{-| Return a new configuration and a function from a float to color based on the given configuration values, the given
+{-| Return a new configuration and a function from a float to color using the default configuration, the given
 colors and the total number of colors (bins) to return.
 -}
 classes : Int -> Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
 classes bins data =
     let
         newData =
-            Scale.createData data.colorsList data
+            Scale.createSharedData data
 
-        newDataWithClasses =
+        newSharedData =
+            newData.shared
+
+        newSharedDataWithClasses =
             let
+                newDomainValues =
+                    newSharedData.domainValues
+
                 d =
-                    Nonempty.Nonempty (Tuple.first newData.domainValues) [ Tuple.second newData.domainValues ]
+                    Nonempty.Nonempty (Tuple.first newDomainValues) [ Tuple.second newDomainValues ]
             in
             if bins == 0 then
-                { newData | classes = Just d }
+                { newSharedData | classes = Just d }
 
             else
-                { newData | classes = Just (limits Limits.Equal bins d) }
+                { newSharedData | classes = Just (limits Limits.Equal bins d) }
+
+        updatedData =
+            { data | shared = newSharedDataWithClasses }
     in
-    ( newDataWithClasses, Scale.getColor newDataWithClasses )
+    ( updatedData, Scale.getColor updatedData.c updatedData.shared )
 
 
 {-| Return a new configuration and a function from a float to color based on the given configuration values, the given
@@ -133,55 +145,85 @@ colors and a predefined set of breaks/classes.
 classesWithArray : Nonempty.Nonempty Float -> Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
 classesWithArray newClasses data =
     let
-        updateData =
-            { data | classes = Just newClasses } |> Scale.domain newClasses
+        oldShared =
+            data.shared
+
+        newShared =
+            { oldShared | classes = Just newClasses }
+
+        updatedData =
+            { data | shared = newShared } |> Scale.domain newClasses
 
         newData =
-            Scale.createData data.colorsList updateData
+            Scale.createSharedData updatedData
     in
-    ( newData, Scale.getColor newData )
+    ( newData, Scale.getColor newData.c newData.shared )
 
 
-{-| Return a new configuration and a function from a float to color based on a new domain, colors (must be the same
-length as the domain) and default configuration.
+{-| Return a new configuration and a function from a float to color based on a new domain, colors (must either be the
+same length as the domain or will just use the first and last values) and default configuration.
 -}
 domain : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 domain newDomain colorsList =
     let
         newData =
-            Scale.defaultData |> Scale.createData colorsList |> Scale.domain newDomain
+            Scale.defaultData |> (\d -> { d | c = Scale.DiscreteColor colorsList }) |> Scale.createSharedData |> Scale.domain newDomain
     in
-    ( newData, Scale.getColor newData )
+    ( newData, Scale.getColor newData.c newData.shared )
 
 
-{-| Return a new configuration and a function from a float to color based on a new domain, an existing configuration,
-and colors (must be the same length as the domain).
+{-| Return a new configuration and a function from a float to color based on an existing configuration, a new domain,
+and colors (must either be the same length as the domain or will just use the first and last values).
 -}
-domainWith : Nonempty.Nonempty Float -> Scale.Data -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
-domainWith newDomain data colorsList =
+domainWith : Scale.Data -> Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+domainWith data newDomain colorsList =
     let
         newData =
-            data |> Scale.createData colorsList |> Scale.domain newDomain
+            { data | c = Scale.DiscreteColor colorsList } |> Scale.createSharedData |> Scale.domain newDomain
     in
-    ( newData, Scale.getColor newData )
+    ( newData, Scale.getColor newData.c newData.shared )
 
 
 {-| Remove a fraction of the color gradient (0 -> 1). Applies both sides the same.
 -}
-padding : Float -> ( Scale.Data, Float -> Types.ExtColor ) -> ( Scale.Data, Float -> Types.ExtColor )
-padding both dataAndF =
-    paddingBoth ( both, both ) dataAndF
+padding : Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+padding both colorsList =
+    paddingBoth ( both, both ) colorsList
 
 
 {-| Remove a fraction of the color gradient (0 -> 1).
 -}
-paddingBoth : ( Float, Float ) -> ( Scale.Data, Float -> Types.ExtColor ) -> ( Scale.Data, Float -> Types.ExtColor )
-paddingBoth ( newLeft, newRight ) ( data, _ ) =
+paddingBoth : ( Float, Float ) -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+paddingBoth ( newLeft, newRight ) colorsList =
     let
         newData =
-            { data | paddingValues = ( newLeft, newRight ) }
+            Scale.createSharedData Scale.defaultData
     in
-    scaleWith newData newData.colorsList
+    paddingBothWith newData ( newLeft, newRight ) colorsList
+
+
+{-| Remove a fraction of the color gradient (0 -> 1). Applies both sides the same.
+-}
+paddingWith : Scale.Data -> Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+paddingWith data both colorsList =
+    paddingBothWith data ( both, both ) colorsList
+
+
+{-| Remove a fraction of the color gradient (0 -> 1).
+-}
+paddingBothWith : Scale.Data -> ( Float, Float ) -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
+paddingBothWith data ( newLeft, newRight ) colorsList =
+    let
+        oldShared =
+            data.shared
+
+        newShared =
+            { oldShared | paddingValues = ( newLeft, newRight ) }
+
+        newData =
+            { data | shared = newShared }
+    in
+    scaleWith newData colorsList
 
 
 {-| Return the data with the given colors and a new list of colors.
@@ -190,15 +232,15 @@ colors : Int -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Nonempty.Nonem
 colors i colorsList =
     let
         newData =
-            Scale.defaultData |> Scale.createData colorsList
+            Scale.createSharedData Scale.defaultData
     in
-    colorsWith i newData
+    colorsWith newData i colorsList
 
 
 {-| Return the data with the given colors and a new list of colors.
 -}
-colorsWith : Int -> Scale.Data -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
-colorsWith i data =
+colorsWith : Scale.Data -> Int -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
+colorsWith data i colorsList =
     ( data, Scale.colors i data )
 
 
