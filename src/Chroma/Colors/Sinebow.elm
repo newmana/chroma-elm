@@ -1,0 +1,27 @@
+module Chroma.Colors.Sinebow exposing (getColor)
+
+import Color exposing (Color, rgb255)
+
+
+getColor : Float -> Color
+getColor t =
+    let
+        oneThirdPi =
+            pi / 3
+
+        twoThirdPi =
+            (2 * pi) / 3
+
+        newT =
+            (0.5 - t) * pi
+
+        r =
+            255 * (sin newT ^ 2) |> round
+
+        g =
+            255 * (sin (newT + oneThirdPi) ^ 2) |> round
+
+        b =
+            255 * (sin (newT + twoThirdPi) ^ 2) |> round
+    in
+    rgb255 r g b
