@@ -1,9 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [12.0.0] - 2019-08-19
+## [12.0.0] - 2019-08-29
 ### Added
-- Parula color map.
+- Parula, Sinebow, Turbo and Cividis color maps.
+- scaleF, domainF and colorsF - accepts a function Float -> ExtColor
 
 ## [11.0.0] - 2019-08-17
 ### Fixed
