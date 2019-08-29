@@ -6,6 +6,9 @@ import Color exposing (Color, rgb255)
 getColor : Float -> Color
 getColor t =
     let
+        boundedT =
+            clamp 0 1 t
+
         oneThirdPi =
             pi / 3
 
@@ -13,7 +16,7 @@ getColor t =
             (2 * pi) / 3
 
         newT =
-            (0.5 - t) * pi
+            (0.5 - boundedT) * pi
 
         r =
             255 * (sin newT ^ 2) |> round
