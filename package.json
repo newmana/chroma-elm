@@ -15,5 +15,11 @@
     "elm-hot": "^1.1.0"
   },
   "resolutions": {},
-  "scripts": {}
+  "scripts": {
+    "make": "yarn run elm make",
+    "test": "yarn run elm-test",
+    "repl": "yarn run elm repl",
+    "doc": "yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm",
+    "local-doc": "yarn run parcel examples/index.html"
+  }
 }
