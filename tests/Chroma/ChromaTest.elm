@@ -146,6 +146,9 @@ testScaleAndClasses =
 
         fixed =
             Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classesWithArray (Nonempty.Nonempty 0 [ 0.3, 0.55, 0.85, 1 ])
+
+        fixedF =
+            Chroma.scaleF (Turbo.getColor >> Types.RGBAColor) |> Tuple.first |> Chroma.classesWithArray (Nonempty.Nonempty 0 [ 0.3, 0.55, 0.85, 1 ])
     in
     Test.describe "scale and classes API"
         [ Test.test "Five classes" <|
@@ -154,6 +157,8 @@ testScaleAndClasses =
             \_ -> Expect.equal [ "#fff7ec", "#fdcd97", "#f5764f", "#de3f2b", "#7f0000" ] (List.map (Tuple.second (s 8) >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
         , Test.test "Fixed classes" <|
             \_ -> Expect.equal [ "#fff7ec", "#fff7ec", "#fdc38d", "#e7533a", "#7f0000" ] (List.map (Tuple.second fixed >> ToHex.toHex) [ 0, 0.29, 0.3, 0.55, 0.85 ])
+        , Test.test "Fixed f with classes" <|
+            \_ -> Expect.equal [ "#23171b", "#23171b", "#2ee5ae", "#feb927", "#900c00" ] (List.map (Tuple.second fixedF >> ToHex.toHex) [ 0, 0.29, 0.3, 0.55, 0.85 ])
         ]
 
 
