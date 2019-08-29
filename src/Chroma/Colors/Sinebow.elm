@@ -1,5 +1,16 @@
 module Chroma.Colors.Sinebow exposing (getColor)
 
+{-| Sinebow color scale - sine generated rainbow.
+
+![Sinebow](https://basecase.org/env/on-rainbows)
+
+
+# Color Scale
+
+@docs getColor
+
+-}
+
 import Color exposing (Color, rgb255)
 
 

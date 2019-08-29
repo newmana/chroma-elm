@@ -1,5 +1,17 @@
 module Chroma.Colors.Turbo exposing (getColor)
 
+{-| ![Turbo](https://ai.googleblog.com/2019/08/turbo-improved-rainbow-colormap-for.html), An Improved Rainbow Colormap for Visualization
+
+A colormap that has the desirable properties of Jet while also addressing some of its shortcomings, such as
+false detail, banding and color blindness ambiguity.
+
+
+# Color Scale
+
+@docs getColor
+
+-}
+
 import Color exposing (Color, rgb255)
 
 
