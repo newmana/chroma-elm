@@ -17,18 +17,22 @@ import Color as Color
 import List.Nonempty as Nonempty
 
 
+{-| The two types of colors we accept - continuous (a function to color) or discrete (a list of colors).
+-}
 type CalculateColor
     = ContinuousColor (Float -> Types.ExtColor)
     | DiscreteColor (Nonempty.Nonempty Types.ExtColor)
 
 
+{-| Configuration data used by most functions with color specific details.
+-}
 type alias Data =
     { c : CalculateColor
     , shared : SharedData
     }
 
 
-{-| Configuration data used by most functions.
+{-| Shared configuration used by most functions.
 -}
 type alias SharedData =
     { domainValues : ( Float, Float )
@@ -40,6 +44,7 @@ type alias SharedData =
     }
 
 
+{-| -}
 defaultData : Data
 defaultData =
     { c = DiscreteColor defaultColorList
@@ -81,6 +86,8 @@ createPos numberOfColors =
     newPos
 
 
+{-| Create and init a continuous data configuration.
+-}
 createContinuousColorData : (Float -> Types.ExtColor) -> SharedData -> Data
 createContinuousColorData colorFunction sharedData =
     { c = ContinuousColor colorFunction
@@ -89,6 +96,8 @@ createContinuousColorData colorFunction sharedData =
         |> initSharedData
 
 
+{-| Create and init a discrete data configuration.
+-}
 createDiscreteColorData : Nonempty.Nonempty Types.ExtColor -> SharedData -> Data
 createDiscreteColorData colorsList sharedData =
     { c = DiscreteColor colorsList
@@ -267,6 +276,8 @@ createDomainPos oldPos ( min, max ) newDomain =
     newPos
 
 
+{-| Set a new domain (like [0,100] rather than the default [0,1]) for all kinds of data.
+-}
 domain : Nonempty.Nonempty Float -> Data -> Data
 domain newDomain data =
     case data.c of
