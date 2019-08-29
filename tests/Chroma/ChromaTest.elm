@@ -2,9 +2,11 @@ module Chroma.ChromaTest exposing (tests)
 
 import Chroma.Chroma as Chroma
 import Chroma.Colors.Brewer as Brewer
+import Chroma.Colors.Turbo as Turbo
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
+import Chroma.Scale as Scale
 import Chroma.Types as Types
 import Color exposing (Color, rgb255)
 import Expect as Expect
@@ -107,6 +109,9 @@ testScaleAndDomain =
 
         ( _, g ) =
             Chroma.domain (Nonempty.Nonempty -1192 [ 0, 66 ]) (Nonempty.map Types.RGBAColor (Nonempty.Nonempty (rgb255 216 179 101) [ rgb255 245 245 245, rgb255 90 180 172 ]))
+
+        ( _, h ) =
+            Chroma.domainF (Nonempty.Nonempty 0.0 [ 100.0 ]) (Turbo.getColor >> Types.RGBAColor)
     in
     Test.describe "scale and domain API"
         [ Test.test "Simple test" <|
@@ -121,17 +126,29 @@ testScaleAndDomain =
         , Test.test "Multi Domain Test Positive" <|
             \_ ->
                 Expect.equal "#afd7d4" (ToHex.toHex (g 30))
+        , Test.test "Simple function test" <|
+            \_ ->
+                Expect.equal "#95fb51" (ToHex.toHex (h 50))
         ]
 
 
 testScaleAndClasses : Test.Test
 testScaleAndClasses =
     let
+        brewer =
+            Nonempty.map Types.RGBAColor Brewer.orRd
+
+        defaultData =
+            Scale.defaultData |> (\d -> { d | c = Scale.DiscreteColor brewer })
+
         s bins =
-            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classes bins
+            Chroma.classes bins defaultData
 
         fixed =
             Chroma.scale (Nonempty.map Types.RGBAColor Brewer.orRd) |> Tuple.first |> Chroma.classesWithArray (Nonempty.Nonempty 0 [ 0.3, 0.55, 0.85, 1 ])
+
+        fixedF =
+            Chroma.scaleF (Turbo.getColor >> Types.RGBAColor) |> Tuple.first |> Chroma.classesWithArray (Nonempty.Nonempty 0 [ 0.3, 0.55, 0.85, 1 ])
     in
     Test.describe "scale and classes API"
         [ Test.test "Five classes" <|
@@ -140,6 +157,8 @@ testScaleAndClasses =
             \_ -> Expect.equal [ "#fff7ec", "#fdcd97", "#f5764f", "#de3f2b", "#7f0000" ] (List.map (Tuple.second (s 8) >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
         , Test.test "Fixed classes" <|
             \_ -> Expect.equal [ "#fff7ec", "#fff7ec", "#fdc38d", "#e7533a", "#7f0000" ] (List.map (Tuple.second fixed >> ToHex.toHex) [ 0, 0.29, 0.3, 0.55, 0.85 ])
+        , Test.test "Fixed f with classes" <|
+            \_ -> Expect.equal [ "#23171b", "#23171b", "#2ee5ae", "#feb927", "#900c00" ] (List.map (Tuple.second fixedF >> ToHex.toHex) [ 0, 0.29, 0.3, 0.55, 0.85 ])
         ]
 
 
@@ -171,10 +190,10 @@ testPadding : Test.Test
 testPadding =
     let
         ( _, f ) =
-            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.rdYlGn) |> Chroma.padding 0.15
+            Chroma.padding 0.15 (Nonempty.map Types.RGBAColor Brewer.rdYlGn)
 
         ( _, bothF ) =
-            Chroma.scale (Nonempty.map Types.RGBAColor Brewer.rdYlGn) |> Chroma.paddingBoth ( -0.15, 0.15 )
+            Chroma.paddingBoth ( -0.15, 0.15 ) (Nonempty.map Types.RGBAColor Brewer.rdYlGn)
     in
     Test.describe "scale and padding API"
         [ Test.test "Padded left" <|
@@ -195,16 +214,22 @@ testPadding =
 testColors : Test.Test
 testColors =
     let
-        ( _, whiteToBlack ) =
-            Chroma.colors 12 (Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ])
-
         ( _, orangeToRed ) =
             Chroma.colors 5 (Nonempty.map Types.RGBAColor Brewer.orRd)
+
+        ( _, turbo ) =
+            Chroma.colorsF 5 (Turbo.getColor >> Types.RGBAColor)
+
+        ( _, whiteToBlack ) =
+            Chroma.colors 12 (Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ])
     in
     Test.describe "colors API"
         [ Test.test "Five orange to red" <|
             \_ ->
                 Expect.equal (Nonempty.Nonempty "#fff7ec" [ "#fdd49e", "#fc8d59", "#d7301f", "#7f0000" ]) (Nonempty.map ToHex.toHex orangeToRed)
+        , Test.test "Five from turbo" <|
+            \_ ->
+                Expect.equal (Nonempty.Nonempty "#23171b" [ "#26bce1", "#95fb51", "#ff821d", "#900c00" ]) (Nonempty.map ToHex.toHex turbo)
         , Test.test "Twelve black to white" <|
             \_ ->
                 Expect.equal (Nonempty.Nonempty "#ffffff" [ "#e8e8e8", "#d1d1d1", "#b9b9b9", "#a2a2a2", "#8b8b8b", "#747474", "#5d5d5d", "#464646", "#2e2e2e", "#171717", "#000000" ]) (Nonempty.map ToHex.toHex whiteToBlack)

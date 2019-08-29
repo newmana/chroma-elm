@@ -1,11 +1,11 @@
-module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, createData, defaultData)
+module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor(..))
 
 {-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
 
 
 # Definition
 
-@docs colors, getColor, domain, correctLightness, Data, createData, defaultData
+@docs colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor
 
 -}
 
@@ -17,86 +17,125 @@ import Color as Color
 import List.Nonempty as Nonempty
 
 
+type CalculateColor
+    = ContinuousColor (Float -> Types.ExtColor)
+    | DiscreteColor (Nonempty.Nonempty Types.ExtColor)
+
+
+type alias Data =
+    { c : CalculateColor
+    , shared : SharedData
+    }
+
+
 {-| Configuration data used by most functions.
 -}
-type alias Data =
-    { nanColor : Color.Color
-    , spread : Float
-    , domainValues : ( Float, Float )
+type alias SharedData =
+    { domainValues : ( Float, Float )
     , pos : Nonempty.Nonempty ( Float, Float )
     , paddingValues : ( Float, Float )
-    , useClasses : Bool
-    , colorsList : Nonempty.Nonempty Types.ExtColor
-    , useOut : Bool
     , classes : Maybe (Nonempty.Nonempty Float)
-    , min : Float
-    , max : Float
     , useCorrectLightness : Bool
     , gammaValue : Float
     }
 
 
-{-| Sensible default configuration defaults: RGB, domain 0-1, pos 0, 1,and white and black color range.
--}
 defaultData : Data
 defaultData =
-    { nanColor = Color.rgb 204 204 204
-    , spread = 0
-    , domainValues = ( 0, 1 )
+    { c = DiscreteColor defaultColorList
+    , shared = defaultSharedData
+    }
+
+
+{-| Sensible default configuration defaults: RGB, domain 0-1, pos 0, 1,and white and black color range.
+-}
+defaultSharedData : SharedData
+defaultSharedData =
+    { domainValues = ( 0, 1 )
     , pos = Nonempty.fromElement ( 0, 1 )
     , paddingValues = ( 0, 0 )
-    , useClasses = False
-    , colorsList = Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ]
-    , useOut = False
     , classes = Nothing
-    , min = 0
-    , max = 1
     , useCorrectLightness = False
     , gammaValue = 1
     }
 
 
-
--- chroma.scale('#{colorbrewer_scale_name}').colors(#{num_bins})
--- chroma.scale(colour).domain([1, 100000], 7, 'log');
--- mode is equidistant, log, k-means or quantile
+{-| The default color map - black to white.
+-}
+defaultColorList : Nonempty.Nonempty Types.ExtColor
+defaultColorList =
+    Nonempty.Nonempty (Types.RGBAColor W3CX11.white) [ Types.RGBAColor W3CX11.black ]
 
 
 {-| Recalculate pos based on new colors.
 -}
-createPos : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty ( Float, Float )
-createPos newColors =
+createPos : Int -> Nonempty.Nonempty ( Float, Float )
+createPos numberOfColors =
     let
         colLength =
-            Nonempty.length newColors - 1 |> toFloat
+            numberOfColors - 1 |> toFloat
 
         newPos =
-            Nonempty.indexedMap (\i _ -> ( toFloat i / colLength, toFloat (i + 1) / colLength )) newColors
+            Nonempty.map (\i -> ( toFloat i / colLength, toFloat (i + 1) / colLength )) (Nonempty.Nonempty 0 (List.range 1 numberOfColors))
     in
     newPos
 
 
+createContinuousColorData : (Float -> Types.ExtColor) -> SharedData -> Data
+createContinuousColorData colorFunction sharedData =
+    { c = ContinuousColor colorFunction
+    , shared = sharedData
+    }
+        |> initSharedData
+
+
+createDiscreteColorData : Nonempty.Nonempty Types.ExtColor -> SharedData -> Data
+createDiscreteColorData colorsList sharedData =
+    { c = DiscreteColor colorsList
+    , shared = sharedData
+    }
+        |> initSharedData
+
+
 {-| Setup new configuration with the given colors.
 -}
-createData : Nonempty.Nonempty Types.ExtColor -> Data -> Data
-createData newColors data =
+initSharedData : Data -> Data
+initSharedData data =
     let
-        ensureTwoColors =
+        ensureTwoColors newColors =
             if Nonempty.isSingleton newColors then
                 Nonempty.cons (Nonempty.head newColors) newColors
 
             else
                 newColors
     in
-    { data | pos = createPos newColors, colorsList = ensureTwoColors }
+    case data.c of
+        ContinuousColor _ ->
+            data
+
+        DiscreteColor newColors ->
+            let
+                dataShared =
+                    data.shared
+
+                newShared =
+                    { dataShared | pos = createPos (Nonempty.length newColors) }
+            in
+            { c = DiscreteColor (ensureTwoColors newColors)
+            , shared = newShared
+            }
 
 
 {-| -}
 getColor : Data -> Float -> Types.ExtColor
 getColor data val =
-    case data.classes of
+    let
+        ( min, max ) =
+            data.shared.domainValues
+    in
+    case data.shared.classes of
         Nothing ->
-            getDirectColor data ((val - data.min) / (data.max - data.min))
+            getDirectColor data ((val - min) / (max - min))
 
         Just c ->
             let
@@ -114,20 +153,30 @@ getColor data val =
 
 
 getDirectColor : Data -> Float -> Types.ExtColor
-getDirectColor ({ nanColor, spread, domainValues, pos, paddingValues, useClasses, colorsList, useOut, min, max, useCorrectLightness, gammaValue } as data) startT =
+getDirectColor data startT =
     let
         lightnessCorrectedT =
-            if useCorrectLightness then
-                correctLightness { data | useCorrectLightness = False } startT
+            if data.shared.useCorrectLightness then
+                let
+                    shareData =
+                        data.shared
+
+                    newShared =
+                        { shareData | useCorrectLightness = False }
+
+                    newData =
+                        { data | shared = newShared }
+                in
+                correctLightness newData startT
 
             else
                 startT
 
         gammaT =
-            lightnessCorrectedT ^ gammaValue
+            lightnessCorrectedT ^ data.shared.gammaValue
 
         ( padLeft, padRight ) =
-            paddingValues
+            data.shared.paddingValues
 
         paddedT =
             padLeft + (gammaT * (1 - padLeft - padRight))
@@ -135,14 +184,31 @@ getDirectColor ({ nanColor, spread, domainValues, pos, paddingValues, useClasses
         boundedT =
             clamp 0 1 paddedT
     in
-    findAndInterpolateColor colorsList pos boundedT
+    case data.c of
+        ContinuousColor f ->
+            fromContinuousColor f data.shared boundedT
+
+        DiscreteColor cl ->
+            fromDiscreteColor cl data.shared boundedT
 
 
-findAndInterpolateColor : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty ( Float, Float ) -> Float -> Types.ExtColor
-findAndInterpolateColor colorsList pos t =
+fromContinuousColor : (Float -> Types.ExtColor) -> SharedData -> Float -> Types.ExtColor
+fromContinuousColor colorF data t =
+    let
+        ( min, max ) =
+            data.domainValues
+
+        newT =
+            (t - min) / (max - min)
+    in
+    colorF t
+
+
+fromDiscreteColor : Nonempty.Nonempty Types.ExtColor -> SharedData -> Float -> Types.ExtColor
+fromDiscreteColor colorsList data t =
     let
         posMax =
-            Nonempty.length pos - 1
+            Nonempty.length data.pos - 1
 
         ( _, interpolatedResult, _ ) =
             Nonempty.foldl
@@ -168,7 +234,7 @@ findAndInterpolateColor colorsList pos t =
                         ( found, result, i + 1 )
                 )
                 ( False, Types.RGBAColor W3CX11.black, 0 )
-                pos
+                data.pos
     in
     interpolatedResult
 
@@ -201,22 +267,58 @@ createDomainPos oldPos ( min, max ) newDomain =
     newPos
 
 
-{-| Set a new domain like [0,100] rather than the default [0,1]
--}
 domain : Nonempty.Nonempty Float -> Data -> Data
 domain newDomain data =
+    case data.c of
+        DiscreteColor colorsList ->
+            domainDiscrete newDomain colorsList data
+
+        ContinuousColor _ ->
+            domainContinuous newDomain data
+
+
+{-| Set a new domain (like [0,100] rather than the default [0,1]) for discrete data.
+-}
+domainDiscrete : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> Data -> Data
+domainDiscrete newDomain colorsList data =
     let
         ( newMin, newMax ) =
             ( Nonempty.head newDomain, Nonempty.get -1 newDomain )
 
         newPos =
-            if Nonempty.length newDomain == Nonempty.length data.colorsList && newMin /= newMax then
-                createDomainPos data.pos ( newMin, newMax ) newDomain
+            if Nonempty.length newDomain == Nonempty.length colorsList && newMin /= newMax then
+                createDomainPos data.shared.pos ( newMin, newMax ) newDomain
 
             else
-                createPos data.colorsList
+                createPos (Nonempty.length colorsList)
+
+        shared =
+            data.shared
+
+        newShared =
+            { shared | domainValues = ( newMin, newMax ), pos = newPos }
     in
-    { data | domainValues = ( newMin, newMax ), pos = newPos, min = newMin, max = newMax }
+    { data | shared = newShared }
+
+
+{-| Set a new domain (like [0,100] rather than the default [0,1]) for continuous data.
+-}
+domainContinuous : Nonempty.Nonempty Float -> Data -> Data
+domainContinuous newDomain data =
+    let
+        ( newMin, newMax ) =
+            ( Nonempty.head newDomain, Nonempty.get -1 newDomain )
+
+        newPos =
+            createDomainPos data.shared.pos ( newMin, newMax ) newDomain
+
+        shared =
+            data.shared
+
+        newShared =
+            { shared | domainValues = ( newMin, newMax ), pos = newPos }
+    in
+    { data | shared = newShared }
 
 
 type alias Convergence =
@@ -306,13 +408,3 @@ colors num data =
                     Nonempty.Nonempty 1 (List.range 2 num)
             in
             Nonempty.indexedMap (\i c -> getColor data (toFloat i / toFloat (num - 1))) ranged
-
-
-
--- TODO - Implement classes <https://github.com/gka/chroma.js/blob/master/src/generator/scale.js#L156>
---classes : Nonempty.Nonempty Types.ExtColor -> Int -> Data -> Nonempty.Nonempty Types.ExtColor
---classes _ _ _ =
---    Nonempty []
---classesArray : Nonempty.Nonempty Types.ExtColor -> Nonempty.Nonempty Float -> Data -> Nonempty.Nonempty Types.ExtColor
---classesArray _ _ _ =
---    []
