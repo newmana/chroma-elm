@@ -15,6 +15,8 @@ uniform in hue and brightness, and increases in brightness linearly.
 import Color exposing (Color, rgb255)
 
 
+{-| TBD
+-}
 getColor : Float -> Color
 getColor t =
     let

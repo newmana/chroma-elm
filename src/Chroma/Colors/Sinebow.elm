@@ -14,6 +14,8 @@ module Chroma.Colors.Sinebow exposing (getColor)
 import Color exposing (Color, rgb255)
 
 
+{-| TBD
+-}
 getColor : Float -> Color
 getColor t =
     let
