@@ -5,7 +5,7 @@ module Chroma.Colors.Brewer exposing
     , accent, dark2, paired, pastel1, pastel2, set1, set2, set3
     )
 
-{-| All colorbrewer 2.0 colors <http://colorbrewer2.org/>
+{-| [Colorbrewer 2.0 Colors](http://colorbrewer2.org/)
 
 
 # Sequential Multi-hue Color Map

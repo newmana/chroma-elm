@@ -2,6 +2,8 @@ module Chroma.Colors.Plasma exposing (plasma)
 
 {-| Plasma color scale.
 
+![Inferno](https://raw.githubusercontent.com/newmana/chroma-elm/master/images/plasma4.png)
+
 
 # Color Scale
 

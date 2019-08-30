@@ -23,6 +23,9 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 
 # Links
 
+Preview elm docs:
+- https://elm-doc-preview.netlify.com/
+
 How to release Elm package:
 ```
 elm bump

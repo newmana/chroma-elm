@@ -1,6 +1,6 @@
 module Chroma.Colors.Cividis exposing (getColor)
 
-{-| [cividis](https://github.com/marcosci/cividis)
+{-| [Cividis](https://github.com/marcosci/cividis)
 
 Enables nearly-identical visual-data interpretation to color vision deficiency (CVD) people. It is perceptually
 uniform in hue and brightness, and increases in brightness linearly.

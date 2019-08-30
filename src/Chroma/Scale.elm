@@ -1,11 +1,13 @@
 module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor(..))
 
-{-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
+{-| Used by [`Chroma`][chroma]
 
 
 # Definition
 
 @docs colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor
+
+[chroma]: Chroma-Chroma
 
 -}
 

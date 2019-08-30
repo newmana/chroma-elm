@@ -1,15 +1,16 @@
 module Chroma.Chroma exposing
-    ( chroma, name, num, distance, distance255, mix, mixChroma, average, averageChroma, limits
+    ( chroma, name, mix, mixChroma, average, averageChroma, distance, distance255, limits, num
     , scale, scaleF, colors, colorsF, domain, domainF, classes, padding, paddingBoth
     , scaleDefault, scaleWith, colorsWith, domainWith, classesWithArray, paddingWith, paddingBothWith
     )
 
-{-| The attempt here is to provide something similar to <https://gka.github.io/chroma.js/> but also idiomatic Elm.
+{-| The attempt here is to provide something similar to [Chroma.js](https://gka.github.io/chroma.js/) but also
+has more features and is idiomatic Elm.
 
 
 # Color
 
-@docs chroma, name, num, distance, distance255, mix, mixChroma, average, averageChroma, limits
+@docs chroma, name, mix, mixChroma, average, averageChroma, distance, distance255, limits, num
 
 
 # Color Scales
@@ -37,7 +38,16 @@ import List.Nonempty as Nonempty
 import Result as Result
 
 
-{-| Given a valid hex string (8, 6 or 3) produce an RGB Color.
+{-| Given a valid hex string (8, 6 or 3) or [`W3CX11 Color`][w3cx11] name and produce an RGB Color.
+
+    Chroma.chroma "magenta"
+    --> Ok (RGBAColor (RgbaSpace 1 0 1 1)) : Result String Types.ExtColor
+
+    Chroma.chroma "#c0c0c0"
+    --> Ok (RGBAColor (RgbaSpace 0.7529411764705882 0.7529411764705882 0.7529411764705882 1)) : Result String Types.ExtColor
+
+[w3cx11]: Chroma-Colors-W3CX11
+
 -}
 chroma : String -> Result String Types.ExtColor
 chroma str =
@@ -49,9 +59,12 @@ chroma str =
             Hex2Rgb.hex2rgb str |> Result.map Types.RGBAColor
 
 
-{-| Given a color turn it into a W3CX11 name or fall back to RGB string.
+{-| Given a color turn it into a [`W3CX11 Color`][w3cx11] name or fall back to RGB string.
 
-Types.RGBAColor (Color.rgb255 255 0 255) |> Chroma.name
+    Types.RGBAColor (Color.rgb255 255 0 255) |> Chroma.name
+    --> Ok "magenta" : Result String String
+
+[w3cx11]: Chroma-Colors-W3CX11
 
 -}
 name : Types.ExtColor -> Result String String
@@ -71,7 +84,134 @@ name ext =
             Ok (ToHex.toHex ext)
 
 
+{-| Mix two colors, first converting them to the same color space and then interpolate with the given ratio.
+
+    Chroma.mix Types.RGBA 0.25 (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.blue)
+    --> RGBAColor (RgbaSpace 0.75 0 0.25 1) : Types.ExtColor
+
+-}
+mix : Types.Mode -> Float -> Types.ExtColor -> Types.ExtColor -> Types.ExtColor
+mix mode f color1 color2 =
+    let
+        convert =
+            ColorSpace.colorConvert mode
+    in
+    Interpolator.interpolate (convert color1) (convert color2) f
+
+
+{-| Mix two colors defined as a string, first converting them to the same color space mode and then interpolate
+with the given ratio.
+
+    Chroma.mixChroma Types.RGBA 0.25 "red" "blue"
+    --> Ok (RGBAColor (RgbaSpace 0.75 0 0.25 1)) : Result String Types.ExtColor
+
+-}
+mixChroma : Types.Mode -> Float -> String -> String -> Result String Types.ExtColor
+mixChroma mode f color1 color2 =
+    Result.map2 (mix mode f) (chroma color1) (chroma color2)
+
+
+{-| Find the average of a non-empty list of colors, first converting them to the same color space.
+
+Only supports RGBA, CYMK and LAB.
+
+    Chroma.average Types.RGBA (Nonempty.Nonempty (Types.RGBAColor W3CX11.red) [(Types.RGBAColor W3CX11.blue)])
+    --> Ok (RGBAColor (RgbaSpace 0.5 0 0.5 1)) : Result String Types.ExtColor
+
+-}
+average : Types.Mode -> Nonempty.Nonempty Types.ExtColor -> Result String Types.ExtColor
+average mode extList =
+    let
+        calcAverage =
+            case mode of
+                Types.RGBA ->
+                    Ok result
+
+                Types.CMYK ->
+                    Ok result
+
+                Types.LAB ->
+                    Ok result
+
+                _ ->
+                    Err "Mode not supported"
+
+        result =
+            Nonempty.map (ColorSpace.colorConvert mode) extList |> ColorSpace.rollingAverage
+    in
+    calcAverage
+
+
+{-| Find the average of a non-empty list of colors defined as strongs, first converting them to the same color space.
+
+Only supports RGBA, CYMK and LAB.
+
+    Chroma.averageChroma Types.RGBA (Nonempty.Nonempty "red" ["blue"])
+    --> Ok (RGBAColor (RgbaSpace 0.5 0 0.5 1)) : Result String Types.ExtColor
+
+-}
+averageChroma : Types.Mode -> Nonempty.Nonempty String -> Result String Types.ExtColor
+averageChroma mode strList =
+    Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
+
+
+{-| Calculate the distance in RGB 255 color space.
+
+    Chroma.distance255 (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.blue)
+    --> 360.62445840513925 : Float
+
+-}
+distance255 : Types.ExtColor -> Types.ExtColor -> Float
+distance255 color1 color2 =
+    let
+        fstColor255 =
+            ColorSpace.colorConvert Types.RGBA color1 |> ColorSpace.toNonEmptyList |> Nonempty.map (\x -> x * 255)
+
+        sndColor255 =
+            ColorSpace.colorConvert Types.RGBA color2 |> ColorSpace.toNonEmptyList |> Nonempty.map (\x -> x * 255)
+    in
+    calcDistance fstColor255 sndColor255
+
+
+{-| Calculate the distance for a given color space.
+
+    Chroma.distance Types.RGBA (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.blue)
+    --> 1.4142135623730951 : Float
+
+-}
+distance : Types.Mode -> Types.ExtColor -> Types.ExtColor -> Float
+distance mode color1 color2 =
+    let
+        aColor1 =
+            ColorSpace.colorConvert mode color1 |> ColorSpace.toNonEmptyList
+
+        aColor2 =
+            ColorSpace.colorConvert mode color2 |> ColorSpace.toNonEmptyList
+    in
+    calcDistance aColor1 aColor2
+
+
+{-| Create breaks/classes based on the data given.
+
+Supports: CkMean (a variant of kmeans), Equal, Logarithmic, and Quantile.
+
+    Chroma.limits Limits.Equal 5 (Nonempty.Nonempty 0 [ 10 ])
+    --> Nonempty 0 [2,4,6,8,10] : Nonempty.Nonempty Float
+
+    Chroma.limits Limits.CkMeans 3 (Nonempty.Nonempty 1 [ 2, 1, 4, 3, 5, 2, 5, 4 ])
+    --> Nonempty 1 [2,4] : Nonempty.Nonempty Float
+
+-}
+limits : Limits.LimitMode -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float
+limits mode bins data =
+    Limits.limits mode bins data
+
+
 {-| Numeric representation of RGB.
+
+    Chroma.num (Types.RGBAColor (Color.rgb255 192 192 192))
+    --> 12632256 : Int
+
 -}
 num : Types.ExtColor -> Int
 num ext =
@@ -279,100 +419,6 @@ colorsWith data i =
     ( data, Scale.colors i data )
 
 
-{-| Calculate the distance in RGB 255 color space.
--}
-distance255 : Types.ExtColor -> Types.ExtColor -> Float
-distance255 color1 color2 =
-    let
-        fstColor255 =
-            ColorSpace.colorConvert Types.RGBA color1 |> ColorSpace.toNonEmptyList |> Nonempty.map (\x -> x * 255)
-
-        sndColor255 =
-            ColorSpace.colorConvert Types.RGBA color2 |> ColorSpace.toNonEmptyList |> Nonempty.map (\x -> x * 255)
-    in
-    calcDistance fstColor255 sndColor255
-
-
-{-| Calculate the distance for a given color space.
--}
-distance : Types.Mode -> Types.ExtColor -> Types.ExtColor -> Float
-distance mode color1 color2 =
-    let
-        aColor1 =
-            ColorSpace.colorConvert mode color1 |> ColorSpace.toNonEmptyList
-
-        aColor2 =
-            ColorSpace.colorConvert mode color2 |> ColorSpace.toNonEmptyList
-    in
-    calcDistance aColor1 aColor2
-
-
 calcDistance : Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Float
 calcDistance list1 list2 =
     Nonempty.map2 (\c1 c2 -> (c1 - c2) ^ 2) list1 list2 |> Nonempty.foldl (+) 0 |> sqrt
-
-
-{-| Mix two colors, first converting them to the same color space mode and then with a ratio.
--}
-mix : Types.Mode -> Float -> Types.ExtColor -> Types.ExtColor -> Types.ExtColor
-mix mode f color1 color2 =
-    let
-        convert =
-            ColorSpace.colorConvert mode
-    in
-    Interpolator.interpolate (convert color1) (convert color2) f
-
-
-{-| Mix two colors defined as a string, first converting them to the same color space mode and then with a ratio.
--}
-mixChroma : Types.Mode -> Float -> String -> String -> Result String Types.ExtColor
-mixChroma mode f color1 color2 =
-    Result.map2 (mix mode f) (chroma color1) (chroma color2)
-
-
-{-| Find the average of a non-empty list of colors, first converting them to the same color space mode.
-
-Only supports RGBA, CYMK and LAB.
-
--}
-average : Types.Mode -> Nonempty.Nonempty Types.ExtColor -> Result String Types.ExtColor
-average mode extList =
-    let
-        calcAverage =
-            case mode of
-                Types.RGBA ->
-                    Ok result
-
-                Types.CMYK ->
-                    Ok result
-
-                Types.LAB ->
-                    Ok result
-
-                _ ->
-                    Err "Mode not supported"
-
-        result =
-            Nonempty.map (ColorSpace.colorConvert mode) extList |> ColorSpace.rollingAverage
-    in
-    calcAverage
-
-
-{-| Find the average of a non-empty list of colors defined as strongs, first converting them to the same color space mode.
-
-Only supports RGBA, CYMK and LAB.
-
--}
-averageChroma : Types.Mode -> Nonempty.Nonempty String -> Result String Types.ExtColor
-averageChroma mode strList =
-    Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
-
-
-{-| Create breaks/classes based on the data given.
-
-Supports: CkMean (a variant of kMeans), Equal, Logarithmic, and Quantile.
-
--}
-limits : Limits.LimitMode -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float
-limits mode bins data =
-    Limits.limits mode bins data

@@ -22,7 +22,7 @@ module Chroma.Colors.W3CX11 exposing
     , yellow, yellowgreen
     )
 
-{-| All of the X11 color names <https://en.wikipedia.org/wiki/X11_color_names>
+{-| All of the [X11 color names](https://en.wikipedia.org/wiki/X11_color_names)
 
 
 # Definition
