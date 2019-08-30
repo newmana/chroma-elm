@@ -181,54 +181,54 @@ example8Output =
 
 example9SourceCode : String
 example9SourceCode =
-    """{ colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.orRd) }
+    """{ colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.ylGnBu) }
  |> ColorBand.view
     """
 
 
 example9Output : List (Html.Html msg)
 example9Output =
-    [ ColorBand.view { colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.orRd) } ]
-        ++ [ Html.text "Brewer orRd color map" ]
+    [ ColorBand.view { colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.ylGnBu) } ]
+        ++ [ Html.text "Brewer ylGnBu color map" ]
 
 
 example10SourceCode : String
 example10SourceCode =
-    """{ colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.puBuGn) }
+    """{ colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.blues) }
  |> ColorBand.view
     """
 
 
 example10Output : List (Html.Html msg)
 example10Output =
-    [ ColorBand.view { colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.puBuGn) } ]
-        ++ [ Html.text "Brewer orRd color map" ]
+    [ ColorBand.view { colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.blues) } ]
+        ++ [ Html.text "Brewer blues color map" ]
 
 
 example11SourceCode : String
 example11SourceCode =
-    """{ colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.rdYlGn) }
+    """{ colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.brBG) }
  |> ColorBand.view
     """
 
 
 example11Output : List (Html.Html msg)
 example11Output =
-    [ ColorBand.view { colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.rdYlGn) } ]
-        ++ [ Html.text "Brewer rdYlGn color map" ]
+    [ ColorBand.view { colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.brBG) } ]
+        ++ [ Html.text "Brewer brBG color map" ]
 
 
 example12SourceCode : String
 example12SourceCode =
-    """{ colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.pastel1) }
+    """{ colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.accent) }
  |> ColorBand.view
     """
 
 
 example12Output : List (Html.Html msg)
 example12Output =
-    [ ColorBand.view { colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.pastel1) } ]
-        ++ [ Html.text "Brewer pastel1 color map" ]
+    [ ColorBand.view { colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Brewer.accent) } ]
+        ++ [ Html.text "Brewer accent color map" ]
 
 
 example13Code : String
