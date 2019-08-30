@@ -3,6 +3,7 @@ module Legend exposing (ContinuousLegendConfig, view)
 import Chroma.Chroma as Chroma
 import Chroma.Converter.Out.ToHex as ChromaToHex
 import Chroma.Limits.Analyze as Analyze
+import Chroma.Scale as Scale
 import Chroma.Types as ChromaTypes
 import Html
 import Html.Attributes as HtmlAttributes
@@ -13,7 +14,7 @@ import Svg.Attributes as SvgAttributes
 
 type alias ContinuousLegendConfig =
     { ticks : Nonempty.Nonempty Float
-    , colours : Nonempty.Nonempty ChromaTypes.ExtColor
+    , colours : Scale.CalculateColor
     }
 
 
@@ -89,11 +90,16 @@ viewBody config =
         )
 
 
-viewColourBand : Nonempty.Nonempty ChromaTypes.ExtColor -> List (Svg.Svg msg)
+viewColourBand : Scale.CalculateColor -> List (Svg.Svg msg)
 viewColourBand colours =
     let
         ( _, f ) =
-            Chroma.domain (Nonempty.Nonempty 0 [ toFloat numberOfStops ]) colours
+            case colours of
+                Scale.ContinuousColor c ->
+                    Chroma.domainF (Nonempty.Nonempty 0 [ toFloat numberOfStops ]) c
+
+                Scale.DiscreteColor c ->
+                    Chroma.domain (Nonempty.Nonempty 0 [ toFloat numberOfStops ]) c
     in
     viewStopColor f 0
         :: List.map (\i -> viewStopColor f i) (List.range 1 numberOfStops)

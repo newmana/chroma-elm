@@ -8,6 +8,7 @@ import Chroma.Converter.Out.ToLch as ToLch
 import Chroma.Limits.Limits as Limits
 import Chroma.Ops.Lightness as OpsLightness
 import Chroma.Ops.Saturate as OpsSaturate
+import Chroma.Scale as Scale
 import Chroma.Types as Types
 import Color as Color
 import Html as Html
@@ -40,7 +41,11 @@ content =
                 []
                 [ Html.li
                     []
-                    [ Html.text "Colormaps including: brewer, w3cx11, viridis, plasma, magma and inferno."
+                    [ Html.text "Chroma API: allowing use of W3C X11 color names and creating color scales."
+                    ]
+                , Html.li
+                    []
+                    [ Html.text "Color maps including: Brewer, Cividis, Turbo, Sinebow, Parula, Virdis, Plasma, Magma and Inferno."
                     ]
                 , Html.li
                     []
@@ -86,7 +91,7 @@ example1Output =
 example2 : List (Html.Html msg)
 example2 =
     Page.p
-        "It can be used to generate colormaps. "
+        "It can be used to generate color maps. "
         ++ Page.example "has-text-black" "#f5f5f5" example2SourceCode example2Output
 
 
@@ -146,7 +151,7 @@ example3 =
 config : Legend.ContinuousLegendConfig
 config =
     { ticks = Chroma.limits Limits.CkMeans 4 julyMaximums
-    , colours = Nonempty.map Types.RGBAColor Plasma.plasma |> Nonempty.reverse
+    , colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Plasma.plasma |> Nonempty.reverse)
     }
 
 

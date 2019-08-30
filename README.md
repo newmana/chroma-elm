@@ -1,10 +1,10 @@
 # chroma-elm
 A native version of [Chroma.js](https://gka.github.io/chroma.js) that allows you to:
+ * use W3C X11 color names.   
  * create color scales, 
  * use different color spaces such as CMYK, HSLA, LAB, LCH and RGB, 
  * modify colors using interpolate, set/get alpha, lighten/darken, saturate/desaturate, 
- * use existing color maps such as Brewer, Virdis, Plasma, Magma and Inferno, and
- * use W3C X11 color names.   
+ * use existing color maps such as Brewer, Cividis, Turbo, Sinebow, Parula, Virdis, Plasma, Magma and Inferno, and
 
 There is [an example site](https://newmana.github.io/chroma-elm/) showing how to use the library.
 
@@ -12,14 +12,14 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 
 # Development
 - ```yarn install```
-- ```yarn run elm make```
-- ```yarn run elm-test```
+- ```yarn run make```
+- ```yarn run test```
 
 ## Documentation
-- ```yarn run parcel examples/index.html```
+- ```yarn run local-doc```
 
 ## Publish to GitHub
-- ```yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm```
+- ```yarn run doc```
 
 # Links
 
