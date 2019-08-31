@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [13.0.0] - 2019-09-01
+### Added
+- ToCss - For rgb and rgba values.
+- Contrast - use WCAG calculating the difference in Luminance of two colors.
+- Add Blend
+- scaleF, domainF and colorsF - accepts a function Float -> ExtColor
+### Fixed
+- toRgba255 - Clamp to produce maximum 255 values.
+### Changed
+- Moved functions operating on Color to top level module.
+
 ## [12.0.0] - 2019-08-29
 ### Added
 - Parula, Sinebow, Turbo and Cividis color maps.
