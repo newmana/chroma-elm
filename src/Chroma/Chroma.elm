@@ -1,8 +1,7 @@
 module Chroma.Chroma exposing
-    ( chroma, name, mix, mixChroma, average, averageChroma, distance, distance255, limits, num
+    ( chroma, name, mix, mixChroma, average, averageChroma, blend, blendChroma, distance, distance255, limits, num
     , scale, scaleF, colors, colorsF, domain, domainF, classes, padding, paddingBoth
     , scaleDefault, scaleWith, colorsWith, domainWith, classesWithArray, paddingWith, paddingBothWith
-    , blend, blendChroma
     )
 
 {-| The attempt here is to provide something similar to [Chroma.js](https://gka.github.io/chroma.js/) but also
@@ -11,7 +10,7 @@ has more features and is idiomatic Elm.
 
 # Color
 
-@docs chroma, name, mix, mixChroma, average, averageChroma, distance, distance255, limits, num
+@docs chroma, name, mix, mixChroma, average, averageChroma, blend, blendChroma, distance, distance255, limits, num
 
 
 # Color Scales
