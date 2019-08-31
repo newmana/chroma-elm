@@ -1,5 +1,5 @@
 module Chroma.Colors.W3CX11 exposing
-    ( color, named, w3cx11, colorToInt, intToColor
+    ( color, named, w3cx11
     , aliceBlue, antiqueWhite, aqua, azure, aquamarine
     , beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood, cadetblue
     , chocolate, coral, cornflowerblue, cornsilk, crimson, cyan, chartreuse
@@ -55,7 +55,7 @@ module Chroma.Colors.W3CX11 exposing
 
 -}
 
-import Bitwise exposing (and, shiftLeftBy, shiftRightBy)
+import Chroma.Color as Color
 import Color exposing (Color, rgb255, toRgba)
 import Dict
 import Result
@@ -90,7 +90,7 @@ color c =
         errorString =
             "Cannot find RGB " ++ toS rgba .red ++ ", " ++ toS rgba .green ++ ", " ++ toS rgba .blue
     in
-    Result.fromMaybe errorString (Dict.get (colorToInt c) intToW3cx11)
+    Result.fromMaybe errorString (Dict.get (Color.colorToInt c) intToW3cx11)
 
 
 {-| TBD
@@ -1131,37 +1131,6 @@ yellowgreen =
 
 {-| TBD
 -}
-colorToInt : Color -> Int
-colorToInt c =
-    let
-        realColor =
-            toRgba c
-
-        rgba255 =
-            { red = realColor.red * 255 |> round, green = realColor.green * 255 |> round, blue = realColor.blue * 255 |> round }
-    in
-    shiftLeftBy 16 rgba255.red + shiftLeftBy 8 rgba255.green + rgba255.blue
-
-
-{-| TBD
--}
-intToColor : Int -> Color
-intToColor num =
-    let
-        b =
-            shiftRightBy 16 (and 0x00FF0000 num)
-
-        g =
-            shiftRightBy 8 (and 0xFF00 num)
-
-        r =
-            and num 0xFF
-    in
-    rgb255 r g b
-
-
-{-| TBD
--}
 w3cx11 : Dict.Dict String Color
 w3cx11 =
     Dict.fromList w3cx11List
@@ -1171,7 +1140,7 @@ w3cx11 =
 -}
 intToW3cx11 : Dict.Dict Int String
 intToW3cx11 =
-    List.map (\( s, c ) -> ( colorToInt c, s )) w3cx11List |> Dict.fromList
+    List.map (\( s, c ) -> ( Color.colorToInt c, s )) w3cx11List |> Dict.fromList
 
 
 w3cx11List : List ( String, Color )

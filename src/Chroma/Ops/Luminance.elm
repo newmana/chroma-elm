@@ -1,11 +1,11 @@
-module Chroma.Ops.Luminance exposing (luminance, setLuminance)
+module Chroma.Ops.Luminance exposing (luminance, contrast, setLuminance)
 
-{-| Get/Set the luminance a color value.
+{-| Get/Set the luminance a color value and calculate the WCAG contrast ratio.
 
 
 # Definition
 
-@docs luminance, setLuminance
+@docs luminance, contrast, setLuminance
 
 -}
 
@@ -36,6 +36,24 @@ luminance color =
                 ((newA + 0.055) / 1.055) ^ 2.4
     in
     (calcLuminance red * 0.2126) + (calcLuminance green * 0.7152) + (calcLuminance blue * 0.0722)
+
+
+{-| WCAG Contrast
+-}
+contrast : Types.ExtColor -> Types.ExtColor -> Float
+contrast color1 color2 =
+    let
+        l1 =
+            luminance color1
+
+        l2 =
+            luminance color2
+    in
+    if l1 > l2 then
+        (l1 + 0.05) / (l2 + 0.05)
+
+    else
+        (l2 + 0.05) / (l1 + 0.05)
 
 
 {-| Set Luminance

@@ -15,6 +15,7 @@ tests : Test.Test
 tests =
     Test.describe "Luminance testing"
         [ testLuminance
+        , testContrast
         , testSettingLuminance
         ]
 
@@ -42,6 +43,34 @@ testLuminance =
             \_ ->
                 Luminance.luminance (Types.RGBAColor W3CX11.black)
                     |> Expect.within (Expect.Absolute 0.001) 0.0
+        ]
+
+
+testContrast : Test.Test
+testContrast =
+    let
+        whiteRed =
+            Luminance.contrast (Types.RGBAColor W3CX11.white) (Types.RGBAColor W3CX11.red)
+
+        redWhite =
+            Luminance.contrast (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.white)
+    in
+    Test.describe "Get Contrast on a Color"
+        [ Test.test "maximum" <|
+            \_ ->
+                Luminance.contrast (Types.RGBAColor W3CX11.white) (Types.RGBAColor W3CX11.black)
+                    |> Expect.within (Expect.Absolute 0.1) 21.0
+        , Test.test "minimum" <|
+            \_ ->
+                Luminance.contrast (Types.RGBAColor W3CX11.white) (Types.RGBAColor W3CX11.white)
+                    |> Expect.within (Expect.Absolute 0.1) 1.0
+        , Test.test "white to red" <|
+            \_ ->
+                whiteRed
+                    |> Expect.within (Expect.Absolute 0.1) 4.0
+        , Test.test "red to white or white to read" <|
+            \_ ->
+                Expect.within (Expect.Absolute 0.001) whiteRed redWhite
         ]
 
 

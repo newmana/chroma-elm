@@ -25,8 +25,11 @@ toRgba255 color =
     let
         realColor =
             toRgba color
+
+        convert =
+            clamp 0 1 >> (\x -> x * 255) >> round
     in
-    { red = realColor.red * 255 |> round, green = realColor.green * 255 |> round, blue = realColor.blue * 255 |> round, alpha = realColor.alpha }
+    { red = convert realColor.red, green = convert realColor.green, blue = convert realColor.blue, alpha = realColor.alpha }
 
 
 {-| Takes a result from getColor and returns Float (0-1) RGB values.

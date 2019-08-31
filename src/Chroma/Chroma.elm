@@ -25,6 +25,7 @@ has more features and is idiomatic Elm.
 -}
 
 import Chroma.Blend as Blend
+import Chroma.Color as Color
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Misc.ColorSpace as ColorSpace
@@ -193,7 +194,7 @@ distance255 color1 color2 =
         sndColor255 =
             ColorSpace.colorConvert Types.RGBA color2 |> ColorSpace.toNonEmptyList |> Nonempty.map (\x -> x * 255)
     in
-    calcDistance fstColor255 sndColor255
+    Color.calcDistance fstColor255 sndColor255
 
 
 {-| Calculate the distance for a given color space.
@@ -211,7 +212,7 @@ distance mode color1 color2 =
         aColor2 =
             ColorSpace.colorConvert mode color2 |> ColorSpace.toNonEmptyList
     in
-    calcDistance aColor1 aColor2
+    Color.calcDistance aColor1 aColor2
 
 
 {-| Create breaks/classes based on the data given.
@@ -238,14 +239,7 @@ limits mode bins data =
 -}
 num : Types.ExtColor -> Int
 num ext =
-    let
-        { red, green, blue, alpha } =
-            ToRgba.toRgba255 ext
-
-        rgb255 =
-            Color.rgb255 red green blue
-    in
-    W3CX11.colorToInt rgb255
+    ToRgba.toRgba255 ext |> (\c -> Color.rgb255 c.red c.green c.blue) |> Color.colorToInt
 
 
 {-| Return a configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.
@@ -440,8 +434,3 @@ colorsF i colorFunction =
 colorsWith : Scale.Data -> Int -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
 colorsWith data i =
     ( data, Scale.colors i data )
-
-
-calcDistance : Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Float
-calcDistance list1 list2 =
-    Nonempty.map2 (\c1 c2 -> (c1 - c2) ^ 2) list1 list2 |> Nonempty.foldl (+) 0 |> sqrt

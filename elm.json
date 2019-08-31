@@ -18,6 +18,7 @@
         ],
         "Output": [
             "Chroma.Converter.Out.ToCmyk",
+            "Chroma.Converter.Out.ToCss",
             "Chroma.Converter.Out.ToHex",
             "Chroma.Converter.Out.ToHsla",
             "Chroma.Converter.Out.ToLab",
@@ -51,6 +52,7 @@
             "Chroma.Ops.Saturate"
         ],
         "Helpers": [
+            "Chroma.Color",
             "Chroma.Types",
             "Chroma.Interpolator",
             "Chroma.Scale"
