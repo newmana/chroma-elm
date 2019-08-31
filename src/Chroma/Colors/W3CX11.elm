@@ -27,7 +27,7 @@ module Chroma.Colors.W3CX11 exposing
 
 # Definition
 
-@docs color, named, w3cx11, colorToInt, intToColor
+@docs color, named, w3cx11
 
 
 # Colors

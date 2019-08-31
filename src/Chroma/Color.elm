@@ -1,5 +1,14 @@
 module Chroma.Color exposing (calcDistance, colorToInt, intToColor)
 
+{-| Extensions to the Color library
+
+
+# Definition
+
+@docs calcDistance, colorToInt, intToColor
+
+-}
+
 import Bitwise exposing (and, shiftLeftBy, shiftRightBy)
 import Color exposing (Color, rgb255, toRgba)
 import List.Nonempty as Nonempty
@@ -36,6 +45,8 @@ intToColor num =
     rgb255 r g b
 
 
+{-| TBD
+-}
 calcDistance : Nonempty.Nonempty Float -> Nonempty.Nonempty Float -> Float
 calcDistance list1 list2 =
     Nonempty.map2 (\c1 c2 -> (c1 - c2) ^ 2) list1 list2 |> Nonempty.foldl (+) 0 |> sqrt
