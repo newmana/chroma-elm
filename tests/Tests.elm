@@ -1,5 +1,6 @@
 module Tests exposing (all)
 
+import Chroma.BlendTest
 import Chroma.ChromaTest
 import Chroma.Converter.Cmyk2RgbTest
 import Chroma.Converter.Hex2RgbTest
@@ -23,6 +24,7 @@ all =
     Test.describe "Chroma-Elm"
         [ Chroma.ChromaTest.tests
         , Chroma.InterpolatorTest.tests
+        , Chroma.BlendTest.tests
         , Chroma.Converter.Cmyk2RgbTest.tests
         , Chroma.Converter.Hex2RgbTest.tests
         , Chroma.Converter.Lab2RgbTest.tests

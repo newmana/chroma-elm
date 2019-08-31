@@ -2,6 +2,7 @@ module Chroma.Chroma exposing
     ( chroma, name, mix, mixChroma, average, averageChroma, distance, distance255, limits, num
     , scale, scaleF, colors, colorsF, domain, domainF, classes, padding, paddingBoth
     , scaleDefault, scaleWith, colorsWith, domainWith, classesWithArray, paddingWith, paddingBothWith
+    , blend, blendChroma
     )
 
 {-| The attempt here is to provide something similar to [Chroma.js](https://gka.github.io/chroma.js/) but also
@@ -24,6 +25,7 @@ has more features and is idiomatic Elm.
 
 -}
 
+import Chroma.Blend as Blend
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Misc.ColorSpace as ColorSpace
@@ -153,6 +155,28 @@ Only supports RGBA, CYMK and LAB.
 averageChroma : Types.Mode -> Nonempty.Nonempty String -> Result String Types.ExtColor
 averageChroma mode strList =
     Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
+
+
+{-| Combine two colors using different blend modes.
+
+    Chroma.blend Blend.Burn (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.blue)
+    --> RGBAColor (RgbaSpace 0 0 1 1) : Types.ExtColor
+
+-}
+blend : Blend.BlendMode -> Types.ExtColor -> Types.ExtColor -> Types.ExtColor
+blend mode color1 color2 =
+    Blend.blend mode color1 color2
+
+
+{-| Combine two colors, defined as strings, using different blend modes.
+
+    Chroma.blendChroma Blend.Darken "cyan" "magenta"
+    --> Ok (RGBAColor (RgbaSpace 0 0 1 1)) : Result String Types.ExtColor
+
+-}
+blendChroma : Blend.BlendMode -> String -> String -> Result String Types.ExtColor
+blendChroma mode strColor1 strColor2 =
+    Result.map2 (Blend.blend mode) (chroma strColor1) (chroma strColor2)
 
 
 {-| Calculate the distance in RGB 255 color space.
