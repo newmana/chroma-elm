@@ -45,7 +45,7 @@ content =
                     ]
                 , Html.li
                     []
-                    [ Html.text "Color maps including: Brewer, Cividis, Turbo, Sinebow, Parula, Virdis, Plasma, Magma and Inferno."
+                    [ Html.text "Color maps including: Brewer, cmocean, Cividis, Turbo, Sinebow, Parula, Virdis, Plasma, Magma and Inferno."
                     ]
                 , Html.li
                     []
