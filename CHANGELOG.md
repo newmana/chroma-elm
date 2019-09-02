@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [14.0.0] - 2019-09-02
+## [13.1.0] - 2019-09-02
 ### Added
 - Cmocean color map 
 
