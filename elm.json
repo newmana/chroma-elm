@@ -27,6 +27,7 @@
         ],
         "Colors": [
             "Chroma.Colors.Brewer",
+            "Chroma.Colors.Cmocean",
             "Chroma.Colors.Cividis",
             "Chroma.Colors.Inferno",
             "Chroma.Colors.Magma",

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [14.0.0] - 2019-09-02
+### Added
+- Cmocean color map 
+
 ## [13.0.0] - 2019-09-01
 ### Added
 - ToCss - For rgb and rgba values.
