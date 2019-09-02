@@ -3,7 +3,7 @@
     "name": "newmana/chroma-elm",
     "summary": "An Elm native version of chroma.js for color maps, color spaces and operations.",
     "license": "Apache-2.0",
-    "version": "13.1.0",
+    "version": "13.1.1",
     "exposed-modules": {
         "Main API": [
             "Chroma.Chroma"
