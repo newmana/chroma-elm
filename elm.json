@@ -27,8 +27,8 @@
         ],
         "Colors": [
             "Chroma.Colors.Brewer",
-            "Chroma.Colors.Cmocean",
             "Chroma.Colors.Cividis",
+            "Chroma.Colors.Cmocean",
             "Chroma.Colors.Inferno",
             "Chroma.Colors.Magma",
             "Chroma.Colors.Parula",
@@ -39,10 +39,11 @@
             "Chroma.Colors.W3CX11"
         ],
         "Limits": [
-            "Chroma.Limits.Limits",
             "Chroma.Limits.Analyze",
             "Chroma.Limits.CkMeans",
             "Chroma.Limits.Equal",
+            "Chroma.Limits.HeadTail",
+            "Chroma.Limits.Limits",
             "Chroma.Limits.Logarithmic",
             "Chroma.Limits.Quantile"
         ],
