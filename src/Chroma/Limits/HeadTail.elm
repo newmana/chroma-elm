@@ -1,7 +1,11 @@
 module Chroma.Limits.HeadTail exposing (limit)
 
 {-| [Head/tail breaks](https://en.wikipedia.org/wiki/Head/tail_Breaks) is a clustering algorithm scheme for data
-with a heavy-tailed distribution such as power laws and lognormal distributions
+with a heavy-tailed distribution such as power laws and lognormal distributions.
+
+This does not set a cutoff based on the percentage of data the head represents but rather you set the number of bins
+you would like (like all the others), this is similar to
+[CartoDB's Postgresql implementation](]https://github.com/CartoDB/cartodb-postgresql/blob/master/scripts-available/CDB_HeadsTailsBins.sql).
 
 
 # Definition
