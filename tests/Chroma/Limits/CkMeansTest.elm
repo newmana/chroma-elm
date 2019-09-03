@@ -76,4 +76,9 @@ testBinned =
                 Analyze.analyze simpleStats
                     |> CkMeans.binned 4
                     |> Expect.equal (Nonempty.Nonempty (Array.fromList [ -1, -1, -1, -1 ]) [ Array.fromList [ 2, 2, 2 ], Array.fromList [ 4, 5 ], Array.fromList [ 6 ] ])
+        , Test.test "Test 2 breaks when there's only one" <|
+            \_ ->
+                Analyze.analyze (Nonempty.Nonempty 1 [ 1, 1, 1 ])
+                    |> CkMeans.binned 2
+                    |> Expect.equal (Nonempty.Nonempty (Array.fromList [ 1, 1, 1, 1 ]) [])
         ]
