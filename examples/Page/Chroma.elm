@@ -37,9 +37,15 @@ content =
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Chroma.average(mode, colors)" ]
+                    [ Html.text "Chroma.mix(mode, ratio, color1, color2)" ]
                ]
             ++ Page.example "has-text-white" example6Code example6SourceCode example6Output
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Chroma.average(mode, colors)" ]
+               ]
+            ++ Page.example "has-text-white" example7Code example7SourceCode example7Output
         )
     ]
 
@@ -141,22 +147,41 @@ example5Output =
 
 example6Code : String
 example6Code =
+    Chroma.mix Types.RGBA 0.75 (Types.RGBAColor W3CX11.lightyellow) (Types.RGBAColor W3CX11.darkred)
+        |> ToHex.toHexAlpha
+
+
+example6SourceCode : String
+example6SourceCode =
+    """Chroma.mix Types.RGBA 0.75 (Types.RGBAColor W3CX11.lightyellow) (Types.RGBAColor W3CX11.darkred)
+ |> ToHex.toHexAlpha """
+
+
+example6Output : List (Html.Html msg)
+example6Output =
+    [ Html.text
+        """"#a84038" : String """
+    ]
+
+
+example7Code : String
+example7Code =
     Nonempty.Nonempty (Types.RGBAColor W3CX11.grey) [ Types.RGBAColor W3CX11.yellow, Types.RGBAColor W3CX11.red, Types.RGBAColor W3CX11.teal ]
         |> Chroma.average Types.LAB
         |> Result.withDefault (Types.RGBAColor W3CX11.black)
         |> ToHex.toHexAlpha
 
 
-example6SourceCode : String
-example6SourceCode =
+example7SourceCode : String
+example7SourceCode =
     """Nonempty.Nonempty (Types.RGBAColor W3CX11.grey) [ Types.RGBAColor W3CX11.yellow, Types.RGBAColor W3CX11.red, Types.RGBAColor W3CX11.teal ]
  |> Chroma.average Types.LAB
  |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHexAlpha  """
 
 
-example6Output : List (Html.Html msg)
-example6Output =
+example7Output : List (Html.Html msg)
+example7Output =
     [ Html.text
         """"#ba9254" : String """
     ]
