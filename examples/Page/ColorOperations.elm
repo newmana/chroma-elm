@@ -293,7 +293,7 @@ setLuminanceLabOutput =
 
 num : List (Html.Html msg)
 num =
-    Page.example "has-text-black" numCode numSourceCode numOutput
+    Page.example "has-text-black" "" numSourceCode numOutput
 
 
 numCode : String
