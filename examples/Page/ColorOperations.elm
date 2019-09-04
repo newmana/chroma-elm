@@ -7,6 +7,7 @@ import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Ops.Alpha as OpsAlpha
 import Chroma.Ops.Lightness as OpsLightness
 import Chroma.Ops.Luminance as OpsLuminance
+import Chroma.Ops.Numeric as OpsNumeric
 import Chroma.Ops.Saturate as OpsSaturate
 import Chroma.Types as Types
 import Color as Color
@@ -46,9 +47,16 @@ content =
                     [ HtmlAttributes.class "subtitle" ]
                     [ Html.text "Luminance" ]
                ]
+            ++ contrastLuminance
             ++ getLuminance
             ++ setLuminanceRgb
             ++ setLuminanceLab
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Numeric" ]
+               ]
+            ++ num
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
@@ -217,6 +225,26 @@ getLuminanceOutput =
     [ Html.text (getLuminanceCode ++ " : Float ") ]
 
 
+contrastLuminance : List (Html.Html msg)
+contrastLuminance =
+    Page.example "has-text-black" contrastLuminanceCode contrastLuminanceSourceCode contrastLuminanceOutput
+
+
+contrastLuminanceCode : String
+contrastLuminanceCode =
+    OpsLuminance.contrast (Types.RGBAColor W3CX11.aquamarine) (Types.RGBAColor W3CX11.black) |> String.fromFloat
+
+
+contrastLuminanceSourceCode : String
+contrastLuminanceSourceCode =
+    """OpsLuminance.contrast (Types.RGBAColor W3CX11.aquamarine) (Types.RGBAColor W3CX11.black) """
+
+
+contrastLuminanceOutput : List (Html.Html msg)
+contrastLuminanceOutput =
+    [ Html.text (contrastLuminanceCode ++ " : Float ") ]
+
+
 setLuminanceRgb : List (Html.Html msg)
 setLuminanceRgb =
     Page.example "has-text-black" setLuminanceRgbCode setLuminanceRgbSourceCode setLuminanceRgbOutput
@@ -224,13 +252,13 @@ setLuminanceRgb =
 
 setLuminanceRgbCode : String
 setLuminanceRgbCode =
-    Types.RGBAColor W3CX11.aquamarine |> (\x -> OpsLuminance.setLuminance x 0.5) |> ToHex.toHex
+    Types.RGBAColor W3CX11.aquamarine |> OpsLuminance.setLuminance 0.5 |> ToHex.toHex
 
 
 setLuminanceRgbSourceCode : String
 setLuminanceRgbSourceCode =
     """Types.RGBAColor W3CX11.aquamarine
- |> (\\x -> OpsLuminance.setLuminance x 0.5)
+ |> OpsLuminance.setLuminance 0.5
  |> ToHex.toHex """
 
 
@@ -246,7 +274,7 @@ setLuminanceLab =
 
 setLuminanceLabCode : String
 setLuminanceLabCode =
-    Types.RGBAColor W3CX11.aquamarine |> ToLab.toLab |> Types.LABColor |> (\x -> OpsLuminance.setLuminance x 0.5) |> ToHex.toHex
+    Types.RGBAColor W3CX11.aquamarine |> ToLab.toLab |> Types.LABColor |> OpsLuminance.setLuminance 0.5 |> ToHex.toHex
 
 
 setLuminanceLabSourceCode : String
@@ -254,13 +282,33 @@ setLuminanceLabSourceCode =
     """Types.RGBAColor W3CX11.aquamarine
  |> ToLab.toLab
  |> Types.LABColor
- |> (\\x -> OpsLuminance.setLuminance x 0.5)
+ |> OpsLuminance.setLuminance 0.5
  |> ToHex.toHex """
 
 
 setLuminanceLabOutput : List (Html.Html msg)
 setLuminanceLabOutput =
     [ Html.text """"#67ceab" : String  """ ]
+
+
+num : List (Html.Html msg)
+num =
+    Page.example "has-text-black" numCode numSourceCode numOutput
+
+
+numCode : String
+numCode =
+    OpsNumeric.num (Types.RGBAColor W3CX11.aquamarine) |> String.fromInt
+
+
+numSourceCode : String
+numSourceCode =
+    """Color.num (Types.RGBAColor W3CX11.aquamarine) """
+
+
+numOutput : List (Html.Html msg)
+numOutput =
+    [ Html.text (numCode ++ " : Int ") ]
 
 
 saturateTwo : List (Html.Html msg)
