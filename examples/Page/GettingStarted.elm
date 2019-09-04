@@ -58,57 +58,57 @@ content =
                 ]
             ]
          ]
-            ++ example1
-            ++ example2
-            ++ example3
+            ++ parsingString
+            ++ discreteColormap
+            ++ continuousColormap
         )
     ]
 
 
-example1 : List (Html.Html msg)
-example1 =
-    Page.example "has-text-white" example1Code example1SourceCode example1Output
+parsingString : List (Html.Html msg)
+parsingString =
+    Page.example "has-text-white" parsingStringCode parsingStringSourceCode parsingStringOutput
 
 
-example1Code : String
-example1Code =
+parsingStringCode : String
+parsingStringCode =
     Chroma.chroma "pink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> OpsLightness.darken 1 |> OpsSaturate.saturate 2 |> ToHex.toHex
 
 
-example1SourceCode : String
-example1SourceCode =
+parsingStringSourceCode : String
+parsingStringSourceCode =
     """Chroma.chroma "pink"
  |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> OpsLightness.darken 1 |> OpsSaturate.saturate 2
  |> ToHex.toHex  """
 
 
-example1Output : List (Html.Html msg)
-example1Output =
+parsingStringOutput : List (Html.Html msg)
+parsingStringOutput =
     [ Html.text """"#ff6d93" : String """ ]
 
 
-example2 : List (Html.Html msg)
-example2 =
+discreteColormap : List (Html.Html msg)
+discreteColormap =
     Page.p
         "It can be used to generate color maps. "
-        ++ Page.example "has-text-black" "#f5f5f5" example2SourceCode example2Output
+        ++ Page.example "has-text-black" "#f5f5f5" discreteColormapSourceCode discreteColormapOutput
 
 
-example2Code : Nonempty.Nonempty Types.ExtColor
-example2Code =
+discreteColormapCode : Nonempty.Nonempty Types.ExtColor
+discreteColormapCode =
     Nonempty.Nonempty (Color.rgb255 250 250 110) [ Color.rgb255 42 72 88 ] |> Nonempty.map (Types.RGBAColor >> ToLch.toLchExt) |> Chroma.colors 6 |> Tuple.second
 
 
-example2SourceCode : String
-example2SourceCode =
+discreteColormapSourceCode : String
+discreteColormapSourceCode =
     """Nonempty.Nonempty (rgb255 250 250 110) [ rgb255 42 72 88 ]
  |> Nonempty.map (Types.RGBAColor >> ToLch.toLchExt)
  |> Chroma.colors 6 |> Tuple.second"""
 
 
-example2Output : List (Html.Html msg)
-example2Output =
+discreteColormapOutput : List (Html.Html msg)
+discreteColormapOutput =
     let
         createHtml extColor =
             Html.span
@@ -124,13 +124,13 @@ example2Output =
                 ]
 
         colorsWithCommas =
-            Nonempty.map createHtml example2Code |> Nonempty.toList |> List.intersperse (textWith ",")
+            Nonempty.map createHtml discreteColormapCode |> Nonempty.toList |> List.intersperse (textWith ",")
     in
     [ textWith "[" ] ++ colorsWithCommas ++ [ textWith "]" ]
 
 
-example3 : List (Html.Html msg)
-example3 =
+continuousColormap : List (Html.Html msg)
+continuousColormap =
     let
         data =
             "Nonempty.Nonempty "

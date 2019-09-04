@@ -1,5 +1,6 @@
 module Page.Chroma exposing (content)
 
+import Chroma.Blend as Blend
 import Chroma.Chroma as Chroma
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.Out.ToHex as ToHex
@@ -26,162 +27,279 @@ content =
                 ("Given a string that represents either a W3CX11 color name or a 3, 6 or 8 hex string. "
                     ++ "The \"chroma\" function returns a Result either indicating an error or success. "
                 )
-            ++ Page.example "has-text-white" example1Code example1SourceCode example1Output
+            ++ Page.example "has-text-white" namedColorCode namedColorSourceCode namedColorOutput
             ++ Page.p "If the \"#\" is missing and it's not a valid color string it tries to parse it as a hex string."
-            ++ Page.example "has-text-black" example2Code example2SourceCode example2Output
-            ++ Page.example "has-text-white" example3Code example3SourceCode example3Output
+            ++ Page.example "has-text-black" sixHexColorCode sixHexColorSourceCode sixHexColorOutput
+            ++ Page.example "has-text-white" threeHexCode threeHexSourceCode threeHexOutput
             ++ Page.p "An 8 digit hex string defines that alpha channel (0-255 maps to 0-1)."
-            ++ Page.example "has-text-black" example4Code example4SourceCode example4Output
+            ++ Page.example "has-text-black" eightHexCode eightHexSourceCode eightHexOutput
             ++ Page.p "If it fails to parse either as a valid color or hex string you must have a default color."
-            ++ Page.example "has-text-white" example5Code example5SourceCode example5Output
+            ++ Page.example "has-text-white" unknownStringCode unknownStringSourceCode unknownStringOutput
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
                     [ Html.text "Chroma.mix(mode, ratio, color1, color2)" ]
                ]
-            ++ Page.example "has-text-white" example6Code example6SourceCode example6Output
+            ++ Page.example "has-text-white" mixCode mixSourceCode mixOutput
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
                     [ Html.text "Chroma.average(mode, colors)" ]
                ]
-            ++ Page.example "has-text-white" example7Code example7SourceCode example7Output
+            ++ Page.example "has-text-white" averageCode averageSourceCode averageOutput
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Chroma.blend(mode, color1, color2)" ]
+               ]
+            ++ Page.example "has-text-white" blendCode blendSourceCode blendOutput
+            ++ Page.example "has-text-black" blendChromaCode blendChromaSourceCode blendChromaOutput
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Chroma.contrast(color1, color2)" ]
+               , Html.p
+                    []
+                    [ Html.text "A minimum contrast ratio of 3:1 with 4.5:1 recommended by "
+                    , Html.a [ HtmlAttributes.href "https://www.w3.org/TR/WCAG20-TECHS/" ] [ Html.text "Web Content Accessibility Guidelines" ]
+                    , Html.text "."
+                    ]
+               ]
+            ++ Page.example "has-text-black" constrastCode constrastSourceCode constrastOutput
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Chroma.distance(mode, color1, color2)" ]
+               ]
+            ++ Page.example "has-text-black" distanceRgbCode distanceRgbSourceCode distanceRgbOutput
+            ++ Page.example "has-text-black" distanceLabCode distanceLabSourceCode distanceLabOutput
         )
     ]
 
 
-example1Code : String
-example1Code =
+namedColorCode : String
+namedColorCode =
     Chroma.chroma "hotpink" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHex
 
 
-example1SourceCode : String
-example1SourceCode =
+namedColorSourceCode : String
+namedColorSourceCode =
     """Chroma.chroma "hotpink"
  |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHex  """
 
 
-example1Output : List (Html.Html msg)
-example1Output =
+namedColorOutput : List (Html.Html msg)
+namedColorOutput =
     [ Html.text
         """"#ff69b4" : String """
     ]
 
 
-example2Code : String
-example2Code =
+sixHexColorCode : String
+sixHexColorCode =
     Chroma.chroma "3399ff" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHex
 
 
-example2SourceCode : String
-example2SourceCode =
+sixHexColorSourceCode : String
+sixHexColorSourceCode =
     """Chroma.chroma "3399ff"
  |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHex  """
 
 
-example2Output : List (Html.Html msg)
-example2Output =
+sixHexColorOutput : List (Html.Html msg)
+sixHexColorOutput =
     [ Html.text
         """"#3399ff" : String """
     ]
 
 
-example3Code : String
-example3Code =
+threeHexCode : String
+threeHexCode =
     Chroma.chroma "#963" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHex
 
 
-example3SourceCode : String
-example3SourceCode =
+threeHexSourceCode : String
+threeHexSourceCode =
     """Chroma.chroma "#963"
  |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHex  """
 
 
-example3Output : List (Html.Html msg)
-example3Output =
+threeHexOutput : List (Html.Html msg)
+threeHexOutput =
     [ Html.text
         """"#996633" : String """
     ]
 
 
-example4Code : String
-example4Code =
+eightHexCode : String
+eightHexCode =
     Chroma.chroma "#3399ff33" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHexAlpha
 
 
-example4SourceCode : String
-example4SourceCode =
+eightHexSourceCode : String
+eightHexSourceCode =
     """Chroma.chroma "#3399ff33"
  |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHexAlpha  """
 
 
-example4Output : List (Html.Html msg)
-example4Output =
+eightHexOutput : List (Html.Html msg)
+eightHexOutput =
     [ Html.text
         """"#3399ff33" : String """
     ]
 
 
-example5Code : String
-example5Code =
+unknownStringCode : String
+unknownStringCode =
     Chroma.chroma "hello world" |> Result.withDefault (Types.RGBAColor W3CX11.black) |> ToHex.toHexAlpha
 
 
-example5SourceCode : String
-example5SourceCode =
+unknownStringSourceCode : String
+unknownStringSourceCode =
     """Chroma.chroma "hello world"
  |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHexAlpha  """
 
 
-example5Output : List (Html.Html msg)
-example5Output =
+unknownStringOutput : List (Html.Html msg)
+unknownStringOutput =
     [ Html.text
         """"#000000" : String """
     ]
 
 
-example6Code : String
-example6Code =
+mixCode : String
+mixCode =
     Chroma.mix Types.RGBA 0.75 (Types.RGBAColor W3CX11.lightyellow) (Types.RGBAColor W3CX11.darkred)
         |> ToHex.toHexAlpha
 
 
-example6SourceCode : String
-example6SourceCode =
+mixSourceCode : String
+mixSourceCode =
     """Chroma.mix Types.RGBA 0.75 (Types.RGBAColor W3CX11.lightyellow) (Types.RGBAColor W3CX11.darkred)
  |> ToHex.toHexAlpha """
 
 
-example6Output : List (Html.Html msg)
-example6Output =
+mixOutput : List (Html.Html msg)
+mixOutput =
     [ Html.text
         """"#a84038" : String """
     ]
 
 
-example7Code : String
-example7Code =
+averageCode : String
+averageCode =
     Nonempty.Nonempty (Types.RGBAColor W3CX11.grey) [ Types.RGBAColor W3CX11.yellow, Types.RGBAColor W3CX11.red, Types.RGBAColor W3CX11.teal ]
         |> Chroma.average Types.LAB
         |> Result.withDefault (Types.RGBAColor W3CX11.black)
         |> ToHex.toHexAlpha
 
 
-example7SourceCode : String
-example7SourceCode =
+averageSourceCode : String
+averageSourceCode =
     """Nonempty.Nonempty (Types.RGBAColor W3CX11.grey) [ Types.RGBAColor W3CX11.yellow, Types.RGBAColor W3CX11.red, Types.RGBAColor W3CX11.teal ]
  |> Chroma.average Types.LAB
  |> Result.withDefault (Types.RGBAColor W3CX11.black)
  |> ToHex.toHexAlpha  """
 
 
-example7Output : List (Html.Html msg)
-example7Output =
+averageOutput : List (Html.Html msg)
+averageOutput =
     [ Html.text
         """"#ba9254" : String """
+    ]
+
+
+blendCode : String
+blendCode =
+    Chroma.blend Blend.Burn (Types.RGBAColor W3CX11.lightyellow) (Types.RGBAColor W3CX11.darkred)
+        |> ToHex.toHexAlpha
+
+
+blendSourceCode : String
+blendSourceCode =
+    """Chroma.blend Blend.Burn (Types.RGBAColor W3CX11.lightyellow) (Types.RGBAColor W3CX11.darkred)
+ |> ToHex.toHexAlpha """
+
+
+blendOutput : List (Html.Html msg)
+blendOutput =
+    [ Html.text
+        """"#a84038" : String """
+    ]
+
+
+blendChromaCode : String
+blendChromaCode =
+    Chroma.blendChroma Blend.Dodge "lightyellow" "darkred"
+        |> Result.withDefault (Types.RGBAColor W3CX11.black)
+        |> ToHex.toHexAlpha
+
+
+blendChromaSourceCode : String
+blendChromaSourceCode =
+    """Chroma.blendChroma Blend.Dodge "lightyellow" "darkred"
+ |> Result.withDefault (Types.RGBAColor W3CX11.black)
+ |> ToHex.toHexAlpha """
+
+
+blendChromaOutput : List (Html.Html msg)
+blendChromaOutput =
+    [ Html.text
+        """"Ok "#ffff00ff" : Result String String """
+    ]
+
+
+constrastCode : String
+constrastCode =
+    Chroma.contrast (Types.RGBAColor W3CX11.pink) (Types.RGBAColor W3CX11.purple) |> String.fromFloat
+
+
+constrastSourceCode : String
+constrastSourceCode =
+    """Chroma.contrast (Types.RGBAColor W3CX11.pink) (Types.RGBAColor W3CX11.purple)"""
+
+
+constrastOutput : List (Html.Html msg)
+constrastOutput =
+    [ Html.text
+        """6.124225406859997 : Float """
+    ]
+
+
+distanceRgbCode : String
+distanceRgbCode =
+    Chroma.distance Types.RGBA (Types.RGBAColor W3CX11.black) (Types.RGBAColor W3CX11.purple) |> String.fromFloat
+
+
+distanceRgbSourceCode : String
+distanceRgbSourceCode =
+    """Chroma.distance Types.RGBA (Types.RGBAColor W3CX11.black) (Types.RGBAColor W3CX11.purple)"""
+
+
+distanceRgbOutput : List (Html.Html msg)
+distanceRgbOutput =
+    [ Html.text
+        """0.7098797489559064 : Float """
+    ]
+
+
+distanceLabCode : String
+distanceLabCode =
+    Chroma.distance Types.LAB (Types.RGBAColor W3CX11.black) (Types.RGBAColor W3CX11.purple) |> String.fromFloat
+
+
+distanceLabSourceCode : String
+distanceLabSourceCode =
+    """Chroma.distance Types.LAB (Types.RGBAColor W3CX11.black) (Types.RGBAColor W3CX11.purple)"""
+
+
+distanceLabOutput : List (Html.Html msg)
+distanceLabOutput =
+    [ Html.text
+        """75.43825332700438 : Float"""
     ]
