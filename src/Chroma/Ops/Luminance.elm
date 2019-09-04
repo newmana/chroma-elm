@@ -58,8 +58,8 @@ contrast color1 color2 =
 
 {-| Set Luminance
 -}
-setLuminance : Types.ExtColor -> Float -> Types.ExtColor
-setLuminance color lum =
+setLuminance : Float -> Types.ExtColor -> Types.ExtColor
+setLuminance lum color =
     let
         maxIteration =
             40

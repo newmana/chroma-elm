@@ -79,32 +79,32 @@ testSettingLuminance =
     Test.describe "Set Alpha on a Color"
         [ Test.test "of rgba white" <|
             \_ ->
-                Luminance.setLuminance (Types.RGBAColor W3CX11.white) 0.5
+                Luminance.setLuminance 0.5 (Types.RGBAColor W3CX11.white)
                     |> ToHex.toHex
                     |> Expect.equal "#bcbcbc"
         , Test.test "of rgba aquamarine" <|
             \_ ->
-                Luminance.setLuminance (Types.RGBAColor W3CX11.aquamarine) 0.5
+                Luminance.setLuminance 0.5 (Types.RGBAColor W3CX11.aquamarine)
                     |> ToHex.toHex
                     |> Expect.equal "#67ceab"
         , Test.test "of lab aquamarine" <|
             \_ ->
-                Luminance.setLuminance (Types.RGBAColor W3CX11.aquamarine |> Colorspace.colorConvert Types.LAB) 0.5
+                Luminance.setLuminance 0.5 (Types.RGBAColor W3CX11.aquamarine |> Colorspace.colorConvert Types.LAB)
                     |> ToHex.toHex
                     |> Expect.equal "#67ceac"
         , Test.test "of hsla aquamarine" <|
             \_ ->
-                Luminance.setLuminance (Types.RGBAColor W3CX11.aquamarine |> Colorspace.colorConvert Types.HSLA) 0.5
+                Luminance.setLuminance 0.5 (Types.RGBAColor W3CX11.aquamarine |> Colorspace.colorConvert Types.HSLA)
                     |> ToHex.toHex
                     |> Expect.equal "#67ceab"
         , Test.test "of rgba hotpink" <|
             \_ ->
-                Luminance.setLuminance (Types.RGBAColor W3CX11.hotpink) 0.5
+                Luminance.setLuminance 0.5 (Types.RGBAColor W3CX11.hotpink)
                     |> ToHex.toHex
                     |> Expect.equal "#ff9dce"
         , Test.test "of rgba darkslateblue" <|
             \_ ->
-                Luminance.setLuminance (Types.RGBAColor W3CX11.darkslateblue) 0.5
+                Luminance.setLuminance 0.5 (Types.RGBAColor W3CX11.darkslateblue)
                     |> ToHex.toHex
                     |> Expect.equal "#bcb8d5"
         ]
