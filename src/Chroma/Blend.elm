@@ -1,4 +1,13 @@
-module Chroma.Blend exposing (BlendMode(..), blend)
+module Chroma.Blend exposing (blend, BlendMode(..))
+
+{-| [Blend Modes](https://en.wikipedia.org/wiki/Blend_modes) define how to combine two layers.
+
+
+# Definition
+
+@docs blend, BlendMode
+
+-}
 
 import Chroma.Converter.Out.ToRgba as ToRgba
 import Chroma.Ops.Alpha as OpsAlpha
@@ -20,6 +29,8 @@ type BlendMode
     | Exclusion
 
 
+{-| TBD
+-}
 blend : BlendMode -> Types.ExtColor -> Types.ExtColor -> Types.ExtColor
 blend mode colorExt1 colorExt2 =
     let
