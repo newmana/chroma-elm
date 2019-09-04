@@ -4,6 +4,7 @@ import Chroma.Blend as Blend
 import Chroma.Chroma as Chroma
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.Out.ToHex as ToHex
+import Chroma.Limits.Limits as Limits
 import Chroma.Types as Types
 import Html as Html
 import Html.Attributes as HtmlAttributes
@@ -73,6 +74,17 @@ content =
                ]
             ++ Page.example "has-text-black" distanceRgbCode distanceRgbSourceCode distanceRgbOutput
             ++ Page.example "has-text-black" distanceLabCode distanceLabSourceCode distanceLabOutput
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Chroma.limits(mode, bins, data)" ]
+               , Html.p
+                    []
+                    [ Html.text ("Sample data: " ++ nonEmptyFloat sampleData ++ ".")
+                    ]
+               ]
+            ++ Page.example "has-text-black" limitsEqualCode limitsEqualSourceCode limitsEqualOutput
+            ++ Page.example "has-text-black" limitsCkMeansCode limitsCkMeansSourceCode limitsCkMeansOutput
         )
     ]
 
@@ -302,4 +314,46 @@ distanceLabOutput : List (Html.Html msg)
 distanceLabOutput =
     [ Html.text
         """75.43825332700438 : Float"""
+    ]
+
+
+sampleData : Nonempty.Nonempty Float
+sampleData =
+    Nonempty.Nonempty 1 [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 12 ]
+
+
+nonEmptyFloat : Nonempty.Nonempty Float -> String
+nonEmptyFloat a =
+    "Nonempty " ++ (Nonempty.head a |> String.fromFloat) ++ " [" ++ (List.map String.fromFloat (Nonempty.tail a) |> String.join ", ") ++ "]"
+
+
+limitsEqualCode : String
+limitsEqualCode =
+    Chroma.limits Limits.Equal 4 sampleData |> nonEmptyFloat
+
+
+limitsEqualSourceCode : String
+limitsEqualSourceCode =
+    """Chroma.limits Limits.Equal 4 sampleData"""
+
+
+limitsEqualOutput : List (Html.Html msg)
+limitsEqualOutput =
+    [ Html.text limitsEqualCode
+    ]
+
+
+limitsCkMeansCode : String
+limitsCkMeansCode =
+    Chroma.limits Limits.CkMeans 4 sampleData |> nonEmptyFloat
+
+
+limitsCkMeansSourceCode : String
+limitsCkMeansSourceCode =
+    """Chroma.limits Limits.CkMeans 4 sampleData"""
+
+
+limitsCkMeansOutput : List (Html.Html msg)
+limitsCkMeansOutput =
+    [ Html.text limitsCkMeansCode
     ]
