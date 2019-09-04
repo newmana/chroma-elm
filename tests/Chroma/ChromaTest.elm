@@ -21,7 +21,6 @@ tests =
     Test.describe "Chroma API"
         [ testStringToColor
         , testColorToString
-        , testColorToNum
         , testScaleAndDomain
         , testScaleAndClasses
         , testDistance
@@ -80,24 +79,6 @@ testColorToString =
         , Test.test "Non-mapped color to string" <|
             \_ ->
                 Types.RGBAColor (Color.rgb255 255 0 254) |> Chroma.name |> Expect.equal (Result.Ok "#ff00fe")
-        ]
-
-
-testColorToNum : Test.Test
-testColorToNum =
-    Test.describe "num"
-        [ Test.test "Red" <|
-            \_ ->
-                Types.RGBAColor (Color.rgb255 255 0 0) |> Chroma.num |> Expect.equal 16711680
-        , Test.test "Green" <|
-            \_ ->
-                Types.RGBAColor (Color.rgb255 0 255 0) |> Chroma.num |> Expect.equal 65280
-        , Test.test "Blue" <|
-            \_ ->
-                Types.RGBAColor (Color.rgb255 0 0 255) |> Chroma.num |> Expect.equal 255
-        , Test.test "Black" <|
-            \_ ->
-                Types.RGBAColor (Color.rgb255 0 0 0) |> Chroma.num |> Expect.equal 0
         ]
 
 

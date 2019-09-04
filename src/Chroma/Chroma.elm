@@ -1,5 +1,5 @@
 module Chroma.Chroma exposing
-    ( chroma, name, mix, mixChroma, average, averageChroma, blend, blendChroma, distance, distance255, limits, num
+    ( chroma, name, mix, mixChroma, average, averageChroma, blend, blendChroma, contrast, contrastChroma, distance, distance255, limits
     , scale, scaleF, colors, colorsF, domain, domainF, classes, padding, paddingBoth
     , scaleDefault, scaleWith, colorsWith, domainWith, classesWithArray, paddingWith, paddingBothWith
     )
@@ -10,7 +10,7 @@ has more features and is idiomatic Elm.
 
 # Color
 
-@docs chroma, name, mix, mixChroma, average, averageChroma, blend, blendChroma, distance, distance255, limits, num
+@docs chroma, name, mix, mixChroma, average, averageChroma, blend, blendChroma, contrast, contrastChroma, distance, distance255, limits
 
 
 # Color Scales
@@ -25,7 +25,6 @@ has more features and is idiomatic Elm.
 -}
 
 import Chroma.Blend as Blend
-import Chroma.Color as Color
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Misc.ColorSpace as ColorSpace
@@ -33,6 +32,8 @@ import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Converter.Out.ToRgba as ToRgba
 import Chroma.Interpolator as Interpolator
 import Chroma.Limits.Limits as Limits
+import Chroma.Ops.Luminance as Luminance
+import Chroma.Ops.Numeric as Numeric
 import Chroma.Scale as Scale
 import Chroma.Types as Types
 import Color as Color
@@ -179,6 +180,28 @@ blendChroma mode strColor1 strColor2 =
     Result.map2 (Blend.blend mode) (chroma strColor1) (chroma strColor2)
 
 
+{-| WCGA contrast ratio between two colors.
+
+    Chroma.contrast (Types.RGBAColor W3CX11.pink) (Types.RGBAColor W3CX11.hotpink)
+    --> 1.7214765344592284 : Float
+
+-}
+contrast : Types.ExtColor -> Types.ExtColor -> Float
+contrast color1 color2 =
+    Luminance.contrast color1 color2
+
+
+{-| WCGA contrast ratio between two colors.
+
+    Chroma.contrastChroma "pink" "hotpink"
+    --> Ok 1.7214765344592284 : Result String Float
+
+-}
+contrastChroma : String -> String -> Result String Float
+contrastChroma strColor1 strColor2 =
+    Result.map2 Luminance.contrast (chroma strColor1) (chroma strColor2)
+
+
 {-| Calculate the distance in RGB 255 color space.
 
     Chroma.distance255 (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.blue)
@@ -194,7 +217,7 @@ distance255 color1 color2 =
         sndColor255 =
             ColorSpace.colorConvert Types.RGBA color2 |> ColorSpace.toNonEmptyList |> Nonempty.map (\x -> x * 255)
     in
-    Color.calcDistance fstColor255 sndColor255
+    Numeric.calcDistance fstColor255 sndColor255
 
 
 {-| Calculate the distance for a given color space.
@@ -212,7 +235,7 @@ distance mode color1 color2 =
         aColor2 =
             ColorSpace.colorConvert mode color2 |> ColorSpace.toNonEmptyList
     in
-    Color.calcDistance aColor1 aColor2
+    Numeric.calcDistance aColor1 aColor2
 
 
 {-| Create breaks/classes based on the data given.
@@ -229,17 +252,6 @@ Supports: CkMean (a variant of kmeans), Equal, Logarithmic, and Quantile.
 limits : Limits.LimitMode -> Int -> Nonempty.Nonempty Float -> Nonempty.Nonempty Float
 limits mode bins data =
     Limits.limits mode bins data
-
-
-{-| Numeric representation of RGB.
-
-    Chroma.num (Types.RGBAColor (Color.rgb255 192 192 192))
-    --> 12632256 : Int
-
--}
-num : Types.ExtColor -> Int
-num ext =
-    ToRgba.toRgba255 ext |> (\c -> Color.rgb255 c.red c.green c.blue) |> Color.colorToInt
 
 
 {-| Return a configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.

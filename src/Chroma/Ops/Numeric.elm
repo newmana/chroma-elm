@@ -1,17 +1,30 @@
-module Chroma.Color exposing (calcDistance, colorToInt, intToColor)
+module Chroma.Ops.Numeric exposing (num, calcDistance, colorToInt, intToColor)
 
 {-| Extensions to the Color library
 
 
 # Definition
 
-@docs calcDistance, colorToInt, intToColor
+@docs num, calcDistance, colorToInt, intToColor
 
 -}
 
 import Bitwise exposing (and, shiftLeftBy, shiftRightBy)
+import Chroma.Converter.Out.ToRgba as ToRgba
+import Chroma.Types as Types
 import Color exposing (Color, rgb255, toRgba)
 import List.Nonempty as Nonempty
+
+
+{-| Numeric representation of RGB.
+
+    Color.num (Types.RGBAColor (Color.rgb255 192 192 192))
+    --> 12632256 : Int
+
+-}
+num : Types.ExtColor -> Int
+num ext =
+    ToRgba.toRgba255 ext |> (\c -> Color.rgb255 c.red c.green c.blue) |> colorToInt
 
 
 {-| TBD
@@ -31,16 +44,16 @@ colorToInt c =
 {-| TBD
 -}
 intToColor : Int -> Color
-intToColor num =
+intToColor i =
     let
         b =
-            shiftRightBy 16 (and 0x00FF0000 num)
+            shiftRightBy 16 (and 0x00FF0000 i)
 
         g =
-            shiftRightBy 8 (and 0xFF00 num)
+            shiftRightBy 8 (and 0xFF00 i)
 
         r =
-            and num 0xFF
+            and i 0xFF
     in
     rgb255 r g b
 

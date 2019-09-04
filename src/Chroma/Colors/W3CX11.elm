@@ -55,7 +55,7 @@ module Chroma.Colors.W3CX11 exposing
 
 -}
 
-import Chroma.Color as Color
+import Chroma.Ops.Numeric as Numeric
 import Color exposing (Color, rgb255, toRgba)
 import Dict
 import Result
@@ -90,7 +90,7 @@ color c =
         errorString =
             "Cannot find RGB " ++ toS rgba .red ++ ", " ++ toS rgba .green ++ ", " ++ toS rgba .blue
     in
-    Result.fromMaybe errorString (Dict.get (Color.colorToInt c) intToW3cx11)
+    Result.fromMaybe errorString (Dict.get (Numeric.colorToInt c) intToW3cx11)
 
 
 {-| TBD
@@ -1140,7 +1140,7 @@ w3cx11 =
 -}
 intToW3cx11 : Dict.Dict Int String
 intToW3cx11 =
-    List.map (\( s, c ) -> ( Color.colorToInt c, s )) w3cx11List |> Dict.fromList
+    List.map (\( s, c ) -> ( Numeric.colorToInt c, s )) w3cx11List |> Dict.fromList
 
 
 w3cx11List : List ( String, Color )
