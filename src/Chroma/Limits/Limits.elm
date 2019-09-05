@@ -12,6 +12,7 @@ module Chroma.Limits.Limits exposing (LimitMode(..), limits)
 import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.CkMeans as CkMeans
 import Chroma.Limits.Equal as Equal
+import Chroma.Limits.HeadTail as HeadTail
 import Chroma.Limits.Logarithmic as Logarithimic
 import Chroma.Limits.Quantile as Quantile
 import List.Nonempty as Nonempty
@@ -22,6 +23,7 @@ import List.Nonempty as Nonempty
 type LimitMode
     = CkMeans
     | Equal
+    | HeadTail
     | Logarithmic
     | Quantile
 
@@ -40,6 +42,9 @@ limits mode bins data =
 
         Equal ->
             Equal.limit bins scale
+
+        HeadTail ->
+            HeadTail.limit bins scale
 
         Logarithmic ->
             Logarithimic.limit bins scale

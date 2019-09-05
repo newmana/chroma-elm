@@ -53,13 +53,13 @@ import Result as Result
 
 -}
 chroma : String -> Result String Types.ExtColor
-chroma str =
-    case W3CX11.named str of
+chroma colorName =
+    case W3CX11.named colorName of
         Ok value ->
             Ok (Types.RGBAColor value)
 
         Err _ ->
-            Hex2Rgb.hex2rgb str |> Result.map Types.RGBAColor
+            Hex2Rgb.hex2rgb colorName |> Result.map Types.RGBAColor
 
 
 {-| Given a color turn it into a [`W3CX11 Color`][w3cx11] name or fall back to RGB string.
