@@ -1,7 +1,7 @@
 module Page.GettingStarted exposing (content)
 
 import Chroma.Chroma as Chroma
-import Chroma.Colors.Plasma as Plasma
+import Chroma.Colors.Cmocean as Cmocean
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Converter.Out.ToLch as ToLch
@@ -104,7 +104,7 @@ discreteColormapSourceCode : String
 discreteColormapSourceCode =
     """Nonempty.Nonempty (rgb255 250 250 110) [ rgb255 42 72 88 ]
  |> Nonempty.map (Types.RGBAColor >> ToLch.toLchExt)
- |> Chroma.colors 6 |> Tuple.second"""
+ |> Chroma.colors 6"""
 
 
 discreteColormapOutput : List (Html.Html msg)
@@ -140,8 +140,11 @@ continuousColormap =
                 ++ " ]"
 
         code =
-            data ++ """
- |> (\\x -> Chroma.limits x Limits.CkMeans 4)"""
+            "julyMaximums = "
+                ++ data
+                ++ "\n"
+                ++ "ticks = Chroma.limits Limits.CkMeans 4 julyMaximums\n"
+                ++ "colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Cmocean.matter)"
     in
     Page.p
         "Or to generate evenly distributed buckets across a continuous color map."
@@ -151,7 +154,7 @@ continuousColormap =
 config : Legend.ContinuousLegendConfig
 config =
     { ticks = Chroma.limits Limits.CkMeans 4 julyMaximums
-    , colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Plasma.plasma |> Nonempty.reverse)
+    , colours = Scale.DiscreteColor (Nonempty.map Types.RGBAColor Cmocean.matter)
     }
 
 

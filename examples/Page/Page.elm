@@ -1,4 +1,4 @@
-module Page.Page exposing (example, p)
+module Page.Page exposing (example, p, withinP)
 
 import Html as Html
 import Html.Attributes as HtmlAttributes
@@ -23,6 +23,28 @@ p text =
                         []
                         [ Html.text text ]
                     ]
+                ]
+            ]
+        ]
+    ]
+
+
+withinP : List (Html.Html msg) -> List (Html.Html msg)
+withinP content =
+    [ Html.div
+        [ HtmlAttributes.class "container"
+        ]
+        [ Html.div
+            [ HtmlAttributes.class "columns"
+            ]
+            [ Html.div
+                [ HtmlAttributes.class "column"
+                , HtmlAttributes.class "is-three-fifths"
+                ]
+                [ Html.div
+                    [ HtmlAttributes.class "content"
+                    ]
+                    content
                 ]
             ]
         ]

@@ -109,7 +109,7 @@ getAlphaSourceCode =
 
 getAlphaOutput : List (Html.Html msg)
 getAlphaOutput =
-    [ Html.text ("\"" ++ getAlphaCode ++ "\" : Float ") ]
+    [ Html.text (getAlphaCode ++ " : Float ") ]
 
 
 darkenOne : List (Html.Html msg)
@@ -206,7 +206,7 @@ brightenThreeOutput =
 
 getLuminance : List (Html.Html msg)
 getLuminance =
-    Page.example "has-text-black" getLuminanceCode getLuminanceSourceCode getLuminanceOutput
+    Page.example "has-text-black" "" getLuminanceSourceCode getLuminanceOutput
 
 
 getLuminanceCode : String
@@ -227,7 +227,7 @@ getLuminanceOutput =
 
 contrastLuminance : List (Html.Html msg)
 contrastLuminance =
-    Page.example "has-text-black" contrastLuminanceCode contrastLuminanceSourceCode contrastLuminanceOutput
+    Page.example "has-text-black" "" contrastLuminanceSourceCode contrastLuminanceOutput
 
 
 contrastLuminanceCode : String

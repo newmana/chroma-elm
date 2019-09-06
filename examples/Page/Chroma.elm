@@ -22,7 +22,7 @@ content =
             [ Html.text "Chroma" ]
          , Html.p
             [ HtmlAttributes.class "subtitle" ]
-            [ Html.text "Chroma.chroma(string)" ]
+            [ Html.text "Chroma.chroma(colorName : String)" ]
          ]
             ++ Page.p
                 ("Given a string that represents either a W3CX11 color name or a 3, 6 or 8 hex string. "
@@ -39,52 +39,54 @@ content =
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Chroma.mix(mode, ratio, color1, color2)" ]
+                    [ Html.text "Chroma.mix(mode : Mode, ratio : Float, color1 : ExtColor, color2 : ExtColor)" ]
                ]
             ++ Page.example "has-text-white" mixCode mixSourceCode mixOutput
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Chroma.average(mode, colors)" ]
+                    [ Html.text "Chroma.average(mode : Mode, colors : NonEmpty ExtColor)" ]
                ]
             ++ Page.example "has-text-white" averageCode averageSourceCode averageOutput
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Chroma.blend(mode, color1, color2)" ]
+                    [ Html.text "Chroma.blend(mode : Mode, color1 : ExtColor, color2 : ExtColor)" ]
                ]
             ++ Page.example "has-text-white" blendCode blendSourceCode blendOutput
             ++ Page.example "has-text-black" blendChromaCode blendChromaSourceCode blendChromaOutput
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Chroma.contrast(color1, color2)" ]
-               , Html.p
-                    []
-                    [ Html.text "A minimum contrast ratio of 3:1 with 4.5:1 recommended by "
-                    , Html.a [ HtmlAttributes.href "https://www.w3.org/TR/WCAG20-TECHS/" ] [ Html.text "Web Content Accessibility Guidelines" ]
-                    , Html.text "."
-                    ]
+                    [ Html.text "Chroma.contrast(color1 : ExtColor, color2 : ExtColor)" ]
                ]
-            ++ Page.example "has-text-black" constrastCode constrastSourceCode constrastOutput
+            ++ Page.withinP
+                [ Html.text "A minimum contrast ratio of 3:1 with 4.5:1 recommended by "
+                , Html.a [ HtmlAttributes.href "https://www.w3.org/TR/WCAG20-TECHS/" ] [ Html.text "Web Content Accessibility Guidelines" ]
+                , Html.text "."
+                ]
+            ++ Page.example "has-text-black" "" constrastSourceCode constrastOutput
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Chroma.distance(mode, color1, color2)" ]
+                    [ Html.text "Chroma.distance(mode : Mode, color1 : ExtColor, color2 : ExtColor)" ]
                ]
-            ++ Page.example "has-text-black" distanceRgbCode distanceRgbSourceCode distanceRgbOutput
-            ++ Page.example "has-text-black" distanceLabCode distanceLabSourceCode distanceLabOutput
+            ++ Page.example "has-text-black" "" distanceRgbSourceCode distanceRgbOutput
+            ++ Page.example "has-text-black" "" distanceLabSourceCode distanceLabOutput
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Chroma.limits(mode, bins, data)" ]
-               , Html.p
-                    []
-                    [ Html.text ("Sample data: " ++ nonEmptyFloat sampleData ++ ".")
-                    ]
+                    [ Html.text "Chroma.limits(mode : LimitMode, bins, data)" ]
                ]
-            ++ Page.example "has-text-black" limitsEqualCode limitsEqualSourceCode limitsEqualOutput
-            ++ Page.example "has-text-black" limitsCkMeansCode limitsCkMeansSourceCode limitsCkMeansOutput
+            ++ Page.p
+                ("Sample data: "
+                    ++ nonEmptyFloat sampleData
+                    ++ ". "
+                    ++ "LimitMode can be: CkMeans, Equal, HeadTail, Logarithmic or Quantial."
+                )
+            ++ Page.example "has-text-black" "" limitsCkMeansSourceCode limitsCkMeansOutput
+            ++ Page.example "has-text-black" "" limitsHeadTailSourceCode limitsHeadTailOutput
+            ++ Page.example "has-text-black" "" limitsEqualSourceCode limitsEqualOutput
         )
     ]
 
@@ -262,7 +264,7 @@ blendChromaSourceCode =
 blendChromaOutput : List (Html.Html msg)
 blendChromaOutput =
     [ Html.text
-        """"Ok "#ffff00ff" : Result String String """
+        """Ok "#ffff00ff" : Result String String """
     ]
 
 
@@ -279,7 +281,7 @@ constrastSourceCode =
 constrastOutput : List (Html.Html msg)
 constrastOutput =
     [ Html.text
-        """6.124225406859997 : Float """
+        (constrastCode ++ " : Float")
     ]
 
 
@@ -295,8 +297,7 @@ distanceRgbSourceCode =
 
 distanceRgbOutput : List (Html.Html msg)
 distanceRgbOutput =
-    [ Html.text
-        """0.7098797489559064 : Float """
+    [ Html.text (distanceRgbCode ++ " : Float")
     ]
 
 
@@ -312,8 +313,7 @@ distanceLabSourceCode =
 
 distanceLabOutput : List (Html.Html msg)
 distanceLabOutput =
-    [ Html.text
-        """75.43825332700438 : Float"""
+    [ Html.text (distanceLabCode ++ " : Float")
     ]
 
 
@@ -356,4 +356,20 @@ limitsCkMeansSourceCode =
 limitsCkMeansOutput : List (Html.Html msg)
 limitsCkMeansOutput =
     [ Html.text limitsCkMeansCode
+    ]
+
+
+limitsHeadTailCode : String
+limitsHeadTailCode =
+    Chroma.limits Limits.HeadTail 4 sampleData |> nonEmptyFloat
+
+
+limitsHeadTailSourceCode : String
+limitsHeadTailSourceCode =
+    """Chroma.limits Limits.HeadTail 4 sampleData"""
+
+
+limitsHeadTailOutput : List (Html.Html msg)
+limitsHeadTailOutput =
+    [ Html.text limitsHeadTailCode
     ]

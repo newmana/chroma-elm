@@ -3,6 +3,7 @@ module View exposing (view)
 import Html as Html
 import Html.Attributes as HtmlAttributes
 import Model as Model
+import Utils.Logo as Logo
 
 
 view : Model.Model -> List (Html.Html msg) -> List (Html.Html msg)
@@ -30,7 +31,60 @@ view model content =
                     ]
                 , Html.div
                     [ HtmlAttributes.class "column"
-                    , HtmlAttributes.class "is-3"
+                    , HtmlAttributes.class "is-1"
+                    , HtmlAttributes.class "has-text-right"
+                    ]
+                    [ Html.div
+                        [ HtmlAttributes.class "columns"
+                        , HtmlAttributes.class "is-variable"
+                        , HtmlAttributes.class "is-1"
+                        ]
+                        [ Html.div
+                            [ HtmlAttributes.class "column"
+                            , HtmlAttributes.class "is-6"
+                            , HtmlAttributes.class "has-text-right"
+                            ]
+                            [ Html.a
+                                [ HtmlAttributes.href "https://github.com/newmana/chroma-elm"
+                                , HtmlAttributes.target "_blank"
+                                ]
+                                [ Logo.logo 50
+                                ]
+                            ]
+                        , Html.div
+                            [ HtmlAttributes.class "column"
+                            , HtmlAttributes.class "is-6"
+                            , HtmlAttributes.class "has-text-left"
+                            ]
+                            [ Html.a
+                                [ HtmlAttributes.href "https://github.com/newmana/chroma-elm"
+                                , HtmlAttributes.target "_blank"
+                                ]
+                                [ Html.p
+                                    []
+                                    [ Html.span
+                                        [ HtmlAttributes.class "is-size-5"
+                                        , HtmlAttributes.class "has-text-weight-bold"
+                                        , HtmlAttributes.class "has-text-white"
+                                        ]
+                                        [ Html.text "elm" ]
+                                    ]
+                                , Html.p
+                                    []
+                                    [ Html.span
+                                        [ HtmlAttributes.class "is-size-7"
+                                        , HtmlAttributes.class "has-text-weight-bold"
+                                        , HtmlAttributes.class "has-text-white"
+                                        ]
+                                        [ Html.text "packages" ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                , Html.div
+                    [ HtmlAttributes.class "column"
+                    , HtmlAttributes.class "is-1"
                     , HtmlAttributes.class "has-text-centered"
                     ]
                     [ Html.a
