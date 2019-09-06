@@ -16,6 +16,7 @@ content : List (Html.Html msg)
 content =
     [ Html.div
         [ HtmlAttributes.class "column"
+        , HtmlAttributes.class "is-four-fifths"
         ]
         ([ Html.h1
             [ HtmlAttributes.class "title" ]

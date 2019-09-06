@@ -21,7 +21,7 @@ view model content =
                 ]
                 [ Html.div
                     [ HtmlAttributes.class "column"
-                    , HtmlAttributes.class "is-9"
+                    , HtmlAttributes.class "is-8"
                     ]
                     [ Html.h1
                         [ HtmlAttributes.class "title"
@@ -31,7 +31,7 @@ view model content =
                     ]
                 , Html.div
                     [ HtmlAttributes.class "column"
-                    , HtmlAttributes.class "is-1"
+                    , HtmlAttributes.class "is-2"
                     , HtmlAttributes.class "has-text-right"
                     ]
                     [ Html.div
@@ -84,7 +84,7 @@ view model content =
                     ]
                 , Html.div
                     [ HtmlAttributes.class "column"
-                    , HtmlAttributes.class "is-1"
+                    , HtmlAttributes.class "is-2"
                     , HtmlAttributes.class "has-text-centered"
                     ]
                     [ Html.a
