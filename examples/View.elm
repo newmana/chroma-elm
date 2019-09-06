@@ -45,7 +45,7 @@ view model content =
                             , HtmlAttributes.class "has-text-right"
                             ]
                             [ Html.a
-                                [ HtmlAttributes.href "https://github.com/newmana/chroma-elm"
+                                [ HtmlAttributes.href "https://package.elm-lang.org/packages/newmana/chroma-elm/latest"
                                 , HtmlAttributes.target "_blank"
                                 ]
                                 [ Logo.logo 50
@@ -57,7 +57,7 @@ view model content =
                             , HtmlAttributes.class "has-text-left"
                             ]
                             [ Html.a
-                                [ HtmlAttributes.href "https://github.com/newmana/chroma-elm"
+                                [ HtmlAttributes.href "https://package.elm-lang.org/packages/newmana/chroma-elm/latest"
                                 , HtmlAttributes.target "_blank"
                                 ]
                                 [ Html.p
