@@ -26,131 +26,131 @@ content =
             [ HtmlAttributes.class "subtitle" ]
             [ Html.text "Going to or from Color Spaces" ]
          ]
-            ++ Page.example "has-text-black" example1Code example1SourceCode example1Output
-            ++ Page.example "has-text-black" example2Code example2SourceCode example2Output
-            ++ Page.example "has-text-white" example3Code example3SourceCode example3Output
+            ++ Page.example "has-text-black" hslaCode hslaSourceCode hslaOutput
+            ++ Page.example "has-text-black" lchCode lchSourceCode lchOutput
+            ++ Page.example "has-text-white" cmykCode cmykSourceCode cmykOutput
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
                     [ Html.text "Direct Conversion" ]
                ]
             ++ Page.p "HSLA to RGB"
-            ++ Page.example "has-text-white" example4Code example4SourceCode example4Output
+            ++ Page.example "has-text-white" hsla2RgbCode hsla2RgbSourceCode hsla2RgbOutput
             ++ Page.p "LAB to RGB"
-            ++ Page.example "has-text-white" example5Code example5SourceCode example5Output
+            ++ Page.example "has-text-white" lab2RgbCode lab2RgbSourceCode lab2RgbOutput
             ++ Page.p "LCH to RGB"
-            ++ Page.example "has-text-black" example6Code example6SourceCode example6Output
+            ++ Page.example "has-text-black" lch2RgbCode lch2RgbSourceCode lch2RgbOutput
             ++ Page.p "CYMK to RGB"
-            ++ Page.example "has-text-white" example7Code example7SourceCode example7Output
+            ++ Page.example "has-text-white" cymk2RgbCode cymk2RgbSourceCode cymk2RgbOutput
         )
     ]
 
 
-example1Code : String
-example1Code =
+hslaCode : String
+hslaCode =
     { hueDegrees = 120.0, saturation = 1.0, lightness = 0.75, alpha = 1.0 } |> Types.HSLADegreesColor |> ToHex.toHex
 
 
-example1SourceCode : String
-example1SourceCode =
+hslaSourceCode : String
+hslaSourceCode =
     """{ hueDegrees = 120.0, saturation = 1.0, lightness = 0.75, alpha = 1.0 }
  |> Types.HSLADegreesColor
  |> ToHex.toHex  """
 
 
-example1Output : List (Html.Html msg)
-example1Output =
+hslaOutput : List (Html.Html msg)
+hslaOutput =
     [ Html.text
         """"#80ff80" : String """
     ]
 
 
-example2Code : String
-example2Code =
+lchCode : String
+lchCode =
     { luminance = 80.0, chroma = 25.0, hue = 200.0 } |> Types.LCHColor |> ToHex.toHex
 
 
-example2SourceCode : String
-example2SourceCode =
+lchSourceCode : String
+lchSourceCode =
     """{ luminance = 80.0, chroma = 25.0, hue = 200.0 }
  |> Types.LCHColor
  |> ToHex.toHex  """
 
 
-example2Output : List (Html.Html msg)
-example2Output =
+lchOutput : List (Html.Html msg)
+lchOutput =
     [ Html.text
         """"#85d5d4" : String """
     ]
 
 
-example3Code : String
-example3Code =
+cmykCode : String
+cmykCode =
     { cyan = 1.0, magenta = 0.5, yellow = 0.0, black = 0.2 } |> Types.CMYKColor |> ToHex.toHex
 
 
-example3SourceCode : String
-example3SourceCode =
+cmykSourceCode : String
+cmykSourceCode =
     """{ cyan = 1.0, magenta = 0.5, yellow = 0.0, black = 0.2 }
  |> Types.CMYKColor
  |> ToHex.toHex  """
 
 
-example3Output : List (Html.Html msg)
-example3Output =
+cmykOutput : List (Html.Html msg)
+cmykOutput =
     [ Html.text
         """"#85d5d4" : String """
     ]
 
 
-example4Code : String
-example4Code =
+hsla2RgbCode : String
+hsla2RgbCode =
     { hueDegrees = 330, saturation = 1.0, lightness = 0.6, alpha = 1.0 }
         |> Hsla2Rgb.hslaDegrees2rgb
         |> Types.RGBAColor
         |> ToHex.toHex
 
 
-example4SourceCode : String
-example4SourceCode =
+hsla2RgbSourceCode : String
+hsla2RgbSourceCode =
     """{ hueDegrees = 330, saturation = 1.0, lightness = 0.6, alpha = 1.0 }
  |> Hsla2Rgb.hslaDegrees2rgb
  |> Types.RGBAColor
  |> ToHex.toHex  """
 
 
-example4Output : List (Html.Html msg)
-example4Output =
+hsla2RgbOutput : List (Html.Html msg)
+hsla2RgbOutput =
     [ Html.text
         """"#ff3399" : String """
     ]
 
 
-example5Code : String
-example5Code =
+lab2RgbCode : String
+lab2RgbCode =
     { lightness = 53.26441024020836, labA = 80.19554477648022, labB = 64.03450787409496 }
         |> Lab2Rgb.lab2rgb
         |> Types.RGBAColor
         |> ToHex.toHex
 
 
-example5SourceCode : String
-example5SourceCode =
+lab2RgbSourceCode : String
+lab2RgbSourceCode =
     """{ lightness = 53.26441024020836, labA = 80.19554477648022, labB = 64.03450787409496 }
  |> Lab2Rgb.lab2rgb
  |> Types.RGBAColor
  |> ToHex.toHex  """
 
 
-example5Output : List (Html.Html msg)
-example5Output =
+lab2RgbOutput : List (Html.Html msg)
+lab2RgbOutput =
     [ Html.text
         """"#ff000D" : String """
     ]
 
 
-example6Code : String
-example6Code =
+lch2RgbCode : String
+lch2RgbCode =
     { luminance = 80.0, chroma = 40.0, hue = 130.0 }
         |> Lch2Lab.lch2lab
         |> Lab2Rgb.lab2rgb
@@ -158,8 +158,8 @@ example6Code =
         |> ToHex.toHex
 
 
-example6SourceCode : String
-example6SourceCode =
+lch2RgbSourceCode : String
+lch2RgbSourceCode =
     """{ luminance = 80.0, chroma = 40.0, hue = 130.0 }
  |> Lch2Lab.lch2lab
  |> Lab2Rgb.lab2rgb
@@ -167,31 +167,31 @@ example6SourceCode =
  |> ToHex.toHex  """
 
 
-example6Output : List (Html.Html msg)
-example6Output =
+lch2RgbOutput : List (Html.Html msg)
+lch2RgbOutput =
     [ Html.text
         """"#aad28c" : String """
     ]
 
 
-example7Code : String
-example7Code =
+cymk2RgbCode : String
+cymk2RgbCode =
     { cyan = 0.2, magenta = 0.8, yellow = 0, black = 0 }
         |> Cmyk2Rgb.cmyk2rgb
         |> Types.RGBAColor
         |> ToHex.toHex
 
 
-example7SourceCode : String
-example7SourceCode =
+cymk2RgbSourceCode : String
+cymk2RgbSourceCode =
     """{ cyan = 0.2, magenta = 0.8, yellow = 0, black = 0 }
  |> Cmyk2Rgb.cmyk2rgb
  |> Types.RGBAColor
  |> ToHex.toHex  """
 
 
-example7Output : List (Html.Html msg)
-example7Output =
+cymk2RgbOutput : List (Html.Html msg)
+cymk2RgbOutput =
     [ Html.text
         """"#cc33ff" : String """
     ]

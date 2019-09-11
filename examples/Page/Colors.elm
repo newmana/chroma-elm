@@ -85,7 +85,7 @@ content =
                     [ HtmlAttributes.class "subtitle" ]
                     [ Html.text "W3CX11" ]
                ]
-            ++ Page.example "has-text-black" example13Code example13SourceCode example13Output
+            ++ Page.example "has-text-black" w3cx11Code w3cx11SourceCode w3cx11Output
             ++ showColorMap "(Nonempty.Nonempty W3CX11.coral [ W3CX11.cornflowerblue ])" "" (Nonempty.Nonempty W3CX11.coral [ W3CX11.cornflowerblue ])
         )
     ]
@@ -127,57 +127,18 @@ executeContinuousColorMapCode f name =
         ++ [ Html.text name ]
 
 
-example6SourceCode : String
-example6SourceCode =
-    """{ colours = Scale.ContinuousColor (Cividis.getColor >> Types.RGBAColor) }
- |> ColorBand.view
-    """
-
-
-example6Output : List (Html.Html msg)
-example6Output =
-    [ ColorBand.view { colours = Scale.ContinuousColor (Cividis.getColor >> Types.RGBAColor) } ]
-        ++ [ Html.text "Cividis color map" ]
-
-
-example7SourceCode : String
-example7SourceCode =
-    """{ colours = Scale.ContinuousColor (Sinebow.getColor >> Types.RGBAColor) }
- |> ColorBand.view
-    """
-
-
-example7Output : List (Html.Html msg)
-example7Output =
-    [ ColorBand.view { colours = Scale.ContinuousColor (Sinebow.getColor >> Types.RGBAColor) } ]
-        ++ [ Html.text "Sinebow color map" ]
-
-
-example8SourceCode : String
-example8SourceCode =
-    """{ colours = Scale.ContinuousColor (Turbo.getColor >> Types.RGBAColor) }
- |> ColorBand.view
-    """
-
-
-example8Output : List (Html.Html msg)
-example8Output =
-    [ ColorBand.view { colours = Scale.ContinuousColor (Turbo.getColor >> Types.RGBAColor) } ]
-        ++ [ Html.text "Turbo color map" ]
-
-
-example13Code : String
-example13Code =
+w3cx11Code : String
+w3cx11Code =
     Types.RGBAColor W3CX11.darkseagreen |> ToHex.toHex
 
 
-example13SourceCode : String
-example13SourceCode =
+w3cx11SourceCode : String
+w3cx11SourceCode =
     """Types.RGBAColor W3CX11.darkseagreen
  |> ToHex.toHex
     """
 
 
-example13Output : List (Html.Html msg)
-example13Output =
+w3cx11Output : List (Html.Html msg)
+w3cx11Output =
     [ Html.text """"#8fbc9f" : String """ ]
