@@ -1,6 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [16.0.0] - 2019-09-06
+### Fixed
+- Add Head/Tail to Limits API. 
+
+## [15.0.0] - 2019-09-05
+### Fixed
+- Luminance API was incorrect order of paramters. 
+
+## [14.0.0] - 2019-09-04
+### Changed
+- Moved utility code out of W3CX11 and into Ops.Numeric. 
+
+## [13.3.0] - 2019-09-04
+### Changed
+- Fix blend documentation 
+
 ## [13.2.0] - 2019-09-03
 ### Added
 - Head/Tail Limits 
