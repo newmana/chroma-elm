@@ -12,7 +12,7 @@ module Chroma.Types exposing (CymkColor, ExtColor(..), HslaColor, HslaDegreesCol
 import Color as Color
 
 
-{-| TBD
+{-| Possible color spaces.
 -}
 type Mode
     = RGBA
@@ -23,7 +23,7 @@ type Mode
     | HSLADegrees
 
 
-{-| TBD
+{-| Type wrapping possible color spaces.
 -}
 type ExtColor
     = RGBAColor Color.Color
@@ -34,7 +34,7 @@ type ExtColor
     | HSLADegreesColor HslaDegreesColor
 
 
-{-| TBD
+{-| [`LAB color space`](https://en.wikipedia.org/wiki/CIELAB_color_space)
 -}
 type alias LabColor =
     { lightness : Float
@@ -43,7 +43,7 @@ type alias LabColor =
     }
 
 
-{-| TBD
+{-| ['CMYK color space'](https://en.wikipedia.org/wiki/CMYK_color_model)
 -}
 type alias CymkColor =
     { cyan : Float
@@ -53,7 +53,7 @@ type alias CymkColor =
     }
 
 
-{-| TBD
+{-| RGBA color space where numbers are RGB and Alpha 0..1.
 -}
 type alias RgbaColor =
     { red : Float
@@ -63,7 +63,7 @@ type alias RgbaColor =
     }
 
 
-{-| TBD
+{-| RGBA color space where numbers are RGB are 1-255, and Alpha 0..1.
 -}
 type alias Rgba255Color =
     { red : Int

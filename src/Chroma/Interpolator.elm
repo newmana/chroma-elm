@@ -14,10 +14,8 @@ import Chroma.Types as Types
 import Color as Color
 
 
-{-| Return a new color based on interpolating on two colors and a weighting between them.
-
-CMYK may not work correctly. Will return black if the types are not the same.
-
+{-| Return a new color based on interpolating on two colors and a weighting between them. Will return black if the
+types are not the same (if one is RGB and CMYK for example).
 -}
 interpolate : Types.ExtColor -> Types.ExtColor -> Float -> Types.ExtColor
 interpolate col1 col2 f =

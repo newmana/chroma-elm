@@ -38,7 +38,7 @@ luminance color =
     (calcLuminance red * 0.2126) + (calcLuminance green * 0.7152) + (calcLuminance blue * 0.0722)
 
 
-{-| WCAG Contrast
+{-| [`WCGA contrast`](https://www.w3.org/TR/WCAG20-TECHS/)
 -}
 contrast : Types.ExtColor -> Types.ExtColor -> Float
 contrast color1 color2 =

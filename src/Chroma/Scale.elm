@@ -2,12 +2,12 @@ module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, 
 
 {-| Used by [`Chroma`][chroma]
 
+[chroma]: Chroma-Chroma
+
 
 # Definition
 
 @docs colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor
-
-[chroma]: Chroma-Chroma
 
 -}
 

@@ -62,7 +62,7 @@ chroma colorName =
             Hex2Rgb.hex2rgb colorName |> Result.map Types.RGBAColor
 
 
-{-| Given a color turn it into a [`W3CX11 Color`][w3cx11] name or fall back to RGB string.
+{-| Given a color turn it into a [`W3CX11 Color`][w3cx11] name or fall back to an RGB string.
 
     Types.RGBAColor (Color.rgb255 255 0 255) |> Chroma.name
     --> Ok "magenta" : Result String String
@@ -87,7 +87,7 @@ name ext =
             Ok (ToHex.toHex ext)
 
 
-{-| Mix two colors, first converting them to the same color space and then interpolate with the given ratio.
+{-| Mix two colors, first converting them to the same color space and then interpolate them with the given ratio.
 
     Chroma.mix Types.RGBA 0.25 (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.blue)
     --> RGBAColor (RgbaSpace 0.75 0 0.25 1) : Types.ExtColor
@@ -145,7 +145,7 @@ average mode extList =
     calcAverage
 
 
-{-| Find the average of a non-empty list of colors defined as strongs, first converting them to the same color space.
+{-| Find the average of a non-empty list of colors defined as strings, first converting them to the same color space.
 
 Only supports RGBA, CYMK and LAB.
 
@@ -158,7 +158,7 @@ averageChroma mode strList =
     Nonempty.map chroma strList |> ColorSpace.combine |> Result.andThen (average mode)
 
 
-{-| Combine two colors using different blend modes.
+{-| Combine two colors using the given blend modes.
 
     Chroma.blend Blend.Burn (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.blue)
     --> RGBAColor (RgbaSpace 0 0 1 1) : Types.ExtColor
@@ -169,7 +169,7 @@ blend mode color1 color2 =
     Blend.blend mode color1 color2
 
 
-{-| Combine two colors, defined as strings, using different blend modes.
+{-| Combine two colors, defined as strings, using the given blend modes.
 
     Chroma.blendChroma Blend.Darken "cyan" "magenta"
     --> Ok (RGBAColor (RgbaSpace 0 0 1 1)) : Result String Types.ExtColor
@@ -180,7 +180,7 @@ blendChroma mode strColor1 strColor2 =
     Result.map2 (Blend.blend mode) (chroma strColor1) (chroma strColor2)
 
 
-{-| WCGA contrast ratio between two colors.
+{-| [`WCGA contrast`](https://www.w3.org/TR/WCAG20-TECHS/) ratio between two colors.
 
     Chroma.contrast (Types.RGBAColor W3CX11.pink) (Types.RGBAColor W3CX11.hotpink)
     --> 1.7214765344592284 : Float
@@ -191,7 +191,7 @@ contrast color1 color2 =
     Luminance.contrast color1 color2
 
 
-{-| WCGA contrast ratio between two colors.
+{-| [`WCGA contrast`](https://www.w3.org/TR/WCAG20-TECHS/) ratio between two colors.
 
     Chroma.contrastChroma "pink" "hotpink"
     --> Ok 1.7214765344592284 : Result String Float
@@ -240,7 +240,7 @@ distance mode color1 color2 =
 
 {-| Create breaks/classes based on the data given.
 
-Supports: CkMean (a variant of kmeans), Equal, Logarithmic, and Quantile.
+Supports: CkMeans (a variant of kmeans), Equal, Head/Tail, Logarithmic, and Quantile.
 
     Chroma.limits Limits.Equal 5 (Nonempty.Nonempty 0 [ 10 ])
     --> Nonempty 0 [2,4,6,8,10] : Nonempty.Nonempty Float
@@ -254,29 +254,31 @@ limits mode bins data =
     Limits.limits mode bins data
 
 
-{-| Return a configuration and a function from a float to color based on default values - colors White to Black, domain 0 - 1.
+{-| Return a configuration and a function from a float to a color based on the default values - colors White to Black,
+domain 0 - 1.
 -}
 scaleDefault : ( Scale.Data, Float -> Types.ExtColor )
 scaleDefault =
     scale Scale.defaultColorList
 
 
-{-| Return a configuration and a function from a float to color based on default values and a list of colors.
+{-| Return a configuration and a function from a float to a color based on default values and a list of colors.
 -}
 scale : Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 scale colorsList =
     scaleWith (Scale.createDiscreteColorData colorsList Scale.defaultSharedData)
 
 
-{-| Return a configuration and a function from a float to color based on default values
-and a function given a value from 0 -> 1 produces a new color.
+{-| Return a configuration and a function from a float to a color based on default values and a function given a
+value from 0 -> 1 produces a new color.
 -}
 scaleF : (Float -> Types.ExtColor) -> ( Scale.Data, Float -> Types.ExtColor )
 scaleF colorFunction =
     scaleWith (Scale.createContinuousColorData colorFunction Scale.defaultSharedData)
 
 
-{-| Return a new configuration and a function from a float to color based on the given configuration values and the given colors.
+{-| Return a new configuration and a function from a float to a color based on the given configuration values and
+the given colors.
 -}
 scaleWith : Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
 scaleWith data =
@@ -287,7 +289,7 @@ scaleWith data =
     ( newData, Scale.getColor newData )
 
 
-{-| Return a new configuration and a function from a float to color using the default configuration, the given
+{-| Return a new configuration and a function from a float to a color using the default configuration, the given
 colors and the total number of colors (bins) to return.
 -}
 classes : Int -> Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
@@ -319,7 +321,7 @@ classes bins data =
     ( updatedData, Scale.getColor updatedData )
 
 
-{-| Return a new configuration and a function from a float to color based on the given configuration values, the given
+{-| Return a new configuration and a function from a float to a color based on the given configuration values, the given
 colors and a predefined set of breaks/classes.
 -}
 classesWithArray : Nonempty.Nonempty Float -> Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
@@ -340,8 +342,8 @@ classesWithArray newClasses data =
     ( newData, Scale.getColor newData )
 
 
-{-| Return a new configuration and a function from a float to color based on a new domain and list colors.
-If using a list of colors, they must be the same length as the domain or only the first and last values will be used.
+{-| Return a new configuration and a function from a float to a color based on a new domain and list of colors.
+The list of colors must be the same length as the domain or only the first and last values will be used.
 -}
 domain : Nonempty.Nonempty Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 domain newDomain colorsList =
@@ -352,8 +354,8 @@ domain newDomain colorsList =
     ( newData, Scale.getColor newData )
 
 
-{-| Return a new configuration and a function from a float to color based on a new domain
-and a function given a value from 0 -> 1 produces a new color.
+{-| Return a new configuration and a function from a float to a color based on a new domain and a function given a
+value from 0 -> 1 produces a new color.
 -}
 domainF : Nonempty.Nonempty Float -> (Float -> Types.ExtColor) -> ( Scale.Data, Float -> Types.ExtColor )
 domainF newDomain colorFunction =
@@ -364,8 +366,9 @@ domainF newDomain colorFunction =
     ( newData, Scale.getColor newData )
 
 
-{-| Return a new configuration and a function from a float to color based on an existing configuration and a new domain.
-If using a list of colors, they must be the same length as the domain or only the first and last values will be used.
+{-| Return a new configuration and a function from a float to a color based on an existing configuration and a new
+domain. If using a list of colors, they must be the same length as the domain or only the first and last values will
+be used.
 -}
 domainWith : Scale.Data -> Nonempty.Nonempty Float -> ( Scale.Data, Float -> Types.ExtColor )
 domainWith data newDomain =
@@ -376,7 +379,7 @@ domainWith data newDomain =
     ( newData, Scale.getColor newData )
 
 
-{-| Remove a fraction of the color gradient (0 -> 1). Applies both sides the same.
+{-| Remove a fraction of the color gradient (0 -> 1). Applies to both sides equally.
 -}
 padding : Float -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Float -> Types.ExtColor )
 padding both colorsList =
@@ -394,7 +397,7 @@ paddingBoth ( newLeft, newRight ) colorsList =
     paddingBothWith newData ( newLeft, newRight )
 
 
-{-| Remove a fraction of the color gradient (0 -> 1). Applies both sides the same.
+{-| Remove a fraction of the color gradient (0 -> 1). Applies both sides equally.
 -}
 paddingWith : Scale.Data -> Float -> ( Scale.Data, Float -> Types.ExtColor )
 paddingWith data both =
@@ -418,7 +421,8 @@ paddingBothWith data ( newLeft, newRight ) =
     scaleWith newData
 
 
-{-| Return a configuration and a list of colors based on the number of equal distance buckets to create and a list of colors.
+{-| Return a configuration and a list of colors based on the number of equal distance buckets to create and a
+list of colors.
 -}
 colors : Int -> Nonempty.Nonempty Types.ExtColor -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
 colors i colorsList =
@@ -429,7 +433,7 @@ colors i colorsList =
     colorsWith newData i
 
 
-{-| Return a configuration and a list of colors based on the number of equal distance buckets to create and
+{-| Return a configuration and a list of colors based on the number of equal distance buckets to create
 and a function given a value from 0 -> 1 produces a new color.
 -}
 colorsF : Int -> (Float -> Types.ExtColor) -> ( Scale.Data, Nonempty.Nonempty Types.ExtColor )
