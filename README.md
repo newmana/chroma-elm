@@ -16,6 +16,19 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 - ```yarn run make```
 - ```yarn run test```
 
+# Benchmarks
+- ```yarn run benchmarks```
+
+101 Data Points, Limits on a 3.1 GHz Intel Core i7, Chrome 77.0:
+
+| Algorithm     | Runs/Second   |
+| ------------- | ------------- |
+| CkMeans       | 531           |
+| Equal         | 32,014        |
+| HeadTail      | 21,711        |
+| Logarithmic   | 31,482        |
+| Quantile      | 27,142        |
+
 ## Documentation
 - ```yarn run local-doc```
 

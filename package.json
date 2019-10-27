@@ -20,6 +20,7 @@
     "test": "yarn run elm-test",
     "repl": "yarn run elm repl",
     "doc": "yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm",
-    "local-doc": "yarn run parcel examples/index.html"
+    "local-doc": "yarn run parcel examples/index.html",
+    "benchmarks": "yarn run parcel benchmarks/index.html"
   }
 }
