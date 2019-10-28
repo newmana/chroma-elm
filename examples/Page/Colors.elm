@@ -38,7 +38,7 @@ content =
             [ HtmlAttributes.class "subtitle" ]
             [ Html.text "Cmocean" ]
          ]
-            ++ showColorMap "Cmocean.algae" "Cmocean alga color map" Cmocean.algae
+            ++ showColorMap "Cmocean.algae" "Cmocean algae color map" Cmocean.algae
             ++ showColorMap "Cmocean.turbid" "Cmocean turbid color map" Cmocean.turbid
             ++ showColorMap "Cmocean.balance" "Cmocean balance color map" Cmocean.balance
             ++ showColorMap "Cmocean.curl" "Cmocean curl color map" Cmocean.curl
