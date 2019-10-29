@@ -21,6 +21,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 
 101 Data Points, Limits on a 3.1 GHz Intel Core i7, Chrome 77.0:
 
+```text
 | Algorithm     | Runs/Second   |
 | ------------- | ------------- |
 | CkMeans       | 531           |
@@ -28,6 +29,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 | HeadTail      | 21,711        |
 | Logarithmic   | 31,482        |
 | Quantile      | 27,142        |
+```
 
 ## Documentation
 - ```yarn run local-doc```
