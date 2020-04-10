@@ -21,9 +21,10 @@
     "make": "yarn run elm make",
     "test": "yarn run elm-test",
     "review": "yarn run elm-review",
+    "coverage": "yarn run elm-coverage",
     "full": "yarn run elm-test && yarn run elm-review",
     "repl": "yarn run elm repl",
-    "doc": "yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm",
+    "doc": "yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm && yarn run elm-coverage && cp .coverage/coverage.html docs/",
     "local-doc": "yarn run parcel examples/index.html",
     "benchmarks": "yarn run parcel benchmarks/index.html"
   }

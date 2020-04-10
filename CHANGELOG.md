@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [16.0.4] - 2020-04-11
+### Changed
+- Added elm-review and elm-coverage. 
+
 ## [16.0.0] - 2019-09-06
 ### Fixed
 - Add Head/Tail to Limits API. 

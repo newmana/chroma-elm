@@ -15,9 +15,12 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 - ```yarn install```
 - ```yarn run make```
 - ```yarn run test```
-- ```yarn run elm-review```
-- ```yarn run elm-coverage```
-- ```yarn run full``` (test && elm-review && elm-coverage)
+- ```yarn run review```
+- ```yarn run coverage```
+- ```yarn run full``` (test && review && coverage)
+
+# Test Coverage
+[Coverage Report](https://newmana.github.io/chroma-elm/coverage.html)
 
 # Benchmarks
 - ```yarn run benchmarks```
