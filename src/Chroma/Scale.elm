@@ -15,7 +15,6 @@ import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Converter.Misc.ColorSpace as ColorSpace
 import Chroma.Interpolator as Interpolator
 import Chroma.Types as Types
-import Color as Color
 import List.Nonempty as Nonempty
 
 
@@ -208,9 +207,6 @@ fromContinuousColor colorF data t =
     let
         ( min, max ) =
             data.domainValues
-
-        newT =
-            (t - min) / (max - min)
     in
     colorF t
 
