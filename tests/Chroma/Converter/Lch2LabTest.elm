@@ -2,10 +2,7 @@ module Chroma.Converter.Lch2LabTest exposing (tests)
 
 import Chroma.Converter.In.Lab2Lch as InLabLch
 import Chroma.Converter.In.Lch2Lab as InLchLab
-import Chroma.Types as Types
-import Color as Color
 import Expect
-import Fuzz as Fuzz
 import Test as Test
 import UtilTest as Util
 

@@ -8,7 +8,7 @@ import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Scale as Scale
 import Chroma.Types as Types
-import Color exposing (Color, rgb255)
+import Color exposing (rgb255)
 import Expect as Expect
 import List.Nonempty as Nonempty
 import Result as Result

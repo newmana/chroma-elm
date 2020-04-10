@@ -6,7 +6,6 @@ import Chroma.Limits.CkMeans as CkMeans
 import Expect
 import List.Nonempty as Nonempty
 import Test as Test
-import UtilTest as UtilTest
 
 
 tests : Test.Test

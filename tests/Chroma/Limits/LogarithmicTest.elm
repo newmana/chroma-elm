@@ -5,7 +5,6 @@ import Chroma.Limits.Logarithmic as Logarithmic
 import Expect
 import List.Nonempty as Nonempty
 import Test as Test
-import UtilTest as UtilTest
 
 
 tests : Test.Test

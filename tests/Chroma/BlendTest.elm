@@ -1,11 +1,9 @@
 module Chroma.BlendTest exposing (tests)
 
 import Chroma.Blend as Blend
-import Chroma.Chroma as Chroma
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Types as Types
-import Color exposing (Color, rgb255)
 import Expect as Expect
 import Result as Result
 import Test as Test
@@ -21,6 +19,7 @@ tests =
         , testOverlay
         , testBurn
         , testDodge
+        , testExclusion
         ]
 
 

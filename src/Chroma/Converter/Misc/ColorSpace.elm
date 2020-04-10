@@ -1,11 +1,11 @@
-module Chroma.Converter.Misc.ColorSpace exposing (colorConvert, toNonEmptyList, avgNonEmptyLists, combine, nonEmptyListToExtColor, rollingAverage)
+module Chroma.Converter.Misc.ColorSpace exposing (colorConvert, toNonEmptyList, combine, rollingAverage)
 
 {-| For dealing with color space calculations.
 
 
 # Definition
 
-@docs colorConvert, toNonEmptyList, avgNonEmptyLists, combine, nonEmptyListToExtColor, rollingAverage
+@docs colorConvert, toNonEmptyList, combine, rollingAverage
 
 -}
 
@@ -85,74 +85,6 @@ toNonEmptyList color =
 
         Types.HSLADegreesColor { hueDegrees, saturation, lightness, alpha } ->
             Nonempty.Nonempty hueDegrees [ saturation, lightness, alpha ]
-
-
-nonEmptyListToExtColor : Types.Mode -> Nonempty.Nonempty Float -> Types.ExtColor
-nonEmptyListToExtColor mode floats =
-    case mode of
-        Types.RGBA ->
-            Types.RGBAColor
-                (Color.rgba
-                    (Nonempty.get 0 floats)
-                    (Nonempty.get 1 floats)
-                    (Nonempty.get 2 floats)
-                    (Nonempty.get 3 floats)
-                )
-
-        Types.CMYK ->
-            Types.CMYKColor
-                { cyan = Nonempty.get 0 floats
-                , magenta = Nonempty.get 1 floats
-                , yellow = Nonempty.get 2 floats
-                , black = Nonempty.get 3 floats
-                }
-
-        Types.LAB ->
-            Types.LABColor
-                { lightness = Nonempty.get 0 floats
-                , labA = Nonempty.get 1 floats
-                , labB = Nonempty.get 2 floats
-                }
-
-        Types.LCH ->
-            Types.LCHColor
-                { luminance = Nonempty.get 0 floats
-                , chroma = Nonempty.get 1 floats
-                , hue = Nonempty.get 2 floats
-                }
-
-        Types.HSLA ->
-            Types.HSLAColor
-                { hue = Nonempty.get 0 floats
-                , saturation = Nonempty.get 1 floats
-                , lightness = Nonempty.get 2 floats
-                , alpha = Nonempty.get 3 floats
-                }
-
-        Types.HSLADegrees ->
-            Types.HSLADegreesColor
-                { hueDegrees = Nonempty.get 0 floats
-                , saturation = Nonempty.get 1 floats
-                , lightness = Nonempty.get 2 floats
-                , alpha = Nonempty.get 3 floats
-                }
-
-
-avgNonEmptyLists : Nonempty.Nonempty (Nonempty.Nonempty Float) -> Nonempty.Nonempty Float
-avgNonEmptyLists lists =
-    let
-        rest =
-            Nonempty.tail lists
-
-        numElems =
-            Nonempty.length lists |> toFloat
-    in
-    Nonempty.indexedMap (\i el -> sumListsElem i el rest / numElems) (Nonempty.head lists)
-
-
-sumListsElem : Int -> Float -> List (Nonempty.Nonempty Float) -> Float
-sumListsElem index start lists =
-    List.foldl (\el acc -> Nonempty.get index el + acc) start lists
 
 
 combine : Nonempty.Nonempty (Result a b) -> Result a (Nonempty.Nonempty b)

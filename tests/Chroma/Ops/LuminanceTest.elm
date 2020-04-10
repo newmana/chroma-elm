@@ -5,10 +5,8 @@ import Chroma.Converter.Misc.ColorSpace as Colorspace
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Ops.Luminance as Luminance
 import Chroma.Types as Types
-import Color as Color
 import Expect
 import Test as Test
-import UtilTest as UtilTest
 
 
 tests : Test.Test

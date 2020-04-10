@@ -15,6 +15,8 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 - ```yarn install```
 - ```yarn run make```
 - ```yarn run test```
+- ```yarn run elm-review```
+- ```yarn run full``` (test && elm-review)
 
 # Benchmarks
 - ```yarn run benchmarks```

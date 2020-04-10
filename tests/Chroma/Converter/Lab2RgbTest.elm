@@ -4,8 +4,6 @@ import Chroma.Converter.In.Lab2Rgb as InLab
 import Chroma.Converter.Out.ToLab as OutLab
 import Chroma.Types as Types
 import Color as Color
-import Expect
-import Fuzz as Fuzz
 import Test as Test
 import UtilTest as Util
 

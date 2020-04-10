@@ -12,9 +12,17 @@ when inside the directory containing this file.
 -}
 
 import Review.Rule
+import NoUnused.CustomTypeConstructors
+import NoUnused.Dependencies
+import NoUnused.Exports
+import NoUnused.Modules
 import NoUnused.Variables
 
 config : List Review.Rule.Rule
 config =
-    [ NoUnused.Variables.rule
+    [ NoUnused.CustomTypeConstructors.rule []
+          , NoUnused.Dependencies.rule
+          , NoUnused.Exports.rule
+          , NoUnused.Modules.rule
+          , NoUnused.Variables.rule
     ]

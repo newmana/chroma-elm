@@ -1,9 +1,6 @@
 module UtilTest exposing
     ( expectColorResultWithin
     , expectResultWithin
-    , hex1
-    , hex2
-    , hex23Str
     , hex23Value
     , hex3
     , hex6
@@ -16,7 +13,6 @@ import Chroma.Types as Types
 import Color as Color
 import Expect as Expect
 import Fuzz as Fuzz
-import Result as Result
 
 
 validRgb : Fuzz.Fuzzer Color.Color

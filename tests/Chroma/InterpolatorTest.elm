@@ -1,4 +1,4 @@
-module Chroma.InterpolatorTest exposing (blackLab, redLab, testInterpolate, tests, whiteLab, yellowLab)
+module Chroma.InterpolatorTest exposing (testInterpolate, tests)
 
 import Chroma.Colors.Brewer as Brewer
 import Chroma.Colors.W3CX11 as W3CX11
@@ -18,6 +18,7 @@ tests =
     Test.describe "Interpolate API"
         [ testSimpleBlackWhiteRgb
         , testSimpleBlackWhiteLab
+        , testSimpleBlackWhiteLch
         , testBrewerRgb
         , testBrewerRgbWithDomain
         , testInterpolate

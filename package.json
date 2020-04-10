@@ -19,6 +19,8 @@
   "scripts": {
     "make": "yarn run elm make",
     "test": "yarn run elm-test",
+    "review": "yarn run elm-review",
+    "full": "yarn run elm-test && yarn run elm-review",
     "repl": "yarn run elm repl",
     "doc": "yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm",
     "local-doc": "yarn run parcel examples/index.html",
