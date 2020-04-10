@@ -38,17 +38,6 @@ type alias CkElement =
     }
 
 
-type alias CkFirstRow =
-    { sums : Array.Array Float
-    , previousSum : Float
-    , sumsOfSquares : Array.Array Float
-    , previousSumsOfSquares : Float
-    , firstMatrixRow : MatrixLine
-    , firstBackmatrixRow : BacktrackMatrixLine
-    , count : Int
-    }
-
-
 type alias CkRest =
     { sums : Array.Array Float
     , sumsOfSquares : Array.Array Float

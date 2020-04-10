@@ -15,7 +15,6 @@ import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Types as Types
 import Color as Color
-import List.Nonempty as Nonempty
 
 
 {-| Takes a result from getColor and returns Integer (0-255) RGB values.

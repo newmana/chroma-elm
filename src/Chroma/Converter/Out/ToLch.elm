@@ -12,7 +12,6 @@ module Chroma.Converter.Out.ToLch exposing (toLch, toLchExt)
 import Chroma.Converter.In.Lab2Lch as Lab2Lch
 import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Types as Types
-import Color as Color
 
 
 {-| TBD
