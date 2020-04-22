@@ -27,6 +27,7 @@ bins.
 
 import Array as Array
 import Chroma.Limits.Analyze as Analyze
+import Chroma.Limits.Matrix as Matrix
 import List.Nonempty as Nonempty
 
 
@@ -62,8 +63,8 @@ defaultResult : Int -> Int -> CkResult
 defaultResult bins nValues =
     { sums = Array.empty
     , sumsOfSquares = Array.empty
-    , matrix = makeMatrix bins nValues (always 0.0)
-    , backmatrix = makeMatrix bins nValues (always 0)
+    , matrix = Matrix.makeMatrix bins nValues (\_ -> always 0.0)
+    , backmatrix = Matrix.makeMatrix bins nValues (\_ -> always 0)
     }
 
 
@@ -217,15 +218,6 @@ ssq j i sums sumsOfSquares =
         sji
 
 
-makeMatrix : Int -> Int -> (Int -> a) -> Array.Array (Array.Array a)
-makeMatrix cols rows f =
-    let
-        newRow =
-            Array.initialize rows f
-    in
-    Array.initialize cols (always newRow)
-
-
 {-| TBD
 -}
 firstLine : Int -> Analyze.Scale -> CkRest
@@ -269,10 +261,10 @@ firstLine bins scale =
             List.foldl calc defaultCkFirstRow (Nonempty.tail scale.values)
 
         defaultMatrix =
-            makeMatrix bins nValues (always 0.0)
+            Matrix.makeMatrix bins nValues (\_ -> always 0.0)
 
         defaultBackmatrix =
-            makeMatrix bins nValues (always 0)
+            Matrix.makeMatrix bins nValues (\_ -> always 0)
     in
     { sums = firstRow.sums
     , sumsOfSquares = firstRow.sumsOfSquares
