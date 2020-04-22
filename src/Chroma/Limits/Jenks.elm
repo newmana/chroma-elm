@@ -26,7 +26,7 @@ type alias JenksElement =
 
 type alias JenksResult =
     { lowerClassLimits : Array.Array (Array.Array Float)
-    , varianceCombinations : Array.Array (Array.Array (Maybe Float))
+    , varianceCombinations : Array.Array (Array.Array Float)
     }
 
 
@@ -41,9 +41,27 @@ emptyJenksElement =
 
 defaultResult : Int -> Int -> JenksResult
 defaultResult bins nValues =
-    { lowerClassLimits = Matrix.makeMatrix bins nValues (\_ -> always 0.0)
-    , varianceCombinations = Matrix.makeMatrix bins nValues (\_ -> always (Just 0.0))
+    { lowerClassLimits = Matrix.makeMatrix bins nValues (initLowerClassLimits bins)
+    , varianceCombinations = Matrix.makeMatrix bins nValues (initVarianceCombinations bins nValues)
     }
+
+
+initLowerClassLimits : Int -> Int -> Int -> Float
+initLowerClassLimits bins rowIndex colIndex =
+    if rowIndex == 1 && colIndex > 1 && colIndex < bins + 1 then
+        1.0
+
+    else
+        0.0
+
+
+initVarianceCombinations : Int -> Int -> Int -> Int -> Float
+initVarianceCombinations bins nValues rowIndex colIndex =
+    if rowIndex == 2 && colIndex < nValues + 1 then
+        9999999
+
+    else
+        0.0
 
 
 {-| Create bins number of results using the given scale.
