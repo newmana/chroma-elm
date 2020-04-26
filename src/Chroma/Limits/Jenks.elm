@@ -32,7 +32,7 @@ type alias JenksResult =
 
 emptyJenksElement : JenksElement
 emptyJenksElement =
-    { index = 0
+    { index = 1
     , sum = 0.0
     , sumOfSquares = 0.0
     , variance = 0.0
@@ -71,14 +71,21 @@ limit bins scale =
     Debug.todo "boom"
 
 
-getData : Int -> Nonempty.Nonempty Float -> List Float
-getData index values =
+getData : Int -> Nonempty.Nonempty Float -> JenksResult -> JenksResult
+getData index values jenksResult =
     let
         newResult el oldResult =
+            let
+                newSum =
+                    oldResult.sum + el
+
+                newSumOfSquares =
+                    oldResult.sumOfSquares + (el * el)
+            in
             { index = oldResult.index + 1
-            , sum = oldResult.sum + el
-            , sumOfSquares = oldResult.sumOfSquares + (el * el)
-            , variance = (oldResult.sumOfSquares + (el * el)) - (oldResult.sum + el * oldResult.sum + el) / toFloat oldResult.index
+            , sum = newSum
+            , sumOfSquares = newSumOfSquares
+            , variance = newSumOfSquares - (newSum * newSum) / toFloat oldResult.index
             }
 
         step el ( result, acc ) =
@@ -89,5 +96,10 @@ getData index values =
               else
                 acc
             )
+
+        calcRow =
+            Tuple.second (Nonempty.foldl step ( emptyJenksElement, [] ) values)
     in
-    Tuple.second (Nonempty.foldl step ( emptyJenksElement, [] ) values)
+    { lowerClassLimits = Matrix.setMatrixRowCol index 1 1 jenksResult.lowerClassLimits
+    , varianceCombinations = jenksResult.varianceCombinations
+    }
