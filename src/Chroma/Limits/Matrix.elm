@@ -12,9 +12,14 @@ makeMatrix rows cols f =
     Array.initialize rows newRow
 
 
-setMatrixRowCol : Int -> Int -> a -> Array.Array (Array.Array a) -> Array.Array (Array.Array a)
-setMatrixRowCol row col value matrix =
+setRowCol : Int -> Int -> a -> Array.Array (Array.Array a) -> Array.Array (Array.Array a)
+setRowCol row col value matrix =
     Maybe.withDefault matrix (maybeSetMatrixRow row col value matrix)
+
+
+getRowCol : Int -> Int -> Array.Array (Array.Array a) -> Maybe a
+getRowCol row col matrix =
+    Array.get row matrix |> Maybe.andThen (\x -> Array.get row x)
 
 
 maybeSetMatrixRow : Int -> Int -> a -> Array.Array (Array.Array a) -> Maybe (Array.Array (Array.Array a))

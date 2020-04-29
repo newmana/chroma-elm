@@ -352,10 +352,10 @@ fillMatrixColumn iMin iMax cluster rest =
                 Maybe.withDefault 0 (Array.get (i - 1) rest.previousMatrix)
 
             startMatrix =
-                Matrix.setMatrixRowCol cluster i startMatrixValue rest.matrix
+                Matrix.setRowCol cluster i startMatrixValue rest.matrix
 
             startBackMatrix =
-                Matrix.setMatrixRowCol cluster i i rest.backmatrix
+                Matrix.setRowCol cluster i i rest.backmatrix
 
             initRest =
                 { rest
@@ -388,8 +388,8 @@ fillMatrixColumn iMin iMax cluster rest =
 
             resultRest =
                 { initRest
-                    | matrix = Matrix.setMatrixRowCol cluster i outM initRest.matrix
-                    , backmatrix = Matrix.setMatrixRowCol cluster i outBm initRest.backmatrix
+                    | matrix = Matrix.setRowCol cluster i outM initRest.matrix
+                    , backmatrix = Matrix.setRowCol cluster i outBm initRest.backmatrix
                 }
 
             maxOne =
