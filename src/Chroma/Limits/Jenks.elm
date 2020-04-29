@@ -68,13 +68,25 @@ initVarianceCombinations bins nValues rowIndex colIndex =
 -}
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
-    Debug.todo "boom"
+    let
+        firstNonEmpty =
+            Nonempty.Nonempty (Nonempty.get 0 scale.values) []
+
+        someResult =
+            getData 1 scale.values (defaultResult bins scale.count) |> .lowerClassLimits |> Array.get 1 |> Maybe.map (\x -> Array.toList x) |> Maybe.withDefault []
+    in
+    case someResult of
+        [] ->
+            firstNonEmpty
+
+        head :: tail ->
+            Nonempty.Nonempty head tail
 
 
 getData : Int -> Nonempty.Nonempty Float -> JenksResult -> JenksResult
 getData index values jenksResult =
     let
-        newResult el oldResult =
+        newElement el oldResult =
             let
                 newSum =
                     oldResult.sum + el
@@ -89,7 +101,7 @@ getData index values jenksResult =
             }
 
         step el ( result, acc ) =
-            ( newResult el result
+            ( newElement el result
             , if result.index < index then
                 el :: acc
 
