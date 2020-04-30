@@ -27,5 +27,5 @@ testGetData =
             \_ ->
                 Analyze.analyze simple
                     |> Jenks.limit 4
-                    |> Expect.equal (Nonempty.Nonempty 0 [ 1, 1, 1, 1 ])
+                    |> Expect.equal (Nonempty.Nonempty 0 [ 0, 1, 1, 1 ])
         ]
