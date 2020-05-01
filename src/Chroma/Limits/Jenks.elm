@@ -48,7 +48,7 @@ defaultResult bins nValues =
 
 initLowerClassLimits : Int -> Int -> Int -> Float
 initLowerClassLimits bins rowIndex colIndex =
-    if rowIndex == 1 && colIndex > 1 && colIndex < bins + 1 then
+    if rowIndex == 1 && colIndex > 0 then
         1.0
 
     else

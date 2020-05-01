@@ -37,6 +37,19 @@ testGetData =
                             , Array.fromList [ 0, 9999999, 9999999, 9999999 ]
                             ]
                         )
+        , Test.test "Init lowerClassLimits" <|
+            \_ ->
+                Matrix.makeMatrix 6 4 (Jenks.initLowerClassLimits 6)
+                    |> Expect.equal
+                        (Array.fromList
+                            [ Array.fromList [ 0, 0, 0, 0 ]
+                            , Array.fromList [ 0, 1, 1, 1 ]
+                            , Array.fromList [ 0, 0, 0, 0 ]
+                            , Array.fromList [ 0, 0, 0, 0 ]
+                            , Array.fromList [ 0, 0, 0, 0 ]
+                            , Array.fromList [ 0, 0, 0, 0 ]
+                            ]
+                        )
         , Test.test "3 breaks from Simple Stats" <|
             \_ ->
                 Analyze.analyze simple
