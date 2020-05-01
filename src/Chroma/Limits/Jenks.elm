@@ -57,7 +57,7 @@ initLowerClassLimits bins rowIndex colIndex =
 
 initVarianceCombinations : Int -> Int -> Int -> Int -> Float
 initVarianceCombinations bins nValues rowIndex colIndex =
-    if rowIndex == 2 && colIndex < nValues + 1 then
+    if rowIndex >= 2 && colIndex > 0 then
         9999999
 
     else
@@ -72,13 +72,20 @@ limit bins scale =
         firstNonEmpty =
             Nonempty.Nonempty (Nonempty.get 0 scale.values) []
 
-        someResult index acc =
-            getData index scale.values bins acc
+        getResultColIndex row =
+            getMatrix bins scale |> .lowerClassLimits |> Matrix.getRowCol (row + 1) scale.count |> (\x -> Maybe.withDefault 0 x) |> round
 
-        getAllRows =
-            List.foldr someResult (defaultResult bins scale.count) (List.range 2 scale.count) |> .lowerClassLimits |> Array.get 1 |> Maybe.map (\x -> Array.toList x) |> Maybe.withDefault []
+        getResultCol row k bounds =
+            let
+                id =
+                    getResultColIndex row
+            in
+            ( id - 1, Nonempty.get (id - 1) scale.values :: bounds )
+
+        result =
+            List.foldr (\x ( k, bounds ) -> getResultCol x k bounds) ( bins, [] ) (List.range 2 bins) |> Tuple.second
     in
-    case getAllRows of
+    case result of
         [] ->
             firstNonEmpty
 
@@ -86,78 +93,87 @@ limit bins scale =
             Nonempty.Nonempty head tail
 
 
-getData : Int -> Nonempty.Nonempty Float -> Int -> JenksResult -> JenksResult
-getData index values cols jenksResult =
+getMatrix : Int -> Analyze.Scale -> JenksResult
+getMatrix bins scale =
     let
-        updateResultForRow row col i4 variance resultsForCol =
-            let
-                maybeOne =
-                    Matrix.getRowCol row col resultsForCol.varianceCombinations
+        someResult index acc =
+            getData scale.values (bins + 1) index acc
+    in
+    List.foldr someResult (defaultResult (scale.count + 1) (bins + 1)) (List.range 2 (scale.count + 1))
 
-                maybeTwo =
-                    Matrix.getRowCol i4 (col - 1) resultsForCol.varianceCombinations
 
-                fstGreaterThanOrEqualToSnd =
-                    Maybe.map2
-                        (\fst snd ->
-                            if fst >= (variance + snd) then
-                                Just (variance + snd)
-
-                            else
-                                Nothing
-                        )
-                        maybeOne
-                        maybeTwo
-
-                setJenksResults maybeMaybeVal =
-                    case maybeMaybeVal of
-                        Just (Just val) ->
-                            { lowerClassLimits = Matrix.setRowCol row col (toFloat (i4 + 1)) resultsForCol.lowerClassLimits
-                            , varianceCombinations = Matrix.setRowCol row col val resultsForCol.varianceCombinations
-                            }
-
-                        _ ->
-                            resultsForCol
-            in
-            setJenksResults fstGreaterThanOrEqualToSnd
-
-        updateResults row i4 variance =
+getData : Nonempty.Nonempty Float -> Int -> Int -> JenksResult -> JenksResult
+getData values cols row jenksResult =
+    let
+        updateResults i4 variance =
             List.foldr (\col -> updateResultForRow row col i4 variance) jenksResult (List.range 2 cols)
-
-        newElement el oldResult =
-            let
-                newSum =
-                    oldResult.sum + el
-
-                newSumOfSquares =
-                    oldResult.sumOfSquares + (el * el)
-            in
-            { index = oldResult.index + 1
-            , sum = newSum
-            , sumOfSquares = newSumOfSquares
-            , variance = newSumOfSquares - (newSum * newSum) / toFloat oldResult.index
-            }
 
         step el ( result, acc ) =
             let
-                newResult =
-                    newElement el result
-            in
-            ( newResult
-            , if result.index < index then
-                updateResults index (result.index - index) result.variance
+                newJenksElement =
+                    calculateJenksElement el result
 
-              else
-                acc
+                updateRow =
+                    if result.index < row + 1 then
+                        updateResults (row - newJenksElement.index) newJenksElement.variance
+
+                    else
+                        acc
+            in
+            ( newJenksElement
+            , updateRow
             )
 
-        calcRow =
-            let
-                ( finalJenksElement, finalJenksResult ) =
-                    Nonempty.foldl step ( emptyJenksElement, jenksResult ) values
-            in
-            { lowerClassLimits = Matrix.setRowCol index 1 1 finalJenksResult.lowerClassLimits
-            , varianceCombinations = Matrix.setRowCol index 1 finalJenksElement.variance finalJenksResult.varianceCombinations
-            }
+        ( finalJenksElement, finalJenksResult ) =
+            Nonempty.foldl step ( emptyJenksElement, jenksResult ) values
     in
-    calcRow
+    { lowerClassLimits = Matrix.setRowCol row 1 1 finalJenksResult.lowerClassLimits
+    , varianceCombinations = Matrix.setRowCol row 1 finalJenksElement.variance finalJenksResult.varianceCombinations
+    }
+
+
+calculateJenksElement : Float -> JenksElement -> JenksElement
+calculateJenksElement el oldResult =
+    let
+        newSum =
+            oldResult.sum + el
+
+        newSumOfSquares =
+            oldResult.sumOfSquares + (el * el)
+    in
+    { index = oldResult.index + 1
+    , sum = newSum
+    , sumOfSquares = newSumOfSquares
+    , variance = newSumOfSquares - (newSum * newSum) / toFloat oldResult.index
+    }
+
+
+updateResultForRow : Int -> Int -> Int -> Float -> JenksResult -> JenksResult
+updateResultForRow row col i4 variance jenksResult =
+    let
+        maybeOne =
+            Matrix.getRowCol row col jenksResult.varianceCombinations
+
+        maybeTwo =
+            Matrix.getRowCol i4 (col - 1) jenksResult.varianceCombinations |> Maybe.map ((+) variance)
+
+        fstGreaterThanOrEqualToSnd =
+            Maybe.map2
+                (\fst snd ->
+                    if fst >= snd then
+                        Just snd
+
+                    else
+                        Nothing
+                )
+                maybeOne
+                maybeTwo
+    in
+    case fstGreaterThanOrEqualToSnd of
+        Just (Just val) ->
+            { lowerClassLimits = Matrix.setRowCol row col (toFloat (i4 + 1)) jenksResult.lowerClassLimits
+            , varianceCombinations = Matrix.setRowCol row col val jenksResult.varianceCombinations
+            }
+
+        _ ->
+            jenksResult
