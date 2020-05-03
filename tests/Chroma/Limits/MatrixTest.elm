@@ -16,15 +16,15 @@ tests =
         ]
 
 
-type alias MatrixTester a =
-    { matrix : Array.Array (Array.Array a)
+type alias MatrixTester =
+    { matrix : Array.Array (Array.Array Int)
     , row : Int
     , col : Int
     , value : Int
     }
 
 
-newMatrix : Fuzz.Fuzzer (MatrixTester Int)
+newMatrix : Fuzz.Fuzzer MatrixTester
 newMatrix =
     let
         rowAndGetRow =
@@ -33,17 +33,21 @@ newMatrix =
         colAndGetCol =
             Random.int 2 10 |> Random.andThen (\x -> Random.map2 Tuple.pair (Random.constant x) (newRange (x - 1)))
 
-        value =
+        setValue =
             Random.int 11 20
 
         makeMatrix r c =
             Matrix.makeMatrix r c (\_ -> always 0)
 
         generator =
-            Random.map3 (\( r, br ) ( c, bc ) v -> { matrix = makeMatrix r c, row = br, col = bc, value = v }) rowAndGetRow colAndGetCol value
+            Random.map3 (\( r, br ) ( c, bc ) v -> { matrix = makeMatrix r c, row = br, col = bc, value = v }) rowAndGetRow colAndGetCol setValue
 
         shrinker =
-            Shrink.noShrink
+            \{ matrix, row, col, value } ->
+                Shrink.map MatrixTester (Shrink.array (Shrink.array Shrink.int) matrix)
+                    |> Shrink.andMap (Shrink.int row)
+                    |> Shrink.andMap (Shrink.int col)
+                    |> Shrink.andMap (Shrink.int value)
     in
     Fuzz.custom generator shrinker
 
