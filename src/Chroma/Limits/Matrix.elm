@@ -19,7 +19,7 @@ setRowCol row col value matrix =
 
 getRowCol : Int -> Int -> Array.Array (Array.Array a) -> Maybe a
 getRowCol row col matrix =
-    Array.get row matrix |> Maybe.andThen (\x -> Array.get row x)
+    Array.get row matrix |> Maybe.andThen (\x -> Array.get col x)
 
 
 maybeSetMatrixRow : Int -> Int -> a -> Array.Array (Array.Array a) -> Maybe (Array.Array (Array.Array a))
