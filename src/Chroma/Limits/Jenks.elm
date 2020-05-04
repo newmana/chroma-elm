@@ -108,32 +108,34 @@ getMatrix bins scale =
 getData : List Float -> Int -> Int -> Int -> JenksResult -> JenksResult
 getData values count cols row jenksResult =
     let
-        step el ( result, acc ) =
-            let
-                i4 =
-                    row - result.index
-
-                newJenksElement =
-                    calculateJenksElement el result
-
-                maybeUpdateResults =
-                    if i4 /= 0 then
-                        updateResults newJenksElement.variance
-
-                    else
-                        acc
-
-                updateResults variance =
-                    List.foldl (\col -> updateResultForRow row col i4 variance) jenksResult (List.range 2 cols)
-            in
-            ( newJenksElement, maybeUpdateResults )
-
         ( finalJenksElement, finalJenksResult ) =
-            List.foldl step ( emptyJenksElement, jenksResult ) (List.drop (count - row) values)
+            List.foldl (step row cols) ( emptyJenksElement, jenksResult ) (List.drop (count - row) values)
     in
     { lowerClassLimits = Matrix.setRowCol row 1 1 finalJenksResult.lowerClassLimits
     , varianceCombinations = Matrix.setRowCol row 1 finalJenksElement.variance finalJenksResult.varianceCombinations
     }
+
+
+step : Int -> Int -> Float -> ( JenksElement, JenksResult ) -> ( JenksElement, JenksResult )
+step row cols el ( result, acc ) =
+    let
+        i4 =
+            row - result.index
+
+        newJenksElement =
+            calculateJenksElement el result
+
+        maybeUpdateResults =
+            if i4 /= 0 then
+                updateResults newJenksElement.variance
+
+            else
+                acc
+
+        updateResults variance =
+            List.foldl (\col -> updateResultForRow row col i4 variance) acc (List.range 2 (cols - 1))
+    in
+    ( newJenksElement, maybeUpdateResults )
 
 
 calculateJenksElement : Float -> JenksElement -> JenksElement
