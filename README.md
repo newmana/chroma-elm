@@ -6,7 +6,7 @@ A native version of [Chroma.js](https://gka.github.io/chroma.js) that allows you
  * use different color spaces such as CMYK, HSLA, LAB, LCH and RGB, 
  * modify colors using interpolate, set/get alpha, lighten/darken, saturate/desaturate,
  * compare colors using WCAG contrast, 
- * use existing color maps such as Brewer, cmocean, Cividis, Turbo, Sinebow, Parula, Virdis, Plasma, Magma and Inferno.
+ * use existing color maps such as Brewer, cmocean, Material, Cividis, Turbo, Sinebow, Parula, Virdis, Plasma, Magma and Inferno.
 
 There is [an example site](https://newmana.github.io/chroma-elm/) showing how to use the library.
 
