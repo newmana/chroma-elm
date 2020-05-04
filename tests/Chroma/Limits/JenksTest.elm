@@ -23,6 +23,11 @@ simple =
     Nonempty.Nonempty 1 [ 3, 3, 3, 4 ]
 
 
+simpleStats : Nonempty.Nonempty Float
+simpleStats =
+    Nonempty.Nonempty -1 [ 2, -1, 2, 4, 5, 6, -1, 2, -1 ]
+
+
 testInit : Test.Test
 testInit =
     Test.describe "Init matrices"
@@ -99,4 +104,14 @@ testLimit =
                 Analyze.analyze simple
                     |> Jenks.limit 3
                     |> Expect.equal (Nonempty.Nonempty 1 [ 3, 4 ])
+        , Test.test "3 breaks from Simple Stats" <|
+            \_ ->
+                Analyze.analyze simpleStats
+                    |> Jenks.limit 3
+                    |> Expect.equal (Nonempty.Nonempty -1 [ 2, 4 ])
+        , Test.test "4 breaks from Simple Stats" <|
+            \_ ->
+                Analyze.analyze simpleStats
+                    |> Jenks.limit 4
+                    |> Expect.equal (Nonempty.Nonempty -1 [ 2, 4, 5 ])
         ]

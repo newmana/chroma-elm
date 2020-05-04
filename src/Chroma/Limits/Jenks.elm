@@ -91,7 +91,7 @@ limit bins scale =
             ( nextK, nextResult :: bounds )
 
         result =
-            List.foldl (\bin ( k, bounds ) -> getResult bin k bounds) ( scale.count, [] ) (List.range 1 bins) |> Tuple.second
+            List.foldl (\bin ( k, bounds ) -> getResult (bins - bin) k bounds) ( scale.count, [] ) (List.range 0 (bins - 1)) |> Tuple.second
     in
     case result of
         [] ->
