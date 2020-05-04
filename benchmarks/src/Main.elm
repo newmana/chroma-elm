@@ -17,7 +17,7 @@ suite =
     in
     Benchmark.describe "Limits (Class Breaks)"
         [ Benchmark.benchmark ("CkMeans 4 Classes, " ++ testDataSize ++ " data points") <| \_ -> Chroma.limits Limits.CkMeans 4 testData
-        [ Benchmark.benchmark ("Jenks 4 Classes, " ++ testDataSize ++ " data points") <| \_ -> Chroma.limits Limits.Jenks 4 testData
+        , Benchmark.benchmark ("Jenks 4 Classes, " ++ testDataSize ++ " data points") <| \_ -> Chroma.limits Limits.Jenks 4 testData
         , Benchmark.benchmark ("Equal 4 Classes, " ++ testDataSize ++ " data points") <| \_ -> Chroma.limits Limits.Equal 4 testData
         , Benchmark.benchmark ("HeadTail 4 Classes, " ++ testDataSize ++ " data points") <| \_ -> Chroma.limits Limits.HeadTail 4 testData
         , Benchmark.benchmark ("Logarithmic 4 Classes, " ++ testDataSize ++ " data points") <| \_ -> Chroma.limits Limits.Logarithmic 4 testData
