@@ -27,6 +27,7 @@ bins.
 
 import Array as Array
 import Chroma.Limits.Analyze as Analyze
+import Chroma.Limits.Matrix as Matrix
 import List.Nonempty as Nonempty
 
 
@@ -62,8 +63,8 @@ defaultResult : Int -> Int -> CkResult
 defaultResult bins nValues =
     { sums = Array.empty
     , sumsOfSquares = Array.empty
-    , matrix = makeMatrix bins nValues (always 0.0)
-    , backmatrix = makeMatrix bins nValues (always 0)
+    , matrix = Matrix.makeMatrix bins nValues (\_ -> always 0.0)
+    , backmatrix = Matrix.makeMatrix bins nValues (\_ -> always 0)
     }
 
 
@@ -217,15 +218,6 @@ ssq j i sums sumsOfSquares =
         sji
 
 
-makeMatrix : Int -> Int -> (Int -> a) -> Array.Array (Array.Array a)
-makeMatrix cols rows f =
-    let
-        newRow =
-            Array.initialize rows f
-    in
-    Array.initialize cols (always newRow)
-
-
 {-| TBD
 -}
 firstLine : Int -> Analyze.Scale -> CkRest
@@ -269,10 +261,10 @@ firstLine bins scale =
             List.foldl calc defaultCkFirstRow (Nonempty.tail scale.values)
 
         defaultMatrix =
-            makeMatrix bins nValues (always 0.0)
+            Matrix.makeMatrix bins nValues (\_ -> always 0.0)
 
         defaultBackmatrix =
-            makeMatrix bins nValues (always 0)
+            Matrix.makeMatrix bins nValues (\_ -> always 0)
     in
     { sums = firstRow.sums
     , sumsOfSquares = firstRow.sumsOfSquares
@@ -356,20 +348,14 @@ fillMatrixColumn iMin iMax cluster rest =
                     Just line ->
                         Array.get secondIndex line |> Maybe.withDefault 0
 
-            newMatrixLine index value arr =
-                Array.get index arr |> Maybe.andThen (\x -> Array.set i value x |> (\y -> Array.set cluster y arr) |> Just)
-
-            newMatrix index value arr =
-                Maybe.withDefault arr (newMatrixLine index value arr)
-
             startMatrixValue =
                 Maybe.withDefault 0 (Array.get (i - 1) rest.previousMatrix)
 
             startMatrix =
-                newMatrix cluster startMatrixValue rest.matrix
+                Matrix.setRowCol cluster i startMatrixValue rest.matrix
 
             startBackMatrix =
-                newMatrix cluster i rest.backmatrix
+                Matrix.setRowCol cluster i i rest.backmatrix
 
             initRest =
                 { rest
@@ -402,8 +388,8 @@ fillMatrixColumn iMin iMax cluster rest =
 
             resultRest =
                 { initRest
-                    | matrix = newMatrix cluster outM initRest.matrix
-                    , backmatrix = newMatrix cluster outBm initRest.backmatrix
+                    | matrix = Matrix.setRowCol cluster i outM initRest.matrix
+                    , backmatrix = Matrix.setRowCol cluster i outBm initRest.backmatrix
                 }
 
             maxOne =

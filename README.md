@@ -1,6 +1,7 @@
 # chroma-elm
 A native version of [Chroma.js](https://gka.github.io/chroma.js) that allows you to:
- * use W3C X11 color names.   
+ * use W3C X11 color names,
+ * cluster data points using algorithms: CkMeans, equal, head/tail, Jenks, logarithmic or quantial,   
  * create color scales, 
  * use different color spaces such as CMYK, HSLA, LAB, LCH and RGB, 
  * modify colors using interpolate, set/get alpha, lighten/darken, saturate/desaturate,
@@ -30,11 +31,12 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 ```text
 | Algorithm     | Runs/Second   |
 | ------------- | ------------- |
-| CkMeans       | 531           |
-| Equal         | 32,014        |
-| HeadTail      | 21,711        |
-| Logarithmic   | 31,482        |
-| Quantile      | 27,142        |
+| CkMeans       | 394           |
+| Equal         | 31,185        |
+| HeadTail      | 22,139        |
+| Jenks         | 51            |
+| Logarithmic   | 31,957        |
+| Quantile      | 27,830        |
 ```
 
 ## Documentation
