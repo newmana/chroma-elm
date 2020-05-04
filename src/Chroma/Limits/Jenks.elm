@@ -1,4 +1,7 @@
-module Chroma.Limits.Jenks exposing (..)
+module Chroma.Limits.Jenks exposing
+    ( binned, limit
+    , initVarianceCombinations, initLowerClassLimits, getMatrix
+    )
 
 {-| [Jenks natural breaks optimization](https://en.wikipedia.org/wiki/Jenks_natural_breaks_optimization) is a
 clustering algorithm scheme for data to reduce the variance within classes and maximize the variance between classes.
@@ -6,7 +9,12 @@ clustering algorithm scheme for data to reduce the variance within classes and m
 
 # Definition
 
-@docs limit
+@docs binned, limit
+
+
+# Helpers
+
+@docs initVarianceCombinations, initLowerClassLimits, getMatrix
 
 -}
 
@@ -46,6 +54,8 @@ defaultResult bins nValues =
     }
 
 
+{-| TBD
+-}
 initLowerClassLimits : Int -> Int -> Int -> Int
 initLowerClassLimits bins rowIndex colIndex =
     if rowIndex == 1 && colIndex > 0 then
@@ -55,6 +65,8 @@ initLowerClassLimits bins rowIndex colIndex =
         0
 
 
+{-| TBD
+-}
 initVarianceCombinations : Int -> Int -> Int -> Int -> Float
 initVarianceCombinations bins nValues rowIndex colIndex =
     if rowIndex >= 2 && colIndex > 0 then
@@ -148,6 +160,8 @@ getMatrixIndexes bins =
     List.range 0 (bins - 1)
 
 
+{-| TBD
+-}
 getMatrix : Int -> Analyze.Scale -> JenksResult
 getMatrix bins scale =
     let
