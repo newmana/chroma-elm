@@ -18,6 +18,11 @@ tests =
         ]
 
 
+onlyOne : Nonempty.Nonempty Float
+onlyOne =
+    Nonempty.Nonempty 1 []
+
+
 simple : Nonempty.Nonempty Float
 simple =
     Nonempty.Nonempty 1 [ 3, 3, 3, 4 ]
@@ -26,6 +31,16 @@ simple =
 simpleStats : Nonempty.Nonempty Float
 simpleStats =
     Nonempty.Nonempty -1 [ 2, -1, 2, 4, 5, 6, -1, 2, -1 ]
+
+
+onedclusterer : Nonempty.Nonempty Float
+onedclusterer =
+    Nonempty.Nonempty 0.1 [ 1.1, 1.2, 1.6, 2.2, 2.5, 2.7, 2.8, 3, 3.1, 7.1 ]
+
+
+onedclusterer2 : Nonempty.Nonempty Float
+onedclusterer2 =
+    Nonempty.Nonempty 518.39 [ 656.4, 735.34, 1532.48, 2443.45 ]
 
 
 testInit : Test.Test
@@ -99,7 +114,12 @@ testGetMatrix =
 testLimit : Test.Test
 testLimit =
     Test.describe "Get ckmeans limit breaks"
-        [ Test.test "Simple 3 breaks" <|
+        [ Test.test "Only 1" <|
+            \_ ->
+                Analyze.analyze onlyOne
+                    |> Jenks.limit 1
+                    |> Expect.equal (Nonempty.Nonempty 1 [])
+        , Test.test "Simple 3 breaks" <|
             \_ ->
                 Analyze.analyze simple
                     |> Jenks.limit 3
@@ -114,4 +134,14 @@ testLimit =
                 Analyze.analyze simpleStats
                     |> Jenks.limit 4
                     |> Expect.equal (Nonempty.Nonempty -1 [ 2, 4, 5 ])
+        , Test.test "4 breaks from oned clustered" <|
+            \_ ->
+                Analyze.analyze onedclusterer
+                    |> Jenks.limit 4
+                    |> Expect.equal (Nonempty.Nonempty 0.1 [ 1.1, 2.2, 7.1 ])
+        , Test.test "2 breaks from oned clustered" <|
+            \_ ->
+                Analyze.analyze onedclusterer2
+                    |> Jenks.limit 2
+                    |> Expect.equal (Nonempty.Nonempty 518.39 [ 1532.48 ])
         ]

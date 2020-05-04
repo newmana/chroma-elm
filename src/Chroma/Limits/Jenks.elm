@@ -77,21 +77,14 @@ limit bins scale =
         firstNonEmpty =
             Nonempty.Nonempty (Nonempty.get 0 scale.values) []
 
-        lowerClassLimits =
-            getMatrix bins scale |> .lowerClassLimits
+        addOrContinue acc v =
+            v :: acc
 
-        getResult bin k bounds =
-            let
-                nextK =
-                    Matrix.getRowCol k bin lowerClassLimits |> Maybe.map (\x -> x - 1) |> Maybe.withDefault 0
+        slicedResult left _ =
+            Nonempty.get left scale.values
 
-                nextResult =
-                    Nonempty.get nextK scale.values
-            in
-            ( nextK, nextResult :: bounds )
-
-        result =
-            List.foldl (\bin ( k, bounds ) -> getResult (bins - bin) k bounds) ( scale.count, [] ) (List.range 0 (bins - 1)) |> Tuple.second
+        ( result, _ ) =
+            genericResult [] slicedResult addOrContinue bins scale
     in
     case result of
         [] ->
@@ -99,6 +92,30 @@ limit bins scale =
 
         head :: tail ->
             Nonempty.Nonempty head tail
+
+
+genericResult : List a -> (Int -> Int -> a) -> (List a -> a -> List a) -> Int -> Analyze.Scale -> ( List a, Int )
+genericResult init slicedResult addOrContinue bins scale =
+    let
+        result =
+            getMatrix bins scale
+
+        sliceSorted acc bin k lowerClassLimits =
+            let
+                left =
+                    Matrix.getRowCol k (bins - bin) lowerClassLimits |> Maybe.map (\x -> x - 1) |> Maybe.withDefault 0
+            in
+            ( addOrContinue acc (slicedResult left k), left )
+
+        all =
+            List.foldl (\cluster ( acc, right ) -> sliceSorted acc cluster right result.lowerClassLimits) ( init, scale.count ) (getMatrixIndexes bins)
+    in
+    all
+
+
+getMatrixIndexes : Int -> List Int
+getMatrixIndexes bins =
+    List.range 0 (bins - 1)
 
 
 getMatrix : Int -> Analyze.Scale -> JenksResult
