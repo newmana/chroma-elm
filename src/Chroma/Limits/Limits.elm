@@ -23,9 +23,9 @@ import List.Nonempty as Nonempty
 -}
 type LimitMode
     = CkMeans
-    | Jenks
     | Equal
     | HeadTail
+    | Jenks
     | Logarithmic
     | Quantile
 
@@ -42,14 +42,14 @@ limits mode bins data =
         CkMeans ->
             CkMeans.limit bins scale
 
-        Jenks ->
-            Jenks.limit bins scale
-
         Equal ->
             Equal.limit bins scale
 
         HeadTail ->
             HeadTail.limit bins scale
+
+        Jenks ->
+            Jenks.limit bins scale
 
         Logarithmic ->
             Logarithimic.limit bins scale
