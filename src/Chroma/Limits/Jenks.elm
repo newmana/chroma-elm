@@ -94,6 +94,36 @@ limit bins scale =
             Nonempty.Nonempty head tail
 
 
+{-| Return the values in Scale into the given number of bins.
+
+    Analyze.analyze (Nonempty.Nonempty 3 [1,3,4,3])
+    |> binned 3
+    -->  Nonempty.Nonempty [1] [[3,3,3], [4]]
+
+-}
+binned : Int -> Analyze.Scale -> Nonempty.Nonempty (Array.Array Float)
+binned bins scale =
+    let
+        firstNonEmpty =
+            scale.values |> Nonempty.toList |> Array.fromList |> (\x -> Nonempty.Nonempty x [])
+
+        addOrContinue acc v =
+            v :: acc
+
+        slicedResult left right =
+            Array.map (\i -> Nonempty.get i scale.values) (List.range left (right - 1) |> Array.fromList)
+
+        ( result, _ ) =
+            genericResult [] slicedResult addOrContinue bins scale
+    in
+    case result of
+        [] ->
+            firstNonEmpty
+
+        head :: tail ->
+            Nonempty.Nonempty head tail
+
+
 genericResult : List a -> (Int -> Int -> a) -> (List a -> a -> List a) -> Int -> Analyze.Scale -> ( List a, Int )
 genericResult init slicedResult addOrContinue bins scale =
     let

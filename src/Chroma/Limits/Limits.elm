@@ -13,6 +13,7 @@ import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.CkMeans as CkMeans
 import Chroma.Limits.Equal as Equal
 import Chroma.Limits.HeadTail as HeadTail
+import Chroma.Limits.Jenks as Jenks
 import Chroma.Limits.Logarithmic as Logarithimic
 import Chroma.Limits.Quantile as Quantile
 import List.Nonempty as Nonempty
@@ -22,6 +23,7 @@ import List.Nonempty as Nonempty
 -}
 type LimitMode
     = CkMeans
+    | Jenks
     | Equal
     | HeadTail
     | Logarithmic
@@ -39,6 +41,9 @@ limits mode bins data =
     case mode of
         CkMeans ->
             CkMeans.limit bins scale
+
+        Jenks ->
+            Jenks.limit bins scale
 
         Equal ->
             Equal.limit bins scale

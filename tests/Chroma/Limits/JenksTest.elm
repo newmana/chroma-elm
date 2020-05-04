@@ -15,6 +15,7 @@ tests =
         [ testInit
         , testGetMatrix
         , testLimit
+        , testBinned
         ]
 
 
@@ -144,4 +145,30 @@ testLimit =
                 Analyze.analyze onedclusterer2
                     |> Jenks.limit 2
                     |> Expect.equal (Nonempty.Nonempty 518.39 [ 1532.48 ])
+        ]
+
+
+testBinned : Test.Test
+testBinned =
+    Test.describe "Get jenks binned breaks"
+        [ Test.test "Simple 3 breaks" <|
+            \_ ->
+                Analyze.analyze simple
+                    |> Jenks.binned 3
+                    |> Expect.equal (Nonempty.Nonempty (Array.fromList [ 1 ]) [ Array.fromList [ 3, 3, 3 ], Array.fromList [ 4 ] ])
+        , Test.test "3 breaks from Simple Stats" <|
+            \_ ->
+                Analyze.analyze simpleStats
+                    |> Jenks.binned 3
+                    |> Expect.equal (Nonempty.Nonempty (Array.fromList [ -1, -1, -1, -1 ]) [ Array.fromList [ 2, 2, 2 ], Array.fromList [ 4, 5, 6 ] ])
+        , Test.test "4 breaks from Simple Stats" <|
+            \_ ->
+                Analyze.analyze simpleStats
+                    |> Jenks.binned 4
+                    |> Expect.equal (Nonempty.Nonempty (Array.fromList [ -1, -1, -1, -1 ]) [ Array.fromList [ 2, 2, 2 ], Array.fromList [ 4 ], Array.fromList [ 5, 6 ] ])
+        , Test.test "2 breaks from oned clustered" <|
+            \_ ->
+                Analyze.analyze onedclusterer2
+                    |> Jenks.binned 2
+                    |> Expect.equal (Nonempty.Nonempty (Array.fromList [ 518.39, 656.4, 735.34 ]) [ Array.fromList [ 1532.48, 2443.45 ] ])
         ]
