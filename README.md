@@ -1,7 +1,7 @@
 # chroma-elm
 A native version of [Chroma.js](https://gka.github.io/chroma.js) that allows you to:
  * use W3C X11 color names,
- * cluster data points using algorithms: CkMeans, equal, head/tail, Jenks, logarithmic or quantial,   
+ * cluster data points using algorithms: CkMeans, equal, head/tail, Jenks, logarithmic or quantile,   
  * create color scales, 
  * use different color spaces such as CMYK, HSLA, LAB, LCH and RGB, 
  * modify colors using interpolate, set/get alpha, lighten/darken, saturate/desaturate,
@@ -26,7 +26,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 # Benchmarks
 - ```yarn run benchmarks```
 
-101 Data Points, Limits on a 3.1 GHz Intel Core i7, Chrome 77.0:
+101 Data Points, Limits on a 3.1 GHz Intel Core i7, Chrome 80.0:
 
 ```text
 | Algorithm     | Runs/Second   |
