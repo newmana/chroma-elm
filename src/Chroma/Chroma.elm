@@ -240,7 +240,7 @@ distance mode color1 color2 =
 
 {-| Create breaks/classes based on the data given.
 
-Supports: CkMeans (a variant of kmeans), Equal, Head/Tail, Logarithmic, and Quantile.
+Supports: CkMeans (a variant of kmeans), Equal, Head/Tail, Jenks, Logarithmic, and Quantile.
 
     Chroma.limits Limits.Equal 5 (Nonempty.Nonempty 0 [ 10 ])
     --> Nonempty 0 [2,4,6,8,10] : Nonempty.Nonempty Float

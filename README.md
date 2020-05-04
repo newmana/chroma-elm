@@ -1,6 +1,7 @@
 # chroma-elm
 A native version of [Chroma.js](https://gka.github.io/chroma.js) that allows you to:
- * use W3C X11 color names.   
+ * use W3C X11 color names,
+ * cluster data points using algorithms: CkMeans, equal, head/tail, Jenks, logarithmic or quantial,   
  * create color scales, 
  * use different color spaces such as CMYK, HSLA, LAB, LCH and RGB, 
  * modify colors using interpolate, set/get alpha, lighten/darken, saturate/desaturate,
