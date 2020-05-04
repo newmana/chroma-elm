@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [17.0.0] - 2020-05-04
+### Changed
+- Added jenks clustering. 
+
 ## [16.0.4] - 2020-04-11
 ### Changed
 - Added elm-review and elm-coverage. 
