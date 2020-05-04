@@ -25,7 +25,7 @@ type alias JenksElement =
 
 
 type alias JenksResult =
-    { lowerClassLimits : Array.Array (Array.Array Float)
+    { lowerClassLimits : Array.Array (Array.Array Int)
     , varianceCombinations : Array.Array (Array.Array Float)
     }
 
@@ -46,13 +46,13 @@ defaultResult bins nValues =
     }
 
 
-initLowerClassLimits : Int -> Int -> Int -> Float
+initLowerClassLimits : Int -> Int -> Int -> Int
 initLowerClassLimits bins rowIndex colIndex =
     if rowIndex == 1 && colIndex > 0 then
-        1.0
+        1
 
     else
-        0.0
+        0
 
 
 initVarianceCombinations : Int -> Int -> Int -> Int -> Float
@@ -65,6 +65,11 @@ initVarianceCombinations bins nValues rowIndex colIndex =
 
 
 {-| Create bins number of results using the given scale.
+
+    Analyze.analyze (Nonempty.Nonempty 3 [1,3,4,3])
+    |> limit 3
+    -->  Nonempty.Nonempty 1 [3,4]
+
 -}
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
@@ -72,18 +77,21 @@ limit bins scale =
         firstNonEmpty =
             Nonempty.Nonempty (Nonempty.get 0 scale.values) []
 
-        getResultColIndex row =
-            getMatrix bins scale |> .lowerClassLimits |> Matrix.getRowCol (row + 1) scale.count |> (\x -> Maybe.withDefault 0 x) |> round
+        lowerClassLimits =
+            getMatrix bins scale |> .lowerClassLimits
 
-        getResultCol row k bounds =
+        getResult bin k bounds =
             let
-                id =
-                    getResultColIndex row
+                nextK =
+                    Matrix.getRowCol k bin lowerClassLimits |> Maybe.map (\x -> x - 1) |> Maybe.withDefault 0
+
+                nextResult =
+                    Nonempty.get nextK scale.values
             in
-            ( id - 1, Nonempty.get (id - 1) scale.values :: bounds )
+            ( nextK, nextResult :: bounds )
 
         result =
-            List.foldl (\x ( k, bounds ) -> getResultCol x k bounds) ( bins, [] ) (List.range 2 bins) |> Tuple.second
+            List.foldl (\bin ( k, bounds ) -> getResult bin k bounds) ( scale.count, [] ) (List.range 1 bins) |> Tuple.second
     in
     case result of
         [] ->
@@ -180,7 +188,7 @@ updateResultForRow row col i4 variance jenksResult =
     in
     case fstGreaterThanOrEqualToSnd of
         Just (Just val) ->
-            { lowerClassLimits = Matrix.setRowCol row col (toFloat (i4 + 1)) jenksResult.lowerClassLimits
+            { lowerClassLimits = Matrix.setRowCol row col (i4 + 1) jenksResult.lowerClassLimits
             , varianceCombinations = Matrix.setRowCol row col val jenksResult.varianceCombinations
             }
 
