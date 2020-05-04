@@ -4,6 +4,7 @@ import Chroma.Colors.Brewer as Brewer
 import Chroma.Colors.Cividis as Cividis
 import Chroma.Colors.Cmocean as Cmocean
 import Chroma.Colors.Inferno as Inferno
+import Chroma.Colors.Material as Material
 import Chroma.Colors.Magma as Magma
 import Chroma.Colors.Parula as Parula
 import Chroma.Colors.Plasma as Plasma
@@ -43,6 +44,16 @@ content =
             ++ showColorMap "Cmocean.balance" "Cmocean balance color map" Cmocean.balance
             ++ showColorMap "Cmocean.curl" "Cmocean curl color map" Cmocean.curl
             ++ showColorMap "Cmocean.phase" "Cmocean phase color map" Cmocean.phase
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Material" ]
+               ]
+            ++ showColorMap "Material.red" "Material red color map" Material.red
+            ++ showColorMap "Material.deepPurple" "Material deep purple color map" Material.deepPurple
+            ++ showColorMap "Material.lightBlue" "Material light blue color map" Material.lightBlue
+            ++ showColorMap "Material.lime" "Material lime color map" Material.lime
+            ++ showColorMap "Material.blueGray" "Material blue gray color map" Material.blueGray
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
