@@ -73,6 +73,21 @@ testGetMatrix =
                             , Array.fromList [ 0, 4.799999999999997, 0.75, 0 ]
                             ]
                         )
+        , Test.test "Lower Class Limits" <|
+            \_ ->
+                Analyze.analyze simple
+                    |> Jenks.getMatrix 3
+                    |> .lowerClassLimits
+                    |> Expect.equal
+                        (Array.fromList
+                            [ Array.fromList [ 0, 0, 0, 0 ]
+                            , Array.fromList [ 0, 1, 1, 1 ]
+                            , Array.fromList [ 0, 1, 2, 2 ]
+                            , Array.fromList [ 0, 1, 2, 2 ]
+                            , Array.fromList [ 0, 1, 2, 2 ]
+                            , Array.fromList [ 0, 1, 2, 5 ]
+                            ]
+                        )
         ]
 
 
