@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [17.2.0] - 2020-05-05
+### Changed
+- Added material palette. 
+
 ## [17.0.0] - 2020-05-04
 ### Changed
 - Added jenks clustering. 
