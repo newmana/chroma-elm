@@ -83,6 +83,7 @@ testGetMatrix =
             \_ ->
                 Analyze.analyze simple
                     |> Jenks.getMatrix 3
+                    |> Tuple.second
                     |> .varianceCombinations
                     |> Expect.equal
                         (Array.fromList
@@ -98,6 +99,7 @@ testGetMatrix =
             \_ ->
                 Analyze.analyze simple
                     |> Jenks.getMatrix 3
+                    |> Tuple.second
                     |> .lowerClassLimits
                     |> Expect.equal
                         (Array.fromList
@@ -124,6 +126,11 @@ testLimit =
             \_ ->
                 Analyze.analyze simple
                     |> Jenks.limit 3
+                    |> Expect.equal (Nonempty.Nonempty 1 [ 3, 4 ])
+        , Test.test "Simple 4 breaks" <|
+            \_ ->
+                Analyze.analyze simple
+                    |> Jenks.limit 4
                     |> Expect.equal (Nonempty.Nonempty 1 [ 3, 4 ])
         , Test.test "3 breaks from Simple Stats" <|
             \_ ->

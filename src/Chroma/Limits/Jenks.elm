@@ -22,6 +22,7 @@ import Array as Array
 import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.Matrix as Matrix
 import List.Nonempty as Nonempty
+import Set as Set
 
 
 type alias JenksElement =
@@ -139,18 +140,18 @@ binned bins scale =
 genericResult : List a -> (Int -> Int -> a) -> (List a -> a -> List a) -> Int -> Analyze.Scale -> ( List a, Int )
 genericResult init slicedResult addOrContinue bins scale =
     let
-        result =
+        ( newBins, result ) =
             getMatrix bins scale
 
         sliceSorted acc bin k lowerClassLimits =
             let
                 left =
-                    Matrix.getRowCol k (bins - bin) lowerClassLimits |> Maybe.map (\x -> x - 1) |> Maybe.withDefault 0
+                    Matrix.getRowCol k (newBins - bin) lowerClassLimits |> Maybe.map (\x -> x - 1) |> Maybe.withDefault 0
             in
             ( addOrContinue acc (slicedResult left k), left )
 
         all =
-            List.foldl (\cluster ( acc, right ) -> sliceSorted acc cluster right result.lowerClassLimits) ( init, scale.count ) (getMatrixIndexes bins)
+            List.foldl (\cluster ( acc, right ) -> sliceSorted acc cluster right result.lowerClassLimits) ( init, scale.count ) (getMatrixIndexes newBins)
     in
     all
 
@@ -160,18 +161,38 @@ getMatrixIndexes bins =
     List.range 0 (bins - 1)
 
 
+flipAndCount : Set.Set comparable -> List comparable -> ( Int, List comparable ) -> ( Int, List comparable )
+flipAndCount existing remaining ( uniqueCount, newList ) =
+    case remaining of
+        [] ->
+            ( uniqueCount, newList )
+
+        first :: rest ->
+            if Set.member first existing then
+                flipAndCount existing rest ( uniqueCount, first :: newList )
+
+            else
+                flipAndCount (Set.insert first existing) rest ( uniqueCount + 1, first :: newList )
+
+
 {-| TBD
 -}
-getMatrix : Int -> Analyze.Scale -> JenksResult
+getMatrix : Int -> Analyze.Scale -> ( Int, JenksResult )
 getMatrix bins scale =
     let
-        reversedValues =
-            Nonempty.foldl (::) [] scale.values
+        ( maxBins, reversedValues ) =
+            flipAndCount Set.empty (Nonempty.toList scale.values) ( 0, [] )
+
+        newBins =
+            min bins maxBins
 
         someResult index acc =
-            getData reversedValues scale.count (bins + 1) index acc
+            getData reversedValues scale.count (newBins + 1) index acc
+
+        newJenksResult =
+            List.foldl someResult (defaultResult (scale.count + 1) (newBins + 1)) (List.range 2 scale.count)
     in
-    List.foldl someResult (defaultResult (scale.count + 1) (bins + 1)) (List.range 2 scale.count)
+    ( newBins, newJenksResult )
 
 
 getData : List Float -> Int -> Int -> Int -> JenksResult -> JenksResult

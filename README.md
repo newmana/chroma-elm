@@ -31,10 +31,10 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 ```text
 | Algorithm     | Runs/Second   |
 | ------------- | ------------- |
-| CkMeans       | 394           |
+| CkMeans       | 567           |
 | Equal         | 31,185        |
 | HeadTail      | 22,139        |
-| Jenks         | 51            |
+| Jenks         | 74            |
 | Logarithmic   | 31,957        |
 | Quantile      | 27,830        |
 ```

@@ -86,11 +86,14 @@ type alias MatrixLine =
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
     let
-        numberUnique =
-            Nonempty.uniq scale.values |> Nonempty.length
+        firstValue =
+            Nonempty.get 0 scale.values
 
         firstNonEmpty =
-            Nonempty.Nonempty (Nonempty.get 0 scale.values) []
+            Nonempty.Nonempty firstValue []
+
+        differentValue =
+            Nonempty.any ((/=) firstValue) scale.values
 
         addOrContinue acc v =
             case acc of
@@ -107,7 +110,7 @@ limit bins scale =
         slicedResult left _ =
             Nonempty.get left scale.values
     in
-    if numberUnique == 1 then
+    if not differentValue then
         firstNonEmpty
 
     else
@@ -133,8 +136,11 @@ limit bins scale =
 binned : Int -> Analyze.Scale -> Nonempty.Nonempty (Array.Array Float)
 binned bins scale =
     let
-        numberUnique =
-            Nonempty.uniq scale.values |> Nonempty.length
+        firstValue =
+            Nonempty.get 0 scale.values
+
+        differentValue =
+            Nonempty.any ((/=) firstValue) scale.values
 
         firstNonEmpty =
             scale.values |> Nonempty.toList |> Array.fromList |> (\x -> Nonempty.Nonempty x [])
@@ -145,7 +151,7 @@ binned bins scale =
         slicedResult left right =
             Array.map (\i -> Nonempty.get i scale.values) (List.range left right |> Array.fromList)
     in
-    if numberUnique == 1 then
+    if not differentValue then
         firstNonEmpty
 
     else
