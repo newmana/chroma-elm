@@ -83,7 +83,7 @@ content =
                 ("Sample data: "
                     ++ nonEmptyFloat sampleData
                     ++ ". "
-                    ++ "LimitMode can be: CkMeans, Equal, HeadTail, Jenks, Logarithmic or Quantial."
+                    ++ "LimitMode can be: CkMeans, Equal, HeadTail, Jenks, Logarithmic or Quantile."
                 )
             ++ Page.example "has-text-black" "" limitsCkMeansSourceCode limitsCkMeansOutput
             ++ Page.example "has-text-black" "" limitsHeadTailSourceCode limitsHeadTailOutput
