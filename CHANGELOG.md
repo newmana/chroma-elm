@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [18.0.0] - 2020-05-06
+### Fixed
+- Performance improvements for CkMeans and Jenks.
+
 ## [17.2.0] - 2020-05-05
 ### Changed
 - Added material palette. 
