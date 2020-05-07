@@ -3,43 +3,43 @@ All notable changes to this project will be documented in this file.
 
 ## [18.0.0] - 2020-05-06
 ### Fixed
-- Performance improvements for CkMeans and Jenks.
+- Performance improvements for CkMeans and Jenks clustering.
 
 ## [17.2.0] - 2020-05-05
-### Changed
-- Added material palette. 
+### Added
+- Material palette. 
 
 ## [17.0.0] - 2020-05-04
-### Changed
-- Added jenks clustering. 
+### Added
+- Jenks clustering. 
 
 ## [16.0.4] - 2020-04-11
-### Changed
-- Added elm-review and elm-coverage. 
+### Added
+- elm-review and elm-coverage. 
 
 ## [16.0.0] - 2019-09-06
 ### Fixed
-- Add Head/Tail to Limits API. 
+- Head/Tail was missing from the Limits module. 
 
 ## [15.0.0] - 2019-09-05
 ### Fixed
-- Luminance API was incorrect order of paramters. 
+- Luminance parameters were out of order. 
 
 ## [14.0.0] - 2019-09-04
 ### Changed
 - Moved utility code out of W3CX11 and into Ops.Numeric. 
 
 ## [13.3.0] - 2019-09-04
-### Changed
-- Fix blend documentation 
+### Fixed
+- Blend documentation. 
 
 ## [13.2.0] - 2019-09-03
 ### Added
-- Head/Tail Limits 
+- Head/Tail clustering. 
 
 ## [13.1.0] - 2019-09-02
 ### Added
-- Cmocean color map 
+- Cmocean color map. 
 
 ## [13.0.0] - 2019-09-01
 ### Added
