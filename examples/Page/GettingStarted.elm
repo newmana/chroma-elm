@@ -42,11 +42,11 @@ content =
                 []
                 [ Html.li
                     []
-                    [ Html.text "Chroma API: allowing use of W3C X11 color names and creating color scales."
+                    [ Html.text "Allowing the use of W3C X11 color names and creating color scales."
                     ]
                 , Html.li
                     []
-                    [ Html.text "cluster data points using algorithms: CkMeans, equal, head/tail, Jenks, logarithmic or quantile."
+                    [ Html.text "Clustering data points using algorithms: CkMeans, equal, head/tail, Jenks, logarithmic or quantile."
                     ]
                 , Html.li
                     []
