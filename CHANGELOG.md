@@ -95,7 +95,26 @@ All notable changes to this project will be documented in this file.
 - ToCymk corrected names/values of record.
 - Cleaned up color types.
 
-## [1.0.0] - 2019-01-24
+## 1.0.0 - 2019-01-24
 ### Added
 - Creating a rather ropey initial API Scale.getColor.
 - Supports domain and correctLightness (buggy when used with domain).
+
+[18.0.0]: https://github.com/newmana/chroma-elm/compare/17.2.0...18.0.0
+[17.2.0]: https://github.com/newmana/chroma-elm/compare/17.0.0...17.2.0
+[17.0.0]: https://github.com/newmana/chroma-elm/compare/16.0.4...17.0.0
+[16.0.4]: https://github.com/newmana/chroma-elm/compare/16.0.0...16.0.4
+[16.0.0]: https://github.com/newmana/chroma-elm/compare/15.0.0...16.0.0
+[15.0.0]: https://github.com/newmana/chroma-elm/compare/14.0.0...15.0.0
+[14.0.0]: https://github.com/newmana/chroma-elm/compare/13.3.0...14.0.0
+[13.3.0]: https://github.com/newmana/chroma-elm/compare/13.2.0...13.3.0
+[13.2.0]: https://github.com/newmana/chroma-elm/compare/13.1.0...13.2.0
+[13.1.0]: https://github.com/newmana/chroma-elm/compare/13.0.0...13.1.0
+[13.0.0]: https://github.com/newmana/chroma-elm/compare/12.0.0...13.0.0
+[12.0.0]: https://github.com/newmana/chroma-elm/compare/11.0.0...12.0.0
+[11.0.0]: https://github.com/newmana/chroma-elm/compare/10.0.0...11.0.0
+[10.0.0]: https://github.com/newmana/chroma-elm/compare/9.0.0...10.0.0
+[9.0.0]: https://github.com/newmana/chroma-elm/compare/8.0.0...9.0.0
+[8.0.0]: https://github.com/newmana/chroma-elm/compare/7.0.0...8.0.0
+[7.0.0]: https://github.com/newmana/chroma-elm/compare/6.0.0...7.0.0
+[6.0.0]: https://github.com/newmana/chroma-elm/compare/1.0.0...6.0.0
