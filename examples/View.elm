@@ -136,21 +136,25 @@ view model content =
                         [ Html.a
                             [ HtmlAttributes.class "list-item"
                             , HtmlAttributes.href "#/chroma"
+                            , HtmlAttributes.class "panel-block"
                             ]
                             [ Html.text "Chroma" ]
                         , Html.a
                             [ HtmlAttributes.class "list-item"
                             , HtmlAttributes.href "#/colors"
+                            , HtmlAttributes.class "panel-block"
                             ]
                             [ Html.text "Colors" ]
                         , Html.a
                             [ HtmlAttributes.class "list-item"
                             , HtmlAttributes.href "#/converter"
+                            , HtmlAttributes.class "panel-block"
                             ]
                             [ Html.text "Converter" ]
                         , Html.a
                             [ HtmlAttributes.class "list-item"
                             , HtmlAttributes.href "#/ops"
+                            , HtmlAttributes.class "panel-block"
                             ]
                             [ Html.text "Color Operations" ]
                         ]
