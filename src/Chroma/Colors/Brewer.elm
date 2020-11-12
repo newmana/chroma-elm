@@ -176,28 +176,28 @@ reds =
 -}
 brBG : Nonempty.Nonempty Color
 brBG =
-    Nonempty.Nonempty (rgb255 140 81 10) [ rgb255 191 129 45, rgb255 223 194 125, rgb255 246 232 195, rgb255 245 245 245, rgb255 199 234 229, rgb255 128 205 193, rgb255 53 151 143, rgb255 1 102 94 ]
+    Nonempty.Nonempty (rgb255 84 48 5) [ rgb255 140 81 10, rgb255 191 129 45, rgb255 223 194 125, rgb255 246 232 195, rgb255 245 245 245, rgb255 199 234 229, rgb255 128 205 193, rgb255 53 151 143, rgb255 1 102 94, rgb255 0 60 48 ]
 
 
 {-| TBD
 -}
 piYG : Nonempty.Nonempty Color
 piYG =
-    Nonempty.Nonempty (rgb255 197 27 125) [ rgb255 222 119 174, rgb255 241 182 218, rgb255 253 224 239, rgb255 247 247 247, rgb255 230 245 208, rgb255 184 225 134, rgb255 127 188 65, rgb255 77 146 33 ]
+    Nonempty.Nonempty (rgb255 142 1 82) [ rgb255 197 27 125, rgb255 222 119 174, rgb255 241 182 218, rgb255 253 224 239, rgb255 247 247 247, rgb255 230 245 208, rgb255 184 225 134, rgb255 127 188 65, rgb255 77 146 33, rgb255 39 100 25 ]
 
 
 {-| TBD
 -}
 pRGn : Nonempty.Nonempty Color
 pRGn =
-    Nonempty.Nonempty (rgb255 118 42 131) [ rgb255 153 112 171, rgb255 194 165 207, rgb255 231 212 232, rgb255 247 247 247, rgb255 217 240 211, rgb255 166 219 160, rgb255 90 174 97, rgb255 27 120 55 ]
+    Nonempty.Nonempty (rgb255 64 0 75) [ rgb255 118 42 131, rgb255 153 112 171, rgb255 194 165 207, rgb255 231 212 232, rgb255 247 247 247, rgb255 217 240 211, rgb255 166 219 160, rgb255 90 174 97, rgb255 27 120 55, rgb255 0 68 27 ]
 
 
 {-| TBD
 -}
 puOr : Nonempty.Nonempty Color
 puOr =
-    Nonempty.Nonempty (rgb255 179 88 6) [ rgb255 224 130 20, rgb255 253 184 99, rgb255 254 224 182, rgb255 247 247 247, rgb255 216 218 235, rgb255 178 171 210, rgb255 128 115 172, rgb255 84 39 136 ]
+    Nonempty.Nonempty (rgb255 127 59 8) [ rgb255 179 88 6, rgb255 224 130 20, rgb255 253 184 99, rgb255 254 224 182, rgb255 247 247 247, rgb255 216 218 235, rgb255 178 171 210, rgb255 128 115 172, rgb255 84 39 136, rgb255 45 0 75 ]
 
 
 {-| TBD
@@ -218,14 +218,14 @@ rdBu =
 -}
 rdGy : Nonempty.Nonempty Color
 rdGy =
-    Nonempty.Nonempty (rgb255 178 24 43) [ rgb255 214 96 77, rgb255 244 165 130, rgb255 253 219 199, rgb255 255 255 255, rgb255 224 224 224, rgb255 186 186 186, rgb255 135 135 135, rgb255 77 77 77 ]
+    Nonempty.Nonempty (rgb255 103 0 31) [ rgb255 178 24 43, rgb255 214 96 77, rgb255 244 165 130, rgb255 253 219 199, rgb255 255 255 255, rgb255 224 224 224, rgb255 186 186 186, rgb255 135 135 135, rgb255 77 77 77, rgb255 26 26 26 ]
 
 
 {-| TBD
 -}
 rdYlBu : Nonempty.Nonempty Color
 rdYlBu =
-    Nonempty.Nonempty (rgb255 215 48 39) [ rgb255 244 109 67, rgb255 253 174 97, rgb255 254 224 144, rgb255 255 255 191, rgb255 224 243 248, rgb255 171 217 233, rgb255 116 173 209, rgb255 69 117 180 ]
+    Nonempty.Nonempty (rgb255 165 0 38) [ rgb255 215 48 39, rgb255 244 109 67, rgb255 253 174 97, rgb255 254 224 144, rgb255 255 255 191, rgb255 224 243 248, rgb255 171 217 233, rgb255 116 173 209, rgb255 69 117 180, rgb255 49 54 149 ]
 
 
 {-| TBD

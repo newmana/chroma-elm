@@ -13,6 +13,7 @@
     "parcel-bundler": "^1.12.4"
   },
   "devDependencies": {
+    "chroma-js": "^2.1.0",
     "elm-coverage": "^0.3.0",
     "elm-hot": "^1.1.2",
     "elm-review": "^2.2.0"
@@ -29,6 +30,7 @@
     "repl": "yarn run elm repl",
     "doc": "yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm && yarn run elm-coverage && cp .coverage/coverage.html docs/",
     "local-doc": "yarn run parcel examples/index.html",
-    "benchmarks": "yarn run parcel benchmarks/index.html"
+    "benchmarks": "yarn run parcel benchmarks/index.html",
+    "generate-brewer": "node util/generate-brewer.js"
   }
 }
