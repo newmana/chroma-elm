@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [18.0.3] - 2020-11-12
+### Fixed
+- Missing/wrong color definitions for Brewer.
+
 ## [18.0.0] - 2020-05-06
 ### Fixed
 - Performance improvements for CkMeans and Jenks clustering.
