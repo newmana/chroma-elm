@@ -10,6 +10,7 @@ module Chroma.Converter.Out.ToCss exposing (toCss, toCssAlpha)
 -}
 
 import Chroma.Converter.Out.ToRgba as ToRgb
+import Chroma.Types as Types
 
 
 {-| Returns an ExtColor as a RGB CSS string.
