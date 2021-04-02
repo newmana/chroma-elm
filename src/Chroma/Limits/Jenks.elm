@@ -18,11 +18,11 @@ clustering algorithm scheme for data to reduce the variance within classes and m
 
 -}
 
-import Array as Array
+import Array
 import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.Matrix as Matrix
 import List.Nonempty as Nonempty
-import Set as Set
+import Set
 
 
 type alias JenksElement =

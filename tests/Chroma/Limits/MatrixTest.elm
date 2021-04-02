@@ -1,12 +1,12 @@
 module Chroma.Limits.MatrixTest exposing (tests)
 
-import Array as Array
+import Array
 import Chroma.Limits.Matrix as Matrix
-import Expect as Expect
-import Fuzz as Fuzz
-import Random as Random
-import Shrink as Shrink
-import Test as Test
+import Expect
+import Fuzz
+import Random
+import Shrink
+import Test
 
 
 tests : Test.Test

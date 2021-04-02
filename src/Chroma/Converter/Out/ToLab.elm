@@ -22,7 +22,7 @@ import Chroma.Converter.In.Hsla2Rgb as Hsla2Rgb
 import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Converter.Misc.LabConstants as Constants
 import Chroma.Types as Types
-import Color as Color
+import Color
 
 
 {-| TBD

@@ -4,10 +4,10 @@ import Chroma.Chroma as Chroma
 import Chroma.Converter.Out.ToHex as OutHex
 import Chroma.Ops.Alpha as OpsAlpha
 import Chroma.Types as Types
-import Color as Color
+import Color
 import Expect
-import Test as Test
-import UtilTest as UtilTest
+import Test
+import UtilTest
 
 
 tests : Test.Test

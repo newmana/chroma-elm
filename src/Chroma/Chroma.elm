@@ -36,9 +36,9 @@ import Chroma.Ops.Luminance as Luminance
 import Chroma.Ops.Numeric as Numeric
 import Chroma.Scale as Scale
 import Chroma.Types as Types
-import Color as Color
+import Color
 import List.Nonempty as Nonempty
-import Result as Result
+import Result
 
 
 {-| Given a valid hex string (8, 6 or 3) or [`W3CX11 Color`][w3cx11] name and produce an RGB Color.

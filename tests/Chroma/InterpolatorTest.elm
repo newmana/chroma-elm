@@ -7,10 +7,10 @@ import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Converter.Out.ToLch as ToLch
 import Chroma.Scale as Scale
 import Chroma.Types as Types
-import Color as Color
-import Expect as Expect
+import Color
+import Expect
 import List.Nonempty as Nonempty
-import Test as Test
+import Test
 
 
 tests : Test.Test

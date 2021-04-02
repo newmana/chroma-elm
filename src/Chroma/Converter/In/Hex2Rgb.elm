@@ -9,9 +9,9 @@ module Chroma.Converter.In.Hex2Rgb exposing (hex2rgb)
 
 -}
 
-import Char as Char
-import Color as Color
-import List as List
+import Char
+import Color
+import List
 
 
 {-| TBD

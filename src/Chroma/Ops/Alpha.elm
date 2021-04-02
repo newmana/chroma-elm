@@ -15,7 +15,7 @@ import Chroma.Converter.Out.ToHsla as ToHsla
 import Chroma.Converter.Out.ToLab as ToLab
 import Chroma.Converter.Out.ToRgba as ToRgb
 import Chroma.Types as Types
-import Color as Color
+import Color
 
 
 {-| Return a new color based on the new alpha value using LAB color space.

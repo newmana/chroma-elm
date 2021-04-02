@@ -6,7 +6,7 @@ import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Ops.Luminance as Luminance
 import Chroma.Types as Types
 import Expect
-import Test as Test
+import Test
 
 
 tests : Test.Test

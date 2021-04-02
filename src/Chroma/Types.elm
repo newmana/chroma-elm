@@ -9,7 +9,7 @@ module Chroma.Types exposing (CymkColor, ExtColor(..), HslaColor, HslaDegreesCol
 
 -}
 
-import Color as Color
+import Color
 
 
 {-| Possible color spaces.

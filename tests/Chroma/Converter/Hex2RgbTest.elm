@@ -1,10 +1,10 @@
 module Chroma.Converter.Hex2RgbTest exposing (tests)
 
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
-import Color as Color
+import Color
 import Expect
-import Fuzz as Fuzz
-import Test as Test
+import Fuzz
+import Test
 import UtilTest as Util
 
 

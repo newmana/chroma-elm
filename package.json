@@ -6,17 +6,17 @@
   "author": "Andrew Newman <andrewfnewman@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "elm": "^0.19.1-3",
-    "elm-format": "^0.8.3",
-    "elm-test": "^0.19.1-revision2",
+    "elm": "^0.19.1-5",
+    "elm-format": "^0.8.5",
+    "elm-test": "^0.19.1-revision6",
     "node-forge": "^0.10.0",
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.5"
   },
   "devDependencies": {
     "chroma-js": "^2.1.0",
     "elm-coverage": "^0.3.0",
-    "elm-hot": "^1.1.2",
-    "elm-review": "^2.2.0"
+    "elm-hot": "^1.1.6",
+    "elm-review": "^2.4.6"
   },
   "resolutions": {
     "lodash": ">=4.17.19"
@@ -28,7 +28,7 @@
     "coverage": "yarn run elm-coverage",
     "full": "yarn run elm-test && yarn run elm-review",
     "repl": "yarn run elm repl",
-    "doc": "yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm && yarn run elm-coverage && cp .coverage/coverage.html docs/",
+    "doc": "yarn run parcel build examples/index.html --out-dir docs --public-url /chroma-elm",
     "local-doc": "yarn run parcel examples/index.html",
     "benchmarks": "yarn run parcel benchmarks/index.html",
     "generate-brewer": "node util/generate-brewer.js"

@@ -16,7 +16,7 @@ import Chroma.Converter.Out.ToLch as ToLch
 import Chroma.Converter.Out.ToRgba as ToRgba
 import Chroma.Interpolator as Interpolator
 import Chroma.Types as Types
-import Color as Color
+import Color
 import List.Nonempty as Nonempty
 
 

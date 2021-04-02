@@ -25,7 +25,7 @@ bins.
 
 -}
 
-import Array as Array
+import Array
 import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.Matrix as Matrix
 import List.Nonempty as Nonempty

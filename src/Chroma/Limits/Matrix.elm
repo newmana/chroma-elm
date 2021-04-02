@@ -1,6 +1,6 @@
 module Chroma.Limits.Matrix exposing (..)
 
-import Array as Array
+import Array
 
 
 makeMatrix : Int -> Int -> (Int -> Int -> a) -> Array.Array (Array.Array a)

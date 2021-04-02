@@ -13,7 +13,7 @@ import Chroma.Converter.In.Cmyk2Rgb as Cmyk2Rgb
 import Chroma.Converter.In.Lab2Rgb as Lab2Rgb
 import Chroma.Converter.In.Lch2Lab as Lch2Lab
 import Chroma.Types as Types
-import Color as Color
+import Color
 
 
 {-| TBD

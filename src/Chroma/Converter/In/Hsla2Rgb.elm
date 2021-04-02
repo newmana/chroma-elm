@@ -10,7 +10,7 @@ module Chroma.Converter.In.Hsla2Rgb exposing (hsla2rgb, hslaDegrees2rgb)
 -}
 
 import Chroma.Types as Types
-import Color as Color
+import Color
 
 
 {-| Hue, Saturation and Lightness are clamped 0..1.

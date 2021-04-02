@@ -12,7 +12,7 @@ module Chroma.Blend exposing (blend, BlendMode(..))
 import Chroma.Converter.Out.ToRgba as ToRgba
 import Chroma.Ops.Alpha as OpsAlpha
 import Chroma.Types as Types
-import Color as Color
+import Color
 
 
 {-| TBD

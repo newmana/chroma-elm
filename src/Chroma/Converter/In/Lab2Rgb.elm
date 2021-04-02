@@ -11,7 +11,7 @@ module Chroma.Converter.In.Lab2Rgb exposing (lab2rgb)
 
 import Chroma.Converter.Misc.LabConstants as Constants
 import Chroma.Types as Types
-import Color as Color
+import Color
 
 
 {-| TBD

@@ -2,9 +2,9 @@ module Chroma.Ops.NumericTest exposing (tests)
 
 import Chroma.Ops.Numeric as Numeric
 import Chroma.Types as Types
-import Color as Color
+import Color
 import Expect
-import Test as Test
+import Test
 
 
 tests : Test.Test

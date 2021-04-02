@@ -3,8 +3,8 @@ module Chroma.Converter.Lab2RgbTest exposing (tests)
 import Chroma.Converter.In.Lab2Rgb as InLab
 import Chroma.Converter.Out.ToLab as OutLab
 import Chroma.Types as Types
-import Color as Color
-import Test as Test
+import Color
+import Test
 import UtilTest as Util
 
 

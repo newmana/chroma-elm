@@ -9,11 +9,11 @@ import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Scale as Scale
 import Chroma.Types as Types
 import Color exposing (rgb255)
-import Expect as Expect
+import Expect
 import List.Nonempty as Nonempty
-import Result as Result
-import Test as Test
-import UtilTest as UtilTest
+import Result
+import Test
+import UtilTest
 
 
 tests : Test.Test

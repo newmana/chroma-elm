@@ -11,7 +11,7 @@ module Chroma.Interpolator exposing (interpolate)
 
 import Chroma.Colors.W3CX11 as W3CX11
 import Chroma.Types as Types
-import Color as Color
+import Color
 
 
 {-| Return a new color based on interpolating on two colors and a weighting between them. Will return black if the

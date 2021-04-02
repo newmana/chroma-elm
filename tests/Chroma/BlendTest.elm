@@ -4,9 +4,9 @@ import Chroma.Blend as Blend
 import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Types as Types
-import Expect as Expect
-import Result as Result
-import Test as Test
+import Expect
+import Result
+import Test
 
 
 tests : Test.Test

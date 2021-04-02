@@ -11,7 +11,7 @@ module Chroma.Converter.Out.ToHex exposing (toHex, toHexAlpha)
 
 import Chroma.Converter.Out.ToRgba as ToRgb
 import Chroma.Types as Types
-import Hex as Hex
+import Hex
 
 
 {-| Takes a result from getColor and returns Integer (0-255) RGB values.

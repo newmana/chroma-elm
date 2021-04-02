@@ -3,7 +3,7 @@ module Chroma.Converter.Lch2LabTest exposing (tests)
 import Chroma.Converter.In.Lab2Lch as InLabLch
 import Chroma.Converter.In.Lch2Lab as InLchLab
 import Expect
-import Test as Test
+import Test
 import UtilTest as Util
 
 

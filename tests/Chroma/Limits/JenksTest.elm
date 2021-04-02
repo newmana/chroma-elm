@@ -1,12 +1,12 @@
 module Chroma.Limits.JenksTest exposing (tests)
 
-import Array as Array
+import Array
 import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.Jenks as Jenks
 import Chroma.Limits.Matrix as Matrix
 import Expect
 import List.Nonempty as Nonempty
-import Test as Test
+import Test
 
 
 tests : Test.Test

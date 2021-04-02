@@ -10,7 +10,7 @@ module Chroma.Converter.In.Cmyk2Rgb exposing (cmyk2rgb)
 -}
 
 import Chroma.Types as Types
-import Color as Color
+import Color
 
 
 {-| TBD

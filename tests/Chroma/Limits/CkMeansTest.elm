@@ -1,11 +1,11 @@
 module Chroma.Limits.CkMeansTest exposing (tests)
 
-import Array as Array
+import Array
 import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.CkMeans as CkMeans
 import Expect
 import List.Nonempty as Nonempty
-import Test as Test
+import Test
 
 
 tests : Test.Test

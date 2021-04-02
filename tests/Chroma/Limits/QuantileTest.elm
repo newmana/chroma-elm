@@ -4,7 +4,7 @@ import Chroma.Limits.Analyze as Analyze
 import Chroma.Limits.Quantile as Quantile
 import Expect
 import List.Nonempty as Nonempty
-import Test as Test
+import Test
 
 
 tests : Test.Test

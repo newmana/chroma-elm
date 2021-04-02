@@ -10,9 +10,9 @@ module UtilTest exposing
     )
 
 import Chroma.Types as Types
-import Color as Color
-import Expect as Expect
-import Fuzz as Fuzz
+import Color
+import Expect
+import Fuzz
 
 
 validRgb : Fuzz.Fuzzer Color.Color
@@ -107,7 +107,7 @@ hex2 x =
     hex1 (x // 16) ++ hex1 (remainderBy 16 x)
 
 
-{-| [0 => 0, 1 => 1 * 16 + 1, 2 => 2 * 16 + 2, ... , 15 => 15 * 16 + 15]
+{-| [0 => 0, 1 => 1 \* 16 + 1, 2 => 2 \* 16 + 2, ... , 15 => 15 \* 16 + 15][0 => 0, 1 => 1 * 16 + 1, 2 => 2 * 16 + 2, ... , 15 => 15 * 16 + 15]
 -}
 hex23Value : Int -> Int
 hex23Value x =

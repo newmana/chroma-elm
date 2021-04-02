@@ -5,7 +5,7 @@ import Chroma.Converter.In.Hsla2Rgb as InHsl
 import Chroma.Converter.Out.ToHex as OutHex
 import Chroma.Types as Types
 import Expect
-import Test as Test
+import Test
 
 
 tests : Test.Test
