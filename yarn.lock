@@ -2389,10 +2389,9 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-elm-coverage@^0.3.0:
+"elm-coverage@https://github.com/marc136/elm-coverage.git":
   version "0.3.0"
-  resolved "https://registry.yarnpkg.com/elm-coverage/-/elm-coverage-0.3.0.tgz#2382c81006e645a71f548b10b6efa626a2e7e61a"
-  integrity sha512-WHlO9LCu6DLzlIPR28GqcCgtyy6ZjRKBR+c6yYwy7m2o0D0buuLsr3wsZxJBjZYmwregmWRseUOM3DzHmoiIzg==
+  resolved "https://github.com/marc136/elm-coverage.git#846f95ab5c08ce6abbb5d2706ee5bf7477c56129"
   dependencies:
     binwrap "^0.2.2"
     bluebird "^3.7.2"

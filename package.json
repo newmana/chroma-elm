@@ -7,6 +7,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "elm": "^0.19.1-5",
+    "elm-coverage": "https://github.com/marc136/elm-coverage.git",
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision6",
     "node-forge": "^0.10.0",
@@ -14,7 +15,6 @@
   },
   "devDependencies": {
     "chroma-js": "^2.1.0",
-    "elm-coverage": "^0.3.0",
     "elm-hot": "^1.1.6",
     "elm-review": "^2.4.6",
     "node-elm-compiler": "^5.0.5"
