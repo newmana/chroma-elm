@@ -9,7 +9,6 @@
     "elm": "^0.19.1-5",
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision6",
-    "is-svg": "v4.2",
     "node-forge": "^0.10.0",
     "parcel-bundler": "^1.12.5"
   },
