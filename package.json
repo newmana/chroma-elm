@@ -19,7 +19,8 @@
     "elm-review": "^2.4.6"
   },
   "resolutions": {
-    "lodash": ">=4.17.19"
+    "lodash": ">=4.17.19",
+    "is-svg": "4.2.2"
   },
   "scripts": {
     "make": "yarn run elm make",
