@@ -16,7 +16,8 @@
     "chroma-js": "^2.1.0",
     "elm-coverage": "^0.3.0",
     "elm-hot": "^1.1.6",
-    "elm-review": "^2.4.6"
+    "elm-review": "^2.4.6",
+    "node-elm-compiler": "^5.0.5"
   },
   "resolutions": {
     "lodash": ">=4.17.19",
