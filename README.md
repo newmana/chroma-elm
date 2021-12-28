@@ -13,37 +13,33 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 [Changelog](https://github.com/newmana/chroma-elm/blob/master/CHANGELOG.md)
 
 # Development
-- ```yarn install```
-- ```yarn run make```
-- ```yarn run test```
-- ```yarn run review```
-- ```yarn run coverage```
-- ```yarn run full``` (test && review && coverage)
-
-# Test Coverage
-[Coverage Report](https://newmana.github.io/chroma-elm/coverage.html)
+- `yarn install`
+- `yarn run make`
+- `yarn run test`
+- `yarn run review`
+- `yarn run full` (test && review)
 
 # Benchmarks
-- ```yarn run benchmarks```
+- `yarn run benchmarks`
 
-101 Data Points, Limits on a 3.1 GHz Intel Core i7, Chrome 80.0:
+101 Data Points, Limits on an Apple M1, Chrome 96.0:
 
-```text
+`text
 | Algorithm     | Runs/Second   |
 | ------------- | ------------- |
-| CkMeans       | 567           |
-| Equal         | 31,185        |
-| HeadTail      | 22,139        |
-| Jenks         | 74            |
-| Logarithmic   | 31,957        |
-| Quantile      | 27,830        |
-```
+| CkMeans       | 846           |
+| Equal         | 48,311        |
+| HeadTail      | 32,197        |
+| Jenks         | 108           |
+| Logarithmic   | 48,017        |
+| Quantile      | 40,905        |
+`
 
 ## Documentation
-- ```yarn run local-doc```
+- `yarn run local-doc`
 
 ## Publish to GitHub
-- ```yarn run doc```
+- `yarn run doc`
 
 # Links
 
@@ -51,14 +47,14 @@ Preview elm docs:
 - https://elm-doc-preview.netlify.com/
 
 How to release Elm package:
-```
+`
 elm bump
 git add elm.json
 git commit -m "2.0.0 - description of changes"
 git tag 2.0.0
 git push origin master 2.0.0
 elm publish
-``` 
+` 
 - https://medium.com/@Max_Goldstein/how-to-publish-an-elm-package-3053b771e545
 
 Beautiful Colormaps:
