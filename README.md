@@ -12,14 +12,14 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 
 [Changelog](https://github.com/newmana/chroma-elm/blob/master/CHANGELOG.md)
 
-# Development
+## Development
 - `yarn install`
 - `yarn run make`
 - `yarn run test`
 - `yarn run review`
 - `yarn run full` (test && review)
 
-## Benchmarks
+### Benchmarks
 - `yarn run benchmarks`
 
 101 Data Points, Limits on an Apple M1, Chrome 96.0:
@@ -35,15 +35,15 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 | Quantile      | 40,905        |
 ```
 
-## Documentation
+##3 Documentation
 - `yarn run local-doc`
 
-## Publish to GitHub
+### Publish to GitHub
 - `yarn run doc`
 
-# Links
+## Links
                 
-## Elm
+### Elm
 - [Elm Documentation Previewer](https://elm-doc-preview.netlify.com/)
 - [How to publish an Elm package](https://medium.com/@Max_Goldstein/how-to-publish-an-elm-package-3053b771e545)
   ```shell
@@ -56,10 +56,10 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
   ```
 - [Idiomatic Guide to Releasing Elm](https://github.com/dillonkearns/idiomatic-elm-package-guide)
 
-## Color Maps
+### Color Maps
 - [Beautiful Colormaps](https://matplotlib.org/cmocean/)
 - [Turbo, An Improved Rainbow Colormap for Visualization](https://ai.googleblog.com/2019/08/turbo-improved-rainbow-colormap-for.html)
 
-# Thanks
+## Thanks
 
 Many thanks to [Indicatrix](https://indicatrix.io) for supporting this project.
