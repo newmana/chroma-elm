@@ -35,7 +35,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 | Quantile      | 40,905        |
 ```
 
-##3 Documentation
+### Documentation
 - `yarn run local-doc`
 
 ### Publish to GitHub
