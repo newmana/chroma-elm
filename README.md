@@ -19,7 +19,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 - `yarn run review`
 - `yarn run full` (test && review)
 
-# Benchmarks
+## Benchmarks
 - `yarn run benchmarks`
 
 101 Data Points, Limits on an Apple M1, Chrome 96.0:
