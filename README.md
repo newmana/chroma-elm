@@ -47,14 +47,14 @@ Preview elm docs:
 - [Elm Documentation Previewer](https://elm-doc-preview.netlify.com/)
 
 How to release Elm package:
-`
+```shell
 elm bump
 git add elm.json
 git commit -m "2.0.0 - description of changes"
 git tag 2.0.0
 git push origin master 2.0.0
 elm publish
-` 
+``` 
 
 - [How to publish an Elm package](https://medium.com/@Max_Goldstein/how-to-publish-an-elm-package-3053b771e545)
 - [Beautiful Colormaps](https://matplotlib.org/cmocean/)
