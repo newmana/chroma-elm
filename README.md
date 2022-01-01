@@ -24,7 +24,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 
 101 Data Points, Limits on an Apple M1, Chrome 96.0:
 
-`text
+```text
 | Algorithm     | Runs/Second   |
 | ------------- | ------------- |
 | CkMeans       | 846           |
@@ -33,7 +33,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 | Jenks         | 108           |
 | Logarithmic   | 48,017        |
 | Quantile      | 40,905        |
-`
+```
 
 ## Documentation
 - `yarn run local-doc`
@@ -44,7 +44,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 # Links
 
 Preview elm docs:
-- https://elm-doc-preview.netlify.com/
+- [Elm Documentation Previewer](https://elm-doc-preview.netlify.com/)
 
 How to release Elm package:
 `
@@ -55,14 +55,11 @@ git tag 2.0.0
 git push origin master 2.0.0
 elm publish
 ` 
-- https://medium.com/@Max_Goldstein/how-to-publish-an-elm-package-3053b771e545
 
-Beautiful Colormaps:
-- https://matplotlib.org/cmocean/
-
-Idiomatic Guide to Releasing Elm:
-- https://github.com/dillonkearns/idiomatic-elm-package-guide
+- [How to publish an Elm package](https://medium.com/@Max_Goldstein/how-to-publish-an-elm-package-3053b771e545)
+- [Beautiful Colormaps](https://matplotlib.org/cmocean/)
+- [Idiomatic Guide to Releasing Elm](https://github.com/dillonkearns/idiomatic-elm-package-guide)
 
 # Thanks
 
-Many thanks to Indicatrix (https://indicatrix.io) for supporting this project.
+Many thanks to [Indicatrix](https://indicatrix.io) for supporting this project.
