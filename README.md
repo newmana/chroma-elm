@@ -17,7 +17,11 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
 - `yarn run make`
 - `yarn run test`
 - `yarn run review`
+- `yarn run coverage`
 - `yarn run full` (test && review)
+
+# Test Coverage
+[Coverage Report](https://newmana.github.io/chroma-elm/coverage.html)
 
 ### Benchmarks
 - `yarn run benchmarks`

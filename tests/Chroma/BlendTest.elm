@@ -7,12 +7,14 @@ import Chroma.Types as Types
 import Expect
 import Result
 import Test
+import UtilTest as Util
 
 
 tests : Test.Test
 tests =
     Test.describe "Blend Tests"
-        [ testMultiply
+        [ testNormal
+        , testMultiply
         , testDarken
         , testLighten
         , testScreen
@@ -41,6 +43,33 @@ c3 =
 c4 : Result String Types.ExtColor
 c4 =
     Hex2Rgb.hex2rgb "#0da671" |> Result.map Types.RGBAColor
+
+
+c5 : Result String Types.ExtColor
+c5 =
+    Hex2Rgb.hex2rgb "#1111ff" |> Result.map Types.RGBAColor
+
+
+c6 : Result String Types.ExtColor
+c6 =
+    Hex2Rgb.hex2rgb "#9b0000" |> Result.map Types.RGBAColor
+
+
+testNormal : Test.Test
+testNormal =
+    Test.describe "normal"
+        [ Test.fuzz2 Util.validRgb Util.validRgb "should always return the first color" <|
+            \testRgb1 testRgb2 ->
+                let
+                    rgba1 =
+                        Types.RGBAColor testRgb1
+
+                    rgba2 =
+                        Types.RGBAColor testRgb2
+                in
+                Blend.blend Blend.Normal rgba1 rgba2
+                    |> Expect.equal rgba1
+        ]
 
 
 testMultiply : Test.Test
@@ -106,6 +135,9 @@ testDodge =
         [ Test.test "Two colors" <|
             \_ ->
                 Result.map2 (Blend.blend Blend.Dodge) c3 c4 |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#2fda8c")
+        , Test.test "Two colors up to max" <|
+            \_ ->
+                Result.map2 (Blend.blend Blend.Dodge) c5 c6 |> Result.map ToHex.toHex |> Expect.equal (Result.Ok "#a600ff")
         ]
 
 
