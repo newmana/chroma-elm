@@ -18,7 +18,7 @@
     "elm-test": "^0.19.1-revision7",
     "htmlnano": "^1.1.1",
     "node-elm-compiler": "^5.0.6",
-    "node-forge": "^0.10.0",
+    "node-forge": "^1.0.0",
     "parcel": "^2.0.0"
   },
   "resolutions": {
