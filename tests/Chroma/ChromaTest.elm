@@ -132,7 +132,9 @@ testScaleAndClasses =
             Chroma.scaleF (Turbo.getColor >> Types.RGBAColor) |> Tuple.first |> Chroma.classesWithArray (Nonempty.Nonempty 0 [ 0.3, 0.55, 0.85, 1 ])
     in
     Test.describe "scale and classes API"
-        [ Test.test "Five classes" <|
+        [ Test.test "No classes" <|
+            \_ -> Expect.equal [ "#7f0000", "#7f0000", "#7f0000", "#7f0000", "#7f0000" ] (List.map (Tuple.second (s 0) >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
+        , Test.test "Five classes" <|
             \_ -> Expect.equal [ "#fff7ec", "#fdd49e", "#fc8d59", "#d7301f", "#7f0000" ] (List.map (Tuple.second (s 5) >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
         , Test.test "Eight classes" <|
             \_ -> Expect.equal [ "#fff7ec", "#fdcd97", "#f5764f", "#de3f2b", "#7f0000" ] (List.map (Tuple.second (s 8) >> ToHex.toHex) [ 0.1, 0.3, 0.5, 0.7, 0.9 ])
@@ -248,4 +250,16 @@ testAverage =
         , Test.test "Average LAB" <|
             \_ ->
                 Expect.equal (Result.Ok "#d3a96a") (Chroma.average Types.LAB colors |> Result.map ToHex.toHex)
+        , Test.test "Average CMYK" <|
+            \_ ->
+                Expect.equal (Result.Ok "#a1a16b") (Chroma.average Types.CMYK colors |> Result.map ToHex.toHex)
+        , Test.test "Average for LCH not supported" <|
+            \_ ->
+                Expect.equal (Result.Err "Mode not supported") (Chroma.average Types.LCH colors |> Result.map ToHex.toHex)
+        , Test.test "Average for HSLA not supported" <|
+            \_ ->
+                Expect.equal (Result.Err "Mode not supported") (Chroma.average Types.HSLA colors |> Result.map ToHex.toHex)
+        , Test.test "Average for HSLADegrees not supported" <|
+            \_ ->
+                Expect.equal (Result.Err "Mode not supported") (Chroma.average Types.HSLADegrees colors |> Result.map ToHex.toHex)
         ]
