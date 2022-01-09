@@ -5,6 +5,7 @@ repl-temp-*
 /.idea/
 node_modules/
 .DS_Store
+.cache
 .parcel-cache
 dist
 index.html
