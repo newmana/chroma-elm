@@ -2116,10 +2116,10 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-elm-coverage@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/elm-coverage/-/elm-coverage-0.4.0.tgz#03325f4717876f8f47639d7b97eb3013d52d9308"
-  integrity sha512-lT9qNgCpIQgmQzVv6I1sTC+yoZlBxQpZj0U9GbiiE0ElSzhMM1wMuE0aVHuUhGfQL1IVtXdaRwv0nrLnx/CUlQ==
+elm-coverage@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/elm-coverage/-/elm-coverage-0.4.1.tgz#52c27421e57a92580e5ba57f8624b3727048876d"
+  integrity sha512-flFXaCikbA6NccBEvrFIgJj9up7rc9A8aOwe0o0Erruvk5f5idWu3/gIBfqTaos7Xc2Fz6fshYyoH5sfyt1r7g==
   dependencies:
     binwrap "^0.2.2"
     bluebird "^3.7.2"
