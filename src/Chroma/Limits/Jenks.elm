@@ -1,6 +1,7 @@
 module Chroma.Limits.Jenks exposing
     ( binned, limit
     , initVarianceCombinations, initLowerClassLimits, getMatrix
+    , JenksResult
     )
 
 {-| [Jenks natural breaks optimization](https://en.wikipedia.org/wiki/Jenks_natural_breaks_optimization) is a
@@ -58,7 +59,7 @@ defaultResult bins nValues =
 {-| TBD
 -}
 initLowerClassLimits : Int -> Int -> Int -> Int
-initLowerClassLimits bins rowIndex colIndex =
+initLowerClassLimits _ rowIndex colIndex =
     if rowIndex == 1 && colIndex > 0 then
         1
 
@@ -69,7 +70,7 @@ initLowerClassLimits bins rowIndex colIndex =
 {-| TBD
 -}
 initVarianceCombinations : Int -> Int -> Int -> Int -> Float
-initVarianceCombinations bins nValues rowIndex colIndex =
+initVarianceCombinations _ _ rowIndex colIndex =
     if rowIndex >= 2 && colIndex > 0 then
         9999999
 
@@ -87,9 +88,6 @@ initVarianceCombinations bins nValues rowIndex colIndex =
 limit : Int -> Analyze.Scale -> Nonempty.Nonempty Float
 limit bins scale =
     let
-        firstNonEmpty =
-            Nonempty.Nonempty (Nonempty.get 0 scale.values) []
-
         addOrContinue acc v =
             v :: acc
 
@@ -101,6 +99,10 @@ limit bins scale =
     in
     case result of
         [] ->
+            let
+                firstNonEmpty =
+                    Nonempty.Nonempty (Nonempty.get 0 scale.values) []
+            in
             firstNonEmpty
 
         head :: tail ->
@@ -117,9 +119,6 @@ limit bins scale =
 binned : Int -> Analyze.Scale -> Nonempty.Nonempty (Array.Array Float)
 binned bins scale =
     let
-        firstNonEmpty =
-            scale.values |> Nonempty.toList |> Array.fromList |> (\x -> Nonempty.Nonempty x [])
-
         addOrContinue acc v =
             v :: acc
 
@@ -131,7 +130,7 @@ binned bins scale =
     in
     case result of
         [] ->
-            firstNonEmpty
+            scale.values |> Nonempty.toList |> Array.fromList |> (\x -> Nonempty.Nonempty x [])
 
         head :: tail ->
             Nonempty.Nonempty head tail

@@ -1,6 +1,7 @@
 module Chroma.Limits.CkMeans exposing
     ( binned, limit
     , converge, defaultResult, fillRestOfMatrix, firstLine, getMatrixIndexes, getValues
+    , BacktrackMatrixLine, CkRest, CkResult, MatrixLine
     )
 
 {-| A log linear implementation of [CkMeans](https://cran.r-project.org/web/packages/Ckmeans.1d.dp/index.html).

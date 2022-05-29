@@ -18,7 +18,7 @@ import Chroma.Types as Types
 toCss : Types.ExtColor -> String
 toCss color =
     let
-        { red, green, blue, alpha } =
+        { red, green, blue } =
             ToRgb.toRgba255 color
     in
     "rgb(" ++ mapCss [ red, green, blue ] ++ ")"

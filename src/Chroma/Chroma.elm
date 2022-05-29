@@ -73,7 +73,7 @@ chroma colorName =
 name : Types.ExtColor -> Result String String
 name ext =
     let
-        { red, green, blue, alpha } =
+        { red, green, blue } =
             ToRgba.toRgba255 ext
 
         rgb255 =
@@ -295,14 +295,14 @@ colors and the total number of colors (bins) to return.
 classes : Int -> Scale.Data -> ( Scale.Data, Float -> Types.ExtColor )
 classes bins data =
     let
-        newData =
-            Scale.initSharedData data
-
-        newSharedData =
-            newData.shared
-
         newSharedDataWithClasses =
             let
+                newData =
+                    Scale.initSharedData data
+
+                newSharedData =
+                    newData.shared
+
                 newDomainValues =
                     newSharedData.domainValues
 

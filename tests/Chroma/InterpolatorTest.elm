@@ -80,6 +80,7 @@ redLab =
     Types.RGBAColor W3CX11.red |> ToLab.toLabExt
 
 
+expectScaleWithDomainLab : Scale.Data -> Float -> Float -> Expect.Expectation
 expectScaleWithDomainLab data val expectedValue =
     case Scale.getColor data val of
         Types.LABColor lab ->
@@ -89,6 +90,7 @@ expectScaleWithDomainLab data val expectedValue =
             Expect.fail "Wrong type returned"
 
 
+expectScaleWithDomainRgb : Scale.Data -> Float -> Float -> Expect.Expectation
 expectScaleWithDomainRgb data val expectedValue =
     case Scale.getColor data val of
         Types.RGBAColor c ->
@@ -98,6 +100,7 @@ expectScaleWithDomainRgb data val expectedValue =
             Expect.fail "Wrong type returned"
 
 
+expectScaleWithDomainLabHex : Scale.Data -> Float -> String -> Expect.Expectation
 expectScaleWithDomainLabHex data val expectedValue =
     case Scale.getColor data val of
         (Types.LABColor _) as color ->
@@ -107,6 +110,7 @@ expectScaleWithDomainLabHex data val expectedValue =
             Expect.fail "Wrong type returned"
 
 
+expectScaleWithDomainLchHex : Scale.Data -> Float -> String -> Expect.Expectation
 expectScaleWithDomainLchHex data val expectedValue =
     case Scale.getColor data val of
         (Types.LCHColor _) as color ->
@@ -116,6 +120,7 @@ expectScaleWithDomainLchHex data val expectedValue =
             Expect.fail "Wrong type returned"
 
 
+expectScaleWithDomainRgbHex : Scale.Data -> Float -> String -> Expect.Expectation
 expectScaleWithDomainRgbHex data val expectedValue =
     case Scale.getColor data val of
         (Types.RGBAColor _) as color ->

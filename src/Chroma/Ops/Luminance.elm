@@ -21,7 +21,7 @@ import Chroma.Types as Types
 luminance : Types.ExtColor -> Float
 luminance color =
     let
-        { red, green, blue, alpha } =
+        { red, green, blue } =
             ToRgba.toRgba255 color
 
         calcLuminance a =
@@ -60,24 +60,25 @@ contrast color1 color2 =
 -}
 setLuminance : Float -> Types.ExtColor -> Types.ExtColor
 setLuminance lum color =
-    let
-        maxIteration =
-            40
-
-        currentLuminance =
-            luminance color
-    in
     if lum == 0 then
         Types.RGBAColor W3CX11.white
 
     else if lum == 1 then
         Types.RGBAColor W3CX11.black
 
-    else if currentLuminance > lum then
-        testLuminance maxIteration lum (Types.RGBAColor W3CX11.black) color
-
     else
-        testLuminance maxIteration lum color (Types.RGBAColor W3CX11.white)
+        let
+            currentLuminance =
+                luminance color
+
+            maxIteration =
+                40
+        in
+        if currentLuminance > lum then
+            testLuminance maxIteration lum (Types.RGBAColor W3CX11.black) color
+
+        else
+            testLuminance maxIteration lum color (Types.RGBAColor W3CX11.white)
 
 
 testLuminance : Int -> Float -> Types.ExtColor -> Types.ExtColor -> Types.ExtColor

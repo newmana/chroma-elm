@@ -1,4 +1,4 @@
-module Chroma.Limits.Matrix exposing (..)
+module Chroma.Limits.Matrix exposing (getRowCol, makeMatrix, setRowCol)
 
 import Array
 

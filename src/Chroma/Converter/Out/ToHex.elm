@@ -19,7 +19,7 @@ import Hex
 toHex : Types.ExtColor -> String
 toHex color =
     let
-        { red, green, blue, alpha } =
+        { red, green, blue } =
             ToRgb.toRgba255 color
     in
     "#" ++ toPaddedHex red ++ toPaddedHex green ++ toPaddedHex blue

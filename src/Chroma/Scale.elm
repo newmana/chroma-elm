@@ -1,4 +1,7 @@
-module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor(..))
+module Chroma.Scale exposing
+    ( colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor(..)
+    , SharedData
+    )
 
 {-| Used by [`Chroma`][chroma]
 
@@ -149,7 +152,7 @@ getColor data val =
 
         Just c ->
             let
-                getResult i ( done, index ) =
+                getResult i ( _, index ) =
                     if val >= Nonempty.get i c then
                         ( False, index )
 
@@ -203,11 +206,7 @@ getDirectColor data startT =
 
 
 fromContinuousColor : (Float -> Types.ExtColor) -> SharedData -> Float -> Types.ExtColor
-fromContinuousColor colorF data t =
-    let
-        ( min, max ) =
-            data.domainValues
-    in
+fromContinuousColor colorF _ t =
     colorF t
 
 
@@ -416,4 +415,4 @@ colors num data =
                 ranged =
                     Nonempty.Nonempty 1 (List.range 2 num)
             in
-            Nonempty.indexedMap (\i c -> getColor data (toFloat i / toFloat (num - 1))) ranged
+            Nonempty.indexedMap (\i _ -> getColor data (toFloat i / toFloat (num - 1))) ranged

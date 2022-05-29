@@ -57,7 +57,7 @@ toLab color =
 
 
 calcLab : Types.RgbaColor -> Types.LabColor
-calcLab { red, green, blue, alpha } =
+calcLab { red, green, blue } =
     let
         r =
             rgb2xyz red
