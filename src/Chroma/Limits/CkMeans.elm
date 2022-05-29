@@ -1,7 +1,6 @@
 module Chroma.Limits.CkMeans exposing
     ( binned, limit
-    , converge, defaultResult, fillRestOfMatrix, firstLine, getMatrixIndexes, getValues
-    , BacktrackMatrixLine, CkRest, CkResult, MatrixLine
+    , converge, defaultResult, fillRestOfMatrix, firstLine, getMatrixIndexes, getValues, BacktrackMatrixLine, CkRest, CkResult, MatrixLine
     )
 
 {-| A log linear implementation of [CkMeans](https://cran.r-project.org/web/packages/Ckmeans.1d.dp/index.html).
@@ -22,7 +21,7 @@ bins.
 
 # Helpers
 
-@docs converge, defaultResult, fillRestOfMatrix, firstLine, getMatrixIndexes, getValues
+@docs converge, defaultResult, fillRestOfMatrix, firstLine, getMatrixIndexes, getValues, BacktrackMatrixLine, CkRest, CkResult, MatrixLine
 
 -}
 
@@ -40,6 +39,8 @@ type alias CkElement =
     }
 
 
+{-| TBD
+-}
 type alias CkRest =
     { sums : Array.Array Float
     , sumsOfSquares : Array.Array Float
@@ -50,6 +51,8 @@ type alias CkRest =
     }
 
 
+{-| TBD
+-}
 type alias CkResult =
     { sums : Array.Array Float
     , sumsOfSquares : Array.Array Float
@@ -69,10 +72,14 @@ defaultResult bins nValues =
     }
 
 
+{-| TBD
+-}
 type alias BacktrackMatrixLine =
     Array.Array Int
 
 
+{-| TBD
+-}
 type alias MatrixLine =
     Array.Array Float
 

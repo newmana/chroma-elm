@@ -1,7 +1,6 @@
 module Chroma.Limits.Jenks exposing
     ( binned, limit
-    , initVarianceCombinations, initLowerClassLimits, getMatrix
-    , JenksResult
+    , initVarianceCombinations, initLowerClassLimits, getMatrix, JenksResult
     )
 
 {-| [Jenks natural breaks optimization](https://en.wikipedia.org/wiki/Jenks_natural_breaks_optimization) is a
@@ -15,7 +14,7 @@ clustering algorithm scheme for data to reduce the variance within classes and m
 
 # Helpers
 
-@docs initVarianceCombinations, initLowerClassLimits, getMatrix
+@docs initVarianceCombinations, initLowerClassLimits, getMatrix, JenksResult
 
 -}
 
@@ -34,6 +33,8 @@ type alias JenksElement =
     }
 
 
+{-| TBD
+-}
 type alias JenksResult =
     { lowerClassLimits : Array.Array (Array.Array Int)
     , varianceCombinations : Array.Array (Array.Array Float)

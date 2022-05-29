@@ -1,7 +1,4 @@
-module Chroma.Scale exposing
-    ( colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor(..)
-    , SharedData
-    )
+module Chroma.Scale exposing (colors, getColor, domain, correctLightness, Data, SharedData, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor(..))
 
 {-| Used by [`Chroma`][chroma]
 
@@ -10,7 +7,7 @@ module Chroma.Scale exposing
 
 # Definition
 
-@docs colors, getColor, domain, correctLightness, Data, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor
+@docs colors, getColor, domain, correctLightness, Data, SharedData, initSharedData, createDiscreteColorData, createContinuousColorData, defaultData, defaultColorList, defaultSharedData, CalculateColor
 
 -}
 
