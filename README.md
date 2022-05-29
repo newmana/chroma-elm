@@ -55,7 +55,7 @@ There is [an example site](https://newmana.github.io/chroma-elm/) showing how to
   git add elm.json
   git commit -m "2.0.0 - description of changes"
   git tag 2.0.0
-  git push origin master 2.0.0
+  git push origin main 2.0.0
   elm publish
   ```
 - [Idiomatic Guide to Releasing Elm](https://github.com/dillonkearns/idiomatic-elm-package-guide)
