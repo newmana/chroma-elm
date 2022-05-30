@@ -48,6 +48,8 @@ config =
             , NoDeprecated.rule NoDeprecated.defaults
             , NoImportingEverything.rule []
             , NoMissingTypeAnnotation.rule
+
+            --, NoMissingTypeAnnotationInLetIn.rule
             , NoMissingTypeExpose.rule
             , NoPrematureLetComputation.rule
             ]

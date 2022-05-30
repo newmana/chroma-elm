@@ -47,9 +47,11 @@ testLuminance =
 testContrast : Test.Test
 testContrast =
     let
+        whiteRed : Float
         whiteRed =
             Luminance.contrast (Types.RGBAColor W3CX11.white) (Types.RGBAColor W3CX11.red)
 
+        redWhite : Float
         redWhite =
             Luminance.contrast (Types.RGBAColor W3CX11.red) (Types.RGBAColor W3CX11.white)
     in

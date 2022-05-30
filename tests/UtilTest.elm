@@ -9,7 +9,7 @@ module UtilTest exposing
     , validRgb
     )
 
-import Chroma.Types as Types
+import Chroma.Types as Types exposing (RgbaColor)
 import Color
 import Expect
 import Fuzz
@@ -38,6 +38,7 @@ expectResultWithin tolerance expectedValue actualValue =
 expectColorResultWithin : Float -> Color.Color -> Color.Color -> Expect.Expectation
 expectColorResultWithin tolerance expectedValue actualValue =
     let
+        actual : RgbaColor
         actual =
             Color.toRgba actualValue
     in

@@ -4,7 +4,7 @@ import Array
 import Chroma.Limits.Matrix as Matrix
 import Expect
 import Fuzz
-import Random
+import Random exposing (Generator)
 import Shrink
 import Test
 
@@ -27,18 +27,23 @@ type alias MatrixTester =
 newMatrix : Fuzz.Fuzzer MatrixTester
 newMatrix =
     let
+        rowAndGetRow : Generator ( Int, Int )
         rowAndGetRow =
             Random.int 2 10 |> Random.andThen (\x -> Random.map2 Tuple.pair (Random.constant x) (newRange (x - 1)))
 
+        colAndGetCol : Generator ( Int, Int )
         colAndGetCol =
             Random.int 2 10 |> Random.andThen (\x -> Random.map2 Tuple.pair (Random.constant x) (newRange (x - 1)))
 
+        setValue : Generator Int
         setValue =
             Random.int 11 20
 
+        makeMatrix : Int -> Int -> Array.Array (Array.Array number)
         makeMatrix r c =
             Matrix.makeMatrix r c (\_ -> always 0)
 
+        generator : Generator MatrixTester
         generator =
             Random.map3 (\( r, br ) ( c, bc ) v -> { matrix = makeMatrix r c, row = br, col = bc, value = v }) rowAndGetRow colAndGetCol setValue
 
