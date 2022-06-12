@@ -42,7 +42,7 @@ content =
          ]
             ++ showColorMap "Adobe.rose" "Adobe rose color map" Adobe.rose
             ++ showColorMap "Adobe.cerulean" "Adobe cerulean color map" Adobe.cerulean
-            ++ showColorMap "Adobe.forest" "Adobe cerulean color map" Adobe.forest
+            ++ showColorMap "Adobe.forest" "Adobe forest color map" Adobe.forest
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
