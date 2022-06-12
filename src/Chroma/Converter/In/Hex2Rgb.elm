@@ -61,7 +61,7 @@ twoBase16 char1 char2 =
 
 twoBase16To1 : Char -> Char -> Maybe Float
 twoBase16To1 char1 char2 =
-    Maybe.map identity (twoBase16 char1 char2)
+    twoBase16 char1 char2
 
 
 fromBase16 : Char -> Maybe number

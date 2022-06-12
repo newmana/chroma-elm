@@ -24,4 +24,4 @@ getRowCol row col matrix =
 
 maybeSetMatrixRow : Int -> Int -> a -> Array.Array (Array.Array a) -> Maybe (Array.Array (Array.Array a))
 maybeSetMatrixRow row col value matrix =
-    Array.get row matrix |> Maybe.andThen (\x -> Array.set col value x |> (\y -> Array.set row y matrix) |> Just)
+    Array.get row matrix |> Maybe.map (\x -> Array.set col value x |> (\y -> Array.set row y matrix))

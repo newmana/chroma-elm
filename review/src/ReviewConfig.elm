@@ -15,7 +15,6 @@ import NoDeprecated
 import NoExposingEverything
 import NoImportingEverything
 import NoMissingTypeAnnotation
-import NoMissingTypeAnnotationInLetIn
 import NoMissingTypeExpose
 import NoPrematureLetComputation
 import NoUnused.CustomTypeConstructorArgs
@@ -27,6 +26,7 @@ import NoUnused.Parameters
 import NoUnused.Patterns
 import NoUnused.Variables
 import Review.Rule exposing (Rule)
+import Simplify
 
 
 config : List Review.Rule.Rule
@@ -54,4 +54,4 @@ config =
             , NoPrematureLetComputation.rule
             ]
     in
-    noUnused ++ noCommon
+    noUnused ++ noCommon ++ [ Simplify.rule Simplify.defaults ]
