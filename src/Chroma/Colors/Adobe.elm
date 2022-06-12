@@ -1,4 +1,7 @@
-module Chroma.Colors.Adobe exposing (..)
+module Chroma.Colors.Adobe exposing
+    ( rose, cerulean, forest
+    , color6, color12
+    )
 
 {-| [Color for data visualization](https://spectrum.adobe.com/page/color-for-data-visualization/)
 
