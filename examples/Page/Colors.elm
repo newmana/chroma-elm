@@ -1,11 +1,12 @@
 module Page.Colors exposing (content)
 
+import Chroma.Colors.Adobe as Adobe
 import Chroma.Colors.Brewer as Brewer
 import Chroma.Colors.Cividis as Cividis
 import Chroma.Colors.Cmocean as Cmocean
 import Chroma.Colors.Inferno as Inferno
-import Chroma.Colors.Material as Material
 import Chroma.Colors.Magma as Magma
+import Chroma.Colors.Material as Material
 import Chroma.Colors.Parula as Parula
 import Chroma.Colors.Plasma as Plasma
 import Chroma.Colors.Sinebow as Sinebow
@@ -37,8 +38,31 @@ content =
             [ Html.text "A wide range of color maps are available - here is a sample." ]
          , Html.p
             [ HtmlAttributes.class "subtitle" ]
-            [ Html.text "Cmocean" ]
+            [ Html.text "Adobe " ]
          ]
+            ++ showColorMap "Adobe.rose" "Adobe rose color map" Adobe.rose
+            ++ showColorMap "Adobe.cerulean" "Adobe cerulean color map" Adobe.cerulean
+            ++ showColorMap "Adobe.forest" "Adobe cerulean color map" Adobe.forest
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Brewer " ]
+               ]
+            ++ showColorMap "Brewer.ylGnBu" "Brewer ylGnBu color map" Brewer.ylGnBu
+            ++ showColorMap "Brewer.blues" "Brewer blues color map" Brewer.blues
+            ++ showColorMap "Brewer.brBG" "Brewer blues color map" Brewer.brBG
+            ++ showColorMap "Brewer.accent" "Brewer accent color map" Brewer.accent
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Cividis " ]
+               ]
+            ++ showContinuousColorMap "(Cividis.getColor >> Types.RGBAColor)" "Cividis color map" (Cividis.getColor >> Types.RGBAColor)
+            ++ Page.p "\u{00A0}"
+            ++ [ Html.p
+                    [ HtmlAttributes.class "subtitle" ]
+                    [ Html.text "Cmocean" ]
+               ]
             ++ showColorMap "Cmocean.algae" "Cmocean algae color map" Cmocean.algae
             ++ showColorMap "Cmocean.turbid" "Cmocean turbid color map" Cmocean.turbid
             ++ showColorMap "Cmocean.balance" "Cmocean balance color map" Cmocean.balance
@@ -57,24 +81,9 @@ content =
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Viridis " ]
-               ]
-            ++ showColorMap "Inferno.inferno" "Inferno color map" Inferno.inferno
-            ++ showColorMap "Magma.magma" "Magma color map" Magma.magma
-            ++ showColorMap "Plasma.plasma" "Plasma color map" Plasma.plasma
-            ++ showColorMap "Viridis.viridis" "Viridis color map" Viridis.viridis
-            ++ Page.p "\u{00A0}"
-            ++ [ Html.p
-                    [ HtmlAttributes.class "subtitle" ]
                     [ Html.text "Parula " ]
                ]
             ++ showColorMap "Parula.parula" "Parula color map" Parula.parula
-            ++ Page.p "\u{00A0}"
-            ++ [ Html.p
-                    [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Cividis " ]
-               ]
-            ++ showContinuousColorMap "(Cividis.getColor >> Types.RGBAColor)" "Cividis color map" (Cividis.getColor >> Types.RGBAColor)
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
@@ -85,12 +94,12 @@ content =
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
-                    [ Html.text "Brewer " ]
+                    [ Html.text "Viridis " ]
                ]
-            ++ showColorMap "Brewer.ylGnBu" "Brewer ylGnBu color map" Brewer.ylGnBu
-            ++ showColorMap "Brewer.blues" "Brewer blues color map" Brewer.blues
-            ++ showColorMap "Brewer.brBG" "Brewer blues color map" Brewer.brBG
-            ++ showColorMap "Brewer.accent" "Brewer accent color map" Brewer.accent
+            ++ showColorMap "Inferno.inferno" "Inferno color map" Inferno.inferno
+            ++ showColorMap "Magma.magma" "Magma color map" Magma.magma
+            ++ showColorMap "Plasma.plasma" "Plasma color map" Plasma.plasma
+            ++ showColorMap "Viridis.viridis" "Viridis color map" Viridis.viridis
             ++ Page.p "\u{00A0}"
             ++ [ Html.p
                     [ HtmlAttributes.class "subtitle" ]
