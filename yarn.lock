@@ -1612,10 +1612,10 @@ elm-hot@^1.1.5, elm-hot@^1.1.6:
   resolved "https://registry.yarnpkg.com/elm-hot/-/elm-hot-1.1.6.tgz#93e3962b40670e65f0a3640951b3add2702bfd0e"
   integrity sha512-zYZJlfs7Gt4BdjA+D+857K+XAWzwwySJmXCgFpHW1dIEfaHSZCIPYPf7/jinZBLfKRkOAlKzI32AA84DY50g7Q==
 
-elm-review@^2.7.3:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/elm-review/-/elm-review-2.7.3.tgz#52975cd4ba538bc8a588d4db10c6132782890a59"
-  integrity sha512-EsGzyEar2S2qiY6k3t6Ut0Rz27CgbWaqbD3gFd7L2mwrc3LsphGhHhiwE8GrJ2Qr7MqUgljtVo/5LW+Ly5R99A==
+elm-review@^2.7.6:
+  version "2.7.6"
+  resolved "https://registry.yarnpkg.com/elm-review/-/elm-review-2.7.6.tgz#9357d7f58ca0e5af0562e6bae0587a78b3d9264c"
+  integrity sha512-q2CJ0VialKNzQjwUDu1utXRWBslNRgzsi8Ghhhu7oTl2Oee88cAd90XifChmfTVm9dl7oqwHuLPzjxH7c9SCEA==
   dependencies:
     chalk "^4.0.0"
     chokidar "^3.5.2"
@@ -1642,7 +1642,23 @@ elm-solve-deps-wasm@^1.0.1:
   resolved "https://registry.yarnpkg.com/elm-solve-deps-wasm/-/elm-solve-deps-wasm-1.0.1.tgz#0141f4f464e67e5d7a75bbcbf1fcdda9bf41d7fa"
   integrity sha512-A05XKZKhzM8vWTo8KvNR4g1ICt9iMPOAMfo79OK25c+tQaLSfQ8iMYvW6XgSEd+SgRfM5VSKX4hKEiH6iTiWsg==
 
-elm-test@^0.19.1-revision7, elm-test@^0.19.1-revision9:
+elm-test@^0.19.1-revision10:
+  version "0.19.1-revision10"
+  resolved "https://registry.yarnpkg.com/elm-test/-/elm-test-0.19.1-revision10.tgz#d4da0d51d305ea9bdded53f3a296ee1a2f56a86e"
+  integrity sha512-33jXpA15alVcYjX+UJOkiOmQIQxjd3c0eeg3960VyhEf8tG8O4g4B5ipMmu6KAllncrSxSQrYzKJnNJM/8ZiCg==
+  dependencies:
+    chalk "^4.1.2"
+    chokidar "^3.5.3"
+    commander "^9.3.0"
+    cross-spawn "^7.0.3"
+    elm-solve-deps-wasm "^1.0.1"
+    glob "^8.0.3"
+    graceful-fs "^4.2.10"
+    split "^1.0.1"
+    which "^2.0.2"
+    xmlbuilder "^15.1.1"
+
+elm-test@^0.19.1-revision7:
   version "0.19.1-revision9"
   resolved "https://registry.yarnpkg.com/elm-test/-/elm-test-0.19.1-revision9.tgz#8da169f1f7bf9e4590ffd1a52954d07a90c51c2e"
   integrity sha512-lvHJbh16sy7oUBBPIEMN+0v6dGDZFmfvwq+V+TnGPk5ZlI64vcykx8E8+zLt/E+Ja42UKMMXXgN1ZHQ1V6Ic2Q==
