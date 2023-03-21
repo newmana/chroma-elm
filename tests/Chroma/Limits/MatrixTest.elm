@@ -5,7 +5,6 @@ import Chroma.Limits.Matrix as Matrix
 import Expect
 import Fuzz
 import Random exposing (Generator)
-import Shrink
 import Test
 
 
@@ -46,15 +45,8 @@ newMatrix =
         generator : Generator MatrixTester
         generator =
             Random.map3 (\( r, br ) ( c, bc ) v -> { matrix = makeMatrix r c, row = br, col = bc, value = v }) rowAndGetRow colAndGetCol setValue
-
-        shrinker =
-            \{ matrix, row, col, value } ->
-                Shrink.map MatrixTester (Shrink.array (Shrink.array Shrink.int) matrix)
-                    |> Shrink.andMap (Shrink.int row)
-                    |> Shrink.andMap (Shrink.int col)
-                    |> Shrink.andMap (Shrink.int value)
     in
-    Fuzz.custom generator shrinker
+    Fuzz.fromGenerator generator
 
 
 newRange : Int -> Random.Generator Int
