@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [18.0.3] - 2020-11-12
+## [18.0.3](https://github.com/newmana/chroma-elm/compare/18.0.0...18.0.3) - 2020-11-12
 ### Fixed
 - Missing/wrong color definitions for Brewer.
 
