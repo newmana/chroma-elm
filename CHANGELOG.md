@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [18.2.01] - 2026-07-12
+## [18.2.1] - 2026-07-12
 ### Added
 - Support Elm 0.19.2 
 
