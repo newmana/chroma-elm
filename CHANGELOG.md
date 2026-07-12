@@ -1,15 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [18.2.1] - 2026-07-12
+## [18.2.1](https://github.com/newmana/chroma-elm/compare/18.2.1...18.2.0) - 2026-07-12
 ### Added
 - Support Elm 0.19.2 
 
-## [18.2.0] - 2022-06-12
+## [18.2.0](https://github.com/newmana/chroma-elm/compare/18.2.0...18.1.0) - 2022-06-12
 ### Added
 - Adobe colour palette. 
 
-## [18.1.0] - 2022-05-30
+## [18.1.0](https://github.com/newmana/chroma-elm/compare/18.1.0...18.0.0) - 2022-05-30
 ### Added
 - More tests and elm-review-common and elm-review-unused. 
 
