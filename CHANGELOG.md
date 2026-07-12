@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Adobe colour palette. 
 
-## [18.1.0](https://github.com/newmana/chroma-elm/compare/18.1.0...18.0.3) - 2022-05-30
+## [18.1.0](https://github.com/newmana/chroma-elm/compare/18.0.3...18.1.0) - 2022-05-30
 ### Added
 - More tests and elm-review-common and elm-review-unused. 
 
