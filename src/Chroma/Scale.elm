@@ -139,12 +139,12 @@ initSharedData data =
 {-| -}
 getColor : Data -> Float -> Types.ExtColor
 getColor data val =
-    let
-        ( min, max ) =
-            data.shared.domainValues
-    in
     case data.shared.classes of
         Nothing ->
+            let
+                ( min, max ) =
+                    data.shared.domainValues
+            in
             getDirectColor data ((val - min) / (max - min))
 
         Just c ->
@@ -196,14 +196,14 @@ getDirectColor data startT =
     in
     case data.c of
         ContinuousColor f ->
-            fromContinuousColor f data.shared boundedT
+            fromContinuousColor f boundedT
 
         DiscreteColor cl ->
             fromDiscreteColor cl data.shared boundedT
 
 
-fromContinuousColor : (Float -> Types.ExtColor) -> SharedData -> Float -> Types.ExtColor
-fromContinuousColor colorF _ t =
+fromContinuousColor : (Float -> Types.ExtColor) -> Float -> Types.ExtColor
+fromContinuousColor colorF t =
     colorF t
 
 

@@ -247,12 +247,12 @@ firstLine bins scale =
             firstLineSumSumSquareAndSsq shift 0 (Nonempty.head scale.values) 0 0
 
         defaultCkFirstRow =
-            { sums = Array.initialize nValues (always firstCkElement.sum)
+            { sums = Array.repeat nValues firstCkElement.sum
             , previousSum = firstCkElement.sum
-            , sumsOfSquares = Array.initialize nValues (always firstCkElement.sumOfSquare)
+            , sumsOfSquares = Array.repeat nValues firstCkElement.sumOfSquare
             , previousSumsOfSquares = firstCkElement.sumOfSquare
-            , firstMatrixRow = Array.initialize nValues (always 0)
-            , firstBackmatrixRow = Array.initialize nValues (always 0)
+            , firstMatrixRow = Array.repeat nValues 0
+            , firstBackmatrixRow = Array.repeat nValues 0
             , count = 1
             }
 

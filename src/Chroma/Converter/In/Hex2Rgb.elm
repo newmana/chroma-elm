@@ -9,9 +9,7 @@ module Chroma.Converter.In.Hex2Rgb exposing (hex2rgb)
 
 -}
 
-import Char
 import Color
-import List
 
 
 {-| TBD

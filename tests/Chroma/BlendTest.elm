@@ -5,7 +5,6 @@ import Chroma.Converter.In.Hex2Rgb as Hex2Rgb
 import Chroma.Converter.Out.ToHex as ToHex
 import Chroma.Types as Types
 import Expect
-import Result
 import Test
 import UtilTest as Util
 

@@ -91,6 +91,6 @@ combine : Nonempty.Nonempty (Result a b) -> Result a (Nonempty.Nonempty b)
 combine list =
     let
         startOrErr =
-            Nonempty.head list |> Result.andThen (Nonempty.fromElement >> Ok)
+            Nonempty.head list |> Result.map Nonempty.fromElement
     in
     Nonempty.foldl (Result.map2 Nonempty.cons) startOrErr (Nonempty.pop list)

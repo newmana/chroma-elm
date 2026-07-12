@@ -11,7 +11,6 @@ import Chroma.Types as Types
 import Color exposing (rgb255)
 import Expect
 import List.Nonempty as Nonempty
-import Result
 import Test
 import UtilTest
 

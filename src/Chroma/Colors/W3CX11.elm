@@ -58,7 +58,6 @@ module Chroma.Colors.W3CX11 exposing
 import Chroma.Ops.Numeric as Numeric
 import Color exposing (Color, rgb255, toRgba)
 import Dict
-import Result
 
 
 {-| Lookup a color by name.
