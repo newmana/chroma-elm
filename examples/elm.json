@@ -5,7 +5,7 @@
         "../src"
 
     ],
-    "elm-version": "0.19.1",
+    "elm-version": "0.19.2",
     "dependencies": {
         "direct": {
             "elm/browser": "1.0.2",
@@ -21,7 +21,7 @@
             "mgold/elm-nonempty-list": "4.2.0"
         },
         "indirect": {
-            "elm/virtual-dom": "1.0.2"
+            "elm/virtual-dom": "1.0.5"
         }
     },
     "test-dependencies": {
